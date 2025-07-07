@@ -10,6 +10,7 @@
             --primary-gradient: linear-gradient(135deg, #3498db, #8e44ad);
             --success-gradient: linear-gradient(135deg, #2ecc71, #27ae60);
             --error-gradient: linear-gradient(135deg, #e74c3c, #c0392b);
+            --info-gradient: linear-gradient(135deg, #f39c12, #d35400);
             --card-bg: #ffffff;
             --text-dark: #2c3e50;
             --text-light: #7f8c8d;
@@ -81,7 +82,7 @@
             padding: 18px 24px;
             font-size: 18px;
             cursor: pointer;
-            margin: 25px 0;
+            margin: 25px 0 15px;
             width: 100%;
             font-weight: 600;
             box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
@@ -95,6 +96,29 @@
         }
         
         .copy-btn:active {
+            transform: scale(0.97);
+        }
+        
+        .info-btn {
+            background: var(--info-gradient);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            padding: 15px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0 20px;
+            width: 100%;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.25);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .info-btn:active {
             transform: scale(0.97);
         }
         
@@ -160,6 +184,7 @@
             padding: 0 15px;
         }
         
+        /* 微信操作提示 */
         .weixin-tip {
             display: none;
             position: fixed;
@@ -256,6 +281,118 @@
             line-height: 1.5;
         }
         
+        /* 信息弹窗 */
+        .info-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            z-index: 1001;
+            padding: 20px;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-modal.show {
+            display: block;
+            animation: fadeIn 0.4s forwards;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 40px auto;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .modal-header h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+            color: #fff;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            opacity: 1;
+        }
+        
+        .modal-body {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .modal-section {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .modal-section h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #f8c471;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-section p {
+            margin-bottom: 15px;
+            padding-left: 30px;
+        }
+        
+        .solution-list {
+            padding-left: 30px;
+            margin-top: 15px;
+        }
+        
+        .solution-list li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .solution-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
         .footer {
             margin-top: 30px;
             color: var(--text-light);
@@ -279,6 +416,11 @@
                 font-size: 16px;
             }
             
+            .info-btn {
+                padding: 14px;
+                font-size: 15px;
+            }
+            
             .invite-label {
                 font-size: 18px;
             }
@@ -289,16 +431,20 @@
                 min-width: 160px;
             }
             
-            .tip-content h2 {
-                font-size: 24px;
+            .modal-content {
+                padding: 20px;
             }
             
-            .step {
-                padding: 12px 15px;
+            .modal-header h2 {
+                font-size: 22px;
             }
             
-            .step-text {
-                font-size: 16px;
+            .modal-section h3 {
+                font-size: 18px;
+            }
+            
+            .modal-body {
+                font-size: 15px;
             }
         }
     </style>
@@ -312,6 +458,11 @@
                 <button class="copy-btn" id="copyBtn">
                     <i class="fas fa-copy"></i> 复制访问链接
                 </button>
+                
+                <button class="info-btn" id="infoBtn">
+                    <i class="fas fa-info-circle"></i> 为什么需要复制链接？
+                </button>
+                
                 <p class="tip-text">点击右上角"<i class="fas fa-ellipsis-h"></i>"选择<br>"在浏览器中打开"</p>
             </div>
         </div>
@@ -352,6 +503,59 @@
             </div>
         </div>
     </div>
+    
+    <!-- 微信限制说明弹窗 -->
+    <div class="info-modal" id="infoModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">×</span>
+            <div class="modal-header">
+                <h2>微信访问限制说明</h2>
+                <p>为什么需要复制链接到浏览器打开？</p>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3><i class="fas fa-shield-alt"></i> 微信链接拦截原因</h3>
+                    <p>GitHub 链接本身不会被微信屏蔽，但通过微信分享或转发链接时可能因以下原因导致访问异常：</p>
+                    
+                    <div class="solution-list">
+                        <h4><i class="fas fa-server"></i> 域名备案问题</h4>
+                        <p>若页面未完成备案或托管在境外服务器，微信可能因域名管理问题拦截相关链接。</p>
+                        
+                        <h4><i class="fas fa-exclamation-triangle"></i> 内容违规风险</h4>
+                        <p>若页面包含诱导分享、虚假信息等违规内容，微信可能根据用户投诉或平台规则拦截相关链接。</p>
+                        
+                        <h4><i class="fas fa-history"></i> 前任持有者违规记录</h4>
+                        <p>新购买的域名若前持有人存在违规行为，也可能影响当前使用者的链接访问。</p>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-lightbulb"></i> 解决方法</h3>
+                    <div class="solution-list">
+                        <ul>
+                            <li>确保域名已完成备案且服务器位于境内</li>
+                            <li>检查页面内容是否涉及诱导分享、虚假宣传等违规信息</li>
+                            <li>若链接被误判，可通过微信客服申诉解除拦截</li>
+                            <li>使用浏览器直接访问可绕过微信的安全限制</li>
+                            <li>将链接复制到浏览器是最可靠的访问方式</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-user-shield"></i> 安全提示</h3>
+                    <p>复制链接到浏览器打开不仅能解决访问问题，还能获得更安全的浏览体验：</p>
+                    <ul class="solution-list">
+                        <li>避免微信内置浏览器功能限制</li>
+                        <li>获得更快的页面加载速度</li>
+                        <li>使用完整浏览器功能</li>
+                        <li>保护隐私数据安全</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="footer">
         <p>安全访问引导 &copy; 2023</p>
@@ -389,15 +593,15 @@
         // 设置微信事件
         function setupWeixinEvents() {
             const copyBtn = document.getElementById("copyBtn");
+            const infoBtn = document.getElementById("infoBtn");
             const weixinTip = document.getElementById("weixinTip");
+            const infoModal = document.getElementById("infoModal");
             const closeTip = document.getElementById("closeTip");
+            const closeModal = document.getElementById("closeModal");
             const targetUrl = "http://jumei888.com?invite=6699";
             
+            // 复制按钮事件
             copyBtn.addEventListener("click", function() {
-                // 添加按钮点击反馈
-                copyBtn.classList.add('pulse');
-                setTimeout(() => copyBtn.classList.remove('pulse'), 300);
-                
                 copyToClipboard(targetUrl).then(() => {
                     // 复制成功
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
@@ -422,8 +626,19 @@
                 });
             });
             
+            // 信息按钮事件
+            infoBtn.addEventListener("click", function() {
+                infoModal.classList.add('show');
+            });
+            
+            // 关闭操作提示
             closeTip.addEventListener("click", () => {
                 weixinTip.classList.remove('show');
+            });
+            
+            // 关闭信息弹窗
+            closeModal.addEventListener("click", () => {
+                infoModal.classList.remove('show');
             });
         }
         
