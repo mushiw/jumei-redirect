@@ -1,20 +1,61 @@
-<script>
-  const link = "http://jumei888.com";
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>请使用浏览器打开</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+    .tip {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="tip">请点击下方按钮复制链接，然后点击右上角“···”选择“在浏览器中打开”</div>
+  <button onclick="copyAndPrompt()">点击复制链接</button>
+  <img src="Copilot_20250708_005828.png" alt="引导图">
 
-  function copyAndPrompt() {
-    navigator.clipboard.writeText(link).then(() => {
-      alert("链接已复制，请点击右上角“···”，选择“在浏览器中打开”");
-      localStorage.setItem("copiedOnce", "true");
-    });
-  }
+  <script>
+    const link = "http://jumei888.com";
 
-  // 页面加载后，如果用户之前点击过复制按钮，再次自动复制
-  window.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("copiedOnce") === "true") {
+    function copyAndPrompt() {
       navigator.clipboard.writeText(link).then(() => {
-        alert("链接已再次复制，请粘贴到浏览器地址栏中打开");
-        localStorage.removeItem("copiedOnce"); // 清除标记，避免重复
+        alert("链接已复制，请点击右上角“···”，选择“在浏览器中打开”");
+        localStorage.setItem("copiedOnce", "true");
       });
     }
-  });
-</script>
+
+    window.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("copiedOnce") === "true") {
+        navigator.clipboard.writeText(link).then(() => {
+          alert("链接已再次复制，请粘贴到浏览器地址栏中打开");
+          localStorage.removeItem("copiedOnce");
+        });
+      }
+    });
+  </script>
+</body>
+</html>
