@@ -21,6 +21,7 @@
       color: #d33;
       margin: 10px 0;
       word-break: break-all;
+      display: none; /* 始终隐藏 */
     }
     button {
       padding: 10px 20px;
@@ -40,18 +41,40 @@
   </style>
 </head>
 <body>
-  <div class="tip">请复制链接粘贴至浏览器中打开：</div>
-  <button onclick="copyLink()">点击复制链接</button>
+  <div class="tip" id="tipText">请点击下方按钮操作：</div>
+  <div class="link" id="linkText">http://jumei888.com</div>
+  <button id="actionButton" onclick="handleClick()">点击操作</button>
   <img src="Copilot_20250708_005828.png" alt="微信中打开浏览器引导图">
 
   <script>
-    function copyLink() {
-      const text = "http://jumei888.com";
-      navigator.clipboard.writeText(text).then(() => {
-        alert("链接已复制，请粘贴到浏览器地址栏中打开");
-                 
-      });
+    const ua = navigator.userAgent.toLowerCase();
+    const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isAndroid = /android/.test(ua);
+    const isMobile = /mobile/.test(ua);
+    const isDesktop = !isMobile;
+
+    const button = document.getElementById("actionButton");
+    const linkText = document.getElementById("linkText");
+
+    function handleClick() {
+      if (isIOS) {
+        navigator.clipboard.writeText("http://jumei888.com").then(() => {
+          alert("链接已复制，请粘贴到浏览器地址栏中打开");
+        });
+      } else {
+        window.location.href = "http://jumei888.com";
+      }
     }
+
+    // 设置按钮文字
+    if (isIOS) {
+      button.innerText = "点击复制链接";
+    } else {
+      button.innerText = "点击打开密码6699";
+    }
+
+    // 始终隐藏红色网址
+    linkText.style.display = "none";
   </script>
 </body>
 </html>
