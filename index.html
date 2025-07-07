@@ -40,7 +40,7 @@
             color: #2d3436;
         }
         
-        /* 微信内样式 */
+        /* 微信内按钮样式 */
         .copy-btn {
             background: linear-gradient(135deg, #0984e3, #6c5ce7);
             color: white;
@@ -49,7 +49,7 @@
             padding: 14px 24px;
             font-size: 16px;
             cursor: pointer;
-            margin: 15px 0;
+            margin: 15px 0 25px;
             width: 100%;
             font-weight: 500;
             box-shadow: 0 4px 15px rgba(9, 132, 227, 0.3);
@@ -58,7 +58,7 @@
         
         /* 外置浏览器样式 */
         .arrow-down {
-            margin: 25px auto;
+            margin: 25px auto 15px; /* 调整上下间距 */
             width: 48px;
             height: 48px;
             animation: bounce 1.5s infinite;
@@ -71,6 +71,18 @@
             60% {transform: translateY(-6px);}
         }
         
+        .invite-section {
+            margin: 20px 0; /* 统一间距 */
+        }
+        
+        .invite-label {
+            font-size: 18px;
+            color: #636e72;
+            margin-bottom: 8px; /* 增加与数字的间距 */
+            font-weight: 500;
+            display: block; /* 确保独占一行 */
+        }
+        
         .invite-code {
             display: inline-block;
             font-size: 28px;
@@ -78,15 +90,15 @@
             color: #e84393;
             letter-spacing: 2px;
             background: #fce4ec;
-            padding: 10px 25px;
+            padding: 12px 30px; /* 增加内边距 */
             border-radius: 50px;
-            margin-top: 15px;
+            margin: 0 auto; /* 居中显示 */
         }
         
         .tip-text {
             font-size: 16px;
             color: #0984e3;
-            margin-top: 30px;
+            margin-top: 20px;
             font-weight: 500;
         }
         
@@ -109,32 +121,31 @@
     </style>
 </head>
 <body>
-    <!-- 微信内显示的界面 -->
+    <!-- 微信内界面 -->
     <div class="guide-card" id="weixinContainer">
         <h1 class="main-title">请复制链接后在浏览器打开</h1>
         <button class="copy-btn" id="copyBtn">复制访问链接</button>
-        <div>
-            <div style="font-size: 16px;color: #636e72;">您的专属邀请码</div>
-            <div class="invite-code">6699</div>
-        </div>
         <p class="tip-text">请点击右上角"..."选择浏览器打开</p>
     </div>
     
-    <!-- 外置浏览器显示的界面 -->
+    <!-- 外置浏览器界面 -->
     <div class="guide-card" id="browserContainer" style="display: none;">
         <h1 class="main-title">请粘贴到浏览器地址栏</h1>
+        
+        <div class="invite-section">
+            <span class="invite-label">您的专属邀请码</span>
+            <div class="invite-code">6699</div>
+        </div>
+        
         <svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z"/>
             <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
         </svg>
-        <div>
-            <div style="font-size: 16px;color: #636e72;">您的专属邀请码</div>
-            <div class="invite-code">6699</div>
-        </div>
+        
         <p class="tip-text">粘贴后按前往访问</p>
     </div>
     
-    <!-- 微信操作提示弹窗 -->
+    <!-- 微信操作提示 -->
     <div class="weixin-tip" id="weixinTip">
         <span style="position: absolute;top: 25px;right: 25px;font-size: 28px;cursor: pointer;" id="closeTip">×</span>
         <h2>请按以下步骤操作</h2>
@@ -143,7 +154,7 @@
     </div>
 
     <script>
-        // 检测环境
+        // 环境检测
         function isWeixinBrowser() {
             return /MicroMessenger/i.test(navigator.userAgent);
         }
@@ -157,8 +168,8 @@
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             
-            // 如果是iOS微信环境
             if (isWeixinBrowser() && isIOS()) {
+                // 微信环境
                 browserContainer.style.display = "none";
                 
                 const copyBtn = document.getElementById("copyBtn");
@@ -166,9 +177,8 @@
                 const closeTip = document.getElementById("closeTip");
                 
                 copyBtn.addEventListener("click", function() {
-                    // 创建一个虚拟的复制内容（实际不包含真实URL）
                     const tempInput = document.createElement("textarea");
-                    tempInput.value = "[已复制链接]";
+                    tempInput.value = "[链接已复制]";
                     tempInput.style.position = "fixed";
                     document.body.appendChild(tempInput);
                     tempInput.select();
@@ -195,14 +205,13 @@
                     weixinTip.style.display = "none";
                 });
                 
-            } 
-            // 其他环境显示浏览器指引
-            else {
+            } else {
+                // 外置浏览器环境
                 weixinContainer.style.display = "none";
                 browserContainer.style.display = "block";
             }
             
-            // 防止微信修改URL
+            // 防止URL被修改
             history.pushState(null, null, window.location.pathname);
             window.addEventListener("popstate", () => {
                 history.pushState(null, null, window.location.pathname);
