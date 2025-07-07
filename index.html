@@ -1,83 +1,212 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-  <title>请在浏览器中打开</title>
-  
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      overflow: hidden;
-      background: #fafafa;
-      font-family: sans-serif;
-      color: #333;
-    }
-    #container {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 16px;
-      color: #fff;
-      background: #007aff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-  </style>
-  
-  <script>
-    (function() {
-      var targetUrl = 'http://jumei888.com';
-      var ua = navigator.userAgent || '';
-      var isWeChat = /MicroMessenger/i.test(ua);
-      
-      // 如果非微信内置浏览器，直接跳转
-      if (!isWeChat) {
-        window.location.replace(targetUrl);
-      }
-      
-      // 调用系统浏览器打开
-      window.openInSafari = function() {
-        if (window.WeixinJSBridge) {
-          WeixinJSBridge.invoke('openBrowser', { url: targetUrl }, function(res){});
-        } else {
-          copyToClipboard(targetUrl);
-          alert('链接已复制，请点击右上角“三个点”，选择“在浏览器中打开”');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>安全访问提示</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
-      };
-      
-      // 复制到剪贴板
-      function copyToClipboard(text) {
-        var ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-      }
-      
-    })();
-  </script>
-  
+        .container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 90%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .steps {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        .step {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .step-number {
+            background-color: #07C160;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .copy-btn {
+            background-color: #07C160;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        .copy-btn:hover {
+            background-color: #06AD56;
+        }
+        .note {
+            font-size: 14px;
+            color: #888;
+            margin-top: 20px;
+        }
+        .weixin-tip {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .weixin-tip img {
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+        .close-tip {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <div id="container">
-    <h2>请在浏览器中打开此页面</h2>
-    <p>为了获得更佳体验，请使用系统浏览器访问。</p>
-    <button onclick="openInSafari()">在浏览器中打开</button>
-  </div>
+    <div class="container">
+        <h1>安全访问提示</h1>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>点击下方按钮复制链接</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>点击微信左上角"..."</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>选择"在浏览器中打开"</div>
+            </div>
+        </div>
+        
+        <button class="copy-btn" id="copyBtn">复制链接</button>
+        
+        <div class="note">
+            为了您的账号安全，请在系统浏览器中访问
+        </div>
+    </div>
+    
+    <div class="weixin-tip" id="weixinTip">
+        <span class="close-tip" id="closeTip">×</span>
+        <h2>请按以下步骤操作</h2>
+        <p>1. 点击右上角"..."</p>
+        <p>2. 选择"在浏览器中打开"</p>
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTggOGExIDEgMCAwIDEtMS0xVjNhMSAxIDAgMCAxIDEuMDk5LS45OTlMMjEgM2ExIDEgMCAwIDEgMSAxdjZhMSAxIDAgMCAxLTEgMUgxN3oiLz48cGF0aCBkPSJNMTQgM2g0YTEgMSAwIDAgMSAxIDF2NGEyIDIgMCAwIDEtMiAyaC0zIi8+PHBhdGggZD0iTTEwIDIxSDZhMSAxIDAgMCAxLTEtMXYtNmExIDEgMCAwIDEgMS0xaDZhMSAxIDAgMCAxIDEgMXY2YTEgMSAwIDAgMS0xIDF6Ii8+PHBhdGggZD0iTTcgMTdIMy4wMDFBMSAxIDAgMCAxIDMgMTZ2LTZhMSAxIDAgMCAxIDEtMUg5Ii8+PC9zdmc+" alt="浏览器打开示意图">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var copyBtn = document.getElementById('copyBtn');
+            var weixinTip = document.getElementById('weixinTip');
+            var closeTip = document.getElementById('closeTip');
+            var isWeixin = /MicroMessenger/i.test(navigator.userAgent);
+            var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            
+            // 要跳转的地址
+            var targetUrl = 'http://jumei888.com';
+            
+            // 如果不是微信内置浏览器，直接跳转
+            if (!isWeixin) {
+                window.location.href = targetUrl;
+                return;
+            }
+            
+            copyBtn.addEventListener('click', function() {
+                // 创建一个临时的textarea元素来复制文本
+                var textarea = document.createElement('textarea');
+                textarea.value = targetUrl;
+                textarea.style.position = 'fixed';  // 防止页面滚动
+                document.body.appendChild(textarea);
+                textarea.select();
+                
+                try {
+                    var successful = document.execCommand('copy');
+                    if (successful) {
+                        copyBtn.textContent = '复制成功';
+                        copyBtn.style.backgroundColor = '#4CAF50';
+                        
+                        // 如果是iOS微信，显示操作提示
+                        if (isIOS) {
+                            weixinTip.style.display = 'flex';
+                        }
+                    } else {
+                        copyBtn.textContent = '复制失败，请手动复制';
+                        copyBtn.style.backgroundColor = '#F44336';
+                    }
+                } catch (err) {
+                    copyBtn.textContent = '复制失败，请手动复制';
+                    copyBtn.style.backgroundColor = '#F44336';
+                }
+                
+                document.body.removeChild(textarea);
+                
+                // 3秒后恢复按钮状态
+                setTimeout(function() {
+                    copyBtn.textContent = '复制链接';
+                    copyBtn.style.backgroundColor = '#07C160';
+                }, 3000);
+            });
+            
+            closeTip.addEventListener('click', function() {
+                weixinTip.style.display = 'none';
+            });
+            
+            // 防止微信直接打开链接
+            window.addEventListener('load', function() {
+                if (isWeixin) {
+                    // 清空地址栏显示
+                    history.pushState(null, null, document.URL.split('#')[0]);
+                    window.addEventListener('popstate', function() {
+                        history.pushState(null, null, document.URL.split('#')[0]);
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
