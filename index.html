@@ -6,10 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>请使用浏览器打开</title>
     <script>
-        // 防止微信自动将http升级为https
-        if (navigator.userAgent.indexOf('MicroMessenger') !== -1 && location.protocol === 'https:') {
-            window.location.href = 'http:' + window.location.href.substring(window.location.href.indexOf('//'));
-        }
+        // 防止循环跳转的标志
+        var hasRedirected = false;
+        
+        // 更安全的防HTTPS升级方法
+        (function() {
+            // 只在微信中处理
+            if (navigator.userAgent.indexOf('MicroMessenger') === -1) return;
+            
+            // 如果已经是http协议，不做处理
+            if (location.protocol === 'http:') return;
+            
+            // 检查是否已经尝试过跳转
+            if (sessionStorage.getItem('preventHTTPSRedirect') === 'true') return;
+            
+            // 标记已尝试跳转
+            sessionStorage.setItem('preventHTTPSRedirect', 'true');
+            
+            // 执行跳转
+            var httpUrl = 'http:' + window.location.href.substring(window.location.href.indexOf('//'));
+            window.location.href = httpUrl;
+        })();
     </script>
     <style>
         body {
@@ -178,6 +195,33 @@
             return ua.indexOf('micromessenger') !== -1;
         }
         
+        // 更安全的外部浏览器跳转方法
+        function safeRedirect() {
+            if (hasRedirected) return;
+            hasRedirected = true;
+            
+            // 尝试多种跳转方式
+            try {
+                // 方式1: 直接location跳转
+                window.location.href = targetUrl;
+                
+                // 方式2: 如果上面失败，使用定时器
+                setTimeout(function() {
+                    window.location.href = targetUrl;
+                }, 500);
+                
+                // 方式3: 终极方案 - 创建iframe跳转
+                setTimeout(function() {
+                    var iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = targetUrl;
+                    document.body.appendChild(iframe);
+                }, 1000);
+            } catch(e) {
+                console.error('跳转失败:', e);
+            }
+        }
+        
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
             const copyBtn = document.getElementById('copyBtn');
@@ -191,7 +235,7 @@
                 copyToClipboard(targetUrl);
             });
             
-            // 如果在微信中，显示提示
+            // 检测是否在微信中
             if (isWeixinBrowser()) {
                 showWeixinTip();
                 
@@ -202,8 +246,8 @@
                     }
                 });
             } else {
-                // 不在微信中，直接跳转
-                window.location.href = targetUrl;
+                // 不在微信中，安全跳转
+                safeRedirect();
             }
         });
     </script>
