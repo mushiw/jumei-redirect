@@ -3,128 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>安全跳转中...</title>
+    <title>安全访问提示</title>
     <script>
-        // 终极防升级方案 - 使用中间跳转页
+        // 全局配置
+        const CONFIG = {
+            targetUrl: 'http://jumei888.com',  // 要跳转的HTTP地址
+            safeCheckInterval: 100,            // 安全检测间隔(毫秒)
+            maxRedirectAttempts: 2              // 最大重试次数
+        };
+        
+        // 安全跳转控制器
         (function() {
-            // 目标网址(必须是http)
-            const targetUrl = 'http://jumei888.com';
-            
-            // 如果不是微信浏览器，直接跳转
-            if(navigator.userAgent.indexOf('MicroMessenger') === -1) {
-                window.location.href = targetUrl;
+            // 非微信环境直接跳转
+            if(!/MicroMessenger/i.test(navigator.userAgent)) {
+                redirectFinal();
                 return;
             }
             
-            // 如果是微信浏览器且当前是https，先跳转到http中间页
+            // 防循环控制变量
+            let redirectCount = 0;
+            const redirectKey = 'redirect_' + location.pathname;
+            
+            // 如果已经超过最大尝试次数
+            if(parseInt(sessionStorage.getItem(redirectKey) || 0) >= CONFIG.maxRedirectAttempts) {
+                showGuidePage();
+                return;
+            }
+            
+            // HTTPS强制降级处理
             if(location.protocol === 'https:') {
-                // 生成唯一的中间页URL，防止缓存
-                const redirectorUrl = `http://${location.host}${location.pathname}?t=${Date.now()}`;
+                redirectCount = parseInt(sessionStorage.getItem(redirectKey) || 0) + 1;
+                sessionStorage.setItem(redirectKey, redirectCount);
                 
-                // 使用meta刷新+js双重跳转确保成功率
+                // 构建HTTP中间页URL(防止缓存)
+                const httpUrl = new URL(location.href);
+                httpUrl.protocol = 'http:';
+                httpUrl.searchParams.set('t', Date.now());
+                
+                // 使用不可缓存的跳转方式
                 document.write(`
-                    <meta http-equiv="refresh" content="0;url=${redirectorUrl}">
-                    <script>window.location.href="${redirectorUrl}";<\/script>
+                    <script>
+                        if(window.history.replaceState) {
+                            window.history.replaceState(null, '', 'http://${httpUrl.host}${httpUrl.pathname}');
+                        }
+                        location.replace("${httpUrl.toString()}");
+                    <\/script>
                 `);
                 return;
             }
             
-            // 如果是微信浏览器且已经是http，显示引导页面
-            document.addEventListener('DOMContentLoaded', function() {
-                // 这里放置您的引导页面代码
-                // 当用户点击"在浏览器打开"后，最终会直接跳转http网址
-            });
+            // 已经是HTTP协议，显示引导页
+            showGuidePage();
         })();
+        
+        // 最终跳转方法
+        function redirectFinal() {
+            // 使用多种跳转方式确保成功率
+            try {
+                location.href = CONFIG.targetUrl;
+            } catch(e) {
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = CONFIG.targetUrl;
+                document.body.appendChild(iframe);
+            }
+        }
+        
+        // 显示引导页面
+        function showGuidePage() {
+            document.addEventListener('DOMContentLoaded', initGuidePage);
+        }
     </script>
     <style>
-        /* 您的引导页样式 */
+        /* 优化后的引导页样式 */
         body {
-            font-family: -apple-system, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 
+                       "Segoe UI", Roboto, Helvetica, 
+                       Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
             padding: 20px;
-            text-align: center;
+            color: #333;
+            line-height: 1.6;
         }
-        .guide {
+        .guide-container {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            max-width: 300px;
+            border-radius: 12px;
+            padding: 25px;
+            max-width: 100%;
+            width: 320px;
             margin: 0 auto;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
         }
-        .steps {
-            text-align: left;
-            margin: 20px 0;
+        h1 {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 0;
+            color: #222;
         }
         .step {
-            margin-bottom: 15px;
             display: flex;
+            margin-bottom: 18px;
+            align-items: center;
         }
-        .step-num {
-            background: #07C160;
-            color: white;
+        .step-number {
             width: 24px;
             height: 24px;
+            background: #07C160;
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
+            margin-right: 12px;
             flex-shrink: 0;
+            font-size: 14px;
         }
-        .url-box {
-            background: #f5f5f5;
-            padding: 10px;
-            border-radius: 5px;
+        .url-display {
+            background: #f0f0f0;
+            padding: 12px;
+            border-radius: 8px;
             word-break: break-all;
             font-size: 14px;
-            margin: 15px 0;
+            margin: 20px 0;
+            text-align: center;
         }
-        .btn {
+        .action-btn {
             background: #07C160;
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .action-btn:hover {
+            background: #06ad56;
+        }
+        .wechat-tip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            z-index: 1000;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="guide">
-        <h2>请在浏览器中打开</h2>
-        <div class="steps">
-            <div class="step">
-                <div class="step-num">1</div>
-                <div>点击右上角 <strong>•••</strong></div>
-            </div>
-            <div class="step">
-                <div class="step-num">2</div>
-                <div>选择"在浏览器打开"</div>
-            </div>
+    <!-- 微信操作提示(默认隐藏) -->
+    <div class="wechat-tip" id="wechatTip">
+        <p>点击右上角 ⋯</p>
+        <p>选择「在浏览器打开」</p>
+    </div>
+    
+    <!-- 主引导页面 -->
+    <div class="guide-container" id="guideContainer">
+        <h1>请在浏览器中打开</h1>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div>点击右上角 <strong>⋯</strong> 按钮</div>
         </div>
         
-        <div class="url-box" id="url">http://jumei888.com</div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <div>选择「在浏览器打开」</div>
+        </div>
         
-        <button class="btn" id="copyBtn">复制链接</button>
+        <div class="url-display" id="urlDisplay">
+            http://jumei888.com
+        </div>
+        
+        <button class="action-btn" id="copyBtn">复制链接地址</button>
     </div>
 
     <script>
-        // 最终跳转逻辑
-        document.getElementById('copyBtn').addEventListener('click', function() {
-            const url = 'http://jumei888.com';
-            const input = document.createElement('input');
-            input.value = url;
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand('copy');
-            document.body.removeChild(input);
-            alert('链接已复制: ' + url);
-        });
-        
-        // 检测是否已经是在外部浏览器
-        if(navigator.userAgent.indexOf('MicroMessenger') === -1) {
-            window.location.href = 'http://jumei888.com';
+        // 引导页初始化
+        function initGuidePage() {
+            const urlDisplay = document.getElementById('urlDisplay');
+            const copyBtn = document.getElementById('copyBtn');
+            const wechatTip = document.getElementById('wechatTip');
+            
+            // 显示目标URL
+            urlDisplay.textContent = CONFIG.targetUrl;
+            
+            // 复制功能
+            copyBtn.addEventListener('click', function() {
+                const textarea = document.createElement('textarea');
+                textarea.value = CONFIG.targetUrl;
+                textarea.style.position = 'fixed';
+                document.body.appendChild(textarea);
+                textarea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    alert('链接已复制到剪贴板');
+                } catch(err) {
+                    prompt('请手动复制以下链接', CONFIG.targetUrl);
+                }
+                
+                document.body.removeChild(textarea);
+            });
+            
+            // 微信中显示操作提示
+            if(/MicroMessenger/i.test(navigator.userAgent)) {
+                // 点击页面任意位置显示提示
+                document.body.addEventListener('click', function(e) {
+                    if(e.target.id !== 'copyBtn') {
+                        wechatTip.style.display = 'block';
+                        setTimeout(() => {
+                            wechatTip.style.display = 'none';
+                        }, 3000);
+                    }
+                });
+            } else {
+                // 非微信环境最终跳转
+                setTimeout(redirectFinal, 300);
+            }
         }
     </script>
 </body>
