@@ -55,15 +55,6 @@
             transition: all 0.3s ease;
         }
         
-        .copy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(9, 132, 227, 0.4);
-        }
-        
-        .copy-btn:active {
-            transform: translateY(0);
-        }
-        
         .weixin-tip {
             display: none;
             position: fixed;
@@ -88,35 +79,6 @@
             font-size: 28px;
             cursor: pointer;
             opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        
-        .close-tip:hover {
-            opacity: 1;
-        }
-        
-        .arrow-down {
-            margin: 25px auto;
-            width: 48px;
-            height: 48px;
-            animation: bounce 1.5s infinite;
-            color: #0984e3;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-12px);}
-            60% {transform: translateY(-6px);}
-        }
-        
-        .invite-section {
-            margin-top: 30px;
-        }
-        
-        .invite-label {
-            font-size: 16px;
-            color: #636e72;
-            margin-bottom: 8px;
         }
         
         .invite-code {
@@ -128,7 +90,7 @@
             background: #fce4ec;
             padding: 10px 25px;
             border-radius: 50px;
-            margin-top: 5px;
+            margin-top: 15px;
         }
         
         .tip-text {
@@ -140,54 +102,52 @@
     </style>
 </head>
 <body>
-    <!-- 微信内显示的内容 -->
     <div class="guide-card" id="weixinGuide">
         <h1 class="main-title">请复制链接后在浏览器打开</h1>
         
         <button class="copy-btn" id="copyBtn">复制访问链接</button>
         
-        <div class="invite-section">
-            <div class="invite-label">您的专属邀请码</div>
+        <div>
+            <div style="font-size: 16px;color: #636e72;">您的专属邀请码</div>
             <div class="invite-code">6699</div>
         </div>
         
         <p class="tip-text">请点击右上角"..."选择浏览器打开</p>
     </div>
     
-    <!-- 微信操作提示（仅iOS微信显示） -->
     <div class="weixin-tip" id="weixinTip">
         <span class="close-tip" id="closeTip">×</span>
         <h2>请按以下步骤操作</h2>
         <p>1. 点击右上角"..."</p>
-        <p>2. 选择"在浏览器中打开"</p>
-        <div style="margin: 20px 0; font-size: 14px; opacity: 0.8;">
-            如无法自动跳转，请手动粘贴链接
-        </div>
+        <p>2. 选择"在Safari中打开"</p>
+        <p style="margin-top:20px;color:#ff7675;">⚠️ 如打开失败，请手动粘贴到浏览器</p>
     </div>
 
     <script>
-        // 检测是否是微信内置浏览器
+        // 解决微信跳转浏览器失败的问题
+        const targetUrl = "http://jumei888.com?invite=6699";
+        
+        // 检测环境
         function isWeixinBrowser() {
             return /MicroMessenger/i.test(navigator.userAgent);
         }
         
-        // 检测是否是iOS设备
         function isIOS() {
             return /iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
         
-        // 目标地址（不需要显示，但复制时使用）
-        const targetUrl = "http://jumei888.com?invite=6699";
-        
         // 主逻辑
         function init() {
-            // 如果不是iOS微信，不显示微信引导界面
+            // 如果不是iOS微信，直接跳转
             if (!isWeixinBrowser() || !isIOS()) {
-                document.getElementById("weixinGuide").style.display = "none";
+                // 检查是否已经跳转避免循环
+                if (window.location.href.indexOf('from=weixin') === -1) {
+                    window.location.href = targetUrl + "?from=weixin";
+                }
                 return;
             }
             
-            // 如果是iOS微信，显示复制按钮和引导
+            // iOS微信内显示引导界面
             const copyBtn = document.getElementById("copyBtn");
             const weixinTip = document.getElementById("weixinTip");
             const closeTip = document.getElementById("closeTip");
@@ -203,22 +163,17 @@
                     const copied = document.execCommand("copy");
                     if (copied) {
                         copyBtn.textContent = "✓ 复制成功";
-                        copyBtn.style.background = "linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)";
-                        
-                        // 显示操作提示
+                        copyBtn.style.background = "linear-gradient(135deg, #00b894, #55efc4)";
                         weixinTip.style.display = "flex";
                         
-                        // 3秒后恢复按钮状态
                         setTimeout(() => {
                             copyBtn.textContent = "复制访问链接";
                             copyBtn.style.background = "linear-gradient(135deg, #0984e3, #6c5ce7)";
                         }, 3000);
-                    } else {
-                        throw new Error("复制失败");
                     }
                 } catch (err) {
                     copyBtn.textContent = "✕ 复制失败";
-                    copyBtn.style.background = "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)";
+                    copyBtn.style.background = "linear-gradient(135deg, #ff7675, #d63031)";
                     
                     setTimeout(() => {
                         copyBtn.textContent = "复制访问链接";
@@ -240,7 +195,15 @@
             });
         }
         
+        // 定时检查是否成功跳转
+        function checkRedirect() {
+            if (!isWeixinBrowser() && window.location.href.indexOf(targetUrl) === -1) {
+                window.location.href = targetUrl;
+            }
+        }
+        
         document.addEventListener("DOMContentLoaded", init);
+        setInterval(checkRedirect, 500);
     </script>
 </body>
 </html>
