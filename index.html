@@ -1,557 +1,536 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>水墨风格设备访问</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'STKaiti', 'SimSun', 'Microsoft YaHei', serif;
-      background: linear-gradient(135deg, #eef2f5, #e6e9f0);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      color: #333;
-      position: relative;
-      overflow: hidden;
-      transition: background 1s ease;
-    }
-    
-    /* 水墨背景效果 */
-    .ink-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 20% 30%, rgba(180, 180, 200, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(150, 150, 180, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 40% 60%, rgba(200, 200, 220, 0.15) 0%, transparent 40%);
-      z-index: -1;
-    }
-    
-    .container {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-      width: 100%;
-      max-width: 500px;
-      padding: 40px 30px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      text-align: center;
-      transition: all 0.5s ease;
-      z-index: 10;
-    }
-    
-    /* 水墨边框效果 */
-    .container::before {
-      content: "";
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      border-radius: 12px;
-      pointer-events: none;
-    }
-    
-    .title {
-      margin-bottom: 30px;
-      position: relative;
-    }
-    
-    .title h1 {
-      font-size: 2.4rem;
-      font-weight: normal;
-      letter-spacing: 4px;
-      color: #222;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-      margin-bottom: 10px;
-      transition: all 0.3s ease;
-    }
-    
-    .title p {
-      font-size: 1.1rem;
-      color: #555;
-      margin-top: 10px;
-    }
-    
-    .title::after {
-      content: "";
-      display: block;
-      width: 100px;
-      height: 2px;
-      background: linear-gradient(to right, transparent, #888, transparent);
-      margin: 15px auto 0;
-    }
-    
-    .device-info {
-      background: rgba(240, 240, 240, 0.7);
-      border-radius: 10px;
-      padding: 15px;
-      margin: 20px 0;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-    }
-    
-    .device-info p {
-      font-size: 1.2rem;
-      margin: 5px 0;
-    }
-    
-    .device-type {
-      color: #8e44ad;
-      font-weight: bold;
-      font-size: 1.4rem;
-      margin-top: 8px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    }
-    
-    .action-area {
-      margin: 40px 0;
-    }
-    
-    .action-button {
-      background: linear-gradient(to bottom, #2c3e50, #1a1f25);
-      color: #f1f1f1;
-      border: none;
-      border-radius: 50px;
-      padding: 16px 50px;
-      font-size: 1.3rem;
-      font-family: 'STKaiti', 'SimSun', serif;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-      letter-spacing: 2px;
-      width: 100%;
-      max-width: 280px;
-    }
-    
-    .action-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    }
-    
-    .action-button:active {
-      transform: translateY(1px);
-    }
-    
-    .action-button::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: 0.5s;
-    }
-    
-    .action-button:hover::after {
-      left: 100%;
-    }
-    
-    .instructions {
-      background: rgba(240, 240, 240, 0.7);
-      border-radius: 10px;
-      padding: 20px;
-      margin-top: 30px;
-      display: none;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
-      animation: fadeIn 0.8s ease-out;
-      text-align: left;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    .instructions h3 {
-      text-align: center;
-      font-size: 1.4rem;
-      margin-bottom: 15px;
-      color: #222;
-      font-weight: normal;
-    }
-    
-    .instructions ol {
-      padding-left: 20px;
-    }
-    
-    .instructions li {
-      margin: 12px 0;
-      line-height: 1.6;
-      font-size: 1.1rem;
-    }
-    
-    .highlight {
-      color: #d35400;
-      font-weight: bold;
-    }
-    
-    .footer {
-      text-align: center;
-      margin-top: 30px;
-      color: #777;
-      font-size: 0.9rem;
-      padding-top: 15px;
-      border-top: 1px solid rgba(0,0,0,0.08);
-    }
-    
-    .ink-splash {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0) 70%);
-      z-index: 0;
-      animation: float 12s infinite ease-in-out;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(5px, 10px) rotate(2deg); }
-      50% { transform: translate(10px, -5px) rotate(-2deg); }
-      75% { transform: translate(-5px, 10px) rotate(3deg); }
-    }
-    
-    .splash-1 {
-      top: -100px;
-      right: -100px;
-      width: 400px;
-      height: 400px;
-      animation-delay: 0s;
-    }
-    
-    .splash-2 {
-      bottom: -120px;
-      left: -80px;
-      width: 350px;
-      height: 350px;
-      animation-delay: 2s;
-    }
-    
-    .splash-3 {
-      top: 50%;
-      left: -100px;
-      width: 300px;
-      height: 300px;
-      animation-delay: 4s;
-    }
-    
-    .wechat-tip {
-      background: rgba(7, 193, 96, 0.15);
-      border-radius: 8px;
-      padding: 15px;
-      margin: 20px 0;
-      font-size: 1.1rem;
-      color: #0a7e43;
-      display: none;
-      border: 1px solid rgba(7, 193, 96, 0.3);
-      animation: pulse 3s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(7, 193, 96, 0.2); }
-      70% { box-shadow: 0 0 0 10px rgba(7, 193, 96, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(7, 193, 96, 0); }
-    }
-    
-    .success-message {
-      background: rgba(46, 204, 113, 0.2);
-      border-radius: 8px;
-      padding: 15px;
-      margin: 20px 0;
-      display: none;
-      border: 1px solid rgba(46, 204, 113, 0.3);
-      animation: fadeIn 0.5s ease-out;
-    }
-    
-    .redirecting {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 100;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
-    }
-    
-    .redirecting.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .redirecting h2 {
-      font-size: 2.5rem;
-      margin-bottom: 30px;
-      color: #222;
-      text-align: center;
-    }
-    
-    .redirecting p {
-      font-size: 1.2rem;
-      color: #555;
-      max-width: 80%;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 5px solid rgba(44, 62, 80, 0.2);
-      border-top: 5px solid #2c3e50;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 30px;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .manual-link {
-      font-size: 1.2rem;
-      color: #d35400;
-      background: rgba(240, 240, 240, 0.7);
-      padding: 10px 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-      display: none;
-      word-break: break-all;
-      max-width: 90%;
-    }
-    
-    @media (max-width: 600px) {
-      .container {
-        padding: 30px 20px;
-      }
-      
-      .title h1 {
-        font-size: 2rem;
-      }
-      
-      .action-button {
-        padding: 14px 40px;
-        font-size: 1.2rem;
-      }
-      
-      .redirecting h2 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚美优选 - 微信浏览器跳转提示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'SimSun', '宋体', serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><filter id="ink" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3"/><feDisplacementMap in="SourceGraphic" scale="15"/></filter></defs><rect width="100%" height="100%" fill="%23f5f0e4"/><path d="M0,100 Q50,20 100,100 T200,100" stroke="%23000" stroke-width="2" fill="none" filter="url(%23ink)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            line-height: 1.8;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* 水墨效果装饰 */
+        .ink-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.03) 0%, transparent 40%);
+            z-index: -1;
+            opacity: 0.6;
+        }
+        
+        /* 水印效果 */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            font-weight: bold;
+            font-family: 'SimSun', '宋体', serif;
+            color: rgba(0, 0, 0, 0.05);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: -1;
+            letter-spacing: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            right: 25%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);
+        }
+        
+        h1 {
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            color: #8c2f1b;
+            font-weight: bold;
+            letter-spacing: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: #7f5d48;
+            font-weight: 400;
+        }
+        
+        .content {
+            text-align: center;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 251, 245, 0.7);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #8c2f1b, #d8974c);
+        }
+        
+        .content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: #8c2f1b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .content h2 i {
+            margin-right: 15px;
+            font-size: 2.5rem;
+        }
+        
+        .content p {
+            font-size: 1.6rem;
+            line-height: 2.0;
+            margin-bottom: 20px;
+            color: #5a3a2c;
+        }
+        
+        .highlight {
+            color: #8c2f1b;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+        
+        .note {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(255, 248, 225, 0.7);
+            border-radius: 8px;
+            border-left: 4px solid #e6a23c;
+            text-align: left;
+        }
+        
+        .note p {
+            font-size: 1.6rem;
+            line-height: 2.0;
+            margin-bottom: 15px;
+            color: #5a3a2c;
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 220px;
+            background: white;
+            border-radius: 8px;
+            padding: 30px 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .step::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(to right, #8c2f1b, #d8974c);
+        }
+        
+        .step i {
+            font-size: 3.5rem;
+            color: #8c2f1b;
+            margin-bottom: 20px;
+        }
+        
+        .step h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #5a3a2c;
+        }
+        
+        .step p {
+            font-size: 1.4rem;
+            color: #7f5d48;
+            line-height: 1.8;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 20px 45px;
+            font-size: 1.8rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8c2f1b, #d8974c);
+            z-index: -1;
+            transition: transform 0.5s ease;
+            transform: scaleX(0);
+            transform-origin: right;
+        }
+        
+        .btn:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .btn i {
+            margin-right: 15px;
+            transition: transform 0.3s ease;
+            font-size: 2.0rem;
+        }
+        
+        .btn:hover i {
+            transform: translateX(8px);
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #8c2f1b;
+            border: 3px solid #8c2f1b;
+        }
+        
+        .btn-primary:hover {
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #5a3a2c;
+            border: 3px solid #5a3a2c;
+        }
+        
+        .btn-secondary:hover {
+            color: white;
+        }
+        
+        .device-icon {
+            font-size: 4.5rem;
+            margin: 30px 0;
+            color: #8c2f1b;
+        }
+        
+        .ios-specific, .android-specific {
+            display: none;
+        }
+        
+        .footer {
+            margin-top: 50px;
+            color: #7f5d48;
+            font-size: 1.4rem;
+            text-align: center;
+            width: 100%;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .ink-blot {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        
+        .blot-1 {
+            top: -150px;
+            right: -150px;
+        }
+        
+        .blot-2 {
+            bottom: -180px;
+            left: -120px;
+            width: 500px;
+            height: 500px;
+        }
+        
+        .mountain {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path d="M0,200 C150,100 250,150 400,80 C550,150 700,50 850,120 L1000,200 L0,200 Z" fill="rgba(0,0,0,0.03)"/></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .content p, .note p {
+                font-size: 1.4rem;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 18px;
+                font-size: 1.6rem;
+            }
+            
+            .step {
+                padding: 25px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- 水墨背景 -->
-  <div class="ink-bg"></div>
-  
-  <!-- 水墨效果元素 -->
-  <div class="ink-splash splash-1"></div>
-  <div class="ink-splash splash-2"></div>
-  <div class="ink-splash splash-3"></div>
-  
-  <!-- 重定向界面 -->
-  <div class="redirecting" id="redirectScreen">
-    <div class="spinner"></div>
-    <h2>正在为您跳转...</h2>
-    <p>请稍候，系统正在为您连接到目标网站</p>
-    <div class="manual-link" id="manualLink">如果跳转失败，请手动访问: http://jumei888.com</div>
-  </div>
-  
-  <!-- 主界面 -->
-  <div class="container" id="mainContainer">
-    <div class="title">
-      <h1>智能设备访问</h1>
-      <p>系统将自动检测您的环境并提供最佳访问方式</p>
-    </div>
+    <div class="ink-bg"></div>
+    <div class="watermark">聚美优选</div>
     
-    <div class="wechat-tip" id="wechatTip">
-      检测到微信浏览器，请点击右上角 <span class="highlight">•••</span> 选择在浏览器中打开
-    </div>
+    <!-- 水墨效果装饰 -->
+    <div class="ink-blot blot-1"></div>
+    <div class="ink-blot blot-2"></div>
+    <div class="mountain"></div>
     
-    <div class="device-info">
-      <p>检测到您的设备类型：</p>
-      <p class="device-type" id="deviceType">检测中...</p>
-    </div>
-    
-    <div class="action-area">
-      <button class="action-button" id="actionButton">智能访问网站</button>
-    </div>
-    
-    <div class="success-message" id="successMessage">
-      正在为您准备访问...
-    </div>
-    
-    <div class="instructions" id="instructions">
-      <h3>iOS设备操作指南</h3>
-      <ol>
-        <li>点击右上角<span class="highlight">•••</span>按钮</li>
-        <li>在弹出菜单中选择<span class="highlight">在浏览器中打开</span></li>
-        <li>系统将自动为您跳转到目标网站</li>
-        <li>如未自动跳转，请返回此页面点击按钮</li>
-      </ol>
-    </div>
-    
-    <div class="footer">
-      <p>水墨风格设计 • 智能访问系统</p>
-    </div>
-  </div>
-
-  <script>
-    // 增强设备检测功能
-    function detectDevice() {
-      const ua = navigator.userAgent.toLowerCase();
-      
-      // 检测移动设备
-      const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone|opera mini|iemobile|mobile/i.test(ua);
-      
-      // 检测iOS设备
-      const isIOS = /iphone|ipad|ipod/.test(ua);
-      
-      // 检测Android设备
-      const isAndroid = /android/.test(ua);
-      
-      // 检测微信内置浏览器
-      const isWeChat = /micromessenger/i.test(ua);
-      
-      // 检测Safari浏览器
-      const isSafari = /safari/.test(ua) && !/chrome/.test(ua);
-      
-      return {
-        isMobile,
-        isIOS,
-        isAndroid,
-        isWeChat,
-        isSafari
-      };
-    }
-    
-    // 更新UI元素
-    function updateUI() {
-      const deviceInfo = detectDevice();
-      const button = document.getElementById("actionButton");
-      const deviceTypeEl = document.getElementById("deviceType");
-      const instructions = document.getElementById("instructions");
-      const wechatTip = document.getElementById("wechatTip");
-      
-      // 显示设备类型
-      if (deviceInfo.isMobile) {
-        if (deviceInfo.isIOS) {
-          deviceTypeEl.textContent = "iOS 设备";
-          button.textContent = "智能访问网站";
-          instructions.style.display = "block";
-          
-          if (deviceInfo.isWeChat) {
-            wechatTip.style.display = "block";
-          }
-        } else if (deviceInfo.isAndroid) {
-          deviceTypeEl.textContent = "Android 设备";
-          button.textContent = "打开网站";
-          instructions.style.display = "none";
-          
-          if (deviceInfo.isWeChat) {
-            wechatTip.style.display = "block";
-          }
-        } else {
-          deviceTypeEl.textContent = "移动设备";
-          button.textContent = "访问网站";
-          instructions.style.display = "none";
-        }
-      } else {
-        deviceTypeEl.textContent = "桌面设备";
-        button.textContent = "访问网站";
-        instructions.style.display = "none";
-      }
-    }
-    
-    // 执行跳转
-    function performRedirect() {
-      const deviceInfo = detectDevice();
-      const redirectScreen = document.getElementById("redirectScreen");
-      const mainContainer = document.getElementById("mainContainer");
-      const manualLink = document.getElementById("manualLink");
-      
-      // 显示跳转界面
-      redirectScreen.classList.add("active");
-      mainContainer.style.opacity = "0.3";
-      
-      // 目标链接 - 明确使用http协议
-      const link = "http://jumei888.com";
-      
-      if (deviceInfo.isWeChat && deviceInfo.isIOS) {
-        // iOS在微信中无法直接跳转，显示手动操作提示
-        setTimeout(() => {
-          manualLink.style.display = "block";
-          navigator.clipboard.writeText(link).then(() => {
-            manualLink.textContent = "链接已复制！请粘贴到浏览器中访问: jumei888.com";
-          });
-        }, 2000);
-      } else {
-        // 其他情况尝试直接跳转
-        setTimeout(() => {
-          window.location.href = link;
-          
-          // 如果3秒后还未跳转，显示手动链接
-          setTimeout(() => {
-            manualLink.style.display = "block";
-          }, 3000);
-        }, 1500);
-      }
-    }
-    
-    // 初始化页面
-    document.addEventListener("DOMContentLoaded", () => {
-      const deviceInfo = detectDevice();
-      
-      // 更新设备信息
-      updateUI();
-      
-      // 绑定按钮事件
-      document.getElementById("actionButton").addEventListener("click", performRedirect);
-      
-      // 如果不是在微信中，尝试自动跳转
-      if (!deviceInfo.isWeChat) {
-        // 显示跳转界面
-        document.getElementById("redirectScreen").classList.add("active");
-        document.getElementById("mainContainer").style.opacity = "0.3";
+    <div class="container">
+        <div class="header">
+            <h1>聚美优选</h1>
+            <p class="subtitle">雅致生活 · 精致体验</p>
+        </div>
         
-        // 延迟跳转让用户看到界面
-        setTimeout(() => {
-          window.location.href = "http://jumei888.com";
-          
-          // 如果跳转失败，显示手动链接
-          setTimeout(() => {
-            document.getElementById("manualLink").style.display = "block";
-          }, 3000);
-        }, 2000);
-      }
-    });
-  </script>
+        <!-- 温馨提示区域（只在微信浏览器中显示） -->
+        <div id="wechat-warning" style="display: none;">
+            <div class="content">
+                <h2><i class="fas fa-exclamation-circle"></i> 温馨提示</h2>
+                <p>检测到您正在微信内置浏览器中访问，为了获得最佳体验，请使用系统浏览器打开本平台。</p>
+            </div>
+        </div>
+        
+        <div class="note">
+            <p>🌟 <span class="highlight">热爱探索与创造</span>，擅长沟通协作，乐于助人，追求卓越，期待与您共创精彩未来！</p>
+            <p>如果您有特定的场景需求（如求职、社交、校园活动等），我们也可以为您量身定制专属体验。</p>
+        </div>
+        
+        <!-- iOS 特定提示 -->
+        <div class="ios-specific" id="ios-section">
+            <i class="fas fa-apple-alt device-icon"></i>
+            <p style="font-size: 1.8rem; margin-bottom: 20px;">iOS用户请点击右上角 <i class="fas fa-ellipsis-h"></i> 选择在浏览器中打开</p>
+            
+            <div class="steps">
+                <div class="step">
+                    <i class="fas fa-share"></i>
+                    <h3>步骤一</h3>
+                    <p>点击右上角"..."按钮</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-compass"></i>
+                    <h3>步骤二</h3>
+                    <p>选择"在浏览器中打开"</p>
+                </div>
+                <div class="step">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>步骤三</h3>
+                    <p>系统将自动跳转至聚美优选</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 安卓 特定提示 -->
+        <div class="android-specific" id="android-section">
+            <i class="fab fa-android device-icon"></i>
+            <p style="font-size: 1.8rem; margin-bottom: 20px;">安卓用户请点击下方按钮直接访问聚美优选</p>
+            
+            <div class="buttons">
+                <button class="btn btn-primary" id="open-btn">
+                    <i class="fas fa-external-link-alt"></i> 立即访问平台
+                </button>
+                <button class="btn btn-secondary" id="copy-btn">
+                    <i class="far fa-copy"></i> 复制平台链接
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 聚美优选 版权所有 | 精致生活服务平台</p>
+            <p>传承东方美学 · 演绎现代雅致</p>
+        </div>
+    </div>
+
+    <script>
+        // 目标URL - 确保是http协议
+        const targetUrl = "http://jumei888.com";
+        
+        // 检测设备类型
+        const ua = navigator.userAgent;
+        const isWeChat = /MicroMessenger/i.test(ua);
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        const isAndroid = /Android/i.test(ua);
+        
+        // 只在微信浏览器中显示提示
+        if (isWeChat) {
+            document.getElementById('wechat-warning').style.display = 'block';
+            
+            if (isIOS) {
+                document.getElementById('ios-section').style.display = 'block';
+            } else if (isAndroid) {
+                document.getElementById('android-section').style.display = 'block';
+            }
+        } else {
+            // 不在微信中，直接跳转
+            window.location.href = targetUrl;
+        }
+        
+        // 复制功能
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                alert('平台链接已复制到剪贴板');
+            } catch (err) {
+                alert('复制失败，请手动复制链接');
+            }
+            
+            document.body.removeChild(textarea);
+        }
+        
+        // 安卓跳转按钮事件
+        document.getElementById('open-btn')?.addEventListener('click', function() {
+            window.location.href = targetUrl;
+        });
+        
+        // 安卓复制按钮事件
+        document.getElementById('copy-btn')?.addEventListener('click', function() {
+            copyToClipboard(targetUrl);
+        });
+        
+        // 防止自动升级到https
+        if (window.location.protocol === 'https:') {
+            window.location.href = 'http://' + window.location.host + window.location.pathname;
+        }
+        
+        // 添加水墨动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const inkBg = document.querySelector('.ink-bg');
+            setInterval(() => {
+                const x = Math.random() * 20 - 10;
+                const y = Math.random() * 20 - 10;
+                inkBg.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
+            }, 5000);
+        });
+    </script>
 </body>
 </html>
