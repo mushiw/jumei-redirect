@@ -1,1 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+
+  <!-- 禁止用户缩放，保持界面干净 -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+  <!-- 页面标题不会显示地址，只用作后备文档标题 -->
+  <title>请在浏览器中打开</title>
+
+  <style>
+    /* 整页居中，隐藏滚动条 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #fafafa;
+      font-family: sans-serif;
+      color: #333;
+    }
+    #container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      color: #fff;
+      background: #007aff;
+      border: none;
+      border-radius: 4px;
+    }
+  </style>
+
+  <script>
+    const targetUrl = "http://jumei888.com";
+
+    function copyAndAlert() {
+      // 1. 创建临时输入框来执行复制
+      const input = document.createElement("textarea");
+      input.value = targetUrl;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+
+      // 2. 弹窗提示用户用外部浏览器打开
+      alert("链接已复制，请点击右上角“三个点”，选择“在浏览器中打开”");
+
+      // 3. 如需自动跳转，可解除下一行注释
+      // window.location.href = targetUrl;
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      // 如果希望用户刷新后仍保留状态，可用 localStorage
+      // 这里只保留最简单的点击即复制
+    });
+  </script>
+</head>
+
+<body>
+  <div id="container">
+    <h2>请在浏览器中打开此页面</h2>
+    <p>为了获得更佳体验，请使用系统浏览器访问。</p>
+    <button onclick="copyAndAlert()">复制链接并打开浏览器</button>
+  </div>
+</body>
+</html>
 
