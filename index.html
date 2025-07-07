@@ -2,343 +2,115 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>安全访问提示</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>粘贴提示</title>
     <style>
-        :root {
-            --primary: #FF6B81;
-            --secondary: #FF8E9E;
-            --accent: #FF4757;
-            --dark: #2F3542;
-            --light: #F1F2F6;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        * {
             margin: 0;
             padding: 0;
-            color: var(--dark);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
             box-sizing: border-box;
         }
         
-        .card {
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .guide-card {
             background: white;
             border-radius: 16px;
-            padding: 30px;
+            padding: 30px 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            max-width: 100%;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            margin: 20px 0;
+            margin: 0 auto;
         }
         
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-        
-        h1 {
+        .main-title {
             font-size: 22px;
-            margin-bottom: 20px;
-            color: var(--dark);
             font-weight: 600;
-        }
-        
-        .steps {
-            text-align: left;
             margin-bottom: 25px;
+            color: #2d3436;
         }
         
-        .step {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start;
+        .arrow-down {
+            margin: 25px auto;
+            width: 48px;
+            height: 48px;
+            animation: bounce 1.5s infinite;
+            color: #0984e3;
         }
         
-        .step-number {
-            background: var(--primary);
-            color: white;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            margin-right: 12px;
-            flex-shrink: 0;
-            font-weight: bold;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-12px);}
+            60% {transform: translateY(-6px);}
         }
         
-        .btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 14px 24px;
+        .invite-section {
+            margin-top: 30px;
+        }
+        
+        .invite-label {
             font-size: 16px;
-            cursor: pointer;
-            margin: 15px 0;
-            width: 100%;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 129, 0.4);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .info-box {
-            background: rgba(255, 107, 129, 0.1);
-            border-left: 4px solid var(--primary);
-            padding: 12px 15px;
-            margin: 20px 0;
-            text-align: left;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .info-box strong {
-            color: var(--accent);
-        }
-        
-        .weixin-tip {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(47, 53, 66, 0.95);
-            color: white;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 30px;
-            text-align: center;
-        }
-        
-        .close-tip {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            font-size: 28px;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        
-        .close-tip:hover {
-            opacity: 1;
-        }
-        
-        .block-page {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px;
-        }
-        
-        .url-display {
-            background: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            word-break: break-all;
-            font-family: monospace;
-            position: relative;
-        }
-        
-        .url-display::after {
-            content: "请粘贴到浏览器地址栏";
-            position: absolute;
-            bottom: -25px;
-            left: 0;
-            width: 100%;
-            font-size: 12px;
-            color: var(--accent);
-            font-style: italic;
+            color: #636e72;
+            margin-bottom: 8px;
         }
         
         .invite-code {
-            background: var(--dark);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 50px;
             display: inline-block;
-            margin-top: 10px;
-            font-weight: bold;
-            letter-spacing: 1px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #e84393;
+            letter-spacing: 2px;
+            background: #fce4ec;
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin-top: 5px;
         }
         
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .tip-text {
+            font-size: 16px;
+            color: #0984e3;
+            margin-top: 30px;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-    <!-- 主界面（仅在iOS微信内显示） -->
-    <div class="card" id="mainContainer">
-        <h1>安全访问指南</h1>
+    <div class="guide-card">
+        <h1 class="main-title">请粘贴到浏览器地址栏</h1>
         
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div>点击下方按钮复制链接</div>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div>退出微信，打开手机浏览器</div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div>在地址栏粘贴并访问</div>
-            </div>
-        </div>
+        <svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z"/>
+            <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
+        </svg>
         
-        <div class="info-box">
-            请务必在浏览器中打开，<strong>微信内无法正常访问</strong>
-        </div>
-        
-        <button class="btn pulse" id="copyBtn">复制访问链接</button>
-    </div>
-    
-    <!-- 微信操作提示（仅iOS微信显示） -->
-    <div class="weixin-tip" id="weixinTip">
-        <span class="close-tip" id="closeTip">×</span>
-        <h2>请按以下步骤操作</h2>
-        <p>1. 点击右上角"..."</p>
-        <p>2. 选择"在浏览器中打开"</p>
-        <div style="margin: 20px 0; font-size: 14px; opacity: 0.8;">
-            如无法自动跳转，请手动粘贴链接
-        </div>
-    </div>
-    
-    <!-- 非微信浏览器显示 -->
-    <div class="card block-page" id="blockPage">
-        <h1>请使用浏览器访问</h1>
-        <p>您需要在手机浏览器中粘贴以下地址：</p>
-        
-        <div class="url-display">
-            http://jumei888.com
-        </div>
-        
-        <div style="margin: 15px 0;">
-            <div>邀请码：</div>
+        <div class="invite-section">
+            <div class="invite-label">您的专属邀请码</div>
             <div class="invite-code">6699</div>
         </div>
         
-        <p style="font-size: 14px; color: #666;">
-            请复制上方地址，粘贴到浏览器地址栏访问
-        </p>
+        <p class="tip-text">粘贴后按前往访问</p>
     </div>
 
     <script>
-        // 检测环境
-        function isWeixinBrowser() {
-            return /MicroMessenger/i.test(navigator.userAgent);
+        // 微信环境简单提示
+        if (/MicroMessenger/i.test(navigator.userAgent)) {
+            document.body.innerHTML = `
+                <div style="padding:30px;text-align:center;">
+                    <h2 style="font-size:20px;margin-bottom:15px;">请使用浏览器访问</h2>
+                    <p style="font-size:16px;">粘贴已复制的链接到浏览器</p>
+                </div>
+            `;
         }
-        
-        function isIOS() {
-            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-        
-        // 主逻辑
-        function init() {
-            const mainContainer = document.getElementById("mainContainer");
-            const blockPage = document.getElementById("blockPage");
-            const targetUrl = "http://jumei888.com?invite=6699";
-            
-            // 如果不是iOS微信，显示引导页面并终止脚本
-            if (!isWeixinBrowser() || !isIOS()) {
-                mainContainer.style.display = "none";
-                blockPage.style.display = "flex";
-                return; // 终止后续执行
-            }
-            
-            // 以下是仅iOS微信内执行的代码
-            const copyBtn = document.getElementById("copyBtn");
-            const weixinTip = document.getElementById("weixinTip");
-            const closeTip = document.getElementById("closeTip");
-            
-            copyBtn.addEventListener("click", function() {
-                const tempInput = document.createElement("textarea");
-                tempInput.value = targetUrl;
-                tempInput.style.position = "fixed";
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                
-                try {
-                    const copied = document.execCommand("copy");
-                    if (copied) {
-                        copyBtn.textContent = "✓ 复制成功";
-                        copyBtn.style.background = "linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)";
-                        
-                        // 显示操作提示
-                        weixinTip.style.display = "flex";
-                        
-                        // 3秒后恢复按钮
-                        setTimeout(() => {
-                            copyBtn.textContent = "复制访问链接";
-                            copyBtn.style.background = "linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)";
-                        }, 3000);
-                    } else {
-                        throw new Error("Copy failed");
-                    }
-                } catch (err) {
-                    copyBtn.textContent = "✕ 复制失败";
-                    copyBtn.style.background = "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)";
-                    
-                    setTimeout(() => {
-                        copyBtn.textContent = "复制访问链接";
-                        copyBtn.style.background = "linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)";
-                    }, 3000);
-                }
-                
-                document.body.removeChild(tempInput);
-            });
-            
-            closeTip.addEventListener("click", () => {
-                weixinTip.style.display = "none";
-            });
-            
-            // 防止微信修改URL
-            history.pushState(null, null, window.location.pathname);
-            window.addEventListener("popstate", () => {
-                history.pushState(null, null, window.location.pathname);
-            });
-        }
-        
-        document.addEventListener("DOMContentLoaded", init);
     </script>
 </body>
 </html>
