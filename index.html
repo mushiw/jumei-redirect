@@ -5,75 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>安全访问提示</title>
     <style>
+        :root {
+            --primary: #FF6B81;
+            --secondary: #FF8E9E;
+            --accent: #FF4757;
+            --dark: #2F3542;
+            --light: #F1F2F6;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
             padding: 0;
-            color: #333;
+            color: var(--dark);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
         }
-        .container {
-            background-color: white;
-            border-radius: 12px;
+        
+        .card {
+            background: white;
+            border-radius: 16px;
             padding: 30px;
-            max-width: 90%;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
         }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
         h1 {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 20px;
-            color: #333;
+            color: var(--dark);
+            font-weight: 600;
         }
+        
         .steps {
             text-align: left;
             margin-bottom: 25px;
         }
+        
         .step {
             margin-bottom: 15px;
             display: flex;
             align-items: flex-start;
         }
+        
         .step-number {
-            background-color: #07C160;
+            background: var(--primary);
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            margin-right: 10px;
+            margin-right: 12px;
             flex-shrink: 0;
+            font-weight: bold;
         }
-        .copy-btn {
-            background-color: #07C160;
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 12px 20px;
+            border-radius: 50px;
+            padding: 14px 24px;
             font-size: 16px;
             cursor: pointer;
-            margin-bottom: 20px;
-            transition: background-color 0.3s;
+            margin: 15px 0;
+            width: 100%;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 107, 129, 0.3);
+            transition: all 0.3s ease;
         }
-        .copy-btn:hover {
-            background-color: #06AD56;
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 129, 0.4);
         }
-        .note {
-            font-size: 14px;
-            color: #888;
-            margin-top: 20px;
+        
+        .btn:active {
+            transform: translateY(0);
         }
+        
+        .info-box {
+            background: rgba(255, 107, 129, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 12px 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .info-box strong {
+            color: var(--accent);
+        }
+        
         .weixin-tip {
             display: none;
             position: fixed;
@@ -81,49 +129,86 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0, 0, 0, 0.8);
+            background: rgba(47, 53, 66, 0.95);
             color: white;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 30px;
             text-align: center;
         }
-        .weixin-tip img {
-            width: 80%;
-            max-width: 300px;
-            margin-bottom: 20px;
-        }
+        
         .close-tip {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
+            top: 25px;
+            right: 25px;
+            font-size: 28px;
             cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
         }
+        
+        .close-tip:hover {
+            opacity: 1;
+        }
+        
         .block-page {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: white;
-            z-index: 9999;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             text-align: center;
+            padding: 30px;
+        }
+        
+        .url-display {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            position: relative;
+        }
+        
+        .url-display::after {
+            content: "请粘贴到浏览器地址栏";
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            width: 100%;
+            font-size: 12px;
+            color: var(--accent);
+            font-style: italic;
+        }
+        
+        .invite-code {
+            background: var(--dark);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <!-- 主界面（仅在微信内显示） -->
-    <div class="container" id="mainContainer">
-        <h1>安全访问提示</h1>
+    <!-- 主界面（仅在iOS微信内显示） -->
+    <div class="card" id="mainContainer">
+        <h1>安全访问指南</h1>
         
         <div class="steps">
             <div class="step">
@@ -132,19 +217,19 @@
             </div>
             <div class="step">
                 <div class="step-number">2</div>
-                <div>点击微信左上角"..."</div>
+                <div>退出微信，打开手机浏览器</div>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
-                <div>选择"在浏览器中打开"</div>
+                <div>在地址栏粘贴并访问</div>
             </div>
         </div>
         
-        <button class="copy-btn" id="copyBtn">复制链接</button>
-        
-        <div class="note">
-            为了您的账号安全，请在系统浏览器中访问
+        <div class="info-box">
+            请务必在浏览器中打开，<strong>微信内无法正常访问</strong>
         </div>
+        
+        <button class="btn pulse" id="copyBtn">复制访问链接</button>
     </div>
     
     <!-- 微信操作提示（仅iOS微信显示） -->
@@ -153,13 +238,28 @@
         <h2>请按以下步骤操作</h2>
         <p>1. 点击右上角"..."</p>
         <p>2. 选择"在浏览器中打开"</p>
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTggOGExIDEgMCAwIDEtMS0xVjNhMSAxIDAgMCAxIDEuMDk5LS45OTlMMjEgM2ExIDEgMCAwIDEgMSAxdjZhMSAxIDAgMCAxLTEgMUgxN3oiLz48cGF0aCBkPSJNMTQgM2g0YTEgMSAwIDAgMSAxIDF2NGEyIDIgMCAwIDEtMiAyaC0zIi8+PHBhdGggZD0iTTEwIDIxSDZhMSAxIDAgMCAxLTEtMXYtNmExIDEgMCAwIDEgMS0xaDZhMSAxIDAwIDAgMSAxIDF2NmExIDEgMCAwIDEtMSAxeiIvPjxwYXRoIGQ9Ik03IDE3SDMuMDAxQTEgMSAwIDAgMSAzIDE2di02YTEgMSAwIDAgMSAxLTFIOSIvPjwvc3ZnPg==" alt="浏览器打开示意图">
+        <div style="margin: 20px 0; font-size: 14px; opacity: 0.8;">
+            如无法自动跳转，请手动粘贴链接
+        </div>
     </div>
     
-    <!-- 拦截页面（非微信浏览器显示） -->
-    <div class="block-page" id="blockPage">
-        <h1>访问限制</h1>
-        <p>请使用微信内置浏览器打开本页面</p>
+    <!-- 非微信浏览器显示 -->
+    <div class="card block-page" id="blockPage">
+        <h1>请使用浏览器访问</h1>
+        <p>您需要在手机浏览器中粘贴以下地址：</p>
+        
+        <div class="url-display">
+            http://jumei888.com
+        </div>
+        
+        <div style="margin: 15px 0;">
+            <div>邀请码：</div>
+            <div class="invite-code">6699</div>
+        </div>
+        
+        <p style="font-size: 14px; color: #666;">
+            请复制上方地址，粘贴到浏览器地址栏访问
+        </p>
     </div>
 
     <script>
@@ -176,8 +276,9 @@
         function init() {
             const mainContainer = document.getElementById("mainContainer");
             const blockPage = document.getElementById("blockPage");
+            const targetUrl = "http://jumei888.com?invite=6699";
             
-            // 如果不是iOS微信，显示拦截页面并终止脚本
+            // 如果不是iOS微信，显示引导页面并终止脚本
             if (!isWeixinBrowser() || !isIOS()) {
                 mainContainer.style.display = "none";
                 blockPage.style.display = "flex";
@@ -188,7 +289,6 @@
             const copyBtn = document.getElementById("copyBtn");
             const weixinTip = document.getElementById("weixinTip");
             const closeTip = document.getElementById("closeTip");
-            const targetUrl = "http://jumei888.com";
             
             copyBtn.addEventListener("click", function() {
                 const tempInput = document.createElement("textarea");
@@ -199,22 +299,32 @@
                 
                 try {
                     const copied = document.execCommand("copy");
-                    copyBtn.textContent = copied ? "复制成功" : "复制失败";
-                    copyBtn.style.backgroundColor = copied ? "#4CAF50" : "#F44336";
-                    
-                    // iOS微信显示操作提示
-                    weixinTip.style.display = "flex";
+                    if (copied) {
+                        copyBtn.textContent = "✓ 复制成功";
+                        copyBtn.style.background = "linear-gradient(135deg, #2ecc71 0%, #27ae60 100%)";
+                        
+                        // 显示操作提示
+                        weixinTip.style.display = "flex";
+                        
+                        // 3秒后恢复按钮
+                        setTimeout(() => {
+                            copyBtn.textContent = "复制访问链接";
+                            copyBtn.style.background = "linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)";
+                        }, 3000);
+                    } else {
+                        throw new Error("Copy failed");
+                    }
                 } catch (err) {
-                    copyBtn.textContent = "复制失败";
-                    copyBtn.style.backgroundColor = "#F44336";
+                    copyBtn.textContent = "✕ 复制失败";
+                    copyBtn.style.background = "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)";
+                    
+                    setTimeout(() => {
+                        copyBtn.textContent = "复制访问链接";
+                        copyBtn.style.background = "linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)";
+                    }, 3000);
                 }
                 
                 document.body.removeChild(tempInput);
-                
-                setTimeout(() => {
-                    copyBtn.textContent = "复制链接";
-                    copyBtn.style.backgroundColor = "#07C160";
-                }, 3000);
             });
             
             closeTip.addEventListener("click", () => {
