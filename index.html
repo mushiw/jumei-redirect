@@ -3,253 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>请使用浏览器打开</title>
+    <title>安全跳转中...</title>
     <script>
-        // 防止循环跳转的标志
-        var hasRedirected = false;
-        
-        // 更安全的防HTTPS升级方法
+        // 终极防升级方案 - 使用中间跳转页
         (function() {
-            // 只在微信中处理
-            if (navigator.userAgent.indexOf('MicroMessenger') === -1) return;
+            // 目标网址(必须是http)
+            const targetUrl = 'http://jumei888.com';
             
-            // 如果已经是http协议，不做处理
-            if (location.protocol === 'http:') return;
+            // 如果不是微信浏览器，直接跳转
+            if(navigator.userAgent.indexOf('MicroMessenger') === -1) {
+                window.location.href = targetUrl;
+                return;
+            }
             
-            // 检查是否已经尝试过跳转
-            if (sessionStorage.getItem('preventHTTPSRedirect') === 'true') return;
+            // 如果是微信浏览器且当前是https，先跳转到http中间页
+            if(location.protocol === 'https:') {
+                // 生成唯一的中间页URL，防止缓存
+                const redirectorUrl = `http://${location.host}${location.pathname}?t=${Date.now()}`;
+                
+                // 使用meta刷新+js双重跳转确保成功率
+                document.write(`
+                    <meta http-equiv="refresh" content="0;url=${redirectorUrl}">
+                    <script>window.location.href="${redirectorUrl}";<\/script>
+                `);
+                return;
+            }
             
-            // 标记已尝试跳转
-            sessionStorage.setItem('preventHTTPSRedirect', 'true');
-            
-            // 执行跳转
-            var httpUrl = 'http:' + window.location.href.substring(window.location.href.indexOf('//'));
-            window.location.href = httpUrl;
+            // 如果是微信浏览器且已经是http，显示引导页面
+            document.addEventListener('DOMContentLoaded', function() {
+                // 这里放置您的引导页面代码
+                // 当用户点击"在浏览器打开"后，最终会直接跳转http网址
+            });
         })();
     </script>
     <style>
+        /* 您的引导页样式 */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f7f7f7;
-            color: #333;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            font-family: -apple-system, sans-serif;
+            padding: 20px;
             text-align: center;
         }
-        .container {
-            background-color: white;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 90%;
-            width: 320px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: #333;
+        .guide {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .steps {
             text-align: left;
-            margin-bottom: 25px;
+            margin: 20px 0;
         }
         .step {
             margin-bottom: 15px;
             display: flex;
-            align-items: flex-start;
         }
-        .step-number {
-            background-color: #07C160;
+        .step-num {
+            background: #07C160;
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 14px;
+            justify-content: center;
             margin-right: 10px;
             flex-shrink: 0;
         }
-        .step-text {
-            font-size: 15px;
-        }
         .url-box {
-            background-color: #f0f0f0;
+            background: #f5f5f5;
             padding: 10px;
-            border-radius: 6px;
+            border-radius: 5px;
             word-break: break-all;
             font-size: 14px;
-            margin-bottom: 20px;
+            margin: 15px 0;
         }
         .btn {
-            background-color: #07C160;
+            background: #07C160;
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
+            padding: 12px;
             width: 100%;
-            font-weight: 500;
-        }
-        .btn:hover {
-            background-color: #06AD56;
-        }
-        .weixin-tip {
-            position: fixed;
-            left: 0;
-            top: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            text-align: center;
-            line-height: 1.6;
+            border-radius: 5px;
             font-size: 16px;
-            padding: 15px 0;
-            z-index: 999999;
-            display: none;
-        }
-        .arrow {
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 10px solid rgba(0, 0, 0, 0.8);
-            position: absolute;
-            right: 15px;
-            top: -10px;
         }
     </style>
 </head>
 <body>
-    <div class="weixin-tip" id="weixinTip">
-        <div class="arrow"></div>
-        <p>点击右上角</p>
-        <p>选择"在浏览器打开"</p>
-    </div>
-
-    <div class="container">
-        <h1>请使用浏览器打开</h1>
-        
+    <div class="guide">
+        <h2>请在浏览器中打开</h2>
         <div class="steps">
             <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-text">点击右上角 <span style="color:#07C160;">•••</span> 按钮</div>
+                <div class="step-num">1</div>
+                <div>点击右上角 <strong>•••</strong></div>
             </div>
             <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-text">选择"在浏览器打开"</div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-text">在浏览器中自动跳转</div>
+                <div class="step-num">2</div>
+                <div>选择"在浏览器打开"</div>
             </div>
         </div>
         
-        <div class="url-box" id="urlDisplay">http://jumei888.com</div>
+        <div class="url-box" id="url">http://jumei888.com</div>
         
         <button class="btn" id="copyBtn">复制链接</button>
     </div>
 
     <script>
-        // 要跳转的URL
-        const targetUrl = 'http://jumei888.com';
-        
-        // 显示微信提示
-        function showWeixinTip() {
-            const weixinTip = document.getElementById('weixinTip');
-            weixinTip.style.display = 'block';
-            setTimeout(() => {
-                weixinTip.style.display = 'none';
-            }, 3000);
-        }
-        
-        // 复制URL到剪贴板
-        function copyToClipboard(text) {
-            const textarea = document.createElement('textarea');
-            textarea.value = text;
-            textarea.style.position = 'fixed';
-            document.body.appendChild(textarea);
-            textarea.select();
-            
-            try {
-                document.execCommand('copy');
-                alert('链接已复制: ' + text);
-            } catch (err) {
-                alert('复制失败，请手动复制');
-            }
-            
-            document.body.removeChild(textarea);
-        }
-        
-        // 检测是否在微信内置浏览器
-        function isWeixinBrowser() {
-            const ua = navigator.userAgent.toLowerCase();
-            return ua.indexOf('micromessenger') !== -1;
-        }
-        
-        // 更安全的外部浏览器跳转方法
-        function safeRedirect() {
-            if (hasRedirected) return;
-            hasRedirected = true;
-            
-            // 尝试多种跳转方式
-            try {
-                // 方式1: 直接location跳转
-                window.location.href = targetUrl;
-                
-                // 方式2: 如果上面失败，使用定时器
-                setTimeout(function() {
-                    window.location.href = targetUrl;
-                }, 500);
-                
-                // 方式3: 终极方案 - 创建iframe跳转
-                setTimeout(function() {
-                    var iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    iframe.src = targetUrl;
-                    document.body.appendChild(iframe);
-                }, 1000);
-            } catch(e) {
-                console.error('跳转失败:', e);
-            }
-        }
-        
-        // 页面加载完成后执行
-        document.addEventListener('DOMContentLoaded', function() {
-            const copyBtn = document.getElementById('copyBtn');
-            const urlDisplay = document.getElementById('urlDisplay');
-            
-            // 显示URL
-            urlDisplay.textContent = targetUrl;
-            
-            // 复制按钮点击事件
-            copyBtn.addEventListener('click', function() {
-                copyToClipboard(targetUrl);
-            });
-            
-            // 检测是否在微信中
-            if (isWeixinBrowser()) {
-                showWeixinTip();
-                
-                // 点击页面其他位置也显示提示
-                document.body.addEventListener('click', function(e) {
-                    if (e.target.id !== 'copyBtn') {
-                        showWeixinTip();
-                    }
-                });
-            } else {
-                // 不在微信中，安全跳转
-                safeRedirect();
-            }
+        // 最终跳转逻辑
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const url = 'http://jumei888.com';
+            const input = document.createElement('input');
+            input.value = url;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            alert('链接已复制: ' + url);
         });
+        
+        // 检测是否已经是在外部浏览器
+        if(navigator.userAgent.indexOf('MicroMessenger') === -1) {
+            window.location.href = 'http://jumei888.com';
+        }
     </script>
 </body>
 </html>
