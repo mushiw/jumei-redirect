@@ -1,52 +1,5 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-  <meta charset="UTF-8">
-  <title>请使用浏览器打开</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 40px;
-      background-color: #f9f9f9;
-    }
-    .tip {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .link {
-      font-size: 20px;
-      color: #d33;
-      margin: 10px 0;
-      word-break: break-all;
-      display: none; /* 始终隐藏 */
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #0078d4;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
-      border-radius: 8px;
-    }
-  </style>
-</head>
-<body>
-  <div class="tip" id="tipText">请点击下方按钮操作：</div>
-  <div class="link" id="linkText">http://jumei888.com</div>
-  <button id="actionButton" onclick="handleClick()">点击操作</button>
-  <img src="Copilot_20250708_005828.png" alt="微信中打开浏览器引导图">
-
-  <script>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
     const ua = navigator.userAgent.toLowerCase();
     const isIOS = /iphone|ipad|ipod/.test(ua);
     const isAndroid = /android/.test(ua);
@@ -66,6 +19,9 @@
       }
     }
 
+    // 设置按钮行为
+    button.onclick = handleClick;
+
     // 设置按钮文字
     if (isIOS) {
       button.innerText = "点击复制链接";
@@ -75,6 +31,5 @@
 
     // 始终隐藏红色网址
     linkText.style.display = "none";
-  </script>
-</body>
-</html>
+  });
+</script>
