@@ -2,24 +2,19 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>聚美优选 - 微信浏览器跳转提示</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>跳转提示 - 请在浏览器中打开</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
         
         body {
-            font-family: 'SimSun', '宋体', serif;
-            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><filter id="ink" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3"/><feDisplacementMap in="SourceGraphic" scale="15"/></filter></defs><rect width="100%" height="100%" fill="%23f5f0e4"/><path d="M0,100 Q50,20 100,100 T200,100" stroke="%23000" stroke-width="2" fill="none" filter="url(%23ink)"/></svg>');
-            background-size: cover;
-            background-position: center;
-            color: #333;
-            line-height: 1.8;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -27,509 +22,394 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow-x: hidden;
-        }
-        
-        /* 水墨效果装饰 */
-        .ink-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 0, 0, 0.03) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.03) 0%, transparent 40%);
-            z-index: -1;
-            opacity: 0.6;
-        }
-        
-        /* 水印效果 */
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-30deg);
-            font-size: 8rem;
-            font-weight: bold;
-            font-family: 'SimSun', '宋体', serif;
-            color: rgba(0, 0, 0, 0.05);
-            white-space: nowrap;
-            pointer-events: none;
-            z-index: -1;
-            letter-spacing: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
         
         .container {
-            max-width: 800px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.92);
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            border-radius: 5px;
-            pointer-events: none;
-        }
-        
-        .header {
-            margin-bottom: 30px;
-            position: relative;
-            padding-bottom: 20px;
-        }
-        
-        .header::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 25%;
-            right: 25%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         h1 {
-            font-size: 3.8rem;
-            margin-bottom: 15px;
-            color: #8c2f1b;
-            font-weight: bold;
-            letter-spacing: 8px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: #FFD700;
         }
         
-        .subtitle {
-            font-size: 1.8rem;
-            color: #7f5d48;
-            font-weight: 400;
-        }
-        
-        .content {
-            text-align: center;
-            margin: 40px 0;
-            padding: 30px;
-            background: rgba(255, 251, 245, 0.7);
-            border-radius: 8px;
-            position: relative;
-        }
-        
-        .content::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, #8c2f1b, #d8974c);
-        }
-        
-        .content h2 {
-            font-size: 2.2rem;
-            margin-bottom: 25px;
-            color: #8c2f1b;
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        
-        .content h2 i {
-            margin-right: 15px;
-            font-size: 2.5rem;
-        }
-        
-        .content p {
-            font-size: 1.6rem;
-            line-height: 2.0;
-            margin-bottom: 20px;
-            color: #5a3a2c;
-        }
-        
-        .highlight {
-            color: #8c2f1b;
+            font-size: 50px;
             font-weight: bold;
-            font-size: 1.8rem;
-        }
-        
-        .note {
-            margin: 30px 0;
-            padding: 25px;
-            background: rgba(255, 248, 225, 0.7);
-            border-radius: 8px;
-            border-left: 4px solid #e6a23c;
-            text-align: left;
-        }
-        
-        .note p {
-            font-size: 1.6rem;
-            line-height: 2.0;
-            margin-bottom: 15px;
-            color: #5a3a2c;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            margin: 40px 0;
+            text-align: left;
+            margin: 25px 0;
+            padding: 0 15px;
         }
         
         .step {
-            flex: 1;
-            min-width: 220px;
-            background: white;
-            border-radius: 8px;
-            padding: 30px 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .step::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(to right, #8c2f1b, #d8974c);
-        }
-        
-        .step i {
-            font-size: 3.5rem;
-            color: #8c2f1b;
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
         }
         
-        .step h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #5a3a2c;
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-weight: bold;
         }
         
-        .step p {
-            font-size: 1.4rem;
-            color: #7f5d48;
-            line-height: 1.8;
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-content p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        
+        .tip {
+            background: rgba(255, 215, 0, 0.15);
+            border-left: 4px solid #FFD700;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 14px;
+        }
+        
+        .url-display {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            word-break: break-all;
+            font-family: monospace;
+            position: relative;
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+        }
+        
+        .url-display span {
+            font-size: 14px;
         }
         
         .buttons {
             display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 40px;
+            gap: 15px;
+            margin-top: 25px;
             flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .btn {
-            padding: 20px 45px;
-            font-size: 1.8rem;
-            border-radius: 50px;
+        button {
+            padding: 14px 25px;
             border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: bold;
+            flex: 1;
+            min-width: 150px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
+            gap: 8px;
         }
         
-        .btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #8c2f1b, #d8974c);
-            z-index: -1;
-            transition: transform 0.5s ease;
-            transform: scaleX(0);
-            transform-origin: right;
-        }
-        
-        .btn:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-        
-        .btn i {
-            margin-right: 15px;
-            transition: transform 0.3s ease;
-            font-size: 2.0rem;
-        }
-        
-        .btn:hover i {
-            transform: translateX(8px);
-        }
-        
-        .btn-primary {
-            background: white;
-            color: #8c2f1b;
-            border: 3px solid #8c2f1b;
-        }
-        
-        .btn-primary:hover {
+        .copy-btn {
+            background: linear-gradient(to right, #2193b0, #6dd5ed);
             color: white;
+            box-shadow: 0 4px 15px rgba(33, 147, 176, 0.3);
         }
         
-        .btn-secondary {
-            background: white;
-            color: #5a3a2c;
-            border: 3px solid #5a3a2c;
-        }
-        
-        .btn-secondary:hover {
+        .open-btn {
+            background: linear-gradient(to right, #f46b45, #eea849);
             color: white;
+            box-shadow: 0 4px 15px rgba(244, 107, 69, 0.3);
         }
         
-        .device-icon {
-            font-size: 4.5rem;
-            margin: 30px 0;
-            color: #8c2f1b;
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
         }
         
-        .ios-specific, .android-specific {
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .browser-message {
             display: none;
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(76, 175, 80, 0.5);
         }
         
-        .footer {
-            margin-top: 50px;
-            color: #7f5d48;
-            font-size: 1.4rem;
-            text-align: center;
-            width: 100%;
-            padding-top: 30px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        .browser-icon {
+            font-size: 24px;
+            margin-right: 8px;
         }
         
-        .ink-blot {
+        .floating {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%);
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            z-index: -1;
-            opacity: 0.4;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+            animation: float 15s infinite linear;
+            z-index: 0;
         }
         
-        .blot-1 {
-            top: -150px;
-            right: -150px;
-        }
-        
-        .blot-2 {
-            bottom: -180px;
-            left: -120px;
-            width: 500px;
-            height: 500px;
-        }
-        
-        .mountain {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+        .floating:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            width: 150px;
             height: 150px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path d="M0,200 C150,100 250,150 400,80 C550,150 700,50 850,120 L1000,200 L0,200 Z" fill="rgba(0,0,0,0.03)"/></svg>');
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: -1;
+            animation-duration: 20s;
         }
         
-        @media (max-width: 768px) {
+        .floating:nth-child(2) {
+            bottom: 15%;
+            right: 10%;
+            width: 180px;
+            height: 180px;
+            animation-duration: 25s;
+        }
+        
+        .floating:nth-child(3) {
+            top: 40%;
+            right: 20%;
+            width: 100px;
+            height: 100px;
+            animation-duration: 30s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, 40px) rotate(90deg);
+            }
+            50% {
+                transform: translate(40px, 0) rotate(180deg);
+            }
+            75% {
+                transform: translate(20px, -40px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        @media (max-width: 480px) {
             .container {
-                padding: 25px 20px;
+                padding: 20px;
+                width: 95%;
             }
             
             h1 {
-                font-size: 2.8rem;
+                font-size: 24px;
             }
             
-            .subtitle {
-                font-size: 1.5rem;
-            }
-            
-            .content p, .note p {
-                font-size: 1.4rem;
-            }
-            
-            .steps {
-                flex-direction: column;
+            button {
+                width: 100%;
+                min-width: auto;
             }
             
             .buttons {
                 flex-direction: column;
-                gap: 15px;
-            }
-            
-            .btn {
-                width: 100%;
-                padding: 18px;
-                font-size: 1.6rem;
-            }
-            
-            .step {
-                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="ink-bg"></div>
-    <div class="watermark">聚美优选</div>
-    
-    <!-- 水墨效果装饰 -->
-    <div class="ink-blot blot-1"></div>
-    <div class="ink-blot blot-2"></div>
-    <div class="mountain"></div>
+    <!-- 浮动背景元素 -->
+    <div class="floating"></div>
+    <div class="floating"></div>
+    <div class="floating"></div>
     
     <div class="container">
-        <div class="header">
-            <h1>聚美优选</h1>
-            <p class="subtitle">雅致生活 · 精致体验</p>
-        </div>
+        <div class="logo">↗</div>
+        <h1>请在浏览器中打开</h1>
         
-        <!-- 温馨提示区域（只在微信浏览器中显示） -->
-        <div id="wechat-warning" style="display: none;">
-            <div class="content">
-                <h2><i class="fas fa-exclamation-circle"></i> 温馨提示</h2>
-                <p>检测到您正在微信内置浏览器中访问，为了获得最佳体验，请使用系统浏览器打开本平台。</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <p>点击右上角 <span class="highlight">···</span> 按钮</p>
+                </div>
             </div>
-        </div>
-        
-        <div class="note">
-            <p>🌟 <span class="highlight">热爱探索与创造</span>，擅长沟通协作，乐于助人，追求卓越，期待与您共创精彩未来！</p>
-            <p>如果您有特定的场景需求（如求职、社交、校园活动等），我们也可以为您量身定制专属体验。</p>
-        </div>
-        
-        <!-- iOS 特定提示 -->
-        <div class="ios-specific" id="ios-section">
-            <i class="fas fa-apple-alt device-icon"></i>
-            <p style="font-size: 1.8rem; margin-bottom: 20px;">iOS用户请点击右上角 <i class="fas fa-ellipsis-h"></i> 选择在浏览器中打开</p>
-            
-            <div class="steps">
-                <div class="step">
-                    <i class="fas fa-share"></i>
-                    <h3>步骤一</h3>
-                    <p>点击右上角"..."按钮</p>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <p>选择 <span class="highlight">在浏览器中打开</span></p>
                 </div>
-                <div class="step">
-                    <i class="fas fa-compass"></i>
-                    <h3>步骤二</h3>
-                    <p>选择"在浏览器中打开"</p>
-                </div>
-                <div class="step">
-                    <i class="fas fa-check-circle"></i>
-                    <h3>步骤三</h3>
-                    <p>系统将自动跳转至聚美优选</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <p>在浏览器中完成跳转</p>
                 </div>
             </div>
         </div>
         
-        <!-- 安卓 特定提示 -->
-        <div class="android-specific" id="android-section">
-            <i class="fab fa-android device-icon"></i>
-            <p style="font-size: 1.8rem; margin-bottom: 20px;">安卓用户请点击下方按钮直接访问聚美优选</p>
-            
-            <div class="buttons">
-                <button class="btn btn-primary" id="open-btn">
-                    <i class="fas fa-external-link-alt"></i> 立即访问平台
-                </button>
-                <button class="btn btn-secondary" id="copy-btn">
-                    <i class="far fa-copy"></i> 复制平台链接
-                </button>
-            </div>
+        <div class="tip">
+            <p>ⓘ 提示：微信内置浏览器限制直接跳转，请按以上步骤操作</p>
         </div>
         
-        <div class="footer">
-            <p>© 2023 聚美优选 版权所有 | 精致生活服务平台</p>
-            <p>传承东方美学 · 演绎现代雅致</p>
+        <div class="url-display">
+            <span>目标网址：</span>
+            <span id="targetUrl">http://jumei888.com</span>
+        </div>
+        
+        <div class="buttons">
+            <button id="copyBtn" class="copy-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                复制链接
+            </button>
+            <button id="openBtn" class="open-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                在浏览器打开
+            </button>
+        </div>
+        
+        <div id="browserMessage" class="browser-message">
+            <p><span class="browser-icon">✓</span> 已检测到您在外部浏览器中打开，请点击"复制链接"按钮</p>
         </div>
     </div>
 
     <script>
-        // 目标URL - 确保是http协议
-        const targetUrl = "http://jumei888.com";
+        // 目标URL - 使用HTTP协议
+        const targetUrl = 'http://jumei888.com';
+        const targetUrlElement = document.getElementById('targetUrl');
+        targetUrlElement.textContent = targetUrl;
         
-        // 检测设备类型
-        const ua = navigator.userAgent;
-        const isWeChat = /MicroMessenger/i.test(ua);
-        const isIOS = /iPhone|iPad|iPod/i.test(ua);
-        const isAndroid = /Android/i.test(ua);
-        
-        // 只在微信浏览器中显示提示
-        if (isWeChat) {
-            document.getElementById('wechat-warning').style.display = 'block';
-            
-            if (isIOS) {
-                document.getElementById('ios-section').style.display = 'block';
-            } else if (isAndroid) {
-                document.getElementById('android-section').style.display = 'block';
-            }
-        } else {
-            // 不在微信中，直接跳转
-            window.location.href = targetUrl;
+        // 检测是否在微信内置浏览器中
+        function isWeixinBrowser() {
+            const ua = navigator.userAgent.toLowerCase();
+            return ua.includes('micromessenger');
         }
         
-        // 复制功能
+        // 检测是否在iOS设备上
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+        
+        // 复制到剪贴板
         function copyToClipboard(text) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
             document.body.appendChild(textarea);
             textarea.select();
             
             try {
-                document.execCommand('copy');
-                alert('平台链接已复制到剪贴板');
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert('链接已复制到剪贴板！');
+                    return true;
+                }
             } catch (err) {
-                alert('复制失败，请手动复制链接');
+                console.error('复制失败:', err);
+            } finally {
+                document.body.removeChild(textarea);
             }
             
-            document.body.removeChild(textarea);
+            // 备用方案：提示用户手动复制
+            prompt('请手动复制以下链接:', text);
+            return false;
         }
         
-        // 安卓跳转按钮事件
-        document.getElementById('open-btn')?.addEventListener('click', function() {
-            window.location.href = targetUrl;
-        });
-        
-        // 安卓复制按钮事件
-        document.getElementById('copy-btn')?.addEventListener('click', function() {
-            copyToClipboard(targetUrl);
-        });
-        
-        // 防止自动升级到https
-        if (window.location.protocol === 'https:') {
-            window.location.href = 'http://' + window.location.host + window.location.pathname;
+        // 尝试在外部浏览器打开
+        function openInExternalBrowser() {
+            if (isWeixinBrowser()) {
+                alert('请点击右上角菜单，选择"在浏览器中打开"');
+                return;
+            }
+            
+            // 处理HTTP/HTTPS问题
+            let finalUrl = targetUrl;
+            
+            // 如果当前页面是HTTPS，但目标URL是HTTP，使用中间跳转
+            if (window.location.protocol === 'https:' && targetUrl.startsWith('http:')) {
+                finalUrl = `https://jumei888.com`; // 这里使用HTTPS版本的URL
+                alert('检测到安全连接，已自动切换到HTTPS版本');
+            }
+            
+            // 尝试直接跳转
+            try {
+                window.location.href = finalUrl;
+            } catch (e) {
+                console.error('跳转失败:', e);
+                alert('跳转失败，请手动访问链接');
+            }
         }
         
-        // 添加水墨动画效果
+        // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
-            const inkBg = document.querySelector('.ink-bg');
-            setInterval(() => {
-                const x = Math.random() * 20 - 10;
-                const y = Math.random() * 20 - 10;
-                inkBg.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
-            }, 5000);
+            const copyBtn = document.getElementById('copyBtn');
+            const openBtn = document.getElementById('openBtn');
+            const browserMessage = document.getElementById('browserMessage');
+            
+            // 显示外部浏览器提示（如果不在微信中）
+            if (!isWeixinBrowser()) {
+                browserMessage.style.display = 'block';
+            }
+            
+            // 复制按钮事件
+            copyBtn.addEventListener('click', function() {
+                copyToClipboard(targetUrl);
+            });
+            
+            // 打开按钮事件
+            openBtn.addEventListener('click', openInExternalBrowser);
+            
+            // iOS微信中自动尝试复制
+            if (isWeixinBrowser() && isIOS()) {
+                setTimeout(function() {
+                    if (copyToClipboard(targetUrl)) {
+                        alert('链接已复制，请粘贴到浏览器中打开');
+                    }
+                }, 1000);
+            }
         });
     </script>
 </body>
