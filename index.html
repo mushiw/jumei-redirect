@@ -42,7 +42,6 @@
             line-height: 1.4;
         }
         
-        /* 微信内按钮样式 */
         .copy-btn {
             background: linear-gradient(135deg, #0984e3, #6c5ce7);
             color: white;
@@ -62,7 +61,6 @@
             transform: scale(0.98);
         }
         
-        /* 外置浏览器样式 */
         .arrow-down {
             margin: 25px auto 20px;
             width: 48px;
@@ -185,7 +183,6 @@
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             
-            // 环境判断
             if (isWeixinBrowser() && isIOS()) {
                 // iOS微信环境
                 browserContainer.style.display = "none";
@@ -205,7 +202,7 @@
             const copyBtn = document.getElementById("copyBtn");
             const weixinTip = document.getElementById("weixinTip");
             const closeTip = document.getElementById("closeTip");
-            const targetUrl = "http://jumei888.com?invite=6699";
+            const targetUrl = "http://jumei888.com?invite=6699"; // 真实目标地址
             
             copyBtn.addEventListener("click", function() {
                 copyToClipboard(targetUrl).then(() => {
