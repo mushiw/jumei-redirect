@@ -2,59 +2,344 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
-  <title>请使用浏览器打开</title>
+  <title>水墨风格设备识别</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 40px;
-      background-color: #f9f9f9;
-    }
-    .tip {
-      font-size: 18px;
+      font-family: 'SimSun', 'STKaiti', serif;
+      background: linear-gradient(135deg, #f5f7fa, #e4e8f0);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
       color: #333;
-      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
     }
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #0078d4;
-      color: white;
+    
+    /* 水墨背景效果 */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(200, 200, 200, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(180, 180, 180, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 40% 60%, rgba(220, 220, 220, 0.1) 0%, transparent 40%);
+      z-index: -1;
+    }
+    
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      padding: 40px 30px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    /* 水墨边框效果 */
+    .container::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+    
+    .title {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    .title h1 {
+      font-size: 2.4rem;
+      font-weight: normal;
+      letter-spacing: 4px;
+      color: #222;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .title::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #888, transparent);
+      margin: 15px auto 0;
+    }
+    
+    .device-info {
+      background: rgba(240, 240, 240, 0.7);
+      border-radius: 10px;
+      padding: 15px;
+      margin: 20px 0;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .device-info p {
+      font-size: 1.2rem;
+      margin: 5px 0;
+    }
+    
+    .device-type {
+      color: #8e44ad;
+      font-weight: bold;
+      font-size: 1.4rem;
+      margin-top: 8px;
+    }
+    
+    .action-area {
+      margin: 40px 0;
+      text-align: center;
+    }
+    
+    .action-button {
+      background: linear-gradient(to bottom, #2c3e50, #1a1f25);
+      color: #f1f1f1;
       border: none;
-      border-radius: 6px;
+      border-radius: 50px;
+      padding: 16px 50px;
+      font-size: 1.3rem;
+      font-family: 'SimSun', 'STKaiti', serif;
       cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      letter-spacing: 2px;
     }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
-      border-radius: 8px;
+    
+    .action-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+    
+    .action-button:active {
+      transform: translateY(1px);
+    }
+    
+    .action-button::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .action-button:hover::after {
+      left: 100%;
+    }
+    
+    .instructions {
+      background: rgba(240, 240, 240, 0.7);
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 30px;
+      display: none;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .instructions h3 {
+      text-align: center;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      color: #222;
+      font-weight: normal;
+    }
+    
+    .instructions ol {
+      padding-left: 20px;
+    }
+    
+    .instructions li {
+      margin: 12px 0;
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #777;
+      font-size: 0.9rem;
+    }
+    
+    .ink-splash {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.03) 0%, rgba(0, 0, 0, 0) 70%);
+      z-index: -1;
+    }
+    
+    .splash-1 {
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+    }
+    
+    .splash-2 {
+      bottom: -120px;
+      left: -80px;
+      width: 350px;
+      height: 350px;
+    }
+    
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+      
+      .title h1 {
+        font-size: 2rem;
+      }
+      
+      .action-button {
+        padding: 14px 40px;
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="tip">请点击下方按钮复制链接，然后点击右上角“···”选择“在浏览器中打开”</div>
-  <button onclick="copyAndPrompt()">点击复制链接</button>
-  <img src="Copilot_20250708_005828.png" alt="引导图">
+  <!-- 水墨效果元素 -->
+  <div class="ink-splash splash-1"></div>
+  <div class="ink-splash splash-2"></div>
+  
+  <div class="container">
+    <div class="title">
+      <h1>设备识别访问</h1>
+    </div>
+    
+    <div class="device-info">
+      <p>检测到您的设备类型：</p>
+      <p class="device-type" id="deviceType">检测中...</p>
+    </div>
+    
+    <div class="action-area">
+      <button class="action-button" id="actionButton">点击操作</button>
+    </div>
+    
+    <div class="instructions" id="instructions">
+      <h3>iOS设备操作指南</h3>
+      <ol>
+        <li>点击右上角<span class="highlight">•••</span>按钮</li>
+        <li>在弹出菜单中选择<span class="highlight">在浏览器中打开</span></li>
+        <li>选择Safari或其他浏览器</li>
+        <li>返回此页面点击操作按钮</li>
+      </ol>
+    </div>
+    
+    <div class="footer">
+      <p>水墨风格设计 • 设备识别系统</p>
+    </div>
+  </div>
 
   <script>
-    const link = "http://jumei888.com";
-
-    function copyAndPrompt() {
-      navigator.clipboard.writeText(link).then(() => {
-        alert("链接已复制，请点击右上角“···”，选择“在浏览器中打开”");
-        localStorage.setItem("copiedOnce", "true");
-      });
+    // 增强设备检测功能
+    function detectDevice() {
+      const ua = navigator.userAgent.toLowerCase();
+      
+      // 检测移动设备
+      const isMobile = /iphone|ipad|ipod|android|blackberry|windows phone|opera mini|iemobile|mobile/i.test(ua);
+      
+      // 检测iOS设备
+      const isIOS = /iphone|ipad|ipod/.test(ua);
+      
+      // 检测Android设备
+      const isAndroid = /android/.test(ua);
+      
+      // 检测微信内置浏览器
+      const isWeChat = /micromessenger/i.test(ua);
+      
+      return {
+        isMobile,
+        isIOS,
+        isAndroid,
+        isWeChat
+      };
     }
-
-    window.addEventListener("DOMContentLoaded", () => {
-      if (localStorage.getItem("copiedOnce") === "true") {
-        navigator.clipboard.writeText(link).then(() => {
-          alert("链接已再次复制，请粘贴到浏览器地址栏中打开");
-          localStorage.removeItem("copiedOnce");
-        });
+    
+    // 更新UI元素
+    function updateUI() {
+      const deviceInfo = detectDevice();
+      const button = document.getElementById("actionButton");
+      const deviceTypeEl = document.getElementById("deviceType");
+      const instructions = document.getElementById("instructions");
+      
+      // 显示设备类型
+      if (deviceInfo.isMobile) {
+        if (deviceInfo.isIOS) {
+          deviceTypeEl.textContent = "iOS 设备";
+          button.textContent = "复制链接";
+          instructions.style.display = "block";
+        } else if (deviceInfo.isAndroid) {
+          deviceTypeEl.textContent = "Android 设备";
+          button.textContent = "打开网站";
+          instructions.style.display = "none";
+        } else {
+          deviceTypeEl.textContent = "移动设备";
+          button.textContent = "点击操作";
+          instructions.style.display = "none";
+        }
+      } else {
+        deviceTypeEl.textContent = "桌面设备";
+        button.textContent = "访问网站";
+        instructions.style.display = "none";
       }
+    }
+    
+    // 处理按钮点击事件
+    function handleClick() {
+      const deviceInfo = detectDevice();
+      const link = "http://jumei888.com";
+      
+      if (deviceInfo.isIOS) {
+        // iOS设备复制到剪贴板
+        navigator.clipboard.writeText(link).then(() => {
+          alert("链接已复制！请粘贴到浏览器中访问");
+        }).catch(err => {
+          // 如果复制失败，提示用户手动复制
+          prompt("请手动复制以下链接:", link);
+        });
+      } else {
+        // 其他设备直接跳转
+        window.location.href = link;
+      }
+    }
+    
+    // 初始化页面
+    document.addEventListener("DOMContentLoaded", () => {
+      // 更新设备信息
+      updateUI();
+      
+      // 绑定按钮事件
+      document.getElementById("actionButton").addEventListener("click", handleClick);
     });
   </script>
 </body>
