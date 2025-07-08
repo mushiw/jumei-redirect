@@ -408,28 +408,42 @@
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
         }
         
-        /* 已验证勋章 */
+        /* 已验证勋章 - 更小尺寸 */
         .verified-badge {
             position: absolute;
             top: 15px;
             right: 15px;
-            width: 50px;
-            height: 50px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             background: linear-gradient(135deg, #27ae60, #2ecc71);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 22px;
+            font-size: 12px;
             box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
             animation: badgePulse 3s infinite;
             z-index: 20;
+            padding: 5px;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .verified-badge i {
+            font-size: 22px;
+            margin-bottom: 3px;
+        }
+        
+        .verified-text {
+            font-size: 10px;
+            font-weight: 500;
         }
         
         @keyframes badgePulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
         
@@ -630,9 +644,17 @@
             }
             
             .verified-badge {
-                width: 40px;
-                height: 40px;
+                width: 55px;
+                height: 55px;
+                font-size: 10px;
+            }
+            
+            .verified-badge i {
                 font-size: 18px;
+            }
+            
+            .verified-text {
+                font-size: 9px;
             }
         }
     </style>
@@ -665,6 +687,7 @@
             <!-- iOS已验证勋章 -->
             <div class="verified-badge">
                 <i class="fas fa-check"></i>
+                <div class="verified-text">已验证</div>
             </div>
             
             <div class="card-content">
@@ -705,6 +728,7 @@
             <!-- 安卓已验证勋章 -->
             <div class="verified-badge">
                 <i class="fas fa-check"></i>
+                <div class="verified-text">已验证</div>
             </div>
             
             <div class="card-content">
@@ -962,6 +986,7 @@
                 setupWeixinEvents();
             } 
             else {
+                // iOS外置浏览器直接显示浏览器界面，不检测IP
                 weixinContainer.style.display = "none";
                 browserContainer.style.display = "block";
                 androidContainer.style.display = "none";
