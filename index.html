@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>安全访问</title>
+    <title>安全访问验证</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -578,6 +578,89 @@
             transform: scale(0.98);
         }
         
+        /* 新增样式 - 详情弹窗优化 */
+        .package-list {
+            margin-top: 15px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .package-item {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-bottom: 8px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .package-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .package-name {
+            font-weight: 700;
+            font-size: 17px;
+            margin-bottom: 8px;
+            color: #f1c40f;
+            display: flex;
+            align-items: center;
+        }
+        
+        .package-option {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        .package-option:last-child {
+            border-bottom: none;
+        }
+        
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .service-icon {
+            font-size: 18px;
+            margin-right: 10px;
+            min-width: 24px;
+            color: #3498db;
+        }
+        
+        .service-text {
+            flex: 1;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid #2ecc71;
+        }
+        
+        .tip-icon {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #2ecc71;
+        }
+        
         @media (max-width: 480px) {
             .guide-card {
                 padding: 20px 15px;
@@ -637,6 +720,14 @@
                 font-size: 9px;
                 padding: 2px 6px;
             }
+            
+            .package-item {
+                padding: 12px;
+            }
+            
+            .package-name {
+                font-size: 15px;
+            }
         }
     </style>
 </head>
@@ -652,7 +743,7 @@
         </div>
         
         <div class="ip-text">安全验证中</div>
-        <div class="ip-subtext">正在为您准备最佳访问体验</div>
+        <div class="ip-subtext">正在检测您的访问区域</div>
         
         <div class="ip-error" id="ipError">
             <i class="fas fa-exclamation-triangle"></i> 
@@ -720,7 +811,7 @@
                     </div>
                 </div>
                 
-                <h1 class="main-title">您的专属邀请码：6699</h1>
+                <h1 class="main-title">欢迎安卓用户</h1>
                 <button class="copy-btn" id="androidBtn">
                     <i class="fas fa-external-link-alt"></i> 点击访问
                 </button>
@@ -755,32 +846,122 @@
         <div class="modal-content">
             <span class="close-modal" id="closeModal">×</span>
             <div class="modal-header">
-                <h2>微信访问说明</h2>
-                <p>为什么需要复制链接到浏览器打开？</p>
+                <h2>服务详情</h2>
+                <p>高品质定制服务，满足您的个性化需求</p>
             </div>
             
             <div class="modal-body">
                 <div class="modal-section">
-                    <h3><i class="fas fa-shield-alt"></i> 微信链接问题</h3>
-                    <p>GitHub 链接本身不会被微信屏蔽，但通过微信分享或转发链接时可能因以下原因导致访问异常：</p>
-                    
-                    <div class="solution-list">
-                        <ul>
-                            <li>域名备案问题</li>
-                            <li>内容安全风险</li>
-                            <li>前任持有者违规记录</li>
-                        </ul>
+                    <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
+                    <div class="package-list">
+                        <div class="package-item">
+                            <div class="package-name">
+                                <i class="fas fa-bullseye"></i> 3k 套餐
+                            </div>
+                            <div class="package-option">
+                                <span>60分钟</span>
+                                <span>￥2.6k</span>
+                            </div>
+                            <div class="package-option">
+                                <span>120分钟</span>
+                                <span>￥4.8k</span>
+                            </div>
+                            <div class="package-option">
+                                <span>夜间通宵（十点后至自然醒）</span>
+                                <span>￥8k</span>
+                            </div>
+                        </div>
+                        
+                        <div class="package-item">
+                            <div class="package-name">
+                                <i class="fas fa-star"></i> 5k 套餐
+                            </div>
+                            <div class="package-option">
+                                <span>60分钟</span>
+                                <span>￥4.6k</span>
+                            </div>
+                            <div class="package-option">
+                                <span>120分钟</span>
+                                <span>￥8k</span>
+                            </div>
+                            <div class="package-option">
+                                <span>夜间通宵（十点后至自然醒）</span>
+                                <span>￥14k</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="modal-section">
-                    <h3><i class="fas fa-lightbulb"></i> 解决方法</h3>
+                    <h3><i class="fas fa-star"></i> 服务说明</h3>
                     <div class="solution-list">
-                        <ul>
-                            <li>将链接复制到浏览器访问</li>
-                            <li>确保域名已完成备案</li>
-                            <li>检查页面内容合规性</li>
-                        </ul>
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-map-pin"></i>
+                            </div>
+                            <div class="service-text">
+                                具体服务内容请查看主页简介
+                            </div>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-puzzle-piece"></i>
+                            </div>
+                            <div class="service-text">
+                                个性化偏好可提前沟通（如需特殊安排可能需加价）
+                            </div>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                            <div class="service-text">
+                                拒绝低质服务，注重体验与尊重
+                            </div>
+                        </div>
+                        
+                        <div class="service-item">
+                            <div class="service-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="service-text">
+                                支持预约，时间灵活，十点后可通宵
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+                    <div class="solution-list">
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                所有服务均为高品质定制，非市面中低端
+                            </div>
+                        </div>
+                        
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div>
+                                如有特殊需求，请提前说明，尊重彼此
+                            </div>
+                        </div>
+                        
+                        <div class="tip-item">
+                            <div class="tip-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div>
+                                若通过微信访问异常，请复制链接到浏览器打开
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -788,7 +969,7 @@
     </div>
 
     <div class="footer">
-        <p>安全访问 &copy; 2023 | 穆师为您保驾护航</p>
+        <p>安全访问 &copy; 2023 | 用心守护您的每一次访问</p>
     </div>
 
     <script>
