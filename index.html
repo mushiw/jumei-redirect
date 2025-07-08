@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>安全访问引导</title>
+    <title>安全访问</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -400,7 +400,7 @@
         
         .footer {
             margin-top: 30px;
-            color: var(--text-light);
+            color: #555; /* 变暗的页脚文字颜色 */
             font-size: 14px;
             text-align: center;
             padding: 0 20px;
@@ -534,7 +534,7 @@
             <div class="card-content">
                 <h1 class="main-title">请复制链接后在浏览器打开</h1>
                 <button class="copy-btn" id="copyBtn">
-                    <i class="fas fa-copy"></i> 复制访问链接
+                    <i class="fas fa-copy"></i> 复制链接
                 </button>
                 
                 <!-- 正能量元素 -->
@@ -550,7 +550,7 @@
             </div>
         </div>
         
-        <!-- 外置浏览器界面 - 保持原样 -->
+        <!-- 外置浏览器界面 -->
         <div class="guide-card" id="browserContainer" style="display:none;">
             <div class="card-content">
                 <h1 class="main-title">请粘贴到浏览器地址栏</h1>
@@ -592,21 +592,21 @@
         <div class="modal-content">
             <span class="close-modal" id="closeModal">×</span>
             <div class="modal-header">
-                <h2>微信访问限制说明</h2>
+                <h2>微信访问说明</h2>
                 <p>为什么需要复制链接到浏览器打开？</p>
             </div>
             
             <div class="modal-body">
                 <div class="modal-section">
-                    <h3><i class="fas fa-shield-alt"></i> 微信链接拦截原因</h3>
+                    <h3><i class="fas fa-shield-alt"></i> 微信链接问题</h3>
                     <p>GitHub 链接本身不会被微信屏蔽，但通过微信分享或转发链接时可能因以下原因导致访问异常：</p>
                     
                     <div class="solution-list">
                         <h4><i class="fas fa-server"></i> 域名备案问题</h4>
                         <p>若页面未完成备案或托管在境外服务器，微信可能因域名管理问题拦截相关链接。</p>
                         
-                        <h4><i class="fas fa-exclamation-triangle"></i> 内容违规风险</h4>
-                        <p>若页面包含诱导分享、虚假信息等违规内容，微信可能根据用户投诉或平台规则拦截相关链接。</p>
+                        <h4><i class="fas fa-exclamation-triangle"></i> 内容风险</h4>
+                        <p>若页面包含诱导分享、虚假信息等内容，微信可能根据用户投诉或平台规则拦截相关链接。</p>
                         
                         <h4><i class="fas fa-history"></i> 前任持有者违规记录</h4>
                         <p>新购买的域名若前持有人存在违规行为，也可能影响当前使用者的链接访问。</p>
@@ -618,7 +618,7 @@
                     <div class="solution-list">
                         <ul>
                             <li>确保域名已完成备案且服务器位于境内</li>
-                            <li>检查页面内容是否涉及诱导分享、虚假宣传等违规信息</li>
+                            <li>检查页面内容是否涉及诱导分享等违规信息</li>
                             <li>若链接被误判，可通过微信客服申诉解除拦截</li>
                             <li>使用浏览器直接访问可绕过微信的安全限制</li>
                             <li>将链接复制到浏览器是最可靠的访问方式</li>
@@ -628,7 +628,7 @@
                 
                 <div class="modal-section">
                     <h3><i class="fas fa-user-shield"></i> 安全提示</h3>
-                    <p>复制链接到浏览器打开不仅能解决访问问题，还能获得更安全的浏览体验：</p>
+                    <p>复制链接到浏览器打开能获得更安全的浏览体验：</p>
                     <ul class="solution-list">
                         <li>避免微信内置浏览器功能限制</li>
                         <li>获得更快的页面加载速度</li>
@@ -641,7 +641,7 @@
     </div>
 
     <div class="footer">
-        <p>安全访问引导 &copy; 2023 | 用心创造安全网络环境</p>
+        <p>安全访问 &copy; 2023 | 用心守护您的每一次访问</p>
     </div>
 
     <script>
@@ -713,7 +713,7 @@
                     weixinTip.classList.add('show');
                     
                     setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制访问链接';
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
                         copyBtn.style.background = 'var(--primary-gradient)';
                     }, 2000);
                 }).catch(() => {
@@ -722,7 +722,7 @@
                     copyBtn.style.background = 'var(--error-gradient)';
                     
                     setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制访问链接';
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
                         copyBtn.style.background = 'var(--primary-gradient)';
                     }, 2000);
                 });
