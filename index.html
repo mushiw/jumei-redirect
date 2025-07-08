@@ -363,49 +363,49 @@
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(60, 179, 113, 0.4); }
         }
         
-        /* iOS设备苹果Logo */
+        /* iOS设备圆形Logo */
         .ios-icon-container {
             display: flex;
             justify-content: center;
             margin: 20px 0;
         }
         
-        .ios-icon {
+        .ios-icon-circle {
             width: 120px;
             height: 120px;
-            border-radius: 30px;
-            background: linear-gradient(135deg, #f5f5f7, #d0d0d7);
+            border-radius: 50%;
+            background: linear-gradient(135deg, #a6a6a6, #808080);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             position: relative;
             overflow: hidden;
-            animation: rotateApple 6s infinite linear;
+            animation: pulseApple 2s infinite alternate;
         }
         
-        .ios-icon::before {
+        .ios-icon-circle::before {
             content: "";
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
             transform: rotate(45deg);
         }
         
-        .ios-icon i {
+        .ios-icon-circle i {
             font-size: 60px;
-            color: #666;
+            color: white;
             position: relative;
             z-index: 2;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
-        @keyframes rotateApple {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes pulseApple {
+            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+            100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
         }
         
         .arrow-down {
@@ -595,12 +595,12 @@
                 height: 50px;
             }
             
-            .android-icon-circle, .ios-icon {
+            .android-icon-circle, .ios-icon-circle {
                 width: 100px;
                 height: 100px;
             }
             
-            .android-icon-circle i, .ios-icon i {
+            .android-icon-circle i, .ios-icon-circle i {
                 font-size: 50px;
             }
         }
@@ -632,9 +632,9 @@
     <div class="container" id="mainContainer">
         <div class="guide-card" id="weixinContainer">
             <div class="card-content">
-                <!-- iOS专属Logo -->
+                <!-- iOS专属圆形Logo -->
                 <div class="ios-icon-container">
-                    <div class="ios-icon">
+                    <div class="ios-icon-circle">
                         <i class="fab fa-apple"></i>
                     </div>
                 </div>
