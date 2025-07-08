@@ -1482,23 +1482,17 @@
                 const buttons = document.querySelectorAll('.copy-btn, .info-btn, .access-btn, .retry-btn, .close-tip, .close-modal');
                 buttons.forEach(button => {
                     addRippleEffect(button);
+                    
+                    // 阻止按钮点击事件冒泡到卡片
+                    button.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
                 });
                 
                 // 为步骤卡片添加点击效果
                 const steps = document.querySelectorAll('.step');
                 steps.forEach(step => {
                     step.addEventListener('click', function() {
-                        this.style.transform = 'scale(0.98)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 150);
-                    });
-                });
-                
-                // 为整个卡片添加点击效果
-                const cards = document.querySelectorAll('.guide-card');
-                cards.forEach(card => {
-                    card.addEventListener('click', function() {
                         this.style.transform = 'scale(0.98)';
                         setTimeout(() => {
                             this.style.transform = '';
