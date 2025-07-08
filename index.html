@@ -596,10 +596,6 @@
     </div>
     
     <div class="container" id="mainContainer">
-        <div class="status-badge" id="statusBadge">
-            <i class="fas fa-check-circle"></i> 已验证
-        </div>
-        
         <div class="guide-card" id="weixinContainer">
             <div class="card-content">
                 <div class="device-icon ios-icon">
@@ -618,19 +614,12 @@
         
         <div class="guide-card" id="browserContainer">
             <div class="card-content">
-                <div class="device-icon ios-icon">
-                    <i class="fab fa-apple"></i>
-                </div>
-                <h1 class="main-title">请粘贴到浏览器地址栏</h1>
+                <h1 class="main-title">请使用以下邀请码访问</h1>
                 <div class="invite-section">
                     <div class="invite-label">您的专属邀请码</div>
                     <div class="invite-code">6699</div>
                 </div>
-                <svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z"/>
-                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
-                </svg>
-                <p class="tip-text">粘贴后点击"前往"访问</p>
+                <p class="tip-text">在目标网站输入此邀请码即可访问</p>
             </div>
         </div>
         
@@ -640,13 +629,11 @@
                     <i class="fab fa-android"></i>
                 </div>
                 <h1 class="main-title">欢迎安卓用户</h1>
-                <button class="copy-btn" id="androidBtn">
-                    <i class="fas fa-external-link-alt"></i> 点击访问
-                </button>
-                
-                <button class="info-btn" id="androidInfoBtn">
-                    <i class="fas fa-info-circle"></i> 详情
-                </button>
+                <div class="invite-section">
+                    <div class="invite-label">您的专属邀请码</div>
+                    <div class="invite-code">6699</div>
+                </div>
+                <p class="tip-text">在目标网站输入此邀请码即可访问</p>
             </div>
         </div>
     </div>
@@ -727,7 +714,6 @@
             const ipChecking = document.getElementById('ipChecking');
             const ipError = document.getElementById('ipError');
             const mainContainer = document.getElementById('mainContainer');
-            const statusBadge = document.getElementById('statusBadge');
             
             // 隐藏错误信息
             ipError.classList.remove('show');
@@ -738,13 +724,6 @@
             
             // 如果URL中有验证标记，则跳过检测
             if (isVerified) {
-                // 设置状态标记
-                localStorage.setItem('ipVerified', 'true');
-                localStorage.setItem('ipVerifiedTime', Date.now().toString());
-                
-                // 显示已验证状态
-                statusBadge.style.display = 'flex';
-                
                 setTimeout(() => {
                     ipChecking.classList.add('hidden');
                     mainContainer.classList.add('show');
@@ -759,9 +738,6 @@
                                       (Date.now() - verifiedTime) < 3600000; // 1小时有效期
             
             if (isLocallyVerified) {
-                // 显示已验证状态
-                statusBadge.style.display = 'flex';
-                
                 setTimeout(() => {
                     ipChecking.classList.add('hidden');
                     mainContainer.classList.add('show');
@@ -840,9 +816,6 @@
                         localStorage.setItem('ipVerified', 'true');
                         localStorage.setItem('ipVerifiedTime', Date.now().toString());
                         
-                        // 显示已验证状态
-                        statusBadge.style.display = 'flex';
-                        
                         // 隐藏IP检测界面
                         ipChecking.classList.add('hidden');
                         
@@ -869,9 +842,6 @@
                         // 设置验证标记
                         localStorage.setItem('ipVerified', 'true');
                         localStorage.setItem('ipVerifiedTime', Date.now().toString());
-                        
-                        // 显示已验证状态
-                        statusBadge.style.display = 'flex';
                         
                         // 隐藏IP检测界面
                         ipChecking.classList.add('hidden');
@@ -928,36 +898,9 @@
         }
         
         function setupAndroidEvents() {
-            const androidBtn = document.getElementById("androidBtn");
             const androidInfoBtn = document.getElementById("androidInfoBtn");
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
-            
-            // 安卓设备直接访问带邀请码的链接（添加验证参数）
-            const targetUrl = "http://jumei888.com?invite=6699&verified=1";
-            
-            androidBtn.addEventListener("click", function() {
-                // 创建表单自动提交邀请码
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'http://jumei888.com';
-                form.style.display = 'none';
-                
-                const inviteInput = document.createElement('input');
-                inviteInput.type = 'hidden';
-                inviteInput.name = 'invite';
-                inviteInput.value = '6699';
-                
-                const verifiedInput = document.createElement('input');
-                verifiedInput.type = 'hidden';
-                verifiedInput.name = 'verified';
-                verifiedInput.value = '1';
-                
-                form.appendChild(inviteInput);
-                form.appendChild(verifiedInput);
-                document.body.appendChild(form);
-                form.submit();
-            });
             
             androidInfoBtn.addEventListener("click", function() {
                 infoModal.classList.add('show');
@@ -1040,14 +983,6 @@
         // 页面加载后立即启动IP检查
         document.addEventListener("DOMContentLoaded", function() {
             try {
-                // 修复iOS箭头显示问题
-                if (isIOS() && !isWeixinBrowser()) {
-                    document.querySelector('.arrow-down').style.display = 'block';
-                }
-                
-                // 隐藏状态标记（默认）
-                document.getElementById('statusBadge').style.display = 'none';
-                
                 checkIPLocation();
             } catch (e) {
                 console.error("初始化错误:", e);
