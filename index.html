@@ -377,6 +377,50 @@
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(60, 179, 113, 0.4); }
         }
         
+        .windows-icon-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .windows-icon-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0078d7, #005a9e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 120, 215, 0.3);
+            position: relative;
+            overflow: hidden;
+            animation: pulseWindows 2s infinite alternate;
+        }
+        
+        .windows-icon-circle::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+            transform: rotate(45deg);
+        }
+        
+        .windows-icon-circle i {
+            font-size: 60px;
+            color: white;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes pulseWindows {
+            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(0, 120, 215, 0.3); }
+            100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0, 120, 215, 0.4); }
+        }
+        
         .ios-icon-container {
             display: flex;
             justify-content: center;
@@ -733,12 +777,12 @@
                 height: 50px;
             }
             
-            .android-icon-circle, .ios-icon-circle {
+            .android-icon-circle, .ios-icon-circle, .windows-icon-circle {
                 width: 100px;
                 height: 100px;
             }
             
-            .android-icon-circle i, .ios-icon-circle i {
+            .android-icon-circle i, .ios-icon-circle i, .windows-icon-circle i {
                 font-size: 50px;
             }
             
@@ -911,6 +955,30 @@
                 </button>
             </div>
         </div>
+        
+        <div class="guide-card" id="windowsContainer">
+            <div class="verified-tag">
+                <i class="fas fa-check"></i>
+                <span>已验证</span>
+            </div>
+            
+            <div class="card-content">
+                <div class="windows-icon-container">
+                    <div class="windows-icon-circle">
+                        <i class="fab fa-windows"></i>
+                    </div>
+                </div>
+                
+                <h1 class="main-title">欢迎Windows用户</h1>
+                <button class="copy-btn" id="windowsBtn">
+                    <i class="fas fa-external-link-alt"></i> 点击访问
+                </button>
+                
+                <button class="info-btn" id="windowsInfoBtn">
+                    <i class="fas fa-info-circle"></i> 详情
+                </button>
+            </div>
+        </div>
     </div>
     
     <div class="weixin-tip" id="weixinTip">
@@ -1072,37 +1140,6 @@
         const MAX_RETRIES = 2;
         const TIMEOUT_DURATION = 2000;
         
-        // 检测浏览器环境
-        function isWeixinBrowser() {
-            return /MicroMessenger/i.test(navigator.userAgent);
-        }
-        
-        function isIOS() {
-            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-        
-        function isAndroid() {
-            return /Android/i.test(navigator.userAgent);
-        }
-        
-        // 核心优化：判断是否需要IP检测
-        function shouldSkipIPCheck() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const verifiedParam = urlParams.get('verified');
-            
-            // 如果URL中带有verified=true参数，则跳过检测
-            if (verifiedParam === 'true') {
-                return true;
-            }
-            
-            // iOS外置浏览器直接跳过检测
-            if (isIOS() && !isWeixinBrowser()) {
-                return true;
-            }
-            
-            return false;
-        }
-        
         function checkIPLocation() {
             const ipChecking = document.getElementById('ipChecking');
             const ipError = document.getElementById('ipError');
@@ -1110,11 +1147,13 @@
             
             ipError.classList.remove('show');
             
-            // 判断是否需要跳过IP检测
-            if (shouldSkipIPCheck()) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const verifiedParam = urlParams.get('verified');
+            
+            if (verifiedParam === 'true') {
                 ipChecking.classList.add('hidden');
                 mainContainer.classList.add('show');
-                initPage();
+                showBrowserGuide();
                 return;
             }
             
@@ -1199,21 +1238,47 @@
             checkIPLocation();
         });
         
+        function isWeixinBrowser() {
+            return /MicroMessenger/i.test(navigator.userAgent);
+        }
+        
+        function isIOS() {
+            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+        
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+        
+        function isWindows() {
+            return /Windows|Win32|Win64|WinNT|WinCE|Windows NT|WinHttp|WinINet|WindowsPhone/i.test(navigator.userAgent);
+        }
+        
         function initPage() {
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             const androidContainer = document.getElementById("androidContainer");
+            const windowsContainer = document.getElementById("windowsContainer");
             
             if (isAndroid()) {
                 weixinContainer.style.display = "none";
                 browserContainer.style.display = "none";
+                windowsContainer.style.display = "none";
                 androidContainer.style.display = "block";
                 setupAndroidEvents();
             } 
+            else if (isWindows()) {
+                weixinContainer.style.display = "none";
+                browserContainer.style.display = "none";
+                androidContainer.style.display = "none";
+                windowsContainer.style.display = "block";
+                setupWindowsEvents();
+            }
             else if (isWeixinBrowser() && isIOS()) {
                 browserContainer.style.display = "none";
                 weixinContainer.style.display = "block";
                 androidContainer.style.display = "none";
+                windowsContainer.style.display = "none";
                 setupWeixinEvents();
             } 
             else {
@@ -1225,10 +1290,12 @@
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             const androidContainer = document.getElementById("androidContainer");
+            const windowsContainer = document.getElementById("windowsContainer");
             
             weixinContainer.style.display = "none";
             browserContainer.style.display = "block";
             androidContainer.style.display = "none";
+            windowsContainer.style.display = "none";
         }
         
         function setupAndroidEvents() {
@@ -1252,6 +1319,27 @@
             });
         }
         
+        function setupWindowsEvents() {
+            const windowsBtn = document.getElementById("windowsBtn");
+            const windowsInfoBtn = document.getElementById("windowsInfoBtn");
+            const infoModal = document.getElementById("infoModal");
+            const closeModal = document.getElementById("closeModal");
+            
+            const targetUrl = "http://jumei888.com";
+            
+            windowsBtn.addEventListener("click", function() {
+                window.location.href = targetUrl;
+            });
+            
+            windowsInfoBtn.addEventListener("click", function() {
+                infoModal.classList.add('show');
+            });
+            
+            closeModal.addEventListener("click", () => {
+                infoModal.classList.remove('show');
+            });
+        }
+        
         function setupWeixinEvents() {
             const copyBtn = document.getElementById("copyBtn");
             const infoBtn = document.getElementById("infoBtn");
@@ -1260,7 +1348,6 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
-            // 添加verified=true参数，用于外置浏览器跳过检测
             const baseUrl = "http://jumei888.com";
             const targetUrl = baseUrl + "?verified=true";
             
