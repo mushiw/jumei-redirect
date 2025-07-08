@@ -430,6 +430,41 @@
             color: rgba(255, 255, 255, 0.85);
         }
         
+        .ip-error {
+            display: none;
+            background: rgba(231, 76, 60, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            max-width: 300px;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+        
+        .ip-error.show {
+            display: block;
+            animation: fadeIn 0.4s forwards;
+        }
+        
+        .retry-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .retry-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .retry-btn:active {
+            transform: scale(0.98);
+        }
+        
         @media (max-width: 480px) {
             .guide-card {
                 padding: 20px 15px;
@@ -491,6 +526,14 @@
         
         <div class="ip-text">安全验证中</div>
         <div class="ip-subtext">正在为您准备最佳访问体验</div>
+        
+        <div class="ip-error" id="ipError">
+            <i class="fas fa-exclamation-triangle"></i> 
+            <p>IP检测失败，请重试或检查网络</p>
+            <button class="retry-btn" id="retryBtn">
+                <i class="fas fa-redo"></i> 重新检测
+            </button>
+        </div>
     </div>
     
     <div class="container" id="mainContainer">
@@ -595,47 +638,97 @@
     </div>
 
     <div class="footer">
-        <p>安全访问 &copy; 2023 | 用心守护您的每一次访问</p>
+        <p>安全访问 &copy; 2023 | 穆师为您保驾护航</p>
     </div>
 
     <script>
-        // 定义省份白名单
-        const allowedProvinces = ["浙江", "Zhejiang"];
+        // 定义省份白名单 - 增强匹配逻辑
+        const allowedProvinces = [
+            "浙江", "Zhejiang", "浙江省", "浙江", "ZJ", 
+            "ZheJiang", "浙", "zhejiang", "zhe jiang"
+        ];
         
         // 存储IP检测状态
         let ipChecked = false;
+        let retryCount = 0;
+        const MAX_RETRIES = 2;
         
-        // 快速IP检查
+        // 快速IP检查 - 增强版本
         function checkIPLocation() {
+            const ipChecking = document.getElementById('ipChecking');
+            const ipError = document.getElementById('ipError');
+            const mainContainer = document.getElementById('mainContainer');
+            
+            // 隐藏错误信息
+            ipError.classList.remove('show');
+            
             // 如果已经检测过IP，则跳过
             if (sessionStorage.getItem('ipChecked') === 'true') {
-                document.getElementById('ipChecking').classList.add('hidden');
-                document.getElementById('mainContainer').classList.add('show');
+                ipChecking.classList.add('hidden');
+                mainContainer.classList.add('show');
                 initPage();
                 return;
             }
             
-            const ipChecking = document.getElementById('ipChecking');
-            const mainContainer = document.getElementById('mainContainer');
-            
-            // 使用快速IP定位API
+            // 使用快速IP定位API - 添加更多备用API
             const apis = [
                 'https://ipapi.co/json/',
-                'https://ipinfo.io/json'
+                'https://ipinfo.io/json',
+                'https://ip.nf/me.json',
+                'https://api.ip.sb/geoip'
             ];
             
-            // 尝试多个API提高速度
-            Promise.any(apis.map(api => 
-                fetch(api).then(res => {
+            // 尝试多个API提高速度和准确性
+            const apiPromises = apis.map(api => 
+                fetch(api, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(res => {
                     if (!res.ok) throw new Error('API error');
                     return res.json();
                 })
-            ))
+                .catch(e => {
+                    console.warn(`API ${api} failed:`, e.message);
+                    return null;
+                })
+            );
+            
+            // 使用Promise.race和Promise.all组合策略
+            const timeoutPromise = new Promise((_, reject) => 
+                setTimeout(() => reject(new Error('IP定位超时')), 2500)
+            );
+            
+            Promise.race([
+                Promise.any(apiPromises),
+                timeoutPromise
+            ])
             .then(data => {
-                const province = data.region || data.regionName;
+                if (!data) throw new Error('所有API请求失败');
                 
-                // 检查是否在允许的省份
-                if (!allowedProvinces.includes(province)) {
+                console.log('IP定位数据:', data);
+                
+                // 尝试获取省份信息 - 多种可能的字段
+                const province = data.region || 
+                                data.regionName || 
+                                data.province || 
+                                data.state || 
+                                (data.address && data.address.state) || 
+                                (data.location && data.location.region) || 
+                                '';
+                
+                // 标准化省份字符串
+                const normalizedProvince = province.toString().trim().toLowerCase();
+                
+                // 检查是否在允许的省份 - 使用部分匹配
+                const isAllowed = allowedProvinces.some(allowed => 
+                    normalizedProvince.includes(allowed.toLowerCase())
+                );
+                
+                if (!isAllowed) {
                     // 非浙江IP - 直接跳转
                     setTimeout(() => {
                         window.location.href = 'https://www.ccser.com';
@@ -659,22 +752,36 @@
             })
             .catch(error => {
                 console.error('IP定位失败:', error);
-                // API失败时允许访问
-                setTimeout(() => {
-                    // 标记IP已检测
-                    sessionStorage.setItem('ipChecked', 'true');
-                    
-                    // 隐藏IP检测界面
-                    ipChecking.classList.add('hidden');
-                    
-                    // 显示主容器
-                    mainContainer.classList.add('show');
-                    
-                    // 初始化页面
-                    initPage();
-                }, 800);
+                
+                // 显示错误信息
+                ipError.classList.add('show');
+                
+                // 增加重试次数
+                retryCount++;
+                
+                // 如果超过最大重试次数，则允许访问
+                if (retryCount >= MAX_RETRIES) {
+                    setTimeout(() => {
+                        // 标记IP已检测
+                        sessionStorage.setItem('ipChecked', 'true');
+                        
+                        // 隐藏IP检测界面
+                        ipChecking.classList.add('hidden');
+                        
+                        // 显示主容器
+                        mainContainer.classList.add('show');
+                        
+                        // 初始化页面
+                        initPage();
+                    }, 800);
+                }
             });
         }
+        
+        // 重试按钮功能
+        document.getElementById('retryBtn').addEventListener('click', function() {
+            checkIPLocation();
+        });
         
         function isWeixinBrowser() {
             return /MicroMessenger/i.test(navigator.userAgent);
