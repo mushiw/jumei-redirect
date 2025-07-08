@@ -54,13 +54,13 @@
         .guide-card {
             background: var(--card-bg);
             border-radius: 24px;
-            padding: 30px 25px; /* 整体减少内边距 */
+            padding: 30px 25px;
             box-shadow: var(--shadow);
             text-align: center;
             position: relative;
             overflow: hidden;
             transition: var(--transition);
-            display: none; /* 默认隐藏，由JS控制显示 */
+            display: none;
         }
         
         .card-content {
@@ -93,7 +93,6 @@
             font-weight: 600;
             box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
             transition: var(--transition);
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -190,7 +189,6 @@
             padding: 0 15px;
         }
         
-        /* 微信操作提示 */
         .weixin-tip {
             display: none;
             position: fixed;
@@ -287,7 +285,6 @@
             line-height: 1.5;
         }
         
-        /* 信息弹窗 */
         .info-modal {
             display: none;
             position: fixed;
@@ -409,7 +406,6 @@
             z-index: 10;
         }
         
-        /* 新增正能量元素 */
         .positive-energy {
             background: var(--positive-gradient);
             color: white;
@@ -446,7 +442,6 @@
             font-size: 14px;
         }
         
-        /* 爱心动画 */
         .heart {
             position: absolute;
             font-size: 20px;
@@ -473,15 +468,14 @@
             }
         }
         
-        /* 安卓设备专属样式 */
         .android-device {
             text-align: center;
         }
         
         .android-icon {
-            font-size: 70px; /* 减小图标大小 */
+            font-size: 70px;
             color: #3cb371;
-            margin: 10px 0; /* 减小上下边距 */
+            margin: 10px 0;
             animation: pulseIcon 2s infinite;
         }
         
@@ -542,18 +536,16 @@
             }
             
             .android-icon {
-                font-size: 55px; /* 移动端更小 */
-                margin: 8px 0; /* 移动端更小间距 */
+                font-size: 55px;
+                margin: 8px 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 爱心容器 -->
     <div id="heartsContainer"></div>
     
     <div class="container">
-        <!-- 微信内界面 -->
         <div class="guide-card" id="weixinContainer">
             <div class="card-content">
                 <h1 class="main-title">请复制链接后在浏览器打开</h1>
@@ -561,7 +553,6 @@
                     <i class="fas fa-copy"></i> 复制链接
                 </button>
                 
-                <!-- 正能量元素 -->
                 <div class="positive-energy">
                     <span class="energy-icon"><i class="fas fa-shield-alt"></i></span>
                     <div class="energy-text">安全访问，快乐分享</div>
@@ -574,7 +565,6 @@
             </div>
         </div>
         
-        <!-- 外置浏览器界面 -->
         <div class="guide-card" id="browserContainer">
             <div class="card-content">
                 <h1 class="main-title">请粘贴到浏览器地址栏</h1>
@@ -590,14 +580,13 @@
             </div>
         </div>
         
-        <!-- 安卓设备界面 -->
         <div class="guide-card android-device" id="androidContainer">
             <div class="card-content">
                 <div class="android-icon">
                     <i class="fab fa-android"></i>
                 </div>
                 <h1 class="main-title">欢迎安卓用户</h1>
-                <button class="copy-btn" id="androidBtn"> <!-- 使用相同样式 -->
+                <button class="copy-btn" id="androidBtn">
                     <i class="fas fa-external-link-alt"></i> 点击访问
                 </button>
                 
@@ -614,7 +603,6 @@
         </div>
     </div>
     
-    <!-- 微信操作提示 -->
     <div class="weixin-tip" id="weixinTip">
         <span class="close-tip" id="closeTip">×</span>
         <div class="tip-content">
@@ -634,7 +622,6 @@
         </div>
     </div>
     
-    <!-- 微信限制说明弹窗 -->
     <div class="info-modal" id="infoModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">×</span>
@@ -692,7 +679,6 @@
     </div>
 
     <script>
-        // 环境检测
         function isWeixinBrowser() {
             return /MicroMessenger/i.test(navigator.userAgent);
         }
@@ -705,7 +691,6 @@
             return /Android/i.test(navigator.userAgent);
         }
         
-        // 创建爱心动画
         function createHearts() {
             const container = document.getElementById('heartsContainer');
             const heartCount = 20;
@@ -720,65 +705,56 @@
             }
         }
         
-        // 主初始化函数
         function initPage() {
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             const androidContainer = document.getElementById("androidContainer");
             
-            // 创建爱心动画
             createHearts();
             
-            // 安卓设备处理
             if (isAndroid()) {
                 weixinContainer.style.display = "none";
                 browserContainer.style.display = "none";
                 androidContainer.style.display = "block";
                 setupAndroidEvents();
             } 
-            // iOS设备处理
             else if (isWeixinBrowser() && isIOS()) {
                 browserContainer.style.display = "none";
                 weixinContainer.style.display = "block";
                 androidContainer.style.display = "none";
                 setupWeixinEvents();
             } 
-            // 其他环境（iOS非微信浏览器）
             else {
                 weixinContainer.style.display = "none";
                 browserContainer.style.display = "block";
                 androidContainer.style.display = "none";
             }
             
-            // 防止微信修改URL
             lockHistoryState();
         }
         
-        // 设置安卓事件
         function setupAndroidEvents() {
             const androidBtn = document.getElementById("androidBtn");
             const androidInfoBtn = document.getElementById("androidInfoBtn");
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
-            const targetUrl = "http://jumei888.com";
+            
+            // 安卓设备直接访问带邀请码的链接
+            const targetUrl = "http://jumei888.com?invite=6699";
             
             androidBtn.addEventListener("click", function() {
-                // 直接跳转到目标URL
                 window.location.href = targetUrl;
             });
             
-            // 详情按钮事件
             androidInfoBtn.addEventListener("click", function() {
                 infoModal.classList.add('show');
             });
             
-            // 关闭信息弹窗
             closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
         }
         
-        // 设置微信事件
         function setupWeixinEvents() {
             const copyBtn = document.getElementById("copyBtn");
             const infoBtn = document.getElementById("infoBtn");
@@ -786,16 +762,15 @@
             const infoModal = document.getElementById("infoModal");
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
+            
+            // iOS微信环境复制的链接
             const targetUrl = "http://jumei888.com?invite=6699";
             
-            // 复制按钮事件
             copyBtn.addEventListener("click", function() {
                 copyToClipboard(targetUrl).then(() => {
-                    // 复制成功
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
                     copyBtn.style.background = 'var(--success-gradient)';
                     
-                    // 显示操作提示
                     weixinTip.classList.add('show');
                     
                     setTimeout(() => {
@@ -803,7 +778,6 @@
                         copyBtn.style.background = 'var(--primary-gradient)';
                     }, 2000);
                 }).catch(() => {
-                    // 复制失败
                     copyBtn.innerHTML = '<i class="fas fa-times"></i> 复制失败';
                     copyBtn.style.background = 'var(--error-gradient)';
                     
@@ -814,29 +788,24 @@
                 });
             });
             
-            // 信息按钮事件
             infoBtn.addEventListener("click", function() {
                 infoModal.classList.add('show');
             });
             
-            // 关闭操作提示
             closeTip.addEventListener("click", () => {
                 weixinTip.classList.remove('show');
             });
             
-            // 关闭信息弹窗
             closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
         }
         
-        // 复制到剪贴板
         function copyToClipboard(text) {
             return new Promise((resolve, reject) => {
                 if (navigator.clipboard) {
                     navigator.clipboard.writeText(text).then(resolve).catch(reject);
                 } else {
-                    // 兼容旧版浏览器
                     const textarea = document.createElement("textarea");
                     textarea.value = text;
                     textarea.style.position = "fixed";
@@ -855,7 +824,6 @@
             });
         }
         
-        // 锁定历史状态防止微信修改
         function lockHistoryState() {
             history.pushState(null, null, window.location.pathname);
             window.addEventListener("popstate", () => {
@@ -863,7 +831,6 @@
             });
         }
         
-        // 安全初始化
         document.addEventListener("DOMContentLoaded", function() {
             try {
                 initPage();
