@@ -11,7 +11,6 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -26,7 +25,6 @@
             line-height: 1.6;
             position: relative;
             overflow: hidden;
-            touch-action: manipulation;
         }
         
         .container {
@@ -54,11 +52,6 @@
             position: relative;
             overflow: hidden;
             display: none;
-            transition: transform 0.3s ease;
-        }
-        
-        .guide-card:active {
-            transform: scale(0.98);
         }
         
         .main-title {
@@ -72,9 +65,9 @@
             color: transparent;
         }
         
-        .copy-btn, .info-btn, .access-btn {
-            position: relative;
-            overflow: hidden;
+        .copy-btn {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
             border: none;
             border-radius: 50px;
             padding: 16px;
@@ -83,52 +76,38 @@
             margin: 20px 0 10px;
             width: 100%;
             font-weight: 600;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
-            transform: translateZ(0);
         }
         
-        .copy-btn {
-            background: linear-gradient(135deg, #3498db, #8e44ad);
-            color: white;
-        }
-        
-        .access-btn {
-            background: linear-gradient(135deg, #3cb371, #2e8b57);
-            color: white;
+        .copy-btn:active {
+            transform: scale(0.98);
         }
         
         .info-btn {
             background: linear-gradient(135deg, #f39c12, #d35400);
             color: white;
+            border: none;
+            border-radius: 50px;
             padding: 14px;
             font-size: 15px;
+            cursor: pointer;
+            margin: 10px 0 15px;
+            width: 100%;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
         }
         
-        .copy-btn:active, .info-btn:active, .access-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.15);
-        }
-        
-        /* 按钮点击波纹效果 */
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-        }
-        
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+        .info-btn:active {
+            transform: scale(0.98);
         }
         
         .invite-section {
@@ -211,7 +190,6 @@
         
         .close-tip:active {
             background: rgba(255, 255, 255, 0.1);
-            transform: scale(0.9);
         }
         
         .tip-content h2 {
@@ -229,11 +207,6 @@
             border-radius: 12px;
             text-align: left;
             max-width: 350px;
-            transition: transform 0.3s ease;
-        }
-        
-        .step:active {
-            transform: scale(0.98);
         }
         
         .step-number {
@@ -311,7 +284,7 @@
         }
         
         .close-modal:active {
-            transform: scale(0.9);
+            transform: scale(1.1);
         }
         
         .modal-header {
@@ -402,50 +375,6 @@
         @keyframes pulseAndroid {
             0% { transform: scale(1); box-shadow: 0 8px 25px rgba(60, 179, 113, 0.3); }
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(60, 179, 113, 0.4); }
-        }
-        
-        .windows-icon-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .windows-icon-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0078d7, #005a9e);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(0, 120, 215, 0.3);
-            position: relative;
-            overflow: hidden;
-            animation: pulseWindows 2s infinite alternate;
-        }
-        
-        .windows-icon-circle::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-            transform: rotate(45deg);
-        }
-        
-        .windows-icon-circle i {
-            font-size: 60px;
-            color: white;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        @keyframes pulseWindows {
-            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(0, 120, 215, 0.3); }
-            100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0, 120, 215, 0.4); }
         }
         
         .ios-icon-container {
@@ -650,8 +579,6 @@
             cursor: pointer;
             margin-top: 15px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
         
         .retry-btn:hover {
@@ -659,7 +586,7 @@
         }
         
         .retry-btn:active {
-            transform: scale(0.96);
+            transform: scale(0.98);
         }
         
         .package-list {
@@ -770,7 +697,7 @@
                 font-size: 22px;
             }
             
-            .copy-btn, .info-btn, .access-btn {
+            .copy-btn, .info-btn {
                 padding: 14px;
                 font-size: 15px;
             }
@@ -806,12 +733,12 @@
                 height: 50px;
             }
             
-            .android-icon-circle, .ios-icon-circle, .windows-icon-circle {
+            .android-icon-circle, .ios-icon-circle {
                 width: 100px;
                 height: 100px;
             }
             
-            .android-icon-circle i, .ios-icon-circle i, .windows-icon-circle i {
+            .android-icon-circle i, .ios-icon-circle i {
                 font-size: 50px;
             }
             
@@ -975,35 +902,11 @@
                 </div>
                 
                 <h1 class="main-title">欢迎安卓用户</h1>
-                <button class="access-btn" id="androidBtn">
+                <button class="copy-btn" id="androidBtn">
                     <i class="fas fa-external-link-alt"></i> 点击访问
                 </button>
                 
                 <button class="info-btn" id="androidInfoBtn">
-                    <i class="fas fa-info-circle"></i> 详情
-                </button>
-            </div>
-        </div>
-        
-        <div class="guide-card" id="windowsContainer">
-            <div class="verified-tag">
-                <i class="fas fa-check"></i>
-                <span>已验证</span>
-            </div>
-            
-            <div class="card-content">
-                <div class="windows-icon-container">
-                    <div class="windows-icon-circle">
-                        <i class="fab fa-windows"></i>
-                    </div>
-                </div>
-                
-                <h1 class="main-title">欢迎Windows用户</h1>
-                <button class="access-btn" id="windowsBtn">
-                    <i class="fas fa-external-link-alt"></i> 点击访问
-                </button>
-                
-                <button class="info-btn" id="windowsInfoBtn">
                     <i class="fas fa-info-circle"></i> 详情
                 </button>
             </div>
@@ -1279,35 +1182,21 @@
             return /Android/i.test(navigator.userAgent);
         }
         
-        function isWindows() {
-            return /Windows|Win32|Win64|WinNT|WinCE|Windows NT|WinHttp|WinINet|WindowsPhone/i.test(navigator.userAgent);
-        }
-        
         function initPage() {
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             const androidContainer = document.getElementById("androidContainer");
-            const windowsContainer = document.getElementById("windowsContainer");
             
             if (isAndroid()) {
                 weixinContainer.style.display = "none";
                 browserContainer.style.display = "none";
-                windowsContainer.style.display = "none";
                 androidContainer.style.display = "block";
                 setupAndroidEvents();
             } 
-            else if (isWindows()) {
-                weixinContainer.style.display = "none";
-                browserContainer.style.display = "none";
-                androidContainer.style.display = "none";
-                windowsContainer.style.display = "block";
-                setupWindowsEvents();
-            }
             else if (isWeixinBrowser() && isIOS()) {
                 browserContainer.style.display = "none";
                 weixinContainer.style.display = "block";
                 androidContainer.style.display = "none";
-                windowsContainer.style.display = "none";
                 setupWeixinEvents();
             } 
             else {
@@ -1319,12 +1208,10 @@
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             const androidContainer = document.getElementById("androidContainer");
-            const windowsContainer = document.getElementById("windowsContainer");
             
             weixinContainer.style.display = "none";
             browserContainer.style.display = "block";
             androidContainer.style.display = "none";
-            windowsContainer.style.display = "none";
         }
         
         function setupAndroidEvents() {
@@ -1346,35 +1233,6 @@
             closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
-            
-            // 添加按钮波纹效果
-            addRippleEffect(androidBtn);
-            addRippleEffect(androidInfoBtn);
-        }
-        
-        function setupWindowsEvents() {
-            const windowsBtn = document.getElementById("windowsBtn");
-            const windowsInfoBtn = document.getElementById("windowsInfoBtn");
-            const infoModal = document.getElementById("infoModal");
-            const closeModal = document.getElementById("closeModal");
-            
-            const targetUrl = "http://jumei888.com";
-            
-            windowsBtn.addEventListener("click", function() {
-                window.location.href = targetUrl;
-            });
-            
-            windowsInfoBtn.addEventListener("click", function() {
-                infoModal.classList.add('show');
-            });
-            
-            closeModal.addEventListener("click", () => {
-                infoModal.classList.remove('show');
-            });
-            
-            // 添加按钮波纹效果
-            addRippleEffect(windowsBtn);
-            addRippleEffect(windowsInfoBtn);
         }
         
         function setupWeixinEvents() {
@@ -1388,10 +1246,7 @@
             const baseUrl = "http://jumei888.com";
             const targetUrl = baseUrl + "?verified=true";
             
-            copyBtn.addEventListener("click", function(e) {
-                // 阻止事件冒泡到卡片
-                e.stopPropagation();
-                
+            copyBtn.addEventListener("click", function() {
                 copyToClipboard(targetUrl).then(() => {
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
                     copyBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
@@ -1413,29 +1268,17 @@
                 });
             });
             
-            infoBtn.addEventListener("click", function(e) {
-                // 阻止事件冒泡到卡片
-                e.stopPropagation();
+            infoBtn.addEventListener("click", function() {
                 infoModal.classList.add('show');
             });
             
-            closeTip.addEventListener("click", function(e) {
-                // 阻止事件冒泡到卡片
-                e.stopPropagation();
+            closeTip.addEventListener("click", () => {
                 weixinTip.classList.remove('show');
             });
             
-            closeModal.addEventListener("click", function(e) {
-                // 阻止事件冒泡到卡片
-                e.stopPropagation();
+            closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
-            
-            // 添加按钮波纹效果
-            addRippleEffect(copyBtn);
-            addRippleEffect(infoBtn);
-            addRippleEffect(closeTip);
-            addRippleEffect(closeModal);
         }
         
         function copyToClipboard(text) {
@@ -1461,58 +1304,10 @@
             });
         }
         
-        // 添加波纹效果函数
-        function addRippleEffect(button) {
-            button.addEventListener('click', function(e) {
-                // 阻止事件冒泡到卡片
-                e.stopPropagation();
-                
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const ripple = document.createElement('span');
-                ripple.classList.add('ripple');
-                ripple.style.left = `${x}px`;
-                ripple.style.top = `${y}px`;
-                
-                this.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            });
-        }
-        
         document.addEventListener("DOMContentLoaded", function() {
             try {
                 if (isIOS() && !isWeixinBrowser()) {
                     document.querySelector('.arrow-down').style.display = 'block';
-                }
-                
-                // 为所有按钮添加波纹效果和阻止冒泡
-                const buttons = document.querySelectorAll('.copy-btn, .info-btn, .access-btn, .retry-btn, .close-tip, .close-modal');
-                buttons.forEach(button => {
-                    addRippleEffect(button);
-                });
-                
-                // 为步骤卡片添加点击效果
-                const steps = document.querySelectorAll('.step');
-                steps.forEach(step => {
-                    step.addEventListener('click', function() {
-                        this.style.transform = 'scale(0.98)';
-                        setTimeout(() => {
-                            this.style.transform = '';
-                        }, 150);
-                    });
-                });
-                
-                // 确保iOS设备按钮点击效果
-                if (isIOS()) {
-                    document.body.style.cursor = 'pointer';
-                    document.querySelectorAll('button').forEach(btn => {
-                        btn.style.cursor = 'pointer';
-                    });
                 }
                 
                 checkIPLocation();
