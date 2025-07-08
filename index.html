@@ -413,8 +413,8 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            width: 65px;
-            height: 65px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: linear-gradient(135deg, #27ae60, #2ecc71);
             display: flex;
@@ -423,21 +423,21 @@
             justify-content: center;
             color: white;
             font-size: 12px;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.3);
             animation: badgePulse 3s infinite;
             z-index: 20;
-            padding: 5px;
+            padding: 4px;
             text-align: center;
             line-height: 1.2;
         }
         
         .verified-badge i {
-            font-size: 22px;
-            margin-bottom: 3px;
+            font-size: 18px;
+            margin-bottom: 2px;
         }
         
         .verified-text {
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 500;
         }
         
@@ -644,17 +644,16 @@
             }
             
             .verified-badge {
-                width: 55px;
-                height: 55px;
-                font-size: 10px;
+                width: 45px;
+                height: 45px;
             }
             
             .verified-badge i {
-                font-size: 18px;
+                font-size: 16px;
             }
             
             .verified-text {
-                font-size: 9px;
+                font-size: 8px;
             }
         }
     </style>
@@ -999,11 +998,11 @@
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
             
-            // 安卓设备直接访问基础URL（不再自动添加邀请码）
+            // 安卓设备直接访问基础URL
             const targetUrl = "http://jumei888.com";
             
             androidBtn.addEventListener("click", function() {
-                // 直接跳转，不再添加邀请码
+                // 直接跳转
                 window.location.href = targetUrl;
             });
             
@@ -1039,6 +1038,13 @@
                         copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
                         copyBtn.style.background = 'linear-gradient(135deg, #3498db, #8e44ad)';
                     }, 2000);
+                    
+                    // 尝试自动跳转到外置浏览器
+                    setTimeout(() => {
+                        // 在iOS微信中无法直接跳转，所以显示提示让用户手动操作
+                        // 这里我们保持显示提示信息
+                    }, 500);
+                    
                 }).catch(() => {
                     copyBtn.innerHTML = '<i class="fas fa-times"></i> 复制失败';
                     copyBtn.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
