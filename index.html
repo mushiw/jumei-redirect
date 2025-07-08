@@ -11,6 +11,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -25,6 +26,7 @@
             line-height: 1.6;
             position: relative;
             overflow: hidden;
+            touch-action: manipulation;
         }
         
         .container {
@@ -52,6 +54,11 @@
             position: relative;
             overflow: hidden;
             display: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .guide-card:active {
+            transform: scale(0.98);
         }
         
         .main-title {
@@ -65,9 +72,9 @@
             color: transparent;
         }
         
-        .copy-btn {
-            background: linear-gradient(135deg, #3498db, #8e44ad);
-            color: white;
+        .copy-btn, .info-btn, .access-btn {
+            position: relative;
+            overflow: hidden;
             border: none;
             border-radius: 50px;
             padding: 16px;
@@ -76,38 +83,52 @@
             margin: 20px 0 10px;
             width: 100%;
             font-weight: 600;
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
+            transform: translateZ(0);
         }
         
-        .copy-btn:active {
-            transform: scale(0.98);
+        .copy-btn {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: white;
+        }
+        
+        .access-btn {
+            background: linear-gradient(135deg, #3cb371, #2e8b57);
+            color: white;
         }
         
         .info-btn {
             background: linear-gradient(135deg, #f39c12, #d35400);
             color: white;
-            border: none;
-            border-radius: 50px;
             padding: 14px;
             font-size: 15px;
-            cursor: pointer;
-            margin: 10px 0 15px;
-            width: 100%;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
         }
         
-        .info-btn:active {
-            transform: scale(0.98);
+        .copy-btn:active, .info-btn:active, .access-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.15);
+        }
+        
+        /* 按钮点击波纹效果 */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+        }
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
         
         .invite-section {
@@ -190,6 +211,7 @@
         
         .close-tip:active {
             background: rgba(255, 255, 255, 0.1);
+            transform: scale(0.9);
         }
         
         .tip-content h2 {
@@ -207,6 +229,11 @@
             border-radius: 12px;
             text-align: left;
             max-width: 350px;
+            transition: transform 0.3s ease;
+        }
+        
+        .step:active {
+            transform: scale(0.98);
         }
         
         .step-number {
@@ -284,7 +311,7 @@
         }
         
         .close-modal:active {
-            transform: scale(1.1);
+            transform: scale(0.9);
         }
         
         .modal-header {
@@ -623,6 +650,8 @@
             cursor: pointer;
             margin-top: 15px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .retry-btn:hover {
@@ -630,7 +659,7 @@
         }
         
         .retry-btn:active {
-            transform: scale(0.98);
+            transform: scale(0.96);
         }
         
         .package-list {
@@ -741,7 +770,7 @@
                 font-size: 22px;
             }
             
-            .copy-btn, .info-btn {
+            .copy-btn, .info-btn, .access-btn {
                 padding: 14px;
                 font-size: 15px;
             }
@@ -946,7 +975,7 @@
                 </div>
                 
                 <h1 class="main-title">欢迎安卓用户</h1>
-                <button class="copy-btn" id="androidBtn">
+                <button class="access-btn" id="androidBtn">
                     <i class="fas fa-external-link-alt"></i> 点击访问
                 </button>
                 
@@ -970,7 +999,7 @@
                 </div>
                 
                 <h1 class="main-title">欢迎Windows用户</h1>
-                <button class="copy-btn" id="windowsBtn">
+                <button class="access-btn" id="windowsBtn">
                     <i class="fas fa-external-link-alt"></i> 点击访问
                 </button>
                 
@@ -1317,6 +1346,10 @@
             closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
+            
+            // 添加按钮波纹效果
+            addRippleEffect(androidBtn);
+            addRippleEffect(androidInfoBtn);
         }
         
         function setupWindowsEvents() {
@@ -1338,6 +1371,10 @@
             closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
+            
+            // 添加按钮波纹效果
+            addRippleEffect(windowsBtn);
+            addRippleEffect(windowsInfoBtn);
         }
         
         function setupWeixinEvents() {
@@ -1384,6 +1421,12 @@
             closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
+            
+            // 添加按钮波纹效果
+            addRippleEffect(copyBtn);
+            addRippleEffect(infoBtn);
+            addRippleEffect(closeTip);
+            addRippleEffect(closeModal);
         }
         
         function copyToClipboard(text) {
@@ -1409,11 +1452,59 @@
             });
         }
         
+        // 添加波纹效果函数
+        function addRippleEffect(button) {
+            button.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        }
+        
         document.addEventListener("DOMContentLoaded", function() {
             try {
                 if (isIOS() && !isWeixinBrowser()) {
                     document.querySelector('.arrow-down').style.display = 'block';
                 }
+                
+                // 为所有按钮添加波纹效果
+                const buttons = document.querySelectorAll('.copy-btn, .info-btn, .access-btn, .retry-btn, .close-tip, .close-modal');
+                buttons.forEach(button => {
+                    addRippleEffect(button);
+                });
+                
+                // 为步骤卡片添加点击效果
+                const steps = document.querySelectorAll('.step');
+                steps.forEach(step => {
+                    step.addEventListener('click', function() {
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    });
+                });
+                
+                // 为整个卡片添加点击效果
+                const cards = document.querySelectorAll('.guide-card');
+                cards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        this.style.transform = 'scale(0.98)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 150);
+                    });
+                });
                 
                 checkIPLocation();
             } catch (e) {
