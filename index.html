@@ -1388,7 +1388,10 @@
             const baseUrl = "http://jumei888.com";
             const targetUrl = baseUrl + "?verified=true";
             
-            copyBtn.addEventListener("click", function() {
+            copyBtn.addEventListener("click", function(e) {
+                // 阻止事件冒泡到卡片
+                e.stopPropagation();
+                
                 copyToClipboard(targetUrl).then(() => {
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
                     copyBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
@@ -1410,15 +1413,21 @@
                 });
             });
             
-            infoBtn.addEventListener("click", function() {
+            infoBtn.addEventListener("click", function(e) {
+                // 阻止事件冒泡到卡片
+                e.stopPropagation();
                 infoModal.classList.add('show');
             });
             
-            closeTip.addEventListener("click", () => {
+            closeTip.addEventListener("click", function(e) {
+                // 阻止事件冒泡到卡片
+                e.stopPropagation();
                 weixinTip.classList.remove('show');
             });
             
-            closeModal.addEventListener("click", () => {
+            closeModal.addEventListener("click", function(e) {
+                // 阻止事件冒泡到卡片
+                e.stopPropagation();
                 infoModal.classList.remove('show');
             });
             
@@ -1455,6 +1464,9 @@
         // 添加波纹效果函数
         function addRippleEffect(button) {
             button.addEventListener('click', function(e) {
+                // 阻止事件冒泡到卡片
+                e.stopPropagation();
+                
                 const rect = this.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -1478,15 +1490,10 @@
                     document.querySelector('.arrow-down').style.display = 'block';
                 }
                 
-                // 为所有按钮添加波纹效果
+                // 为所有按钮添加波纹效果和阻止冒泡
                 const buttons = document.querySelectorAll('.copy-btn, .info-btn, .access-btn, .retry-btn, .close-tip, .close-modal');
                 buttons.forEach(button => {
                     addRippleEffect(button);
-                    
-                    // 阻止按钮点击事件冒泡到卡片
-                    button.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                    });
                 });
                 
                 // 为步骤卡片添加点击效果
@@ -1499,6 +1506,14 @@
                         }, 150);
                     });
                 });
+                
+                // 确保iOS设备按钮点击效果
+                if (isIOS()) {
+                    document.body.style.cursor = 'pointer';
+                    document.querySelectorAll('button').forEach(btn => {
+                        btn.style.cursor = 'pointer';
+                    });
+                }
                 
                 checkIPLocation();
             } catch (e) {
