@@ -408,27 +408,37 @@
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
         }
         
-        /* 全新的已验证标签样式 */
+        /* 全新的已验证标签样式 - iOS优化版 */
         .verified-tag {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 5px;
+            right: 5px;
             display: flex;
             align-items: center;
             background: linear-gradient(135deg, #27ae60, #2ecc71);
             color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 13px;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 10px;
             font-weight: 500;
-            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.3);
+            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
             animation: badgePulse 3s infinite;
             z-index: 20;
         }
         
+        /* iOS专属的已验证标签样式 */
+        .ios-verified-tag {
+            background: linear-gradient(135deg, #a6a6a6, #808080);
+            top: 5px;
+            right: 5px;
+            padding: 3px 8px;
+            font-size: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
         .verified-tag i {
-            margin-right: 6px;
-            font-size: 14px;
+            margin-right: 4px;
+            font-size: 10px;
         }
         
         @keyframes badgePulse {
@@ -633,9 +643,9 @@
                 font-size: 50px;
             }
             
-            .verified-tag {
-                font-size: 12px;
-                padding: 5px 10px;
+            .verified-tag, .ios-verified-tag {
+                font-size: 9px;
+                padding: 2px 6px;
             }
         }
     </style>
@@ -665,8 +675,8 @@
     
     <div class="container" id="mainContainer">
         <div class="guide-card" id="weixinContainer">
-            <!-- iOS已验证标签 -->
-            <div class="verified-tag">
+            <!-- iOS已验证标签 - 使用优化后的样式 -->
+            <div class="verified-tag ios-verified-tag">
                 <i class="fas fa-check"></i>
                 <span>已验证</span>
             </div>
@@ -792,17 +802,7 @@
     </div>
 
     <script>
-        // 定义省份白名单
-        const allowedProvinces = [
-            "浙江", "Zhejiang", "浙江省", "浙江", "ZJ", 
-            "ZheJiang", "浙", "zhejiang", "zhe jiang"
-        ];
-        
-        // 存储IP检测状态
-        let retryCount = 0;
-        const MAX_RETRIES = 2;
-        
-        // 快速IP检查
+        // 快速IP检查 - 简化版
         function checkIPLocation() {
             const ipChecking = document.getElementById('ipChecking');
             const ipError = document.getElementById('ipError');
@@ -811,113 +811,33 @@
             // 隐藏错误信息
             ipError.classList.remove('show');
             
-            // 检查URL参数中是否有已验证标记
-            const urlParams = new URLSearchParams(window.location.search);
-            const verifiedParam = urlParams.get('verified');
-            
-            // 如果URL中带有已验证参数，则跳过IP检测
-            if (verifiedParam === 'true') {
-                // 直接跳转到外置浏览器引导页面
+            // 设置超时直接通过
+            const timeoutId = setTimeout(() => {
+                // 超时后直接显示主界面
                 ipChecking.classList.add('hidden');
                 mainContainer.classList.add('show');
-                showBrowserGuide();
-                return;
-            }
-            
-            // 使用快速IP定位API
-            const apis = [
-                'https://ipapi.co/json/',
-                'https://ipinfo.io/json'
-            ];
-            
-            // 尝试多个API提高速度和准确性
-            const apiPromises = apis.map(api => 
-                fetch(api, {
-                    method: 'GET',
-                    mode: 'cors',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(res => {
-                    if (!res.ok) throw new Error('API error');
-                    return res.json();
-                })
-                .catch(e => {
-                    console.warn(`API ${api} failed:`, e.message);
-                    return null;
-                })
-            );
-            
-            // 使用Promise.race和Promise.any组合策略
-            const timeoutPromise = new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('IP定位超时')), 2500)
-            );
-            
-            Promise.race([
-                Promise.any(apiPromises),
-                timeoutPromise
-            ])
+                initPage();
+            }, 1500); // 1.5秒超时
+
+            // 尝试获取IP信息（但不再进行严格检查）
+            fetch('https://ipinfo.io/json')
+            .then(res => {
+                if (!res.ok) throw new Error('API error');
+                return res.json();
+            })
             .then(data => {
-                if (!data) throw new Error('所有API请求失败');
-                
-                console.log('IP定位数据:', data);
-                
-                // 尝试获取省份信息
-                const province = data.region || 
-                                data.regionName || 
-                                data.province || 
-                                data.state || '';
-                
-                // 标准化省份字符串
-                const normalizedProvince = province.toString().trim().toLowerCase();
-                
-                // 检查是否在允许的省份
-                const isAllowed = allowedProvinces.some(allowed => 
-                    normalizedProvince.includes(allowed.toLowerCase())
-                );
-                
-                if (!isAllowed) {
-                    // 非浙江IP - 直接跳转
-                    setTimeout(() => {
-                        window.location.href = 'https://www.ccser.com';
-                    }, 800);
-                } else {
-                    // 浙江IP - 显示主界面
-                    setTimeout(() => {
-                        // 隐藏IP检测界面
-                        ipChecking.classList.add('hidden');
-                        
-                        // 显示主容器
-                        mainContainer.classList.add('show');
-                        
-                        // 初始化页面
-                        initPage();
-                    }, 800);
-                }
+                clearTimeout(timeoutId);
+                // 无论IP信息如何都允许访问
+                ipChecking.classList.add('hidden');
+                mainContainer.classList.add('show');
+                initPage();
             })
             .catch(error => {
-                console.error('IP定位失败:', error);
-                
-                // 显示错误信息
-                ipError.classList.add('show');
-                
-                // 增加重试次数
-                retryCount++;
-                
-                // 如果超过最大重试次数，则允许访问
-                if (retryCount >= MAX_RETRIES) {
-                    setTimeout(() => {
-                        // 隐藏IP检测界面
-                        ipChecking.classList.add('hidden');
-                        
-                        // 显示主容器
-                        mainContainer.classList.add('show');
-                        
-                        // 初始化页面
-                        initPage();
-                    }, 800);
-                }
+                clearTimeout(timeoutId);
+                // 出错时也允许访问
+                ipChecking.classList.add('hidden');
+                mainContainer.classList.add('show');
+                initPage();
             });
         }
         
