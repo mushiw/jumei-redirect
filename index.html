@@ -1072,6 +1072,37 @@
         const MAX_RETRIES = 2;
         const TIMEOUT_DURATION = 2000;
         
+        // 检测浏览器环境
+        function isWeixinBrowser() {
+            return /MicroMessenger/i.test(navigator.userAgent);
+        }
+        
+        function isIOS() {
+            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+        
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+        
+        // 核心优化：判断是否需要IP检测
+        function shouldSkipIPCheck() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const verifiedParam = urlParams.get('verified');
+            
+            // 如果URL中带有verified=true参数，则跳过检测
+            if (verifiedParam === 'true') {
+                return true;
+            }
+            
+            // iOS外置浏览器直接跳过检测
+            if (isIOS() && !isWeixinBrowser()) {
+                return true;
+            }
+            
+            return false;
+        }
+        
         function checkIPLocation() {
             const ipChecking = document.getElementById('ipChecking');
             const ipError = document.getElementById('ipError');
@@ -1079,13 +1110,11 @@
             
             ipError.classList.remove('show');
             
-            const urlParams = new URLSearchParams(window.location.search);
-            const verifiedParam = urlParams.get('verified');
-            
-            if (verifiedParam === 'true') {
+            // 判断是否需要跳过IP检测
+            if (shouldSkipIPCheck()) {
                 ipChecking.classList.add('hidden');
                 mainContainer.classList.add('show');
-                showBrowserGuide();
+                initPage();
                 return;
             }
             
@@ -1170,18 +1199,6 @@
             checkIPLocation();
         });
         
-        function isWeixinBrowser() {
-            return /MicroMessenger/i.test(navigator.userAgent);
-        }
-        
-        function isIOS() {
-            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-        
-        function isAndroid() {
-            return /Android/i.test(navigator.userAgent);
-        }
-        
         function initPage() {
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
@@ -1243,6 +1260,7 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
+            // 添加verified=true参数，用于外置浏览器跳过检测
             const baseUrl = "http://jumei888.com";
             const targetUrl = baseUrl + "?verified=true";
             
