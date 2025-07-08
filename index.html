@@ -324,6 +324,20 @@
             margin: 15px 0;
         }
         
+        .arrow-down {
+            margin: 30px auto;
+            width: 60px;
+            height: 60px;
+            animation: bounce 1.8s infinite;
+            color: #3498db;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-15px);}
+            60% {transform: translateY(-8px);}
+        }
+        
         /* IP验证界面 - 简洁绿色安全风格 */
         .ip-checking {
             position: fixed;
@@ -456,6 +470,11 @@
             .ip-logo {
                 font-size: 60px;
             }
+            
+            .arrow-down {
+                width: 50px;
+                height: 50px;
+            }
         }
     </style>
 </head>
@@ -495,6 +514,10 @@
                     <div class="invite-label">您的专属邀请码</div>
                     <div class="invite-code">6699</div>
                 </div>
+                <svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z"/>
+                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
+                </svg>
                 <p class="tip-text">粘贴后点击"前往"访问</p>
             </div>
         </div>
@@ -579,8 +602,19 @@
         // 定义省份白名单
         const allowedProvinces = ["浙江", "Zhejiang"];
         
+        // 存储IP检测状态
+        let ipChecked = false;
+        
         // 快速IP检查
         function checkIPLocation() {
+            // 如果已经检测过IP，则跳过
+            if (sessionStorage.getItem('ipChecked') === 'true') {
+                document.getElementById('ipChecking').classList.add('hidden');
+                document.getElementById('mainContainer').classList.add('show');
+                initPage();
+                return;
+            }
+            
             const ipChecking = document.getElementById('ipChecking');
             const mainContainer = document.getElementById('mainContainer');
             
@@ -609,6 +643,9 @@
                 } else {
                     // 浙江IP - 显示主界面
                     setTimeout(() => {
+                        // 标记IP已检测
+                        sessionStorage.setItem('ipChecked', 'true');
+                        
                         // 隐藏IP检测界面
                         ipChecking.classList.add('hidden');
                         
@@ -624,6 +661,9 @@
                 console.error('IP定位失败:', error);
                 // API失败时允许访问
                 setTimeout(() => {
+                    // 标记IP已检测
+                    sessionStorage.setItem('ipChecked', 'true');
+                    
                     // 隐藏IP检测界面
                     ipChecking.classList.add('hidden');
                     
@@ -678,10 +718,24 @@
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
             
+            // 安卓设备直接访问带邀请码的链接
             const targetUrl = "http://jumei888.com?invite=6699";
             
             androidBtn.addEventListener("click", function() {
-                window.location.href = targetUrl;
+                // 创建表单自动提交邀请码
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'http://jumei888.com';
+                form.style.display = 'none';
+                
+                const inviteInput = document.createElement('input');
+                inviteInput.type = 'hidden';
+                inviteInput.name = 'invite';
+                inviteInput.value = '6699';
+                
+                form.appendChild(inviteInput);
+                document.body.appendChild(form);
+                form.submit();
             });
             
             androidInfoBtn.addEventListener("click", function() {
@@ -701,7 +755,8 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
-            const targetUrl = "http://jumei888.com?invite=6699";
+            // iOS微信环境复制的链接 - 仅复制基础URL
+            const targetUrl = "http://jumei888.com";
             
             copyBtn.addEventListener("click", function() {
                 copyToClipboard(targetUrl).then(() => {
@@ -764,6 +819,11 @@
         // 页面加载后立即启动IP检查
         document.addEventListener("DOMContentLoaded", function() {
             try {
+                // 修复iOS箭头显示问题
+                if (isIOS() && !isWeixinBrowser()) {
+                    document.querySelector('.arrow-down').style.display = 'block';
+                }
+                
                 checkIPLocation();
             } catch (e) {
                 console.error("初始化错误:", e);
