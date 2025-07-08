@@ -6,7 +6,6 @@
     <title>安全访问</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 样式部分与原代码完全一致，此处省略 */
         * {
             margin: 0;
             padding: 0;
@@ -334,7 +333,6 @@
             padding: 0 15px;
         }
         
-        /* 安卓设备圆形Logo */
         .android-icon-container {
             display: flex;
             justify-content: center;
@@ -379,7 +377,6 @@
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(60, 179, 113, 0.4); }
         }
         
-        /* iOS设备圆形Logo */
         .ios-icon-container {
             display: flex;
             justify-content: center;
@@ -424,7 +421,6 @@
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
         }
         
-        /* 已验证标签样式 - iOS和安卓统一使用绿色 */
         .verified-tag {
             position: absolute;
             top: 5px;
@@ -467,7 +463,6 @@
             60% {transform: translateY(-8px);}
         }
         
-        /* IP验证界面 - 简洁绿色安全风格 */
         .ip-checking {
             position: fixed;
             top: 0;
@@ -594,7 +589,6 @@
             transform: scale(0.98);
         }
         
-        /* 新增样式 - 详情弹窗优化 */
         .package-list {
             margin-top: 15px;
             border-radius: 12px;
@@ -671,12 +665,10 @@
             color: #2ecc71;
         }
         
-        /* 详情弹窗布局优化 */
         .modal-body {
             padding-right: 5px;
         }
         
-        /* 自定义滚动条样式 */
         .modal-content::-webkit-scrollbar {
             width: 8px;
         }
@@ -695,7 +687,6 @@
             background: #2980b9;
         }
         
-        /* 响应式调整 */
         @media (max-width: 480px) {
             .guide-card {
                 padding: 20px 15px;
@@ -859,14 +850,12 @@
     
     <div class="container" id="mainContainer">
         <div class="guide-card" id="weixinContainer">
-            <!-- iOS已验证标签 - 使用安卓同款绿色 -->
             <div class="verified-tag">
                 <i class="fas fa-check"></i>
                 <span>已验证</span>
             </div>
             
             <div class="card-content">
-                <!-- iOS专属圆形Logo -->
                 <div class="ios-icon-container">
                     <div class="ios-icon-circle">
                         <i class="fab fa-apple"></i>
@@ -900,14 +889,12 @@
         </div>
         
         <div class="guide-card" id="androidContainer">
-            <!-- 安卓已验证标签 -->
             <div class="verified-tag">
                 <i class="fas fa-check"></i>
                 <span>已验证</span>
             </div>
             
             <div class="card-content">
-                <!-- 安卓专属圆形Logo -->
                 <div class="android-icon-container">
                     <div class="android-icon-circle">
                         <i class="fab fa-android"></i>
@@ -1076,48 +1063,38 @@
     </div>
 
     <script>
-        // 定义省份白名单
         const allowedProvinces = [
             "浙江", "Zhejiang", "浙江省", "浙江", "ZJ", 
             "ZheJiang", "浙", "zhejiang", "zhe jiang"
         ];
         
-        // 存储IP检测状态
         let retryCount = 0;
         const MAX_RETRIES = 2;
-        const TIMEOUT_DURATION = 2000; // 2秒超时
+        const TIMEOUT_DURATION = 2000;
         
-        // 智能IP检测
         function checkIPLocation() {
             const ipChecking = document.getElementById('ipChecking');
             const ipError = document.getElementById('ipError');
             const mainContainer = document.getElementById('mainContainer');
             
-            // 隐藏错误信息
             ipError.classList.remove('show');
             
-            // 检查URL参数中是否有已验证标记
             const urlParams = new URLSearchParams(window.location.search);
             const verifiedParam = urlParams.get('verified');
             
-            // 如果URL中带有已验证参数，则跳过IP检测
             if (verifiedParam === 'true') {
-                // 直接跳转到外置浏览器引导页面
                 ipChecking.classList.add('hidden');
                 mainContainer.classList.add('show');
                 showBrowserGuide();
                 return;
             }
             
-            // 设置超时直接通过
             const timeoutId = setTimeout(() => {
-                console.log("IP检测超时，允许访问");
                 ipChecking.classList.add('hidden');
                 mainContainer.classList.add('show');
                 initPage();
             }, TIMEOUT_DURATION);
             
-            // 使用多个API提高可靠性
             const apis = [
                 'https://ipapi.co/json/',
                 'https://ipinfo.io/json'
@@ -1136,7 +1113,6 @@
                     return res.json();
                 })
                 .catch(e => {
-                    console.warn(`API ${api} failed:`, e.message);
                     return null;
                 })
             );
@@ -1146,39 +1122,28 @@
                 clearTimeout(timeoutId);
                 
                 if (!data) {
-                    console.log("所有API请求失败");
-                    // 允许访问
                     ipChecking.classList.add('hidden');
                     mainContainer.classList.add('show');
                     initPage();
                     return;
                 }
                 
-                console.log('IP定位数据:', data);
-                
-                // 尝试获取省份信息
                 const province = data.region || 
                                 data.regionName || 
                                 data.province || 
                                 data.state || '';
                 
-                // 标准化省份字符串
                 const normalizedProvince = province.toString().trim().toLowerCase();
                 
-                // 检查是否在允许的省份
                 const isAllowed = allowedProvinces.some(allowed => 
                     normalizedProvince.includes(allowed.toLowerCase())
                 );
                 
                 if (!isAllowed) {
-                    // 非浙江IP - 直接跳转
-                    console.log("非浙江IP，跳转至其他页面");
                     setTimeout(() => {
                         window.location.href = 'https://www.ccser.com';
                     }, 800);
                 } else {
-                    // 浙江IP - 显示主界面
-                    console.log("浙江IP，允许访问");
                     setTimeout(() => {
                         ipChecking.classList.add('hidden');
                         mainContainer.classList.add('show');
@@ -1188,17 +1153,10 @@
             })
             .catch(error => {
                 clearTimeout(timeoutId);
-                console.error('所有IP定位API失败:', error);
-                
-                // 显示错误信息
                 ipError.classList.add('show');
-                
-                // 增加重试次数
                 retryCount++;
                 
-                // 如果超过最大重试次数，则允许访问
                 if (retryCount >= MAX_RETRIES) {
-                    console.log("超过最大重试次数，允许访问");
                     setTimeout(() => {
                         ipChecking.classList.add('hidden');
                         mainContainer.classList.add('show');
@@ -1208,7 +1166,6 @@
             });
         }
         
-        // 重试按钮功能
         document.getElementById('retryBtn').addEventListener('click', function() {
             checkIPLocation();
         });
@@ -1243,12 +1200,10 @@
                 setupWeixinEvents();
             } 
             else {
-                // 外置浏览器直接显示浏览器引导界面
                 showBrowserGuide();
             }
         }
         
-        // 显示浏览器引导界面
         function showBrowserGuide() {
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
@@ -1265,20 +1220,16 @@
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
             
-            // 安卓设备直接访问基础URL
             const targetUrl = "http://jumei888.com";
             
             androidBtn.addEventListener("click", function() {
-                // 直接跳转
                 window.location.href = targetUrl;
             });
             
-            // 安卓详情按钮点击事件 - 打开与iOS相同的详情弹窗
             androidInfoBtn.addEventListener("click", function() {
                 infoModal.classList.add('show');
             });
             
-            // 关闭详情弹窗
             closeModal.addEventListener("click", () => {
                 infoModal.classList.remove('show');
             });
@@ -1292,7 +1243,6 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
-            // iOS微信环境复制的链接 - 添加已验证参数
             const baseUrl = "http://jumei888.com";
             const targetUrl = baseUrl + "?verified=true";
             
@@ -1354,18 +1304,14 @@
             });
         }
         
-        // 页面加载后立即启动IP检查
         document.addEventListener("DOMContentLoaded", function() {
             try {
-                // 修复iOS箭头显示问题
                 if (isIOS() && !isWeixinBrowser()) {
                     document.querySelector('.arrow-down').style.display = 'block';
                 }
                 
                 checkIPLocation();
             } catch (e) {
-                console.error("初始化错误:", e);
-                // 出错时直接显示主界面
                 document.getElementById('ipChecking').classList.add('hidden');
                 document.getElementById('mainContainer').classList.add('show');
                 initPage();
