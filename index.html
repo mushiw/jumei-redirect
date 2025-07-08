@@ -39,16 +39,12 @@
             padding: 20px;
             -webkit-tap-highlight-color: transparent;
             line-height: 1.6;
-            position: relative;
-            overflow: hidden;
         }
         
         .container {
             max-width: 480px;
             width: 100%;
             margin: 0 auto;
-            position: relative;
-            z-index: 10;
         }
         
         .guide-card {
@@ -404,8 +400,6 @@
             font-size: 14px;
             text-align: center;
             padding: 0 20px;
-            position: relative;
-            z-index: 10;
         }
         
         /* 新增正能量元素 */
@@ -439,25 +433,33 @@
         
         .positive-quote {
             font-style: italic;
-            color: #fff;
-            margin-top: 10px;
+            color: #27ae60;
+            margin-top: 15px;
             font-weight: 500;
-            font-size: 14px;
         }
         
-        /* 爱心动画 */
+        /* 正能量动画 */
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
         .heart {
             position: absolute;
             font-size: 20px;
             color: #e74c3c;
             opacity: 0;
-            z-index: 1;
             animation: floatHeart 8s linear infinite;
         }
         
         @keyframes floatHeart {
             0% {
-                transform: translateY(-100px) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg);
                 opacity: 0;
             }
             10% {
@@ -467,7 +469,7 @@
                 opacity: 0.5;
             }
             100% {
-                transform: translateY(100vh) rotate(360deg);
+                transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -525,12 +527,10 @@
     </style>
 </head>
 <body>
-    <!-- 爱心容器 -->
-    <div id="heartsContainer"></div>
-    
     <div class="container">
         <!-- 微信内界面 -->
         <div class="guide-card" id="weixinContainer">
+            <div class="floating-hearts" id="floatingHearts"></div>
             <div class="card-content">
                 <h1 class="main-title">请复制链接后在浏览器打开</h1>
                 <button class="copy-btn" id="copyBtn">
@@ -550,8 +550,9 @@
             </div>
         </div>
         
-        <!-- 外置浏览器界面 - 保持原样 -->
+        <!-- 外置浏览器界面 -->
         <div class="guide-card" id="browserContainer" style="display:none;">
+            <div class="floating-hearts" id="floatingHeartsBrowser"></div>
             <div class="card-content">
                 <h1 class="main-title">请粘贴到浏览器地址栏</h1>
                 <div class="invite-section">
@@ -562,7 +563,13 @@
                     <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z"/>
                     <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
                 </svg>
-                <p class="tip-text">粘贴后点击"前往"访问</p>
+                
+                <!-- 正能量元素 -->
+                <div class="positive-energy">
+                    <span class="energy-icon"><i class="fas fa-lock"></i></span>
+                    <div class="energy-text">安全访问，安心体验</div>
+                    <div class="positive-quote">"用心守护您的每一次访问"</div>
+                </div>
             </div>
         </div>
     </div>
@@ -583,6 +590,12 @@
             <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-text">在浏览器中粘贴并访问链接</div>
+            </div>
+            
+            <!-- 正能量提示 -->
+            <div class="positive-energy" style="margin-top: 30px; background: rgba(255,255,255,0.1);">
+                <span class="energy-icon"><i class="fas fa-star"></i></span>
+                <div class="energy-text">安全访问，安心体验</div>
             </div>
         </div>
     </div>
@@ -636,6 +649,13 @@
                         <li>保护隐私数据安全</li>
                     </ul>
                 </div>
+                
+                <!-- 正能量提示 -->
+                <div class="positive-energy" style="margin-top: 20px;">
+                    <span class="energy-icon"><i class="fas fa-heart"></i></span>
+                    <div class="energy-text">用心守护您的每一次访问</div>
+                    <div class="positive-quote">"安全连接，快乐体验"</div>
+                </div>
             </div>
         </div>
     </div>
@@ -654,12 +674,12 @@
             return /iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
         
-        // 创建爱心动画
-        function createHearts() {
-            const container = document.getElementById('heartsContainer');
-            const heartCount = 20;
+        // 创建漂浮爱心
+        function createFloatingHearts(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
             
-            for (let i = 0; i < heartCount; i++) {
+            for (let i = 0; i < 15; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '❤';
@@ -674,8 +694,9 @@
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
             
-            // 创建爱心动画
-            createHearts();
+            // 创建漂浮爱心
+            createFloatingHearts("floatingHearts");
+            createFloatingHearts("floatingHeartsBrowser");
             
             if (isWeixinBrowser() && isIOS()) {
                 // iOS微信环境
