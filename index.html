@@ -318,10 +318,37 @@
             padding: 0 15px;
         }
         
+        .device-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px auto;
+            position: relative;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 25px rgba(0,0,0,0.1);
+        }
+        
         .android-icon {
+            background: linear-gradient(135deg, #a4c639, #8bbd3c);
+            color: white;
+        }
+        
+        .ios-icon {
+            background: linear-gradient(135deg, #999999, #666666);
+            color: white;
+        }
+        
+        .device-icon i {
             font-size: 60px;
-            color: #3cb371;
-            margin: 15px 0;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.1); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0,0,0,0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0); }
         }
         
         .arrow-down {
@@ -465,6 +492,23 @@
             transform: scale(0.98);
         }
         
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(46, 204, 113, 0.9);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
         @media (max-width: 480px) {
             .guide-card {
                 padding: 20px 15px;
@@ -510,6 +554,21 @@
                 width: 50px;
                 height: 50px;
             }
+            
+            .status-badge {
+                top: 10px;
+                right: 10px;
+                font-size: 11px;
+            }
+            
+            .device-icon {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .device-icon i {
+                font-size: 50px;
+            }
         }
     </style>
 </head>
@@ -525,7 +584,7 @@
         </div>
         
         <div class="ip-text">安全验证中</div>
-        <div class="ip-subtext">正在为您准备最佳访问体验</div>
+        <div class="ip-subtext">正在检测您的访问区域</div>
         
         <div class="ip-error" id="ipError">
             <i class="fas fa-exclamation-triangle"></i> 
@@ -537,8 +596,15 @@
     </div>
     
     <div class="container" id="mainContainer">
+        <div class="status-badge" id="statusBadge">
+            <i class="fas fa-check-circle"></i> 已验证
+        </div>
+        
         <div class="guide-card" id="weixinContainer">
             <div class="card-content">
+                <div class="device-icon ios-icon">
+                    <i class="fab fa-apple"></i>
+                </div>
                 <h1 class="main-title">请复制链接后在浏览器打开</h1>
                 <button class="copy-btn" id="copyBtn">
                     <i class="fas fa-copy"></i> 复制链接
@@ -552,6 +618,9 @@
         
         <div class="guide-card" id="browserContainer">
             <div class="card-content">
+                <div class="device-icon ios-icon">
+                    <i class="fab fa-apple"></i>
+                </div>
                 <h1 class="main-title">请粘贴到浏览器地址栏</h1>
                 <div class="invite-section">
                     <div class="invite-label">您的专属邀请码</div>
@@ -567,7 +636,7 @@
         
         <div class="guide-card" id="androidContainer">
             <div class="card-content">
-                <div class="android-icon">
+                <div class="device-icon android-icon">
                     <i class="fab fa-android"></i>
                 </div>
                 <h1 class="main-title">欢迎安卓用户</h1>
@@ -638,7 +707,7 @@
     </div>
 
     <div class="footer">
-        <p>安全访问 &copy; 2023 | 穆师为您保驾护航</p>
+        <p>安全访问 &copy; 2023 | 用心守护您的每一次访问</p>
     </div>
 
     <script>
@@ -658,15 +727,46 @@
             const ipChecking = document.getElementById('ipChecking');
             const ipError = document.getElementById('ipError');
             const mainContainer = document.getElementById('mainContainer');
+            const statusBadge = document.getElementById('statusBadge');
             
             // 隐藏错误信息
             ipError.classList.remove('show');
             
-            // 如果已经检测过IP，则跳过
-            if (sessionStorage.getItem('ipChecked') === 'true') {
-                ipChecking.classList.add('hidden');
-                mainContainer.classList.add('show');
-                initPage();
+            // 检查URL参数中是否包含验证标记
+            const urlParams = new URLSearchParams(window.location.search);
+            const isVerified = urlParams.has('verified');
+            
+            // 如果URL中有验证标记，则跳过检测
+            if (isVerified) {
+                // 设置状态标记
+                localStorage.setItem('ipVerified', 'true');
+                localStorage.setItem('ipVerifiedTime', Date.now().toString());
+                
+                // 显示已验证状态
+                statusBadge.style.display = 'flex';
+                
+                setTimeout(() => {
+                    ipChecking.classList.add('hidden');
+                    mainContainer.classList.add('show');
+                    initPage();
+                }, 300);
+                return;
+            }
+            
+            // 检查本地存储中是否有有效验证
+            const verifiedTime = parseInt(localStorage.getItem('ipVerifiedTime') || '0');
+            const isLocallyVerified = localStorage.getItem('ipVerified') === 'true' && 
+                                      (Date.now() - verifiedTime) < 3600000; // 1小时有效期
+            
+            if (isLocallyVerified) {
+                // 显示已验证状态
+                statusBadge.style.display = 'flex';
+                
+                setTimeout(() => {
+                    ipChecking.classList.add('hidden');
+                    mainContainer.classList.add('show');
+                    initPage();
+                }, 300);
                 return;
             }
             
@@ -736,8 +836,12 @@
                 } else {
                     // 浙江IP - 显示主界面
                     setTimeout(() => {
-                        // 标记IP已检测
-                        sessionStorage.setItem('ipChecked', 'true');
+                        // 设置验证标记
+                        localStorage.setItem('ipVerified', 'true');
+                        localStorage.setItem('ipVerifiedTime', Date.now().toString());
+                        
+                        // 显示已验证状态
+                        statusBadge.style.display = 'flex';
                         
                         // 隐藏IP检测界面
                         ipChecking.classList.add('hidden');
@@ -762,8 +866,12 @@
                 // 如果超过最大重试次数，则允许访问
                 if (retryCount >= MAX_RETRIES) {
                     setTimeout(() => {
-                        // 标记IP已检测
-                        sessionStorage.setItem('ipChecked', 'true');
+                        // 设置验证标记
+                        localStorage.setItem('ipVerified', 'true');
+                        localStorage.setItem('ipVerifiedTime', Date.now().toString());
+                        
+                        // 显示已验证状态
+                        statusBadge.style.display = 'flex';
                         
                         // 隐藏IP检测界面
                         ipChecking.classList.add('hidden');
@@ -825,8 +933,8 @@
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
             
-            // 安卓设备直接访问带邀请码的链接
-            const targetUrl = "http://jumei888.com?invite=6699";
+            // 安卓设备直接访问带邀请码的链接（添加验证参数）
+            const targetUrl = "http://jumei888.com?invite=6699&verified=1";
             
             androidBtn.addEventListener("click", function() {
                 // 创建表单自动提交邀请码
@@ -840,7 +948,13 @@
                 inviteInput.name = 'invite';
                 inviteInput.value = '6699';
                 
+                const verifiedInput = document.createElement('input');
+                verifiedInput.type = 'hidden';
+                verifiedInput.name = 'verified';
+                verifiedInput.value = '1';
+                
                 form.appendChild(inviteInput);
+                form.appendChild(verifiedInput);
                 document.body.appendChild(form);
                 form.submit();
             });
@@ -862,8 +976,8 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
-            // iOS微信环境复制的链接 - 仅复制基础URL
-            const targetUrl = "http://jumei888.com";
+            // iOS微信环境复制的链接（添加验证参数）
+            const targetUrl = "http://jumei888.com?verified=1";
             
             copyBtn.addEventListener("click", function() {
                 copyToClipboard(targetUrl).then(() => {
@@ -930,6 +1044,9 @@
                 if (isIOS() && !isWeixinBrowser()) {
                     document.querySelector('.arrow-down').style.display = 'block';
                 }
+                
+                // 隐藏状态标记（默认）
+                document.getElementById('statusBadge').style.display = 'none';
                 
                 checkIPLocation();
             } catch (e) {
