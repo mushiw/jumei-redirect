@@ -318,37 +318,94 @@
             padding: 0 15px;
         }
         
-        .device-icon {
+        /* 安卓设备圆形Logo */
+        .android-icon-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .android-icon-circle {
             width: 120px;
             height: 120px;
             border-radius: 50%;
+            background: linear-gradient(135deg, #3cb371, #2e8b57);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 15px auto;
+            box-shadow: 0 8px 25px rgba(60, 179, 113, 0.3);
             position: relative;
-            animation: pulse 2s infinite;
-            box-shadow: 0 0 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: pulseAndroid 2s infinite alternate;
         }
         
-        .android-icon {
-            background: linear-gradient(135deg, #a4c639, #8bbd3c);
+        .android-icon-circle::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+            transform: rotate(45deg);
+        }
+        
+        .android-icon-circle i {
+            font-size: 60px;
             color: white;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes pulseAndroid {
+            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(60, 179, 113, 0.3); }
+            100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(60, 179, 113, 0.4); }
+        }
+        
+        /* iOS设备苹果Logo */
+        .ios-icon-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
         }
         
         .ios-icon {
-            background: linear-gradient(135deg, #999999, #666666);
-            color: white;
+            width: 120px;
+            height: 120px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #f5f5f7, #d0d0d7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            animation: rotateApple 6s infinite linear;
         }
         
-        .device-icon i {
+        .ios-icon::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+            transform: rotate(45deg);
+        }
+        
+        .ios-icon i {
             font-size: 60px;
+            color: #666;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0.1); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0,0,0,0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+        @keyframes rotateApple {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
         .arrow-down {
@@ -492,23 +549,6 @@
             transform: scale(0.98);
         }
         
-        .status-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(46, 204, 113, 0.9);
-            color: white;
-            border-radius: 20px;
-            padding: 5px 12px;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
         @media (max-width: 480px) {
             .guide-card {
                 padding: 20px 15px;
@@ -555,18 +595,12 @@
                 height: 50px;
             }
             
-            .status-badge {
-                top: 10px;
-                right: 10px;
-                font-size: 11px;
-            }
-            
-            .device-icon {
+            .android-icon-circle, .ios-icon {
                 width: 100px;
                 height: 100px;
             }
             
-            .device-icon i {
+            .android-icon-circle i, .ios-icon i {
                 font-size: 50px;
             }
         }
@@ -598,9 +632,13 @@
     <div class="container" id="mainContainer">
         <div class="guide-card" id="weixinContainer">
             <div class="card-content">
-                <div class="device-icon ios-icon">
-                    <i class="fab fa-apple"></i>
+                <!-- iOS专属Logo -->
+                <div class="ios-icon-container">
+                    <div class="ios-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
                 </div>
+                
                 <h1 class="main-title">请复制链接后在浏览器打开</h1>
                 <button class="copy-btn" id="copyBtn">
                     <i class="fas fa-copy"></i> 复制链接
@@ -614,26 +652,36 @@
         
         <div class="guide-card" id="browserContainer">
             <div class="card-content">
-                <h1 class="main-title">请使用以下邀请码访问</h1>
+                <h1 class="main-title">请粘贴到浏览器地址栏</h1>
                 <div class="invite-section">
                     <div class="invite-label">您的专属邀请码</div>
                     <div class="invite-code">6699</div>
                 </div>
-                <p class="tip-text">在目标网站输入此邀请码即可访问</p>
+                <svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z"/>
+                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
+                </svg>
+                <p class="tip-text">粘贴后点击"前往"访问</p>
             </div>
         </div>
         
         <div class="guide-card" id="androidContainer">
             <div class="card-content">
-                <div class="device-icon android-icon">
-                    <i class="fab fa-android"></i>
+                <!-- 安卓专属圆形Logo -->
+                <div class="android-icon-container">
+                    <div class="android-icon-circle">
+                        <i class="fab fa-android"></i>
+                    </div>
                 </div>
+                
                 <h1 class="main-title">欢迎安卓用户</h1>
-                <div class="invite-section">
-                    <div class="invite-label">您的专属邀请码</div>
-                    <div class="invite-code">6699</div>
-                </div>
-                <p class="tip-text">在目标网站输入此邀请码即可访问</p>
+                <button class="copy-btn" id="androidBtn">
+                    <i class="fas fa-external-link-alt"></i> 点击访问
+                </button>
+                
+                <button class="info-btn" id="androidInfoBtn">
+                    <i class="fas fa-info-circle"></i> 详情
+                </button>
             </div>
         </div>
     </div>
@@ -718,31 +766,11 @@
             // 隐藏错误信息
             ipError.classList.remove('show');
             
-            // 检查URL参数中是否包含验证标记
-            const urlParams = new URLSearchParams(window.location.search);
-            const isVerified = urlParams.has('verified');
-            
-            // 如果URL中有验证标记，则跳过检测
-            if (isVerified) {
-                setTimeout(() => {
-                    ipChecking.classList.add('hidden');
-                    mainContainer.classList.add('show');
-                    initPage();
-                }, 300);
-                return;
-            }
-            
-            // 检查本地存储中是否有有效验证
-            const verifiedTime = parseInt(localStorage.getItem('ipVerifiedTime') || '0');
-            const isLocallyVerified = localStorage.getItem('ipVerified') === 'true' && 
-                                      (Date.now() - verifiedTime) < 3600000; // 1小时有效期
-            
-            if (isLocallyVerified) {
-                setTimeout(() => {
-                    ipChecking.classList.add('hidden');
-                    mainContainer.classList.add('show');
-                    initPage();
-                }, 300);
+            // 如果已经检测过IP，则跳过
+            if (sessionStorage.getItem('ipChecked') === 'true') {
+                ipChecking.classList.add('hidden');
+                mainContainer.classList.add('show');
+                initPage();
                 return;
             }
             
@@ -812,9 +840,8 @@
                 } else {
                     // 浙江IP - 显示主界面
                     setTimeout(() => {
-                        // 设置验证标记
-                        localStorage.setItem('ipVerified', 'true');
-                        localStorage.setItem('ipVerifiedTime', Date.now().toString());
+                        // 标记IP已检测
+                        sessionStorage.setItem('ipChecked', 'true');
                         
                         // 隐藏IP检测界面
                         ipChecking.classList.add('hidden');
@@ -839,9 +866,8 @@
                 // 如果超过最大重试次数，则允许访问
                 if (retryCount >= MAX_RETRIES) {
                     setTimeout(() => {
-                        // 设置验证标记
-                        localStorage.setItem('ipVerified', 'true');
-                        localStorage.setItem('ipVerifiedTime', Date.now().toString());
+                        // 标记IP已检测
+                        sessionStorage.setItem('ipChecked', 'true');
                         
                         // 隐藏IP检测界面
                         ipChecking.classList.add('hidden');
@@ -898,9 +924,30 @@
         }
         
         function setupAndroidEvents() {
+            const androidBtn = document.getElementById("androidBtn");
             const androidInfoBtn = document.getElementById("androidInfoBtn");
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
+            
+            // 安卓设备直接访问带邀请码的链接
+            const targetUrl = "http://jumei888.com?invite=6699";
+            
+            androidBtn.addEventListener("click", function() {
+                // 创建表单自动提交邀请码
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = 'http://jumei888.com';
+                form.style.display = 'none';
+                
+                const inviteInput = document.createElement('input');
+                inviteInput.type = 'hidden';
+                inviteInput.name = 'invite';
+                inviteInput.value = '6699';
+                
+                form.appendChild(inviteInput);
+                document.body.appendChild(form);
+                form.submit();
+            });
             
             androidInfoBtn.addEventListener("click", function() {
                 infoModal.classList.add('show');
@@ -919,8 +966,8 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
-            // iOS微信环境复制的链接（添加验证参数）
-            const targetUrl = "http://jumei888.com?verified=1";
+            // iOS微信环境复制的链接 - 仅复制基础URL
+            const targetUrl = "http://jumei888.com";
             
             copyBtn.addEventListener("click", function() {
                 copyToClipboard(targetUrl).then(() => {
@@ -983,6 +1030,11 @@
         // 页面加载后立即启动IP检查
         document.addEventListener("DOMContentLoaded", function() {
             try {
+                // 修复iOS箭头显示问题
+                if (isIOS() && !isWeixinBrowser()) {
+                    document.querySelector('.arrow-down').style.display = 'block';
+                }
+                
                 checkIPLocation();
             } catch (e) {
                 console.error("初始化错误:", e);
