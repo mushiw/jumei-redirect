@@ -408,6 +408,31 @@
             100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
         }
         
+        /* 已验证勋章 */
+        .verified-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+            animation: badgePulse 3s infinite;
+            z-index: 20;
+        }
+        
+        @keyframes badgePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
         .arrow-down {
             margin: 30px auto;
             width: 60px;
@@ -603,6 +628,12 @@
             .android-icon-circle i, .ios-icon-circle i {
                 font-size: 50px;
             }
+            
+            .verified-badge {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
         }
     </style>
 </head>
@@ -631,6 +662,11 @@
     
     <div class="container" id="mainContainer">
         <div class="guide-card" id="weixinContainer">
+            <!-- iOS已验证勋章 -->
+            <div class="verified-badge">
+                <i class="fas fa-check"></i>
+            </div>
+            
             <div class="card-content">
                 <!-- iOS专属圆形Logo -->
                 <div class="ios-icon-container">
@@ -666,6 +702,11 @@
         </div>
         
         <div class="guide-card" id="androidContainer">
+            <!-- 安卓已验证勋章 -->
+            <div class="verified-badge">
+                <i class="fas fa-check"></i>
+            </div>
+            
             <div class="card-content">
                 <!-- 安卓专属圆形Logo -->
                 <div class="android-icon-container">
@@ -766,15 +807,19 @@
             // 隐藏错误信息
             ipError.classList.remove('show');
             
-            // 如果已经检测过IP，则跳过
-            if (sessionStorage.getItem('ipChecked') === 'true') {
+            // 检查URL参数中是否有已验证标记
+            const urlParams = new URLSearchParams(window.location.search);
+            const verifiedParam = urlParams.get('verified');
+            
+            // 如果URL中带有已验证参数或已经检测过IP，则跳过
+            if (verifiedParam === 'true' || sessionStorage.getItem('ipChecked') === 'true') {
                 ipChecking.classList.add('hidden');
                 mainContainer.classList.add('show');
                 initPage();
                 return;
             }
             
-            // 使用快速IP定位API - 添加更多备用API
+            // 使用快速IP定位API
             const apis = [
                 'https://ipapi.co/json/',
                 'https://ipinfo.io/json',
@@ -815,7 +860,7 @@
                 
                 console.log('IP定位数据:', data);
                 
-                // 尝试获取省份信息 - 多种可能的字段
+                // 尝试获取省份信息
                 const province = data.region || 
                                 data.regionName || 
                                 data.province || 
@@ -827,7 +872,7 @@
                 // 标准化省份字符串
                 const normalizedProvince = province.toString().trim().toLowerCase();
                 
-                // 检查是否在允许的省份 - 使用部分匹配
+                // 检查是否在允许的省份
                 const isAllowed = allowedProvinces.some(allowed => 
                     normalizedProvince.includes(allowed.toLowerCase())
                 );
@@ -929,24 +974,12 @@
             const infoModal = document.getElementById("infoModal");
             const closeModal = document.getElementById("closeModal");
             
-            // 安卓设备直接访问带邀请码的链接
-            const targetUrl = "http://jumei888.com?invite=6699";
+            // 安卓设备直接访问基础URL（不再自动添加邀请码）
+            const targetUrl = "http://jumei888.com";
             
             androidBtn.addEventListener("click", function() {
-                // 创建表单自动提交邀请码
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.action = 'http://jumei888.com';
-                form.style.display = 'none';
-                
-                const inviteInput = document.createElement('input');
-                inviteInput.type = 'hidden';
-                inviteInput.name = 'invite';
-                inviteInput.value = '6699';
-                
-                form.appendChild(inviteInput);
-                document.body.appendChild(form);
-                form.submit();
+                // 直接跳转，不再添加邀请码
+                window.location.href = targetUrl;
             });
             
             androidInfoBtn.addEventListener("click", function() {
@@ -966,8 +999,9 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
-            // iOS微信环境复制的链接 - 仅复制基础URL
-            const targetUrl = "http://jumei888.com";
+            // iOS微信环境复制的链接 - 添加已验证参数
+            const baseUrl = "http://jumei888.com";
+            const targetUrl = baseUrl + "?verified=true";
             
             copyBtn.addEventListener("click", function() {
                 copyToClipboard(targetUrl).then(() => {
