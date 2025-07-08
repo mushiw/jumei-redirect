@@ -18,6 +18,7 @@
             --accent-light: #fd79a8;
             --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --positive-gradient: linear-gradient(135deg, #00b09b, #96c93d);
         }
         
         * {
@@ -407,35 +408,41 @@
             z-index: 10;
         }
         
-        /* 安全提示效果 */
-        .security-message {
-            display: none;
-            background: linear-gradient(135deg, #00b09b, #96c93d);
+        /* 新增正能量元素 */
+        .positive-energy {
+            background: var(--positive-gradient);
             color: white;
-            border-radius: 16px;
-            padding: 16px;
-            margin: 15px 0;
+            border-radius: 20px;
+            padding: 15px;
+            margin: 25px 0;
             text-align: center;
-            font-size: 18px;
-            font-weight: 500;
             box-shadow: 0 6px 15px rgba(0, 176, 155, 0.3);
-            animation: slideIn 0.5s ease-out;
+            animation: pulse 3s infinite;
         }
         
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 176, 155, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(0, 176, 155, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 176, 155, 0); }
         }
         
-        .security-icon {
-            margin-right: 10px;
-            font-size: 20px;
+        .energy-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .energy-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .positive-quote {
+            font-style: italic;
+            color: #fff;
+            margin-top: 10px;
+            font-weight: 500;
+            font-size: 14px;
         }
         
         /* 爱心动画 */
@@ -495,10 +502,6 @@
                 min-width: 160px;
             }
             
-            .tip-text {
-                font-size: 15px;
-            }
-            
             .modal-content {
                 padding: 20px;
             }
@@ -515,8 +518,7 @@
                 font-size: 15px;
             }
             
-            .security-message {
-                font-size: 16px;
+            .positive-energy {
                 padding: 12px;
             }
         }
@@ -535,17 +537,16 @@
                     <i class="fas fa-copy"></i> 复制访问链接
                 </button>
                 
-                <!-- 安全提示消息 -->
-                <div class="security-message" id="securityMessage">
-                    <i class="fas fa-shield-alt security-icon"></i>
-                    安全访问，快乐分享 - 用心创造安全网络环境
+                <!-- 正能量元素 -->
+                <div class="positive-energy">
+                    <span class="energy-icon"><i class="fas fa-shield-alt"></i></span>
+                    <div class="energy-text">安全访问，快乐分享</div>
+                    <div class="positive-quote">"用心创造安全网络环境"</div>
                 </div>
                 
                 <button class="info-btn" id="infoBtn">
                     <i class="fas fa-info-circle"></i> 详情
                 </button>
-                
-                <p class="tip-text">复制成功后，点击右上角"<i class="fas fa-ellipsis-h"></i>"<br>选择"在浏览器中打开"</p>
             </div>
         </div>
         
@@ -695,7 +696,6 @@
         function setupWeixinEvents() {
             const copyBtn = document.getElementById("copyBtn");
             const infoBtn = document.getElementById("infoBtn");
-            const securityMessage = document.getElementById("securityMessage");
             const weixinTip = document.getElementById("weixinTip");
             const infoModal = document.getElementById("infoModal");
             const closeTip = document.getElementById("closeTip");
@@ -709,20 +709,12 @@
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
                     copyBtn.style.background = 'var(--success-gradient)';
                     
-                    // 显示安全提示消息
-                    securityMessage.style.display = 'block';
-                    
                     // 显示操作提示
                     weixinTip.classList.add('show');
                     
                     setTimeout(() => {
                         copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制访问链接';
                         copyBtn.style.background = 'var(--primary-gradient)';
-                        
-                        // 3秒后隐藏安全消息
-                        setTimeout(() => {
-                            securityMessage.style.display = 'none';
-                        }, 3000);
                     }, 2000);
                 }).catch(() => {
                     // 复制失败
