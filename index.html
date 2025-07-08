@@ -504,13 +504,6 @@
             100% { transform: scale(1); }
         }
         
-        .android-tip {
-            font-size: 18px;
-            color: #555;
-            margin-top: 15px;
-            padding: 0 15px;
-        }
-        
         @media (max-width: 480px) {
             .guide-card {
                 padding: 30px 20px;
@@ -617,16 +610,18 @@
                 </div>
                 <h1 class="main-title android-title">欢迎安卓用户</h1>
                 <button class="copy-btn android-btn" id="androidBtn">
-                    <i class="fas fa-external-link-alt"></i> 直接访问
+                    <i class="fas fa-external-link-alt"></i> 点击访问
                 </button>
                 
                 <div class="positive-energy">
-                    <span class="energy-icon"><i class="fas fa-mobile-alt"></i></span>
-                    <div class="energy-text">安卓设备一键访问</div>
-                    <div class="positive-quote">"无需复制，快速直达"</div>
+                    <span class="energy-icon"><i class="fas fa-shield-alt"></i></span>
+                    <div class="energy-text">安全访问，快乐分享</div>
+                    <div class="positive-quote">"用心创造安全网络环境"</div>
                 </div>
                 
-                <p class="android-tip">您使用的是安卓设备，点击上方按钮直接访问网站</p>
+                <button class="info-btn" id="androidInfoBtn">
+                    <i class="fas fa-info-circle"></i> 详情
+                </button>
             </div>
         </div>
     </div>
@@ -774,11 +769,24 @@
         // 设置安卓事件
         function setupAndroidEvents() {
             const androidBtn = document.getElementById("androidBtn");
+            const androidInfoBtn = document.getElementById("androidInfoBtn");
+            const infoModal = document.getElementById("infoModal");
+            const closeModal = document.getElementById("closeModal");
             const targetUrl = "http://jumei888.com";
             
             androidBtn.addEventListener("click", function() {
                 // 直接跳转到目标URL
                 window.location.href = targetUrl;
+            });
+            
+            // 详情按钮事件
+            androidInfoBtn.addEventListener("click", function() {
+                infoModal.classList.add('show');
+            });
+            
+            // 关闭信息弹窗
+            closeModal.addEventListener("click", () => {
+                infoModal.classList.remove('show');
             });
         }
         
