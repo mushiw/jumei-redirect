@@ -11,6 +11,7 @@
             --success-gradient: linear-gradient(135deg, #2ecc71, #27ae60);
             --error-gradient: linear-gradient(135deg, #e74c3c, #c0392b);
             --info-gradient: linear-gradient(135deg, #f39c12, #d35400);
+            --android-gradient: linear-gradient(135deg, #3cb371, #2e8b57);
             --card-bg: #ffffff;
             --text-dark: #2c3e50;
             --text-light: #7f8c8d;
@@ -60,6 +61,7 @@
             position: relative;
             overflow: hidden;
             transition: var(--transition);
+            display: none; /* 默认隐藏，由JS控制显示 */
         }
         
         .card-content {
@@ -74,6 +76,13 @@
             color: var(--text-dark);
             line-height: 1.3;
             background: linear-gradient(135deg, #3498db, #8e44ad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .android-title {
+            background: linear-gradient(135deg, #3cb371, #2e8b57);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -98,6 +107,11 @@
             justify-content: center;
             gap: 10px;
             z-index: 1;
+        }
+        
+        .android-btn {
+            background: var(--android-gradient);
+            box-shadow: 0 6px 20px rgba(60, 179, 113, 0.3);
         }
         
         .copy-btn:active {
@@ -400,7 +414,7 @@
         
         .footer {
             margin-top: 30px;
-            color: #555; /* 变暗的页脚文字颜色 */
+            color: #555;
             font-size: 14px;
             text-align: center;
             padding: 0 20px;
@@ -472,6 +486,31 @@
             }
         }
         
+        /* 安卓设备专属样式 */
+        .android-device {
+            text-align: center;
+        }
+        
+        .android-icon {
+            font-size: 80px;
+            color: #3cb371;
+            margin-bottom: 20px;
+            animation: pulseIcon 2s infinite;
+        }
+        
+        @keyframes pulseIcon {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .android-tip {
+            font-size: 18px;
+            color: #555;
+            margin-top: 15px;
+            padding: 0 15px;
+        }
+        
         @media (max-width: 480px) {
             .guide-card {
                 padding: 30px 20px;
@@ -521,6 +560,10 @@
             .positive-energy {
                 padding: 12px;
             }
+            
+            .android-icon {
+                font-size: 60px;
+            }
         }
     </style>
 </head>
@@ -551,7 +594,7 @@
         </div>
         
         <!-- 外置浏览器界面 -->
-        <div class="guide-card" id="browserContainer" style="display:none;">
+        <div class="guide-card" id="browserContainer">
             <div class="card-content">
                 <h1 class="main-title">请粘贴到浏览器地址栏</h1>
                 <div class="invite-section">
@@ -563,6 +606,27 @@
                     <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
                 </svg>
                 <p class="tip-text">粘贴后点击"前往"访问</p>
+            </div>
+        </div>
+        
+        <!-- 安卓设备界面 -->
+        <div class="guide-card android-device" id="androidContainer">
+            <div class="card-content">
+                <div class="android-icon">
+                    <i class="fab fa-android"></i>
+                </div>
+                <h1 class="main-title android-title">欢迎安卓用户</h1>
+                <button class="copy-btn android-btn" id="androidBtn">
+                    <i class="fas fa-external-link-alt"></i> 直接访问
+                </button>
+                
+                <div class="positive-energy">
+                    <span class="energy-icon"><i class="fas fa-mobile-alt"></i></span>
+                    <div class="energy-text">安卓设备一键访问</div>
+                    <div class="positive-quote">"无需复制，快速直达"</div>
+                </div>
+                
+                <p class="android-tip">您使用的是安卓设备，点击上方按钮直接访问网站</p>
             </div>
         </div>
     </div>
@@ -654,6 +718,10 @@
             return /iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
         
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+        
         // 创建爱心动画
         function createHearts() {
             const container = document.getElementById('heartsContainer');
@@ -673,23 +741,45 @@
         function initPage() {
             const weixinContainer = document.getElementById("weixinContainer");
             const browserContainer = document.getElementById("browserContainer");
+            const androidContainer = document.getElementById("androidContainer");
             
             // 创建爱心动画
             createHearts();
             
-            if (isWeixinBrowser() && isIOS()) {
-                // iOS微信环境
+            // 安卓设备处理
+            if (isAndroid()) {
+                weixinContainer.style.display = "none";
+                browserContainer.style.display = "none";
+                androidContainer.style.display = "block";
+                setupAndroidEvents();
+            } 
+            // iOS设备处理
+            else if (isWeixinBrowser() && isIOS()) {
                 browserContainer.style.display = "none";
                 weixinContainer.style.display = "block";
+                androidContainer.style.display = "none";
                 setupWeixinEvents();
-            } else {
-                // 其他环境
+            } 
+            // 其他环境（iOS非微信浏览器）
+            else {
                 weixinContainer.style.display = "none";
                 browserContainer.style.display = "block";
+                androidContainer.style.display = "none";
             }
             
             // 防止微信修改URL
             lockHistoryState();
+        }
+        
+        // 设置安卓事件
+        function setupAndroidEvents() {
+            const androidBtn = document.getElementById("androidBtn");
+            const targetUrl = "http://jumei888.com";
+            
+            androidBtn.addEventListener("click", function() {
+                // 直接跳转到目标URL
+                window.location.href = targetUrl;
+            });
         }
         
         // 设置微信事件
