@@ -11,6 +11,8 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            /* 解决安卓点击白框问题 */
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
@@ -84,10 +86,6 @@
             transition: all 0.3s ease;
         }
         
-        .copy-btn:active {
-            transform: scale(0.98);
-        }
-        
         .info-btn {
             background: linear-gradient(135deg, #f39c12, #d35400);
             color: white;
@@ -106,8 +104,15 @@
             transition: all 0.3s ease;
         }
         
-        .info-btn:active {
-            transform: scale(0.98);
+        /* 按钮缩放动画 */
+        .button-scale {
+            animation: buttonScale 0.3s ease;
+        }
+        
+        @keyframes buttonScale {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
         }
         
         .invite-section {
@@ -281,10 +286,6 @@
             background: rgba(0,0,0,0.5);
             border-radius: 50%;
             transition: all 0.3s ease;
-        }
-        
-        .close-modal:active {
-            transform: scale(1.1);
         }
         
         .modal-header {
@@ -628,10 +629,6 @@
         
         .retry-btn:hover {
             background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .retry-btn:active {
-            transform: scale(0.98);
         }
         
         .package-list {
@@ -1178,6 +1175,14 @@
             return false;
         }
         
+        // 按钮缩放动画效果
+        function addScaleAnimation(button) {
+            button.classList.add('button-scale');
+            setTimeout(() => {
+                button.classList.remove('button-scale');
+            }, 300);
+        }
+        
         function checkIPLocation() {
             const ipChecking = document.getElementById('ipChecking');
             const ipError = document.getElementById('ipError');
@@ -1271,6 +1276,7 @@
         }
         
         document.getElementById('retryBtn').addEventListener('click', function() {
+            addScaleAnimation(this);
             checkIPLocation();
         });
         
@@ -1328,14 +1334,17 @@
             const targetUrl = "http://jumei888.com";
             
             windowsBtn.addEventListener("click", function() {
+                addScaleAnimation(this);
                 window.location.href = targetUrl;
             });
             
             windowsInfoBtn.addEventListener("click", function() {
+                addScaleAnimation(this);
                 infoModal.classList.add('show');
             });
             
             closeModal.addEventListener("click", () => {
+                addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
             });
         }
@@ -1349,14 +1358,17 @@
             const targetUrl = "http://jumei888.com";
             
             androidBtn.addEventListener("click", function() {
+                addScaleAnimation(this);
                 window.location.href = targetUrl;
             });
             
             androidInfoBtn.addEventListener("click", function() {
+                addScaleAnimation(this);
                 infoModal.classList.add('show');
             });
             
             closeModal.addEventListener("click", () => {
+                addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
             });
         }
@@ -1374,36 +1386,37 @@
             const targetUrl = baseUrl + "?verified=true";
             
             copyBtn.addEventListener("click", function() {
+                addScaleAnimation(this);
+                
                 copyToClipboard(targetUrl).then(() => {
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
-                    copyBtn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
                     
                     weixinTip.classList.add('show');
                     
                     setTimeout(() => {
                         copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
-                        copyBtn.style.background = 'linear-gradient(135deg, #3498db, #8e44ad)';
                     }, 2000);
                 }).catch(() => {
                     copyBtn.innerHTML = '<i class="fas fa-times"></i> 复制失败';
-                    copyBtn.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
                     
                     setTimeout(() => {
                         copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
-                        copyBtn.style.background = 'linear-gradient(135deg, #3498db, #8e44ad)';
                     }, 2000);
                 });
             });
             
             infoBtn.addEventListener("click", function() {
+                addScaleAnimation(this);
                 infoModal.classList.add('show');
             });
             
             closeTip.addEventListener("click", () => {
+                addScaleAnimation(closeTip);
                 weixinTip.classList.remove('show');
             });
             
             closeModal.addEventListener("click", () => {
+                addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
             });
         }
