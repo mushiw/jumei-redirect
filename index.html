@@ -1158,7 +1158,6 @@
         const MAX_RETRIES = 2;
         const TIMEOUT_DURATION = 2000;
         
-        // 检测浏览器环境
         function isWeixinBrowser() {
             return /MicroMessenger/i.test(navigator.userAgent);
         }
@@ -1171,22 +1170,18 @@
             return /Android/i.test(navigator.userAgent);
         }
         
-        // 新增：检测Windows设备
         function isWindows() {
             return /Win|Windows|NT/i.test(navigator.userAgent);
         }
         
-        // 核心优化：判断是否需要IP检测
         function shouldSkipIPCheck() {
             const urlParams = new URLSearchParams(window.location.search);
             const verifiedParam = urlParams.get('verified');
             
-            // 如果URL中带有verified=true参数，则跳过检测
             if (verifiedParam === 'true') {
                 return true;
             }
             
-            // iOS外置浏览器直接跳过检测
             if (isIOS() && !isWeixinBrowser()) {
                 return true;
             }
@@ -1194,7 +1189,6 @@
             return false;
         }
         
-        // 按钮缩放动画效果
         function addScaleAnimation(button) {
             button.classList.add('button-scale');
             setTimeout(() => {
@@ -1209,7 +1203,6 @@
             
             ipError.classList.remove('show');
             
-            // 判断是否需要跳过IP检测
             if (shouldSkipIPCheck()) {
                 ipChecking.classList.add('hidden');
                 mainContainer.classList.add('show');
@@ -1343,7 +1336,6 @@
             windowsContainer.style.display = "none";
         }
         
-        // 新增：Windows设备事件处理
         function setupWindowsEvents() {
             const windowsBtn = document.getElementById("windowsBtn");
             const windowsInfoBtn = document.getElementById("windowsInfoBtn");
@@ -1359,7 +1351,6 @@
             
             windowsInfoBtn.addEventListener("click", function() {
                 addScaleAnimation(this);
-                // 添加短暂延迟，让用户看到按钮动画
                 setTimeout(() => {
                     infoModal.classList.add('show');
                 }, 150);
@@ -1386,7 +1377,6 @@
             
             androidInfoBtn.addEventListener("click", function() {
                 addScaleAnimation(this);
-                // 添加短暂延迟，让用户看到按钮动画
                 setTimeout(() => {
                     infoModal.classList.add('show');
                 }, 150);
@@ -1406,7 +1396,6 @@
             const closeTip = document.getElementById("closeTip");
             const closeModal = document.getElementById("closeModal");
             
-            // 添加verified=true参数，用于外置浏览器跳过检测
             const baseUrl = "http://jumei888.com";
             const targetUrl = baseUrl + "?verified=true";
             
@@ -1432,7 +1421,6 @@
             
             infoBtn.addEventListener("click", function() {
                 addScaleAnimation(this);
-                // 添加短暂延迟，让用户看到按钮动画
                 setTimeout(() => {
                     infoModal.classList.add('show');
                 }, 150);
