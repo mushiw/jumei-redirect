@@ -11,7 +11,6 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            /* 解决安卓点击白框问题 */
             -webkit-tap-highlight-color: transparent;
         }
         
@@ -262,13 +261,17 @@
             max-width: 500px;
             margin: 30px auto;
             position: relative;
-            transform: translateY(20px);
-            transition: transform 0.4s ease;
             box-sizing: border-box;
+            /* 新增模态框动画 */
+            transform: scale(0.8);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                        opacity 0.4s ease;
         }
         
         .info-modal.show .modal-content {
-            transform: translateY(0);
+            transform: scale(1);
+            opacity: 1;
         }
         
         .close-modal {
@@ -286,6 +289,10 @@
             background: rgba(0,0,0,0.5);
             border-radius: 50%;
             transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: rgba(0,0,0,0.7);
         }
         
         .modal-header {
@@ -727,6 +734,18 @@
         
         .modal-content::-webkit-scrollbar-thumb:hover {
             background: #2980b9;
+        }
+        
+        /* 新增：详情按钮悬停效果 */
+        .info-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.3);
+        }
+        
+        /* 新增：复制按钮悬停效果 */
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.35);
         }
         
         @media (max-width: 480px) {
@@ -1340,7 +1359,10 @@
             
             windowsInfoBtn.addEventListener("click", function() {
                 addScaleAnimation(this);
-                infoModal.classList.add('show');
+                // 添加短暂延迟，让用户看到按钮动画
+                setTimeout(() => {
+                    infoModal.classList.add('show');
+                }, 150);
             });
             
             closeModal.addEventListener("click", () => {
@@ -1364,7 +1386,10 @@
             
             androidInfoBtn.addEventListener("click", function() {
                 addScaleAnimation(this);
-                infoModal.classList.add('show');
+                // 添加短暂延迟，让用户看到按钮动画
+                setTimeout(() => {
+                    infoModal.classList.add('show');
+                }, 150);
             });
             
             closeModal.addEventListener("click", () => {
@@ -1407,7 +1432,10 @@
             
             infoBtn.addEventListener("click", function() {
                 addScaleAnimation(this);
-                infoModal.classList.add('show');
+                // 添加短暂延迟，让用户看到按钮动画
+                setTimeout(() => {
+                    infoModal.classList.add('show');
+                }, 150);
             });
             
             closeTip.addEventListener("click", () => {
