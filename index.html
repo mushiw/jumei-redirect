@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>安全访问 - 优化滑动效果</title>
+    <title>安全访问 - 滑动效果优化</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -25,6 +25,10 @@
             padding: 20px;
             line-height: 1.6;
             position: relative;
+            overflow: hidden;
+        }
+        
+        body.modal-open {
             overflow: hidden;
         }
         
@@ -103,7 +107,6 @@
             transition: all 0.3s ease;
         }
         
-        /* 按钮缩放动画 */
         .button-scale {
             animation: buttonScale 0.3s ease;
         }
@@ -166,6 +169,9 @@
             text-align: center;
             opacity: 0;
             transition: opacity 0.4s ease;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
         
         .weixin-tip.show {
@@ -244,10 +250,9 @@
             padding: 15px;
             opacity: 0;
             transition: opacity 0.4s ease;
-            /* 关键优化：允许整个模态框滚动 */
             overflow-y: auto;
-            -webkit-overflow-scrolling: touch; /* 确保安卓外置浏览器平滑滚动 */
-            overscroll-behavior: contain; /* 防止滚动穿透 */
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
         
         .info-modal.show {
@@ -265,7 +270,6 @@
             margin: 30px auto;
             position: relative;
             box-sizing: border-box;
-            /* 新增模态框动画 */
             transform: scale(0.8);
             opacity: 0;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
@@ -383,7 +387,6 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
-        /* Windows端图标样式 */
         .windows-icon-container {
             display: flex;
             justify-content: center;
@@ -739,13 +742,11 @@
             background: #2980b9;
         }
         
-        /* 新增：详情按钮悬停效果 */
         .info-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(243, 156, 18, 0.3);
         }
         
-        /* 新增：复制按钮悬停效果 */
         .copy-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(52, 152, 219, 0.35);
@@ -980,7 +981,6 @@
             </div>
         </div>
         
-        <!-- 新增Windows端卡片 -->
         <div class="guide-card" id="windowsContainer">
             <div class="verified-tag">
                 <i class="fas fa-check"></i>
@@ -1360,12 +1360,14 @@
                 addScaleAnimation(this);
                 setTimeout(() => {
                     infoModal.classList.add('show');
+                    document.body.classList.add('modal-open');
                 }, 150);
             });
             
             closeModal.addEventListener("click", () => {
                 addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
         }
         
@@ -1386,12 +1388,14 @@
                 addScaleAnimation(this);
                 setTimeout(() => {
                     infoModal.classList.add('show');
+                    document.body.classList.add('modal-open');
                 }, 150);
             });
             
             closeModal.addEventListener("click", () => {
                 addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
         }
         
@@ -1413,6 +1417,7 @@
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
                     
                     weixinTip.classList.add('show');
+                    document.body.classList.add('modal-open');
                     
                     setTimeout(() => {
                         copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
@@ -1430,17 +1435,20 @@
                 addScaleAnimation(this);
                 setTimeout(() => {
                     infoModal.classList.add('show');
+                    document.body.classList.add('modal-open');
                 }, 150);
             });
             
             closeTip.addEventListener("click", () => {
                 addScaleAnimation(closeTip);
                 weixinTip.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
             
             closeModal.addEventListener("click", () => {
                 addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
         }
         
