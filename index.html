@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>安全访问</title>
+    <title>安全访问 - 优化滑动效果</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -267,6 +267,9 @@
             opacity: 0;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
                         opacity 0.4s ease;
+            /* 关键优化：添加弹性滚动支持 */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch; /* 确保安卓外置浏览器平滑滚动 */
         }
         
         .info-modal.show .modal-content {
@@ -748,6 +751,25 @@
             box-shadow: 0 8px 25px rgba(52, 152, 219, 0.35);
         }
         
+        /* 新增：优化安卓外置浏览器滚动效果 */
+        .modal-content {
+            -webkit-overflow-scrolling: touch; /* 关键优化：确保安卓外置浏览器平滑滚动 */
+            overscroll-behavior: contain; /* 防止滚动穿透 */
+        }
+        
+        /* 优化滚动区域 */
+        .modal-body {
+            max-height: 60vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 5px;
+        }
+        
+        /* 防止背景滚动 */
+        body.modal-open {
+            overflow: hidden;
+        }
+        
         @media (max-width: 480px) {
             .guide-card {
                 padding: 20px 15px;
@@ -853,6 +875,11 @@
             .service-item, .tip-item {
                 font-size: 14px;
             }
+            
+            /* 移动端优化 */
+            .modal-body {
+                max-height: 55vh;
+            }
         }
         
         @media (max-height: 700px) {
@@ -882,6 +909,10 @@
             
             .package-item {
                 padding: 12px;
+            }
+            
+            .modal-body {
+                max-height: 65vh;
             }
         }
     </style>
@@ -1353,12 +1384,14 @@
                 addScaleAnimation(this);
                 setTimeout(() => {
                     infoModal.classList.add('show');
+                    document.body.classList.add('modal-open');
                 }, 150);
             });
             
             closeModal.addEventListener("click", () => {
                 addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
         }
         
@@ -1379,12 +1412,14 @@
                 addScaleAnimation(this);
                 setTimeout(() => {
                     infoModal.classList.add('show');
+                    document.body.classList.add('modal-open');
                 }, 150);
             });
             
             closeModal.addEventListener("click", () => {
                 addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
         }
         
@@ -1406,6 +1441,7 @@
                     copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
                     
                     weixinTip.classList.add('show');
+                    document.body.classList.add('modal-open');
                     
                     setTimeout(() => {
                         copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
@@ -1423,17 +1459,20 @@
                 addScaleAnimation(this);
                 setTimeout(() => {
                     infoModal.classList.add('show');
+                    document.body.classList.add('modal-open');
                 }, 150);
             });
             
             closeTip.addEventListener("click", () => {
                 addScaleAnimation(closeTip);
                 weixinTip.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
             
             closeModal.addEventListener("click", () => {
                 addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
+                document.body.classList.remove('modal-open');
             });
         }
         
