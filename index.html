@@ -3,286 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>简洁地图位置导航</title>
+    <title>一键展示高德地图位置</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #001510);
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            color: #fff;
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             text-align: center;
         }
         
+        header {
+            margin-bottom: 40px;
+        }
+        
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
             background: linear-gradient(90deg, #ff9966, #ff5e62);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .btn-container {
+            margin: 40px 0;
         }
         
         .location-btn {
-            padding: 18px 45px;
-            font-size: 1.5rem;
-            background: linear-gradient(90deg, #ff9966, #ff5e62);
+            padding: 18px 50px;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #4d8df0, #2b6de9);
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            display: flex;
+            box-shadow: 0 8px 25px rgba(43, 109, 233, 0.4);
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 15px;
-            margin: 0 auto 40px;
+            position: relative;
+            overflow: hidden;
         }
         
         .location-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 30px rgba(43, 109, 233, 0.5);
         }
         
         .location-btn:active {
             transform: translateY(0);
         }
         
+        .location-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2b6de9, #4d8df0);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .location-btn:hover:before {
+            opacity: 1;
+        }
+        
         .map-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
+            width: 100%;
+            height: 500px;
+            background: white;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
-            margin-bottom: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             display: none;
+            position: relative;
+            margin-top: 30px;
+        }
+        
+        .map-container.active {
+            display: block;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         #map {
             width: 100%;
-            height: 400px;
-            border-radius: 20px 20px 0 0;
+            height: 100%;
         }
         
-        .navigation-prompt {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 25px;
-            text-align: center;
-        }
-        
-        .navigation-prompt h3 {
-            color: white;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
+        .map-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 15px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
+            color: white;
+            backdrop-filter: blur(5px);
         }
         
-        .navigation-buttons {
+        .location-info {
+            text-align: left;
+        }
+        
+        .location-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .location-info p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .nav-buttons {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
         
         .nav-btn {
-            padding: 14px 30px;
-            border-radius: 12px;
+            padding: 10px 20px;
+            border-radius: 8px;
             border: none;
             background: rgba(255, 255, 255, 0.15);
             color: white;
-            font-size: 1.1rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
-            min-width: 200px;
-            justify-content: center;
+            gap: 8px;
         }
         
         .nav-btn:hover {
             background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
         }
         
         .nav-btn.amap {
-            background: linear-gradient(90deg, #4d8df0, #2b6de9);
+            background: rgba(43, 109, 233, 0.7);
         }
         
-        .nav-btn.baidu {
-            background: linear-gradient(90deg, #3b6df2, #294cbf);
-        }
-        
-        .nav-btn.apple {
-            background: linear-gradient(90deg, #a6a6a6, #737373);
-        }
-        
-        .info {
-            color: rgba(255, 255, 255, 0.7);
+        .footer {
+            margin-top: 30px;
             font-size: 0.9rem;
-            margin-top: 15px;
-            line-height: 1.6;
+            opacity: 0.8;
         }
         
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
             }
             
             .location-btn {
-                font-size: 1.2rem;
                 padding: 15px 35px;
+                font-size: 1.2rem;
             }
             
-            #map {
-                height: 300px;
+            .map-container {
+                height: 400px;
             }
             
-            .navigation-buttons {
+            .map-overlay {
                 flex-direction: column;
-                align-items: center;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .nav-buttons {
+                width: 100%;
+                justify-content: space-between;
             }
             
             .nav-btn {
-                width: 100%;
-                max-width: 300px;
+                flex: 1;
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><i class="fas fa-map-marked-alt"></i> 位置导航服务</h1>
+        <header>
+            <h1><i class="fas fa-map-marked-alt"></i> 高德地图位置展示</h1>
+            <p class="subtitle">点击下方按钮查看余杭区位置，无需跳转到外部应用</p>
+        </header>
         
-        <button class="location-btn" id="show-map-btn">
-            <i class="fas fa-location-dot"></i> 查看余杭区位置
-        </button>
+        <div class="btn-container">
+            <button class="location-btn" id="show-map-btn">
+                <i class="fas fa-location-dot"></i> 显示余杭区位置
+            </button>
+        </div>
         
         <div class="map-container" id="map-container">
             <div id="map"></div>
             
-            <div class="navigation-prompt">
-                <h3><i class="fas fa-compass"></i> 需要导航到该位置吗？</h3>
-                <div class="navigation-buttons">
+            <div class="map-overlay">
+                <div class="location-info">
+                    <h3>余杭区人民政府</h3>
+                    <p>杭州市余杭区文一西路1500号</p>
+                </div>
+                
+                <div class="nav-buttons">
                     <button class="nav-btn amap">
-                        <i class="fas fa-map"></i> 使用高德地图导航
+                        <i class="fas fa-map"></i> 高德地图
                     </button>
-                    <button class="nav-btn baidu">
-                        <i class="fas fa-map-location-dot"></i> 使用百度地图导航
+                    <button class="nav-btn">
+                        <i class="fas fa-car"></i> 驾车
                     </button>
-                    <button class="nav-btn apple">
-                        <i class="fab fa-apple"></i> 使用苹果地图导航
+                    <button class="nav-btn">
+                        <i class="fas fa-share-alt"></i> 分享
                     </button>
                 </div>
-                <p class="info">点击按钮将跳转到相应的地图应用进行导航</p>
             </div>
         </div>
         
-        <p class="info">
-            本服务基于高德地图API开发，点击"查看余杭区位置"按钮可在地图上查看位置详情
-        </p>
+        <div class="footer">
+            <p>© 2023 高德地图位置展示 | 点击按钮查看位置信息</p>
+        </div>
     </div>
 
     <!-- 高德地图API -->
-    <script src="https://webapi.amap.com/maps?v=2.0&key=您的高德地图API密钥"></script>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=7a9e9d3b7d1b3c0f3b0a3d9c3a7b0c3d"></script>
     <script>
-        // 初始化地图（但不立即显示）
+        // 初始化地图变量
         let map = null;
+        let marker = null;
         
-        // 点击按钮显示地图
-        document.getElementById('show-map-btn').addEventListener('click', function() {
+        // 显示地图函数
+        function showMap() {
             const container = document.getElementById('map-container');
             
-            // 第一次点击时初始化地图
+            // 如果地图未初始化，则初始化
             if (!map) {
+                // 余杭区的坐标
+                const position = [120.0238, 30.2742];
+                
+                // 创建地图实例
                 map = new AMap.Map('map', {
                     zoom: 15,
-                    center: [120.245461, 30.388901], // 余杭区坐标
+                    center: position,
                     viewMode: '3D',
-                    mapStyle: 'amap://styles/darkblue'
+                    mapStyle: 'amap://styles/normal'
                 });
                 
                 // 添加标记
-                const marker = new AMap.Marker({
-                    position: [120.245461, 30.388901],
-                    title: '余杭区',
-                    content: '<div style="background-color: #ff5e62; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-map-marker-alt" style="color: white;"></i></div>',
-                    offset: new AMap.Pixel(-12, -12)
+                marker = new AMap.Marker({
+                    position: position,
+                    title: '余杭区人民政府',
+                    content: '<div style="background-color: #2b6de9; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.3);"><i class="fas fa-map-marker-alt" style="color: white; font-size: 20px;"></i></div>',
+                    offset: new AMap.Pixel(-20, -20)
                 });
                 
                 map.add(marker);
                 
                 // 添加信息窗口
                 const infoWindow = new AMap.InfoWindow({
-                    content: '<div style="padding: 10px; min-width: 200px;">' +
-                             '<h4 style="margin: 0 0 10px; color: #ff9966;">余杭区</h4>' +
-                             '<p>浙江省杭州市余杭区</p>' +
-                             '<p>点击下方按钮进行导航</p>' +
+                    content: '<div style="padding: 12px; min-width: 250px; border-radius: 8px; background: white; box-shadow: 0 3px 15px rgba(0,0,0,0.2);">' +
+                             '<h4 style="margin: 0 0 8px; color: #2b6de9; font-size: 1.2rem;">余杭区人民政府</h4>' +
+                             '<p style="margin: 0; color: #666; font-size: 0.95rem;">杭州市余杭区文一西路1500号</p>' +
+                             '<p style="margin-top: 8px; color: #999; font-size: 0.85rem;">点击下方按钮进行导航</p>' +
                              '</div>',
-                    offset: new AMap.Pixel(0, -30)
+                    offset: new AMap.Pixel(0, -45)
                 });
                 
-                infoWindow.open(map, marker.getPosition());
+                infoWindow.open(map, position);
             }
             
             // 显示地图容器
-            container.style.display = 'block';
+            container.classList.add('active');
             
-            // 滚动到地图位置
-            container.scrollIntoView({ behavior: 'smooth' });
-            
-            // 按钮动画效果
-            this.innerHTML = '<i class="fas fa-check"></i> 位置已显示';
-            this.style.background = 'linear-gradient(90deg, #56ab2f, #a8e063)';
-            
-            setTimeout(() => {
-                this.innerHTML = '<i class="fas fa-location-dot"></i> 查看余杭区位置';
-                this.style.background = 'linear-gradient(90deg, #ff9966, #ff5e62)';
-            }, 2000);
-        });
+            // 更新按钮状态
+            const btn = document.getElementById('show-map-btn');
+            btn.innerHTML = '<i class="fas fa-check"></i> 位置已显示';
+            btn.style.background = 'linear-gradient(135deg, #56ab2f, #a8e063)';
+            btn.disabled = true;
+        }
         
-        // 导航按钮点击事件
+        // 绑定按钮点击事件
+        document.getElementById('show-map-btn').addEventListener('click', showMap);
+        
+        // 导航按钮事件
         document.querySelectorAll('.nav-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                const appName = this.textContent.includes('高德') ? '高德地图' : 
-                               this.textContent.includes('百度') ? '百度地图' : '苹果地图';
-                
-                this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> 正在打开${appName}...`;
-                
-                // 模拟打开导航应用
-                setTimeout(() => {
-                    // 在实际应用中，这里应该跳转到相应的URL Scheme
-                    // 例如：window.location.href = 'iosamap://navi?sourceApplication=applicationName&poiname=余杭区&lat=30.388901&lon=120.245461&dev=0&style=2';
+                if (this.classList.contains('amap')) {
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 打开中...';
                     
-                    this.innerHTML = `<i class="fas fa-check"></i> ${appName}已打开`;
-                    this.style.opacity = '0.7';
-                    
-                    // 3秒后恢复按钮
+                    // 模拟打开高德地图
                     setTimeout(() => {
-                        this.innerHTML = this.innerHTML.replace(`<i class="fas fa-check"></i> ${appName}已打开`, 
-                            this.classList.contains('amap') ? '<i class="fas fa-map"></i> 使用高德地图导航' :
-                            this.classList.contains('baidu') ? '<i class="fas fa-map-location-dot"></i> 使用百度地图导航' :
-                            '<i class="fab fa-apple"></i> 使用苹果地图导航');
-                        this.style.opacity = '1';
-                    }, 3000);
-                }, 1000);
+                        this.innerHTML = '<i class="fas fa-check"></i> 已打开';
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-map"></i> 高德地图';
+                        }, 2000);
+                    }, 1000);
+                } else {
+                    // 简单的点击反馈
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                }
             });
         });
     </script>
