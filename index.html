@@ -2,1531 +2,288 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>安全访问</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简洁地图位置导航</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f4 100%);
-            color: #2c3e50;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #001510);
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            line-height: 1.6;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        body.modal-open {
-            overflow: hidden;
         }
         
         .container {
-            max-width: 480px;
+            max-width: 800px;
             width: 100%;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        .container.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .guide-card {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 25px 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-            display: none;
         }
         
-        .main-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.3;
-            background: linear-gradient(135deg, #3498db, #8e44ad);
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, #ff9966, #ff5e62);
             -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
-        .copy-btn {
-            background: linear-gradient(135deg, #3498db, #8e44ad);
+        .location-btn {
+            padding: 18px 45px;
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, #ff9966, #ff5e62);
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 16px;
-            font-size: 17px;
             cursor: pointer;
-            margin: 20px 0 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 0 auto 40px;
+        }
+        
+        .location-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .location-btn:active {
+            transform: translateY(0);
+        }
+        
+        .map-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            margin-bottom: 25px;
+            display: none;
+        }
+        
+        #map {
             width: 100%;
-            font-weight: 600;
-            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.25);
+            height: 400px;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .navigation-prompt {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .navigation-prompt h3 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.3s ease;
         }
         
-        .info-btn {
-            background: linear-gradient(135deg, #f39c12, #d35400);
-            color: white;
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            padding: 14px 30px;
+            border-radius: 12px;
             border: none;
-            border-radius: 50px;
-            padding: 14px;
-            font-size: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 1.1rem;
             cursor: pointer;
-            margin: 10px 0 15px;
-            width: 100%;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
             transition: all 0.3s ease;
-        }
-        
-        .button-scale {
-            animation: buttonScale 0.3s ease;
-        }
-        
-        @keyframes buttonScale {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-            100% { transform: scale(1); }
-        }
-        
-        .invite-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 25px 0;
-        }
-        
-        .invite-label {
-            font-size: 18px;
-            color: #7f8c8d;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        
-        .invite-code {
             display: flex;
             align-items: center;
+            gap: 10px;
+            min-width: 200px;
             justify-content: center;
-            font-size: 28px;
-            font-weight: 800;
-            color: #e84393;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #ffeaa7, #fab1a0);
-            padding: 12px 30px;
-            border-radius: 50px;
-            box-shadow: 0 6px 20px rgba(232, 67, 147, 0.15);
         }
         
-        .tip-text {
-            font-size: 16px;
-            color: #3498db;
-            margin-top: 20px;
-            font-weight: 500;
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
         }
         
-        .weixin-tip {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(25, 42, 86, 0.95);
-            color: white;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 20px;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
+        .nav-btn.amap {
+            background: linear-gradient(90deg, #4d8df0, #2b6de9);
         }
         
-        .weixin-tip.show {
-            display: flex;
-            animation: fadeIn 0.4s forwards;
+        .nav-btn.baidu {
+            background: linear-gradient(90deg, #3b6df2, #294cbf);
         }
         
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        .nav-btn.apple {
+            background: linear-gradient(90deg, #a6a6a6, #737373);
         }
         
-        .close-tip {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 28px;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .close-tip:active {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .tip-content h2 {
-            font-size: 24px;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-        
-        .step {
-            display: flex;
-            align-items: center;
-            margin: 15px 0;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            text-align: left;
-            max-width: 350px;
-        }
-        
-        .step-number {
-            background: #e84393;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            font-weight: 700;
-            margin-right: 15px;
-        }
-        
-        .step-text {
-            font-size: 16px;
-        }
-        
-        .info-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            color: white;
-            z-index: 1001;
-            padding: 15px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-        }
-        
-        .info-modal.show {
-            display: block;
-            opacity: 1;
-        }
-        
-        .modal-content {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            border-radius: 15px;
-            padding: 25px;
-            max-width: 90vw;
-            width: 100%;
-            max-width: 500px;
-            margin: 30px auto;
-            position: relative;
-            box-sizing: border-box;
-            transform: scale(0.8);
-            opacity: 0;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        opacity 0.4s ease;
-        }
-        
-        .info-modal.show .modal-content {
-            transform: scale(1);
-            opacity: 1;
-        }
-        
-        .close-modal {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            font-size: 26px;
-            cursor: pointer;
-            z-index: 1002;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0,0,0,0.5);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .close-modal:hover {
-            background: rgba(0,0,0,0.7);
-        }
-        
-        .modal-header {
-            text-align: center;
-            padding: 0 15px 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 20px;
-        }
-        
-        .modal-header h2 {
-            font-size: 22px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-        
-        .modal-header p {
-            font-size: 15px;
-            opacity: 0.8;
-        }
-        
-        .modal-section {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .modal-section:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        .modal-section h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .footer {
-            margin-top: 25px;
-            color: #555;
-            font-size: 13px;
-            text-align: center;
-            padding: 0 15px;
-        }
-        
-        .android-icon-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .android-icon-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #3cb371, #2e8b57);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(60, 179, 113, 0.3);
-            position: relative;
-            overflow: hidden;
-            animation: pulseAndroid 2s infinite alternate;
-        }
-        
-        .android-icon-circle::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-            transform: rotate(45deg);
-        }
-        
-        .android-icon-circle i {
-            font-size: 60px;
-            color: white;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        .windows-icon-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .windows-icon-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0078d7, #00a4ef);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(0, 120, 215, 0.3);
-            position: relative;
-            overflow: hidden;
-            animation: pulseWindows 2s infinite alternate;
-        }
-        
-        .windows-icon-circle::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-            transform: rotate(45deg);
-        }
-        
-        .windows-icon-circle i {
-            font-size: 60px;
-            color: white;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        @keyframes pulseAndroid {
-            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(60, 179, 113, 0.3); }
-            100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(60, 179, 113, 0.4); }
-        }
-        
-        @keyframes pulseWindows {
-            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(0, 120, 215, 0.3); }
-            100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0, 120, 215, 0.4); }
-        }
-        
-        .ios-icon-container {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .ios-icon-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #a6a6a6, #808080);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-            animation: pulseApple 2s infinite alternate;
-        }
-        
-        .ios-icon-circle::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
-            transform: rotate(45deg);
-        }
-        
-        .ios-icon-circle i {
-            font-size: 60px;
-            color: white;
-            position: relative;
-            z-index: 2;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        @keyframes pulseApple {
-            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
-            100% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
-        }
-        
-        .verified-tag {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 15px;
-            font-size: 10px;
-            font-weight: 500;
-            box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
-            animation: badgePulse 3s infinite;
-            z-index: 20;
-        }
-        
-        .verified-tag i {
-            margin-right: 4px;
-            font-size: 10px;
-        }
-        
-        @keyframes badgePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-        
-        .arrow-down {
-            margin: 30px auto;
-            width: 60px;
-            height: 60px;
-            animation: bounce 1.8s infinite;
-            color: #3498db;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-15px);}
-            60% {transform: translateY(-8px);}
-        }
-        
-        .ip-checking {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0a7e4d, #0fc57c);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            color: white;
-            text-align: center;
-            transition: opacity 0.5s ease;
-        }
-        
-        .ip-checking.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
-        .ip-logo {
-            font-size: 70px;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            animation: pulseLogo 2s infinite alternate;
-        }
-        
-        @keyframes pulseLogo {
-            0% { transform: scale(1); opacity: 0.9; }
-            100% { transform: scale(1.05); opacity: 1; }
-        }
-        
-        .ip-loader-container {
-            position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 20px 0;
-        }
-        
-        .ip-loader {
-            width: 100%;
-            height: 100%;
-            border: 8px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            border-top-color: rgba(255, 255, 255, 0.9);
-            border-right-color: rgba(255, 255, 255, 0.7);
-            border-bottom-color: rgba(255, 255, 255, 0.5);
-            animation: spin 1.5s linear infinite;
-        }
-        
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        
-        .ip-loader-inner {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            border: 5px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            border-top-color: rgba(255, 255, 255, 0.7);
-            border-right-color: rgba(255, 255, 255, 0.5);
-            animation: spinReverse 1.2s linear infinite;
-        }
-        
-        @keyframes spinReverse {
-            100% { transform: rotate(-360deg); }
-        }
-        
-        .ip-text {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 15px 0 8px;
-            letter-spacing: 0.5px;
-            color: rgba(255, 255, 255, 0.95);
-        }
-        
-        .ip-subtext {
-            font-size: 16px;
-            max-width: 300px;
-            line-height: 1.5;
-            opacity: 0.9;
-            margin-bottom: 15px;
-            color: rgba(255, 255, 255, 0.85);
-        }
-        
-        .ip-error {
-            display: none;
-            background: rgba(231, 76, 60, 0.15);
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 20px;
-            max-width: 300px;
-            border: 1px solid rgba(231, 76, 60, 0.3);
-        }
-        
-        .ip-error.show {
-            display: block;
-            animation: fadeIn 0.4s forwards;
-        }
-        
-        .retry-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            border-radius: 30px;
-            padding: 10px 25px;
-            font-size: 15px;
-            cursor: pointer;
+        .info {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
             margin-top: 15px;
-            transition: all 0.3s ease;
+            line-height: 1.6;
         }
         
-        .retry-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .package-list {
-            margin-top: 15px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .package-item {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            margin-bottom: 8px;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .package-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .package-name {
-            font-weight: 700;
-            font-size: 17px;
-            margin-bottom: 8px;
-            color: #f1c40f;
-            display: flex;
-            align-items: center;
-        }
-        
-        .package-option {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-        }
-        
-        .package-option:last-child {
-            border-bottom: none;
-        }
-        
-        .service-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-        }
-        
-        .service-icon {
-            font-size: 18px;
-            margin-right: 10px;
-            min-width: 24px;
-            color: #3498db;
-        }
-        
-        .service-text {
-            flex: 1;
-        }
-        
-        .tip-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            padding: 10px;
-            background: rgba(46, 204, 113, 0.1);
-            border-radius: 8px;
-            border-left: 3px solid #2ecc71;
-        }
-        
-        .tip-icon {
-            font-size: 18px;
-            margin-right: 10px;
-            color: #2ecc71;
-        }
-        
-        .modal-body {
-            padding-right: 5px;
-        }
-        
-        /* 安卓滚动条优化 - iOS风格 */
-        .info-modal::-webkit-scrollbar {
-            width: 3px; /* 更细的滚动条 */
-        }
-        
-        .info-modal::-webkit-scrollbar-track {
-            background: transparent; /* 透明背景 */
-        }
-        
-        .info-modal::-webkit-scrollbar-thumb {
-            background: rgba(100, 100, 100, 0.5); /* 深灰色半透明 */
-            border-radius: 3px;
-        }
-        
-        .weixin-tip::-webkit-scrollbar {
-            width: 3px;
-        }
-        
-        .weixin-tip::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        
-        .weixin-tip::-webkit-scrollbar-thumb {
-            background: rgba(100, 100, 100, 0.5);
-            border-radius: 3px;
-        }
-        
-        .info-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(243, 156, 18, 0.3);
-        }
-        
-        .copy-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.35);
-        }
-        
-        .no-scroll {
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .scroll-container {
-            -webkit-overflow-scrolling: touch;
-            overflow-y: auto;
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
             }
             
-            .guide-card {
-                padding: 20px 15px;
-                border-radius: 18px;
+            .location-btn {
+                font-size: 1.2rem;
+                padding: 15px 35px;
             }
             
-            .main-title {
-                font-size: 22px;
+            #map {
+                height: 300px;
             }
             
-            .copy-btn, .info-btn {
-                padding: 14px;
-                font-size: 15px;
+            .navigation-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
-            .invite-label {
-                font-size: 17px;
-            }
-            
-            .invite-code {
-                font-size: 24px;
-                padding: 10px 25px;
-            }
-            
-            .ip-text {
-                font-size: 20px;
-            }
-            
-            .ip-subtext {
-                font-size: 14px;
-            }
-            
-            .ip-loader-container {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .ip-logo {
-                font-size: 60px;
-            }
-            
-            .arrow-down {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .android-icon-circle, .ios-icon-circle, .windows-icon-circle {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .android-icon-circle i, .ios-icon-circle i, .windows-icon-circle i {
-                font-size: 50px;
-            }
-            
-            .verified-tag {
-                font-size: 9px;
-                padding: 2px 6px;
-            }
-            
-            .package-item {
-                padding: 12px;
-            }
-            
-            .package-name {
-                font-size: 15px;
-            }
-            
-            .close-modal {
-                top: 15px;
-                right: 15px;
-                width: 35px;
-                height: 35px;
-                font-size: 22px;
-            }
-            
-            .modal-content {
-                max-width: 95vw;
-                padding: 20px 15px;
-                margin: 20px auto;
-            }
-            
-            .modal-header h2 {
-                font-size: 20px;
-            }
-            
-            .modal-header p {
-                font-size: 14px;
-            }
-            
-            .modal-section h3 {
-                font-size: 16px;
-            }
-            
-            .package-name {
-                font-size: 15px;
-            }
-            
-            .package-option {
-                font-size: 14px;
-            }
-            
-            .service-item, .tip-item {
-                font-size: 14px;
-            }
-        }
-        
-        @media (max-height: 700px) {
-            .modal-content {
-                max-height: 85vh;
-                overflow-y: auto;
-            }
-            
-            .modal-header {
-                padding: 0 0 10px;
-            }
-            
-            .modal-section {
-                margin-bottom: 15px;
-                padding-bottom: 15px;
-            }
-        }
-        
-        @media (max-height: 600px) {
-            .modal-content {
-                max-height: 80vh;
-            }
-            
-            .modal-header h2 {
-                font-size: 20px;
-            }
-            
-            .package-item {
-                padding: 12px;
+            .nav-btn {
+                width: 100%;
+                max-width: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="ip-checking" id="ipChecking">
-        <div class="ip-logo">
-            <i class="fas fa-shield-alt"></i>
-        </div>
+    <div class="container">
+        <h1><i class="fas fa-map-marked-alt"></i> 位置导航服务</h1>
         
-        <div class="ip-loader-container">
-            <div class="ip-loader"></div>
-            <div class="ip-loader-inner"></div>
-        </div>
+        <button class="location-btn" id="show-map-btn">
+            <i class="fas fa-location-dot"></i> 查看余杭区位置
+        </button>
         
-        <div class="ip-text">安全验证中</div>
-        <div class="ip-subtext">正在检测您的访问区域</div>
-        
-        <div class="ip-error" id="ipError">
-            <i class="fas fa-exclamation-triangle"></i> 
-            <p>IP检测失败，请重试或检查网络</p>
-            <button class="retry-btn" id="retryBtn">
-                <i class="fas fa-redo"></i> 重新检测
-            </button>
-        </div>
-    </div>
-    
-    <div class="container" id="mainContainer">
-        <div class="guide-card" id="weixinContainer">
-            <div class="verified-tag">
-                <i class="fas fa-check"></i>
-                <span>已验证</span>
-            </div>
+        <div class="map-container" id="map-container">
+            <div id="map"></div>
             
-            <div class="card-content">
-                <div class="ios-icon-container">
-                    <div class="ios-icon-circle">
-                        <i class="fab fa-apple"></i>
-                    </div>
+            <div class="navigation-prompt">
+                <h3><i class="fas fa-compass"></i> 需要导航到该位置吗？</h3>
+                <div class="navigation-buttons">
+                    <button class="nav-btn amap">
+                        <i class="fas fa-map"></i> 使用高德地图导航
+                    </button>
+                    <button class="nav-btn baidu">
+                        <i class="fas fa-map-location-dot"></i> 使用百度地图导航
+                    </button>
+                    <button class="nav-btn apple">
+                        <i class="fab fa-apple"></i> 使用苹果地图导航
+                    </button>
                 </div>
-                
-                <h1 class="main-title">请复制链接后在浏览器打开</h1>
-                <button class="copy-btn" id="copyBtn">
-                    <i class="fas fa-copy"></i> 复制链接
-                </button>
-                
-                <button class="info-btn" id="infoBtn">
-                    <i class="fas fa-info-circle"></i> 详情
-                </button>
+                <p class="info">点击按钮将跳转到相应的地图应用进行导航</p>
             </div>
         </div>
         
-        <div class="guide-card" id="browserContainer">
-            <div class="card-content">
-                <h1 class="main-title">请粘贴到浏览器地址栏</h1>
-                <div class="invite-section">
-                    <div class="invite-label">您的专属邀请码</div>
-                    <div class="invite-code">6699</div>
-                </div>
-                <svg class="arrow-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z"/>
-                    <path d="M12 17.414l-5.707-5.707 1.414-1.414L12 14.586l4.293-4.293 1.414 1.414L12 17.414z" transform="translate(0 5)"/>
-                </svg>
-                <p class="tip-text">粘贴后点击"前往"访问</p>
-            </div>
-        </div>
-        
-        <div class="guide-card" id="androidContainer">
-            <div class="verified-tag">
-                <i class="fas fa-check"></i>
-                <span>已验证</span>
-            </div>
-            
-            <div class="card-content">
-                <div class="android-icon-container">
-                    <div class="android-icon-circle">
-                        <i class="fab fa-android"></i>
-                    </div>
-                </div>
-                
-                <h1 class="main-title">欢迎安卓用户</h1>
-                <button class="copy-btn" id="androidBtn">
-                    <i class="fas fa-external-link-alt"></i> 点击访问
-                </button>
-                
-                <button class="info-btn" id="androidInfoBtn">
-                    <i class="fas fa-info-circle"></i> 详情
-                </button>
-            </div>
-        </div>
-        
-        <div class="guide-card" id="windowsContainer">
-            <div class="verified-tag">
-                <i class="fas fa-check"></i>
-                <span>已验证</span>
-            </div>
-            
-            <div class="card-content">
-                <div class="windows-icon-container">
-                    <div class="windows-icon-circle">
-                        <i class="fab fa-windows"></i>
-                    </div>
-                </div>
-                
-                <h1 class="main-title">欢迎Windows用户</h1>
-                <button class="copy-btn" id="windowsBtn">
-                    <i class="fas fa-external-link-alt"></i> 点击访问
-                </button>
-                
-                <button class="info-btn" id="windowsInfoBtn">
-                    <i class="fas fa-info-circle"></i> 详情
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="weixin-tip" id="weixinTip">
-        <span class="close-tip" id="closeTip">×</span>
-        <div class="tip-content">
-            <h2>请按以下步骤操作</h2>
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-text">点击右上角"<i class="fas fa-ellipsis-h"></i>"菜单按钮</div>
-            </div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-text">选择"在Safari中打开"选项</div>
-            </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-text">在浏览器中粘贴并访问链接</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="info-modal" id="infoModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeModal">×</span>
-            <div class="modal-header">
-                <h2>服务详情</h2>
-                <p>高端品质定制化服务，满足您的个性化需求</p>
-            </div>
-            
-            <div class="modal-body">
-                <div class="modal-section">
-                    <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                    <div class="package-list">
-                        <div class="package-item">
-                            <div class="package-name">
-                                <i class="fas fa-bullseye"></i> 大圈 套餐
-                            </div>
-                            <div class="package-option">
-                                <span>一课（60分钟）</span>
-                                <span>￥2.8k</span>
-                            </div>
-                            <div class="package-option">
-                                <span>两课（100分钟）</span>
-                                <span>￥4.8k</span>
-                            </div>
-                            <div class="package-option">
-                                <span>页课（十一点后至自然醒）</span>
-                                <span>￥8k</span>
-                            </div>
-                        </div>
-                        
-                        <div class="package-item">
-                            <div class="package-name">
-                                <i class="fas fa-star"></i> 鹦鹉 套餐
-                            </div>
-                            <div class="package-option">
-                                <span>一课（60分钟）</span>
-                                <span>￥4.8k</span>
-                            </div>
-                            <div class="package-option">
-                                <span>两课（100分钟）</span>
-                                <span>￥8k</span>
-                            </div>
-                            <div class="package-option">
-                                <span>页课（十一点后至自然醒）</span>
-                                <span>￥14k</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h3><i class="fas fa-star"></i> 服务说明</h3>
-                    <div class="solution-list">
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fas fa-map-pin"></i>
-                            </div>
-                            <div class="service-text">
-                               服务内容，请查看个人主页简介
-                            </div>
-                        </div>
-                        
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fas fa-puzzle-piece"></i>
-                            </div>
-                            <div class="service-text">
-                               特殊需求提前沟通，看个人特色
-                            </div>
-                        </div>
-                        
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fas fa-ban"></i>
-                            </div>
-                            <div class="service-text">
-                               拒绝低质服务，注重体验与细节
-                            </div>
-                        </div>
-                        
-                        <div class="service-item">
-                            <div class="service-icon">
-                                <i class="fas fa-calendar-alt"></i>
-                            </div>
-                            <div class="service-text">
-                                支持提前预约，时间安排更灵活
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="modal-section">
-                    <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                    <div class="solution-list">
-                        <div class="tip-item">
-                            <div class="tip-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div>
-                                服务均为高品质定制，非市面上中低端
-                            </div>
-                        </div>
-                        
-                        <div class="tip-item">
-                            <div class="tip-icon">
-                                <i class="fas fa-comments"></i>
-                            </div>
-                            <div>
-                                均需提前支付定金，避免不必要的麻烦
-                            </div>
-                        </div>
-                        
-                        <div class="tip-item">
-                            <div class="tip-icon">
-                                <i class="fas fa-link"></i>
-                            </div>
-                            <div>
-                                诚信是基础，细节是态度，服务见真章
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <p class="info">
+            本服务基于高德地图API开发，点击"查看余杭区位置"按钮可在地图上查看位置详情
+        </p>
     </div>
 
-    <div class="footer">
-        <p>安全访问 &copy; 2025 | 穆师为您保驾护航</p>
-    </div>
-
+    <!-- 高德地图API -->
+    <script src="https://webapi.amap.com/maps?v=2.0&key=您的高德地图API密钥"></script>
     <script>
-        const allowedProvinces = [
-            "浙江", "Zhejiang", "浙江省", "浙江", "ZJ", 
-            "ZheJiang", "浙", "zhejiang", "zhe jiang"
-        ];
+        // 初始化地图（但不立即显示）
+        let map = null;
         
-        let retryCount = 0;
-        const MAX_RETRIES = 2;
-        const TIMEOUT_DURATION = 2000;
-        
-        function isWeixinBrowser() {
-            return /MicroMessenger/i.test(navigator.userAgent);
-        }
-        
-        function isIOS() {
-            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-        
-        function isAndroid() {
-            return /Android/i.test(navigator.userAgent);
-        }
-        
-        function isWindows() {
-            return /Win|Windows|NT/i.test(navigator.userAgent);
-        }
-        
-        function shouldSkipIPCheck() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const verifiedParam = urlParams.get('verified');
+        // 点击按钮显示地图
+        document.getElementById('show-map-btn').addEventListener('click', function() {
+            const container = document.getElementById('map-container');
             
-            if (verifiedParam === 'true') {
-                return true;
+            // 第一次点击时初始化地图
+            if (!map) {
+                map = new AMap.Map('map', {
+                    zoom: 15,
+                    center: [120.245461, 30.388901], // 余杭区坐标
+                    viewMode: '3D',
+                    mapStyle: 'amap://styles/darkblue'
+                });
+                
+                // 添加标记
+                const marker = new AMap.Marker({
+                    position: [120.245461, 30.388901],
+                    title: '余杭区',
+                    content: '<div style="background-color: #ff5e62; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center;"><i class="fas fa-map-marker-alt" style="color: white;"></i></div>',
+                    offset: new AMap.Pixel(-12, -12)
+                });
+                
+                map.add(marker);
+                
+                // 添加信息窗口
+                const infoWindow = new AMap.InfoWindow({
+                    content: '<div style="padding: 10px; min-width: 200px;">' +
+                             '<h4 style="margin: 0 0 10px; color: #ff9966;">余杭区</h4>' +
+                             '<p>浙江省杭州市余杭区</p>' +
+                             '<p>点击下方按钮进行导航</p>' +
+                             '</div>',
+                    offset: new AMap.Pixel(0, -30)
+                });
+                
+                infoWindow.open(map, marker.getPosition());
             }
             
-            if (isIOS() && !isWeixinBrowser()) {
-                return true;
-            }
+            // 显示地图容器
+            container.style.display = 'block';
             
-            return false;
-        }
-        
-        function addScaleAnimation(button) {
-            button.classList.add('button-scale');
+            // 滚动到地图位置
+            container.scrollIntoView({ behavior: 'smooth' });
+            
+            // 按钮动画效果
+            this.innerHTML = '<i class="fas fa-check"></i> 位置已显示';
+            this.style.background = 'linear-gradient(90deg, #56ab2f, #a8e063)';
+            
             setTimeout(() => {
-                button.classList.remove('button-scale');
-            }, 300);
-        }
-        
-        function checkIPLocation() {
-            const ipChecking = document.getElementById('ipChecking');
-            const ipError = document.getElementById('ipError');
-            const mainContainer = document.getElementById('mainContainer');
-            
-            ipError.classList.remove('show');
-            
-            if (shouldSkipIPCheck()) {
-                ipChecking.classList.add('hidden');
-                mainContainer.classList.add('show');
-                initPage();
-                return;
-            }
-            
-            const timeoutId = setTimeout(() => {
-                ipChecking.classList.add('hidden');
-                mainContainer.classList.add('show');
-                initPage();
-            }, TIMEOUT_DURATION);
-            
-            const apis = [
-                'https://ipapi.co/json/',
-                'https://ipinfo.io/json'
-            ];
-            
-            const apiPromises = apis.map(api => 
-                fetch(api, {
-                    method: 'GET',
-                    mode: 'cors',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(res => {
-                    if (!res.ok) throw new Error('API error');
-                    return res.json();
-                })
-                .catch(e => {
-                    return null;
-                })
-            );
-            
-            Promise.any(apiPromises)
-            .then(data => {
-                clearTimeout(timeoutId);
-                
-                if (!data) {
-                    ipChecking.classList.add('hidden');
-                    mainContainer.classList.add('show');
-                    initPage();
-                    return;
-                }
-                
-                const province = data.region || 
-                                data.regionName || 
-                                data.province || 
-                                data.state || '';
-                
-                const normalizedProvince = province.toString().trim().toLowerCase();
-                
-                const isAllowed = allowedProvinces.some(allowed => 
-                    normalizedProvince.includes(allowed.toLowerCase())
-                );
-                
-                if (!isAllowed) {
-                    setTimeout(() => {
-                        window.location.href = 'https://www.ccser.com';
-                    }, 800);
-                } else {
-                    setTimeout(() => {
-                        ipChecking.classList.add('hidden');
-                        mainContainer.classList.add('show');
-                        initPage();
-                    }, 800);
-                }
-            })
-            .catch(error => {
-                clearTimeout(timeoutId);
-                ipError.classList.add('show');
-                retryCount++;
-                
-                if (retryCount >= MAX_RETRIES) {
-                    setTimeout(() => {
-                        ipChecking.classList.add('hidden');
-                        mainContainer.classList.add('show');
-                        initPage();
-                    }, 800);
-                }
-            });
-        }
-        
-        document.getElementById('retryBtn').addEventListener('click', function() {
-            addScaleAnimation(this);
-            checkIPLocation();
+                this.innerHTML = '<i class="fas fa-location-dot"></i> 查看余杭区位置';
+                this.style.background = 'linear-gradient(90deg, #ff9966, #ff5e62)';
+            }, 2000);
         });
         
-        function initPage() {
-            const weixinContainer = document.getElementById("weixinContainer");
-            const browserContainer = document.getElementById("browserContainer");
-            const androidContainer = document.getElementById("androidContainer");
-            const windowsContainer = document.getElementById("windowsContainer");
-            
-            if (isAndroid()) {
-                weixinContainer.style.display = "none";
-                browserContainer.style.display = "none";
-                androidContainer.style.display = "block";
-                windowsContainer.style.display = "none";
-                setupAndroidEvents();
-            } 
-            else if (isWeixinBrowser() && isIOS()) {
-                browserContainer.style.display = "none";
-                weixinContainer.style.display = "block";
-                androidContainer.style.display = "none";
-                windowsContainer.style.display = "none";
-                setupWeixinEvents();
-            } 
-            else if (isWindows()) {
-                weixinContainer.style.display = "none";
-                browserContainer.style.display = "none";
-                androidContainer.style.display = "none";
-                windowsContainer.style.display = "block";
-                setupWindowsEvents();
-            }
-            else {
-                showBrowserGuide();
-            }
-        }
-        
-        function showBrowserGuide() {
-            const weixinContainer = document.getElementById("weixinContainer");
-            const browserContainer = document.getElementById("browserContainer");
-            const androidContainer = document.getElementById("androidContainer");
-            const windowsContainer = document.getElementById("windowsContainer");
-            
-            weixinContainer.style.display = "none";
-            browserContainer.style.display = "block";
-            androidContainer.style.display = "none";
-            windowsContainer.style.display = "none";
-        }
-        
-        function setupWindowsEvents() {
-            const windowsBtn = document.getElementById("windowsBtn");
-            const windowsInfoBtn = document.getElementById("windowsInfoBtn");
-            const infoModal = document.getElementById("infoModal");
-            const closeModal = document.getElementById("closeModal");
-            
-            const targetUrl = "https://surl.amap.com/1eKWo45q4cP";
-            
-            windowsBtn.addEventListener("click", function() {
-                addScaleAnimation(this);
-                window.location.href = targetUrl;
-            });
-            
-            windowsInfoBtn.addEventListener("click", function() {
-                addScaleAnimation(this);
-                setTimeout(() => {
-                    infoModal.classList.add('show');
-                    document.body.classList.add('modal-open');
-                }, 150);
-            });
-            
-            closeModal.addEventListener("click", () => {
-                addScaleAnimation(closeModal);
-                infoModal.classList.remove('show');
-                document.body.classList.remove('modal-open');
-            });
-        }
-        
-        function setupAndroidEvents() {
-            const androidBtn = document.getElementById("androidBtn");
-            const androidInfoBtn = document.getElementById("androidInfoBtn");
-            const infoModal = document.getElementById("infoModal");
-            const closeModal = document.getElementById("closeModal");
-            
-            const targetUrl = "https://surl.amap.com/1eKWo45q4cP";
-            
-            androidBtn.addEventListener("click", function() {
-                addScaleAnimation(this);
-                window.location.href = targetUrl;
-            });
-            
-            androidInfoBtn.addEventListener("click", function() {
-                addScaleAnimation(this);
-                setTimeout(() => {
-                    infoModal.classList.add('show');
-                    document.body.classList.add('modal-open');
-                    // 安卓外置浏览器滑动优化
-                    if (!isWeixinBrowser()) {
-                        document.body.classList.add('no-scroll');
-                    }
-                }, 150);
-            });
-            
-            closeModal.addEventListener("click", () => {
-                addScaleAnimation(closeModal);
-                infoModal.classList.remove('show');
-                document.body.classList.remove('modal-open');
-                // 移除安卓外置浏览器滑动限制
-                if (!isWeixinBrowser()) {
-                    document.body.classList.remove('no-scroll');
-                }
-            });
-        }
-        
-        function setupWeixinEvents() {
-            const copyBtn = document.getElementById("copyBtn");
-            const infoBtn = document.getElementById("infoBtn");
-            const weixinTip = document.getElementById("weixinTip");
-            const infoModal = document.getElementById("infoModal");
-            const closeTip = document.getElementById("closeTip");
-            const closeModal = document.getElementById("closeModal");
-            
-            const baseUrl = "https://surl.amap.com/1eKWo45q4cP";
-            const targetUrl = baseUrl + "?verified=true";
-            
-            copyBtn.addEventListener("click", function() {
-                addScaleAnimation(this);
+        // 导航按钮点击事件
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const appName = this.textContent.includes('高德') ? '高德地图' : 
+                               this.textContent.includes('百度') ? '百度地图' : '苹果地图';
                 
-                copyToClipboard(targetUrl).then(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-check"></i> 复制成功';
-                    
-                    weixinTip.classList.add('show');
-                    document.body.classList.add('modal-open');
-                    
-                    setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
-                    }, 2000);
-                }).catch(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-times"></i> 复制失败';
-                    
-                    setTimeout(() => {
-                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> 复制链接';
-                    }, 2000);
-                });
-            });
-            
-            infoBtn.addEventListener("click", function() {
-                addScaleAnimation(this);
-                setTimeout(() => {
-                    infoModal.classList.add('show');
-                    document.body.classList.add('modal-open');
-                }, 150);
-            });
-            
-            closeTip.addEventListener("click", () => {
-                addScaleAnimation(closeTip);
-                weixinTip.classList.remove('show');
-                document.body.classList.remove('modal-open');
-            });
-            
-            closeModal.addEventListener("click", () => {
-                addScaleAnimation(closeModal);
-                infoModal.classList.remove('show');
-                document.body.classList.remove('modal-open');
-            });
-        }
-        
-        function copyToClipboard(text) {
-            return new Promise((resolve, reject) => {
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(text).then(resolve).catch(reject);
-                } else {
-                    const textarea = document.createElement("textarea");
-                    textarea.value = text;
-                    textarea.style.position = "fixed";
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    
-                    try {
-                        document.execCommand("copy");
-                        resolve();
-                    } catch (err) {
-                        reject(err);
-                    } finally {
-                        document.body.removeChild(textarea);
-                    }
-                }
-            });
-        }
-        
-        function enhanceAndroidScroll() {
-            if (isAndroid() && !isWeixinBrowser()) {
-                const containers = document.querySelectorAll('.info-modal, .weixin-tip');
-                containers.forEach(container => {
-                    container.classList.add('scroll-container');
-                });
-            }
-        }
-        
-        document.addEventListener("DOMContentLoaded", function() {
-            try {
-                if (isIOS() && !isWeixinBrowser()) {
-                    document.querySelector('.arrow-down').style.display = 'block';
-                }
+                this.innerHTML = `<i class="fas fa-spinner fa-spin"></i> 正在打开${appName}...`;
                 
-                checkIPLocation();
-                enhanceAndroidScroll();
-            } catch (e) {
-                document.getElementById('ipChecking').classList.add('hidden');
-                document.getElementById('mainContainer').classList.add('show');
-                initPage();
-                enhanceAndroidScroll();
-            }
+                // 模拟打开导航应用
+                setTimeout(() => {
+                    // 在实际应用中，这里应该跳转到相应的URL Scheme
+                    // 例如：window.location.href = 'iosamap://navi?sourceApplication=applicationName&poiname=余杭区&lat=30.388901&lon=120.245461&dev=0&style=2';
+                    
+                    this.innerHTML = `<i class="fas fa-check"></i> ${appName}已打开`;
+                    this.style.opacity = '0.7';
+                    
+                    // 3秒后恢复按钮
+                    setTimeout(() => {
+                        this.innerHTML = this.innerHTML.replace(`<i class="fas fa-check"></i> ${appName}已打开`, 
+                            this.classList.contains('amap') ? '<i class="fas fa-map"></i> 使用高德地图导航' :
+                            this.classList.contains('baidu') ? '<i class="fas fa-map-location-dot"></i> 使用百度地图导航' :
+                            '<i class="fab fa-apple"></i> 使用苹果地图导航');
+                        this.style.opacity = '1';
+                    }, 3000);
+                }, 1000);
+            });
         });
     </script>
 </body>
