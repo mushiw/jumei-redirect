@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>安全访问</title>
+    <title>安全访问 - 滚动条优化</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -724,35 +724,30 @@
             padding-right: 5px;
         }
         
+        /* 安卓滚动条优化 - iOS风格 */
         .info-modal::-webkit-scrollbar {
-            width: 6px;
+            width: 3px; /* 更细的滚动条 */
         }
         
         .info-modal::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
+            background: transparent; /* 透明背景 */
         }
         
         .info-modal::-webkit-scrollbar-thumb {
-            background: #3498db;
+            background: rgba(100, 100, 100, 0.5); /* 深灰色半透明 */
             border-radius: 3px;
-        }
-        
-        .info-modal::-webkit-scrollbar-thumb:hover {
-            background: #2980b9;
         }
         
         .weixin-tip::-webkit-scrollbar {
-            width: 6px;
+            width: 3px;
         }
         
         .weixin-tip::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
+            background: transparent;
         }
         
         .weixin-tip::-webkit-scrollbar-thumb {
-            background: #3498db;
+            background: rgba(100, 100, 100, 0.5);
             border-radius: 3px;
         }
         
@@ -1415,6 +1410,7 @@
                 setTimeout(() => {
                     infoModal.classList.add('show');
                     document.body.classList.add('modal-open');
+                    // 安卓外置浏览器滑动优化
                     if (!isWeixinBrowser()) {
                         document.body.classList.add('no-scroll');
                     }
@@ -1425,6 +1421,7 @@
                 addScaleAnimation(closeModal);
                 infoModal.classList.remove('show');
                 document.body.classList.remove('modal-open');
+                // 移除安卓外置浏览器滑动限制
                 if (!isWeixinBrowser()) {
                     document.body.classList.remove('no-scroll');
                 }
