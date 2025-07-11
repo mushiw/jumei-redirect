@@ -2,223 +2,460 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>一键展示高德地图位置</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>聚美臻选</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary: #ff6b8b;
+            --primary-dark: #e55a79;
+            --secondary: #6a5af9;
+            --secondary-dark: #5a4af0;
+            --accent: #20bf6b;
+            --accent-dark: #18a858;
+            --gold: #ffd166;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --gray: #b2bec3;
+            --light-gray: #f0f0f0;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: #fff;
-        }
-        
-        .container {
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-        }
-        
-        header {
-            margin-bottom: 40px;
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #ff9966, #ff5e62);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            padding: 15px;
             position: relative;
-            display: inline-block;
+            overflow-x: hidden;
         }
         
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        .btn-container {
-            margin: 40px 0;
-        }
-        
-        .location-btn {
-            padding: 18px 50px;
-            font-size: 1.4rem;
-            background: linear-gradient(135deg, #4d8df0, #2b6de9);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(43, 109, 233, 0.4);
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .location-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(43, 109, 233, 0.5);
-        }
-        
-        .location-btn:active {
-            transform: translateY(0);
-        }
-        
-        .location-btn:before {
+        body::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #2b6de9, #4d8df0);
-            opacity: 0;
-            transition: all 0.4s ease;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjAuNSIgZmlsbD0iI2YwZjBmMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=');
+            opacity: 0.1;
             z-index: -1;
         }
         
-        .location-btn:hover:before {
-            opacity: 1;
-        }
-        
-        .map-container {
-            width: 100%;
-            height: 500px;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            display: none;
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
             position: relative;
-            margin-top: 30px;
         }
         
-        .map-container.active {
-            display: block;
-            animation: fadeIn 0.8s ease;
+        /* 头部样式 */
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px 0;
+            position: relative;
+            animation: fadeInDown 0.8s ease;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        header h1 {
+            color: var(--secondary);
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
         }
         
-        #map {
+        /* 选项卡片样式 - 简化版 */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .option-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .option-card:nth-child(1) { animation-delay: 0.1s; }
+        .option-card:nth-child(2) { animation-delay: 0.2s; }
+        .option-card:nth-child(3) { animation-delay: 0.3s; }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .option-card h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+        
+        .option-card i {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            transition: var(--transition);
+            background: rgba(106, 90, 249, 0.1);
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+        }
+        
+        .option-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 隐藏滚动条 */
+        .modal-content::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        /* 微信风格返回键 */
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .back-btn:hover {
+            color: var(--primary);
+            background: rgba(0, 0, 0, 0.08);
+        }
+        
+        .modal-title {
+            margin: 15px 0 20px;
+            text-align: center;
+            color: var(--primary);
+            font-size: 1.4rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .modal-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        /* 区域选择 */
+        .area-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .area-item {
+            padding: 12px 8px;
+            background: var(--light);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+        
+        .area-item:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* 地图导航模态框 */
+        .map-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 60vh;
+            min-height: 300px;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
         .map-overlay {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .map-overlay h3 {
+            color: var(--secondary);
+            margin-bottom: 3px;
+            font-size: 1.1rem;
+        }
+        
+        /* 服务详情样式 - 简化版 */
+        .service-section {
+            background: var(--light);
+            border-radius: 12px;
             padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .service-header i {
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
             color: white;
-            backdrop-filter: blur(5px);
-        }
-        
-        .location-info {
-            text-align: left;
-        }
-        
-        .location-info h3 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-        }
-        
-        .location-info p {
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-        
-        .nav-buttons {
+            border-radius: 50%;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .service-header h3 {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .service-items {
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 10px;
         }
         
-        .nav-btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .service-item {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-        
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-        
-        .nav-btn.amap {
-            background: rgba(43, 109, 233, 0.7);
-        }
-        
-        .footer {
-            margin-top: 30px;
+            transition: var(--transition);
             font-size: 0.9rem;
-            opacity: 0.8;
         }
         
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
+        .service-info {
+            flex: 1;
+        }
+        
+        .service-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+        
+        .service-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .service-desc {
+            color: var(--gray);
+            font-size: 0.85rem;
+            margin-top: 3px;
+        }
+        
+        .special-offer {
+            background: rgba(255, 241, 193, 0.5);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px dashed var(--gold);
+        }
+        
+        .special-offer p {
+            color: var(--dark);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
             }
             
-            .subtitle {
-                font-size: 1rem;
+            header {
+                padding: 15px 0;
             }
             
-            .location-btn {
-                padding: 15px 35px;
-                font-size: 1.2rem;
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .option-card {
+                padding: 15px;
+            }
+            
+            .option-card h2 {
+                font-size: 1.3rem;
+            }
+            
+            .option-card i {
+                width: 45px;
+                height: 45px;
+                line-height: 45px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 15px;
+            }
+            
+            .area-list {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                gap: 10px;
+            }
+            
+            .service-item {
+                padding: 10px;
             }
             
             .map-container {
-                height: 400px;
-            }
-            
-            .map-overlay {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .nav-buttons {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .nav-btn {
-                flex: 1;
-                justify-content: center;
+                height: 50vh;
             }
         }
     </style>
@@ -226,126 +463,322 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-map-marked-alt"></i> 高德地图位置展示</h1>
-            <p class="subtitle">点击下方按钮查看余杭区位置，无需跳转到外部应用</p>
+            <h1>聚美臻选</h1>
         </header>
         
-        <div class="btn-container">
-            <button class="location-btn" id="show-map-btn">
-                <i class="fas fa-location-dot"></i> 显示余杭区位置
-            </button>
+        <div class="options-grid">
+            <div class="option-card" onclick="openModal('areaModal', 'low')">
+                <i class="fas fa-map-marker-alt"></i>
+                <h2>低端局</h2>
+                <p>精选实惠优质服务</p>
+            </div>
+            <div class="option-card" onclick="openModal('areaModal', 'mid')">
+                <i class="fas fa-crown"></i>
+                <h2>中端局</h2>
+                <p>品质之选 尊享体验</p>
+            </div>
+            <div class="option-card" onclick="openModal('highModal')">
+                <i class="fas fa-gem"></i>
+                <h2>高端局</h2>
+                <p>顶级奢华 VIP专享</p>
+            </div>
         </div>
         
-        <div class="map-container" id="map-container">
-            <div id="map"></div>
-            
-            <div class="map-overlay">
-                <div class="location-info">
-                    <h3>余杭区人民政府</h3>
-                    <p>杭州市余杭区文一西路1500号</p>
+        <!-- 区域选择模态框 -->
+        <div id="areaModal" class="modal">
+            <div class="modal-content">
+                <div class="back-btn" onclick="closeModal('areaModal')">
+                    <i class="fas fa-arrow-left"></i>
                 </div>
+                <h3 class="modal-title" id="areaTitle">区域选择</h3>
                 
-                <div class="nav-buttons">
-                    <button class="nav-btn amap">
-                        <i class="fas fa-map"></i> 高德地图
-                    </button>
-                    <button class="nav-btn">
-                        <i class="fas fa-car"></i> 驾车
-                    </button>
-                    <button class="nav-btn">
-                        <i class="fas fa-share-alt"></i> 分享
+                <div class="area-list" id="areaList"></div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="option-card" style="max-width: 200px; margin: 0 auto;" onclick="openModal('detailModal')">
+                        <i class="fas fa-info-circle"></i>
+                        <h2>服务详情</h2>
                     </button>
                 </div>
             </div>
         </div>
         
-        <div class="footer">
-            <p>© 2023 高德地图位置展示 | 点击按钮查看位置信息</p>
+        <!-- 地图导航模态框 -->
+        <div id="mapModal" class="modal">
+            <div class="modal-content" style="padding: 0; border-radius: 0; max-width: 100%; height: 100%;">
+                <div class="back-btn" onclick="closeModal('mapModal')" style="background: rgba(255,255,255,0.8);">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                
+                <div class="map-container">
+                    <iframe id="mapFrame" src="about:blank" frameborder="0"></iframe>
+                    <div class="map-overlay">
+                        <h3 id="selectedArea">请选择区域</h3>
+                        <p>正在为您导航</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 服务详情模态框 -->
+        <div id="detailModal" class="modal">
+            <div class="modal-content">
+                <div class="back-btn" onclick="closeModal('detailModal')">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h3 class="modal-title" id="detailTitle">服务详情</h3>
+                <div class="modal-body" id="detailContent"></div>
+            </div>
+        </div>
+        
+        <!-- 高端局模态框 -->
+        <div id="highModal" class="modal">
+            <div class="modal-content">
+                <div class="back-btn" onclick="closeModal('highModal')">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h3 class="modal-title">高端局专享</h3>
+                
+                <div class="special-offer">
+                    <p><i class="fas fa-crown"></i> 尊贵VIP专享服务</p>
+                    <p class="highlight">顶级体验 奢华享受</p>
+                </div>
+                
+                <div class="service-section">
+                    <div class="service-header">
+                        <i class="fas fa-star"></i>
+                        <h3>高端服务特色</h3>
+                    </div>
+                    <div class="service-items">
+                        <div class="service-item">
+                            <div class="service-info">
+                                <div class="service-name">私人定制</div>
+                                <div class="service-desc">根据个人需求专属定制服务</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-info">
+                                <div class="service-name">豪华环境</div>
+                                <div class="service-desc">五星级酒店专属房间</div>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-info">
+                                <div class="service-name">不限时长</div>
+                                <div class="service-desc">全天24小时专属服务</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="option-card" style="max-width: 200px; margin: 0 auto;" onclick="window.location.href='http://baidu.com'">
+                        <i class="fas fa-external-link-alt"></i>
+                        <h2>立即访问</h2>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 高德地图API -->
-    <script src="https://webapi.amap.com/maps?v=2.0&key=7a9e9d3b7d1b3c0f3b0a3d9c3a7b0c3d"></script>
     <script>
-        // 初始化地图变量
-        let map = null;
-        let marker = null;
-        
-        // 显示地图函数
-        function showMap() {
-            const container = document.getElementById('map-container');
+        // 区域数据
+        const areaData = {
+            low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
+            mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区'],
+            high: []
+        };
+
+        // 详情数据
+        const detailData = {
+            low: `
+            <div class="service-section">
+                <div class="service-header">
+                    <i class="fas fa-building"></i>
+                    <h3>工作室服务</h3>
+                </div>
+                <div class="service-items">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">一课</div>
+                            <div class="service-price">5 (吹做)</div>
+                            <div class="service-desc">标准60分钟服务</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">一课升级</div>
+                            <div class="service-price">6 (吹做推)</div>
+                            <div class="service-desc">额外推拿服务</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">莞式一课</div>
+                            <div class="service-price">8</div>
+                            <div class="service-desc">全套莞式服务体验</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">页课</div>
+                            <div class="service-price">22-24</div>
+                            <div class="service-desc">过夜服务</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-            // 如果地图未初始化，则初始化
-            if (!map) {
-                // 余杭区的坐标
-                const position = [120.0238, 30.2742];
-                
-                // 创建地图实例
-                map = new AMap.Map('map', {
-                    zoom: 15,
-                    center: position,
-                    viewMode: '3D',
-                    mapStyle: 'amap://styles/normal'
-                });
-                
-                // 添加标记
-                marker = new AMap.Marker({
-                    position: position,
-                    title: '余杭区人民政府',
-                    content: '<div style="background-color: #2b6de9; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.3);"><i class="fas fa-map-marker-alt" style="color: white; font-size: 20px;"></i></div>',
-                    offset: new AMap.Pixel(-20, -20)
-                });
-                
-                map.add(marker);
-                
-                // 添加信息窗口
-                const infoWindow = new AMap.InfoWindow({
-                    content: '<div style="padding: 12px; min-width: 250px; border-radius: 8px; background: white; box-shadow: 0 3px 15px rgba(0,0,0,0.2);">' +
-                             '<h4 style="margin: 0 0 8px; color: #2b6de9; font-size: 1.2rem;">余杭区人民政府</h4>' +
-                             '<p style="margin: 0; color: #666; font-size: 0.95rem;">杭州市余杭区文一西路1500号</p>' +
-                             '<p style="margin-top: 8px; color: #999; font-size: 0.85rem;">点击下方按钮进行导航</p>' +
-                             '</div>',
-                    offset: new AMap.Pixel(0, -45)
-                });
-                
-                infoWindow.open(map, position);
-            }
+            <div class="service-section">
+                <div class="service-header">
+                    <i class="fas fa-motorcycle"></i>
+                    <h3>外卖服务</h3>
+                </div>
+                <div class="service-items">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">一课</div>
+                            <div class="service-price">8 (吹做推)</div>
+                            <div class="service-desc">酒店上门服务</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">酒店要求</div>
+                            <div class="service-desc">需登记酒店不去</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-            // 显示地图容器
-            container.classList.add('active');
+            <div class="special-offer">
+                <p><span class="highlight">特别提示：</span>部分工作室提供真人照片（年龄26-30岁），请提前联系确认是否开工</p>
+                <p>低价页服务可能存在风险，请谨慎选择</p>
+            </div>
+            `,
             
-            // 更新按钮状态
-            const btn = document.getElementById('show-map-btn');
-            btn.innerHTML = '<i class="fas fa-check"></i> 位置已显示';
-            btn.style.background = 'linear-gradient(135deg, #56ab2f, #a8e063)';
-            btn.disabled = true;
-        }
+            mid: `
+            <div class="service-section">
+                <div class="service-header">
+                    <i class="fas fa-building"></i>
+                    <h3>工作室服务</h3>
+                </div>
+                <div class="service-items">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">一课</div>
+                            <div class="service-price">1.4k (60分钟)</div>
+                            <div class="service-desc">基础服务套餐</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">两课</div>
+                            <div class="service-price">2.4k (100分钟)</div>
+                            <div class="service-desc">延长服务时间</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">页课</div>
+                            <div class="service-price">4k</div>
+                            <div class="service-desc">11点后至第二天自然醒</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="service-section">
+                <div class="service-header">
+                    <i class="fas fa-motorcycle"></i>
+                    <h3>外卖服务</h3>
+                </div>
+                <div class="service-items">
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">一课</div>
+                            <div class="service-price">1.6k (60分钟)</div>
+                            <div class="service-desc">酒店上门服务</div>
+                        </div>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-info">
+                            <div class="service-name">两课</div>
+                            <div class="service-price">2.6k (100分钟)</div>
+                            <div class="service-desc">延长服务时间</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="special-offer">
+                <p><span class="highlight">服务承诺：</span>所有服务人员态度乖巧听话，任何不过分的要求都可以满足</p>
+                <p>提供丝袜和各种情趣制服！服务内容只有你想不到，没有做不到的</p>
+                <p>工作室提供真人真照，确保服务质量</p>
+            </div>
+            `
+        };
         
-        // 绑定按钮点击事件
-        document.getElementById('show-map-btn').addEventListener('click', showMap);
-        
-        // 导航按钮事件
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (this.classList.contains('amap')) {
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 打开中...';
-                    
-                    // 模拟打开高德地图
-                    setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-check"></i> 已打开';
-                        setTimeout(() => {
-                            this.innerHTML = '<i class="fas fa-map"></i> 高德地图';
-                        }, 2000);
-                    }, 1000);
-                } else {
-                    // 简单的点击反馈
+        let currentType = '';
+
+        // 页面加载时检查
+        window.onload = async function() {
+            // 添加触感效果
+            document.querySelectorAll('.option-card, .area-item').forEach(el => {
+                el.addEventListener('click', function() {
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {
-                        this.style.transform = 'scale(1)';
+                        this.style.transform = '';
                     }, 200);
-                }
+                });
             });
-        });
+        };
+
+        // 打开模态框
+        function openModal(modalId, type = '') {
+            if (modalId === 'areaModal') {
+                currentType = type;
+                const areaTitle = document.getElementById('areaTitle');
+                const areaList = document.getElementById('areaList');
+                
+                areaTitle.textContent = type === 'low' ? '低端局区域选择' : '中端局区域选择';
+                areaList.innerHTML = '';
+                
+                areaData[type].forEach(area => {
+                    const areaItem = document.createElement('div');
+                    areaItem.className = 'area-item';
+                    areaItem.textContent = area;
+                    areaItem.onclick = () => openMapModal(area, type);
+                    areaList.appendChild(areaItem);
+                });
+                
+                document.getElementById('detailContent').innerHTML = detailData[type];
+            }
+            
+            document.getElementById(modalId).classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 关闭模态框
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // 打开地图模态框
+        function openMapModal(area, type) {
+            document.getElementById('selectedArea').textContent = area;
+            
+            // 使用高德地图导航URL
+            const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=0`;
+            document.getElementById('mapFrame').src = mapUrl;
+            
+            closeModal('areaModal');
+            openModal('mapModal');
+        }
+
+        // 初始化服务详情
+        document.getElementById('detailContent').innerHTML = detailData.low;
     </script>
 </body>
 </html>
