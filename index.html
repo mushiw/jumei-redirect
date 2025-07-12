@@ -1406,6 +1406,81 @@
           align-items: center;
           justify-content: center;
         }
+
+        /* 主界面卡片移动端适配 */
+        @media (max-width: 600px) {
+          .options-grid {
+            gap: 8px !important;
+            margin: 8px 0 !important;
+          }
+          .option-card {
+            min-height: 56px !important;
+            padding: 10px 12px !important;
+            margin-bottom: 8px !important;
+            border-radius: 16px !important;
+          }
+          .option-icon {
+            width: 38px !important;
+            height: 38px !important;
+            font-size: 1.1rem !important;
+            margin-right: 8px !important;
+            border-radius: 10px !important;
+          }
+          .option-content h2 {
+            font-size: 1.05rem !important;
+          }
+          .badge {
+            font-size: 0.85rem !important;
+            padding: 4px 10px !important;
+          }
+        }
+
+        /* 高端局详情滑动体验与服务详情一致 */
+        #highModal.modal {
+          position: fixed;
+          top: 0; left: 0; right: 0; bottom: 0;
+          width: 100vw;
+          height: 100vh;
+          background: var(--light);
+          z-index: 9999;
+          display: block;
+          opacity: 0;
+          visibility: hidden;
+          transition: opacity 0.3s ease;
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+        #highModal.modal.active {
+          opacity: 1;
+          visibility: visible;
+        }
+        #highModal .modal-content {
+          width: 100%;
+          max-width: 100%;
+          min-height: 100vh;
+          border-radius: 0;
+          margin: 0;
+          padding: 0;
+          display: block;
+          animation: none;
+          overflow: visible;
+          box-shadow: none;
+          transform: none;
+        }
+        #highModal .modal-title {
+          position: static !important;
+          top: auto !important;
+          z-index: auto !important;
+          box-shadow: none !important;
+        }
+
+        /* 服务详情栏随页面滑动 */
+        #detailModal .modal-title, #highModal .modal-title {
+          position: static !important;
+          top: auto !important;
+          z-index: auto !important;
+          box-shadow: none !important;
+        }
     </style>
 </head>
 <body>
