@@ -382,11 +382,11 @@
             border-radius: 2px;
         }
         
-        /* 区域选择 - 突出设计 */
+        /* 区域选择 - 优化为两列布局 */
         .area-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
             margin: 20px 0;
         }
         
@@ -797,7 +797,7 @@
             }
             
             .area-list {
-                grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
             
@@ -1128,32 +1128,34 @@
         // 模态框状态管理
         let currentModal = null;
         let previousModal = null;
+        
+        // 跳转状态管理
+        let jumpTimeout = null;
+        let jumpSuccess = false;
 
         // 页面加载时初始化
         window.onload = function() {
-            // 添加触感效果
+            // 添加触感效果 - 修复安卓点击卡顿问题
             document.querySelectorAll('.option-card, .area-item, .detail-btn, .service-item, .app-jump-btn, .photo-btn').forEach(el => {
-                el.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.95)';
-                    this.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.15)';
+                // 使用指针事件统一处理
+                el.addEventListener('pointerdown', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'scale(0.95)';
+                        this.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.15)';
+                    }
                 });
                 
-                el.addEventListener('touchend', function() {
+                el.addEventListener('pointerup', function() {
                     this.style.transform = '';
                     this.style.boxShadow = '';
                 });
                 
-                el.addEventListener('mousedown', function() {
-                    this.style.transform = 'scale(0.95)';
-                    this.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.15)';
-                });
-                
-                el.addEventListener('mouseup', function() {
+                el.addEventListener('pointercancel', function() {
                     this.style.transform = '';
                     this.style.boxShadow = '';
                 });
                 
-                el.addEventListener('mouseleave', function() {
+                el.addEventListener('pointerleave', function() {
                     this.style.transform = '';
                     this.style.boxShadow = '';
                 });
@@ -1285,6 +1287,14 @@
         function openNavigationApp() {
             const jumpStatus = document.getElementById('jumpStatus');
             
+            // 重置跳转状态
+            jumpSuccess = false;
+            
+            // 清除之前的超时
+            if (jumpTimeout) {
+                clearTimeout(jumpTimeout);
+            }
+            
             // 显示跳转状态
             jumpStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 正在尝试打开导航应用...';
             jumpStatus.classList.remove('success-status', 'error-status');
@@ -1311,9 +1321,9 @@
             window.location.href = appUrl;
             
             // 设置超时检测
-            setTimeout(() => {
-                // 如果仍然在页面中，说明跳转失败
-                if (!document.hidden && (Date.now() - startTime) > 500) {
+            jumpTimeout = setTimeout(() => {
+                // 如果仍然在页面中且未标记为成功，说明跳转失败
+                if (!jumpSuccess && !document.hidden) {
                     jumpStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 跳转失败，请手动输入地址导航';
                     jumpStatus.classList.add('error-status');
                     
@@ -1329,6 +1339,14 @@
             // 监听页面隐藏事件（跳转成功会触发页面隐藏）
             document.addEventListener('visibilitychange', function handler() {
                 if (document.hidden) {
+                    // 标记跳转成功
+                    jumpSuccess = true;
+                    
+                    // 清除超时检测
+                    if (jumpTimeout) {
+                        clearTimeout(jumpTimeout);
+                    }
+                    
                     // 跳转成功，更新状态
                     jumpStatus.innerHTML = '<i class="fas fa-check-circle"></i> 导航应用已打开';
                     jumpStatus.classList.add('success-status');
