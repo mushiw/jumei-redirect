@@ -186,6 +186,7 @@
             border: 1px solid rgba(0, 0, 0, 0.03);
             z-index: 1;
             min-height: 90px;
+            user-select: none;
         }
         
         .option-card::before {
@@ -206,7 +207,7 @@
         }
         
         .option-card:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         
@@ -390,13 +391,14 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
         }
         
-        /* 自定义滚动条样式 */
+        /* 自定义滚动条样式 - 统一iOS和Android */
         .modal-content::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         
         .modal-content::-webkit-scrollbar-track {
-            background: transparent;
+            background: rgba(245, 247, 250, 0.6);
+            border-radius: 10px;
         }
         
         .modal-content::-webkit-scrollbar-thumb {
@@ -490,7 +492,7 @@
         }
         
         .area-item:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         }
         
@@ -523,7 +525,7 @@
         }
         
         .detail-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
             box-shadow: 0 2px 8px rgba(0, 137, 123, 0.4);
         }
         
@@ -651,7 +653,7 @@
         }
         
         .app-jump-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
             box-shadow: 0 2px 6px rgba(13, 71, 161, 0.4);
         }
         
@@ -690,7 +692,7 @@
         }
         
         .photo-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
             box-shadow: 0 2px 6px rgba(199, 145, 0, 0.4);
         }
         
@@ -862,7 +864,7 @@
         }
         
         .access-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.97);
             box-shadow: 0 2px 8px rgba(199, 145, 0, 0.4);
         }
         
@@ -892,14 +894,14 @@
             margin-left: 8px;
         }
         
-        /* iOS提示框 */
+        /* iOS提示框 - 美化UI */
         .ios-prompt {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.92);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -908,6 +910,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
         }
         
         .ios-prompt.active {
@@ -919,12 +922,13 @@
             background: white;
             padding: 25px;
             border-radius: 20px;
-            width: 85%;
+            width: 90%;
             max-width: 400px;
             text-align: center;
             position: relative;
             transform: translateY(30px);
             transition: transform 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
         
         .ios-prompt.active .ios-content {
@@ -938,13 +942,20 @@
             font-size: 1.4rem;
             color: var(--gray);
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .ios-close:active {
+            transform: scale(0.9);
+            color: var(--primary);
         }
         
         .ios-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--primary);
             margin-bottom: 15px;
             font-weight: 700;
+            padding-top: 10px;
         }
         
         .ios-instruction {
@@ -955,6 +966,7 @@
             text-align: left;
             font-size: 0.95rem;
             color: var(--dark);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .ios-instruction ol {
@@ -964,6 +976,7 @@
         
         .ios-instruction li {
             margin-bottom: 8px;
+            line-height: 1.5;
         }
         
         .arrow-down {
@@ -977,6 +990,27 @@
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-20px);}
             60% {transform: translateY(-10px);}
+        }
+        
+        /* 邀请码在iOS提示框中 */
+        .ios-invite-code {
+            text-align: center;
+            padding: 12px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 137, 123, 0.3);
+        }
+        
+        .ios-invite-code span {
+            background: white;
+            color: var(--accent-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-left: 8px;
         }
         
         /* 响应式设计 */
@@ -1306,11 +1340,6 @@
                         </div>
                     </div>
                     
-                    <!-- 邀请码移动到按钮上方 -->
-                    <div class="invite-code">
-                        <i class="fas fa-ticket-alt"></i> 您的专属邀请码 <span>6699</span>
-                    </div>
-                    
                     <!-- 访问按钮 -->
                     <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
                         <i class="fas fa-gem"></i>
@@ -1325,16 +1354,22 @@
             </div>
         </div>
         
-        <!-- iOS提示框 -->
+        <!-- iOS提示框 - 美化UI -->
         <div id="iosPrompt" class="ios-prompt">
             <div class="ios-content">
                 <div class="ios-close" onclick="closeIosPrompt()">
                     <i class="fas fa-times"></i>
                 </div>
                 <h3 class="ios-title">请粘贴至浏览器打开</h3>
+                
+                <!-- iOS专属邀请码 -->
+                <div class="ios-invite-code">
+                    <i class="fas fa-ticket-alt"></i> 您的专属邀请码: <span>6699</span>
+                </div>
+                
                 <p>复制以下链接并粘贴到Safari浏览器地址栏：</p>
                 <div class="ios-instruction">
-                    <div id="iosLink" style="word-break: break-all; padding: 10px; background: #f0f8ff; border-radius: 8px; margin: 10px 0;">http://baidu.com</div>
+                    <div id="iosLink" style="word-break: break-all; padding: 10px; background: #f0f8ff; border-radius: 8px; margin: 10px 0; font-weight: 500;">http://baidu.com</div>
                     <ol>
                         <li>长按上方链接并选择"复制"</li>
                         <li>切换到Safari浏览器</li>
@@ -1672,10 +1707,6 @@
                 </div>
             </div>
             
-            <div class="invite-code">
-                <i class="fas fa-ticket-alt"></i> 您的专属邀请码 <span>6699</span>
-            </div>
-            
             <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
                 <i class="fas fa-gem"></i>
                 立即访问高端服务
@@ -1747,7 +1778,10 @@
                 const areaItem = document.createElement('div');
                 areaItem.className = 'area-item';
                 areaItem.textContent = area;
-                areaItem.onclick = () => openMapModal(area, type);
+                areaItem.onclick = () => {
+                    // 添加小延迟避免快速操作问题
+                    setTimeout(() => openMapModal(area, type), 50);
+                };
                 areaList.appendChild(areaItem);
             });
             
