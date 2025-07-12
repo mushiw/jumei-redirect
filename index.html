@@ -23,7 +23,7 @@
             --accent-dark: #00695c;
             --gold: #c79100;
             --gold-dark: #a37200;
-            --silver-light: #f0f0f极速版0;
+            --silver-light: #f0f0f0;
             --silver: #c0c0c0;
             --silver-dark: #a0a0a0;
             --dark: #1a202c;
@@ -31,13 +31,13 @@
             --gray: #718096;
             --light-gray: #f7fafc;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 极速版1);
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.3);
             --gradient-primary: linear-gradient(135deg, #0a2e5d 0%, #072147 100%);
             --gradient-accent: linear-gradient(135deg, #00897b 0%, #00695c 100%);
             --gradient-gold: linear-gradient(135deg, #c79100 0%, #a37200 100%);
-            --gradient-logo: linear-gradient(135deg, #0d47a1 0%, #00897b 50%, #c79100 100%);
+            --gradient-logo: linear-gradient(135deg, #0d47a极速版1 0%, #00897b 50%, #c79100 100%);
             --gradient-title: linear-gradient(90deg, #0d47a1, #00897b, #c79100);
         }
         
@@ -57,29 +57,29 @@
             width: 100%;
             margin: 0 auto;
             position: relative;
-            padding: 20px 15px;
+            padding: 15px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            min-height: calc(100vh - 40px);
-            max-height: calc(100vh - 40px);
+            min-height: 100vh;
             overflow: hidden;
         }
         
         /* 头部样式 */
         header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             padding: 10px 0;
+            flex-shrink: 0;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             flex-direction: column;
         }
         
@@ -91,7 +91,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
@@ -170,17 +170,17 @@
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 18px;
-            margin: 24px 0;
-            flex-grow: 1;
-            overflow-y: auto;
+            gap: 15px;
+            margin: 15px 0;
             padding: 5px;
+            height: auto;
+            flex-shrink: 0;
         }
         
         .option-card {
             background: var(--light);
             border-radius: 16px;
-            padding: 20px;
+            padding: 18px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
             cursor: pointer;
@@ -274,14 +274,14 @@
         .certification {
             text-align: center;
             margin-top: auto;
-            padding: 18px;
+            padding: 15px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.05);
-            margin-bottom: 15px;
+            margin: 10px 0;
         }
         
         .certification::before {
@@ -329,12 +329,12 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        /* 底部信息 - 增加间距 */
+        /* 底部信息 */
         .footer-section {
             text-align: center;
-            margin-top: auto;
-            padding: 10px 0;
+            padding: 10px 0 5px;
             background: transparent;
+            flex-shrink: 0;
         }
         
         .footer {
@@ -343,8 +343,7 @@
             font-size: 0.85rem;
             opacity: 0.85;
             font-weight: 500;
-            padding: 5px 0;
-            margin-bottom: 8px;
+            padding: 3px 0;
         }
         
         .contact-info {
@@ -353,7 +352,7 @@
             font-size: 0.85rem;
             opacity: 0.85;
             font-weight: 500;
-            padding: 5px 0;
+            padding: 3px 0;
         }
         
         .contact-info strong {
@@ -393,7 +392,7 @@
             max-height: 85vh;
             overflow-y: auto;
             position: relative;
-            transform: translate极速版Y(20px);
+            transform: translateY(20px);
             transition: transform 0.4s ease;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             margin: auto;
@@ -540,7 +539,7 @@
             height: 100%;
             background: var(--light);
             z-index: 1000;
-            opacity: 0;
+            opacity极速版: 0;
             visibility: hidden;
             transition: var(--transition);
             display: flex;
@@ -716,7 +715,7 @@
         
         .modal-section {
             background: rgba(245, 247, 250, 0.6);
-            border-radius: 16px;
+            border-radius: 16极速版px;
             padding: 18px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -977,7 +976,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z极速版-index: 3000;
+            z-index: 3000;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -1004,15 +1003,13 @@
         /* 响应式设计 */
         @media (max-width: 480px) {
             .container {
-                padding: 15px;
-                min-height: calc(100vh - 30px);
-                max-height: calc(100vh - 30px);
-                border-radius极速版: 18px;
+                padding: 12px;
+                border-radius: 18px;
             }
             
             header {
-                padding: 8px 0;
-                margin-bottom: 15px;
+                padding: 5px 0;
+                margin-bottom: 10px;
             }
             
             header h1 {
@@ -1025,8 +1022,8 @@
             }
             
             .options-grid {
-                gap: 16px;
-                margin: 15px 0;
+                gap: 12px;
+                margin: 10px 0;
             }
             
             .option-card {
@@ -1045,7 +1042,8 @@
             }
             
             .certification {
-                padding: 15px;
+                padding: 12px;
+                margin: 8px 0;
             }
             
             .modal-content {
@@ -1089,6 +1087,88 @@
                 padding: 16px;
                 font-size: 1.05rem;
                 width: 100%;
+            }
+        }
+        
+        /* 针对小屏幕高度优化 */
+        @media (max-height: 700px) {
+            .logo-icon {
+                width: 75px;
+                height: 75px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .option-card {
+                padding: 14px;
+                min-height: 80px;
+            }
+            
+            .option-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+            }
+            
+            .option-card h2 {
+                font-size: 1.15rem;
+            }
+            
+            .option-card .badge {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .certification {
+                padding: 10px;
+            }
+            
+            .certification h3 {
+                font-size: 1.1rem;
+            }
+            
+            .certification p {
+                font-size: 0.85rem;
+            }
+            
+            .seal {
+                padding: 6px 16px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* 针对超小屏幕高度优化 */
+        @media (max-height: 600px) {
+            .logo-icon {
+                width: 65px;
+                height: 65px;
+            }
+            
+            .logo-icon i {
+                font-size: 2.5rem;
+            }
+            
+            header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .options-grid {
+                gap: 10px;
+                margin: 8px 0;
+            }
+            
+            .option-card {
+                min-height: 70px;
             }
         }
     </style>
@@ -1238,7 +1318,7 @@
                                 </div>
                                 <div class="package-option">
                                     <span>一课（60分钟）</span>
-                                    <span>￥4.8k</极速版span>
+                                    <span>￥4.8k</span>
                                 </div>
                                 <div class="package-option">
                                     <span>两课（100分钟）</span>
@@ -1502,7 +1582,7 @@
                         <div class="package-option">
                             <span>页课</span>
                             <span>4k</span>
-                        </div>
+                        </极速版div>
                     </div>
                     
                     <div class="package-item">
@@ -1541,7 +1621,7 @@
                         </div>
                     </div>
                     <div class="tip-item">
-                        <div class="tip-icon">
+                        <div class="极速版tip-icon">
                             <i class="fas fa-tshirt"></i>
                         </div>
                         <div>
@@ -1656,7 +1736,7 @@
                         <div class="service-text">
                             支持提前预约，时间安排更灵活
                         </div>
-                    </极速版div>
+                    </div>
                 </div>
             </div>
             
@@ -1665,7 +1745,7 @@
                 <div class="solution-list">
                     <div class="tip-item">
                         <div class="tip-icon">
-                            <极速版i class="fas fa-check-circle"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
                         <div>
                             服务均为高品质定制，非市面上中低端
