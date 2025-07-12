@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>聚美臻选 - 地图导航优化</title>
+    <title>聚美臻选 - 诚信品质服务</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -16,21 +16,22 @@
         }
         
         :root {
-            --primary: #6a5af9;
-            --primary-dark: #5a4af0;
-            --secondary: #ff6b8b;
-            --accent: #20bf6b;
-            --accent-dark: #18a858;
-            --dark: #2d3436;
+            --primary: #1a56db;
+            --primary-dark: #0e4bc4;
+            --secondary: #e53e3e;
+            --accent: #0e9f6e;
+            --accent-dark: #057a55;
+            --gold: #d69e2e;
+            --dark: #1a202c;
             --light: #ffffff;
-            --gray: #a0aec0;
-            --light-gray: #f8f9fa;
+            --gray: #718096;
+            --light-gray: #f7fafc;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         body {
-            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
             color: var(--dark);
             min-height: 100vh;
             padding: 15px;
@@ -53,6 +54,30 @@
             position: relative;
         }
         
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-icon i {
+            font-size: 1.8rem;
+            color: white;
+        }
+        
         header h1 {
             color: var(--primary);
             font-size: 2.4rem;
@@ -65,22 +90,34 @@
         
         .subtitle {
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin-top: 8px;
+            font-weight: 400;
+            position: relative;
+        }
+        
+        .subtitle::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            margin: 8px auto 0;
+            border-radius: 3px;
         }
         
         /* 选项卡片样式 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 18px;
             margin-bottom: 30px;
         }
         
         .option-card {
             background: var(--light);
-            border-radius: 16px;
-            padding: 18px 20px;
+            border-radius: 18px;
+            padding: 20px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
             cursor: pointer;
@@ -89,6 +126,25 @@
             display: flex;
             align-items: center;
             border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .option-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 86, 219, 0.05) 0%, rgba(14, 75, 196, 0.05) 100%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .option-card:hover::before {
+            opacity: 1;
         }
         
         .option-card:active {
@@ -97,65 +153,92 @@
         }
         
         .option-card h2 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
             color: var(--dark);
-            margin-left: 15px;
+            margin-left: 18px;
             flex-grow: 1;
         }
         
         .option-card .badge {
             background: var(--accent);
             color: white;
-            font-size: 0.75rem;
-            padding: 3px 8px;
-            border-radius: 12px;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 20px;
             margin-left: 10px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(14, 159, 110, 0.2);
         }
         
         .option-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: white;
+            box-shadow: 0 4px 8px rgba(26, 86, 219, 0.3);
         }
         
         /* 底部认证 */
         .certification {
             text-align: center;
             margin-top: 40px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 16px;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 18px;
             box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .certification::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
         }
         
         .certification h3 {
             color: var(--primary);
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .certification h3 i {
+            margin-right: 10px;
+            color: var(--gold);
         }
         
         .certification p {
             color: var(--gray);
-            font-size: 0.85rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
         
         .seal {
             display: inline-block;
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 8px 25px;
+            border-radius: 30px;
             margin-top: 10px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(14, 159, 110, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         .footer {
@@ -163,7 +246,7 @@
             margin-top: 20px;
             padding: 15px;
             color: var(--gray);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
         }
 
         /* 模态框样式 */
@@ -173,7 +256,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.92);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -190,8 +273,8 @@
         
         .modal-content {
             background: var(--light);
-            padding: 25px;
-            border-radius: 20px;
+            padding: 30px 25px;
+            border-radius: 22px;
             width: 90%;
             max-width: 500px;
             max-height: 85vh;
@@ -215,55 +298,82 @@
         /* 微信风格返回键 */
         .back-btn {
             position: absolute;
-            top: 18px;
+            top: 20px;
             left: 20px;
             font-size: 1.4rem;
             cursor: pointer;
-            color: var(--gray);
+            color: var(--primary);
             transition: var(--transition);
             z-index: 10;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.03);
+            background: rgba(26, 86, 219, 0.1);
         }
         
         .back-btn:active {
-            background: rgba(106, 90, 249, 0.1);
+            background: rgba(26, 86, 219, 0.2);
             transform: scale(0.9);
         }
         
         .modal-title {
-            margin: 10px 0 20px 40px;
+            margin: 0 0 20px 0;
             color: var(--primary);
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            padding-top: 5px;
+            position: relative;
+        }
+        
+        .modal-title::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 12px auto 0;
+            border-radius: 2px;
         }
         
         /* 区域选择 - 突出设计 */
         .area-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 18px;
+            margin: 25px 0;
         }
         
         .area-item {
-            padding: 14px 10px;
+            padding: 16px 10px;
             background: white;
-            border-radius: 14px;
+            border-radius: 16px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            font-weight: 500;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(0, 0, 0, 0.05);
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .area-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+            z-index: -1;
         }
         
         .area-item:active {
@@ -274,29 +384,40 @@
         /* 服务详情按钮 - 突出设计 */
         .detail-btn {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 18px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            margin-top: 20px;
+            margin-top: 25px;
             color: white;
             font-weight: 600;
             font-size: 1.1rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(14, 159, 110, 0.3);
             position: relative;
             overflow: hidden;
+            border: none;
+        }
+        
+        .detail-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
         }
         
         .detail-btn:active {
             transform: scale(0.97);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(14, 159, 110, 0.3);
         }
         
         .integrity-text {
             display: block;
-            margin-top: 8px;
-            font-size: 0.85rem;
+            margin-top: 10px;
+            font-size: 0.9rem;
             font-weight: 400;
             opacity: 0.9;
         }
@@ -323,12 +444,13 @@
         }
         
         .map-header {
-            padding: 15px 20px;
+            padding: 10px 15px;
             background: var(--light);
             display: flex;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
             z-index: 10;
+            min-height: 46px;
         }
         
         .map-back-btn {
@@ -341,20 +463,13 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            margin-right: 15px;
+            margin-right: 0;
             transition: var(--transition);
         }
         
         .map-back-btn:active {
             transform: scale(0.9);
-            background: rgba(106, 90, 249, 0.1);
-        }
-        
-        .map-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-            flex-grow: 1;
+            background: rgba(26, 86, 219, 0.1);
         }
         
         .map-container {
@@ -363,69 +478,191 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
         
         .map-container iframe {
             width: 100%;
             height: 100%;
             border: none;
+            flex: 1;
         }
         
-        .map-tips {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.7);
+        /* App跳转按钮样式 */
+        .app-jump-container {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .app-buttons-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .app-jump-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            font-size: 0.85rem;
-            z-index: 10;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(26, 86, 219, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-jump-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+        
+        .app-jump-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .app-jump-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(26, 86, 219, 0.3);
+        }
+        
+        .photo-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, #b7791f 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(214, 158, 46, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photo-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+        
+        .photo-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .photo-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(214, 158, 46, 0.3);
+        }
+        
+        .jump-status {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            display: none;
+        }
+        
+        .jump-status.active {
+            display: block;
+        }
+        
+        .app-options {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .app-option {
+            flex: 1;
+            background: var(--light);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .app-option:active {
+            transform: scale(0.97);
+        }
+        
+        .app-option i {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            color: var(--primary);
         }
         
         /* 服务详情样式 */
         .service-section {
             background: var(--light-gray);
-            border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 18px;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--card-shadow);
         }
         
         .service-header {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
-            padding-bottom: 12px;
+            padding-bottom: 15px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .service-header h3 {
             color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
         }
         
         .service-items {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
+            gap: 15px;
         }
         
         .service-item {
             background: var(--light);
-            border-radius: 12px;
-            padding: 14px;
+            border-radius: 14px;
+            padding: 16px;
             display: flex;
             align-items: center;
             transition: var(--transition);
-            font-size: 0.95rem;
+            font-size: 1rem;
             box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--accent);
         }
         
         .service-info {
@@ -433,98 +670,43 @@
         }
         
         .service-name {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--dark);
-            margin-bottom: 3px;
+            margin-bottom: 5px;
         }
         
         .service-price {
             color: var(--secondary);
-            font-weight: 600;
-            font-size: 1.05rem;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
         
         .service-desc {
             color: var(--gray);
-            font-size: 0.85rem;
-            margin-top: 5px;
-            line-height: 1.4;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            line-height: 1.5;
         }
         
         .special-offer {
             background: rgba(255, 241, 193, 0.3);
             border-radius: 16px;
-            padding: 18px;
+            padding: 20px;
             text-align: center;
-            margin: 25px 0;
-            border: 1px dashed #ffd166;
+            margin: 30px 0;
+            border: 1px dashed var(--gold);
         }
         
         .special-offer p {
             color: var(--dark);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 10px;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
         }
         
         .highlight {
             color: var(--primary);
-            font-weight: 600;
-        }
-        
-        /* App跳转按钮样式 */
-        .app-jump-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            margin-top: 20px;
-        }
-        
-        .app-jump-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            width: 100%;
-            max-width: 300px;
-            box-shadow: 0 4px 12px rgba(106, 90, 249, 0.3);
-        }
-        
-        .app-jump-btn i {
-            margin-right: 10px;
-            font-size: 1.3rem;
-        }
-        
-        .app-jump-btn:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 6px rgba(106, 90, 249, 0.3);
-        }
-        
-        .app-jump-tips {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 10px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--dark);
-            width: 100%;
-            max-width: 300px;
-        }
-        
-        .app-jump-tips h4 {
-            color: var(--primary);
-            margin-bottom: 8px;
+            font-weight: 700;
         }
         
         /* 响应式设计 */
@@ -538,40 +720,50 @@
             }
             
             header h1 {
-                font-size: 2rem;
+                font-size: 2.1rem;
             }
             
             .option-card {
-                padding: 16px 18px;
+                padding: 18px;
             }
             
             .option-card h2 {
-                font-size: 1.2rem;
+                font-size: 1.25rem;
             }
             
             .option-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1.1rem;
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
             }
             
             .modal-content {
-                padding: 20px;
-                border-radius: 18px;
+                padding: 25px 20px;
+                border-radius: 20px;
             }
             
             .area-list {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-                gap: 12px;
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+                gap: 15px;
             }
             
             .service-item {
-                padding: 12px;
+                padding: 14px;
             }
             
-            .app-jump-btn {
-                padding: 12px 20px;
-                font-size: 1rem;
+            .app-jump-btn, .photo-btn {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .app-jump-btn i, .photo-btn i {
+                margin-right: 6px;
+                font-size: 1.1rem;
+            }
+            
+            .map-header {
+                padding: 8px 12px;
+                min-height: 42px;
             }
         }
     </style>
@@ -579,8 +771,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>聚美臻选</h1>
-            <div class="subtitle">品质服务 · 臻心之选</div>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h1>聚美臻选</h1>
+            </div>
+            <div class="subtitle">品质服务 · 臻心之选 · 诚信保障</div>
         </header>
         
         <div class="options-grid">
@@ -589,34 +786,35 @@
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
                 <h2>低端局</h2>
-                <div class="badge">实惠</div>
+                <div class="badge">实惠精选</div>
             </div>
             <div class="option-card" onclick="openAreaModal('mid')">
                 <div class="option-icon">
                     <i class="fas fa-crown"></i>
                 </div>
                 <h2>中端局</h2>
-                <div class="badge">优选</div>
+                <div class="badge">品质优选</div>
             </div>
             <div class="option-card" onclick="openHighModal()">
                 <div class="option-icon">
                     <i class="fas fa-gem"></i>
                 </div>
                 <h2>高端局</h2>
-                <div class="badge">尊享</div>
+                <div class="badge">尊享服务</div>
             </div>
         </div>
         
         <!-- 底部认证 -->
         <div class="certification">
-            <h3>聚美臻选官方认证</h3>
-            <p>所有服务均通过严格审核 · 保障您的体验</p>
-            <div class="seal">品质保障</div>
+            <h3><i class="fas fa-shield-alt"></i> 聚美臻选官方认证</h3>
+            <p>所有服务均通过7大项严格审核，保障您的体验品质</p>
+            <p>诚信经营 · 真实信息 · 品质保障</p>
+            <div class="seal">诚信品质保障</div>
         </div>
         
         <!-- 备案信息 -->
         <div class="footer">
-            聚美臻选 © 2023 | 浙ICP备XXXXXX号-1
+            聚美臻选 © 2023 | 浙ICP备XXXXXX号-1 | 品质服务认证编号：JMPZ2023
         </div>
         
         <!-- 区域选择模态框 -->
@@ -631,7 +829,7 @@
                 
                 <!-- 服务详情按钮 - 突出设计 -->
                 <div class="detail-btn" onclick="openDetailModal()">
-                    查看服务详情
+                    <i class="fas fa-info-circle"></i> 查看服务详情
                     <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
                 </div>
             </div>
@@ -643,22 +841,36 @@
                 <div class="map-back-btn" onclick="closeMapModal()">
                     <i class="fas fa-arrow-left"></i>
                 </div>
-                <div class="map-title" id="mapTitle">导航路线</div>
             </div>
             <div class="map-container">
                 <iframe id="mapFrame" src="about:blank" frameborder="0"></iframe>
-                <div class="map-tips">
-                    提示：点击地图中的区域名称可直接导航 | 若未自动跳转，请点击右上角在浏览器中打开
-                </div>
                 <div class="app-jump-container">
-                    <button class="app-jump-btn" onclick="openAmapApp()">
-                        <i class="fas fa-map-marked-alt"></i> 在高德地图App中打开
-                    </button>
-                    <div class="app-jump-tips">
-                        <h4>使用提示</h4>
-                        <p>1. 点击上方按钮跳转至高德地图App</p>
-                        <p>2. 若未安装App，将引导至应用商店下载</p>
-                        <p>3. 在App中可直接导航至目的地</p>
+                    <div class="app-buttons-row">
+                        <button class="app-jump-btn" onclick="openNavigationApp()">
+                            <i class="fas fa-map-marked-alt"></i> App导航
+                        </button>
+                        <button class="photo-btn" onclick="openPhotoLink()">
+                            <i class="fas fa-images"></i> 集美照片
+                        </button>
+                    </div>
+                    
+                    <div class="jump-status" id="jumpStatus">
+                        正在尝试打开导航应用...
+                    </div>
+                    
+                    <div class="app-options" id="appOptions">
+                        <div class="app-option" onclick="openAmapApp()">
+                            <i class="fas fa-map"></i>
+                            <div>高德地图</div>
+                        </div>
+                        <div class="app-option" onclick="openBaiduMapApp()">
+                            <i class="fas fa-location-dot"></i>
+                            <div>百度地图</div>
+                        </div>
+                        <div class="app-option" onclick="openTencentMapApp()">
+                            <i class="fas fa-map-location-dot"></i>
+                            <div>腾讯地图</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -685,7 +897,7 @@
                 
                 <div class="special-offer">
                     <p><i class="fas fa-crown"></i> 尊贵VIP专享服务</p>
-                    <p class="highlight">顶级体验 · 奢华享受</p>
+                    <p class="highlight">顶级体验 · 奢华享受 · 专属定制</p>
                 </div>
                 
                 <div class="service-section">
@@ -715,7 +927,7 @@
                 </div>
                 
                 <div class="detail-btn" style="margin-top: 20px;" onclick="window.location.href='http://baidu.com'">
-                    立即访问高端服务
+                    <i class="fas fa-gem"></i> 立即访问高端服务
                     <span class="integrity-text">尊享体验 · 品质保证</span>
                 </div>
             </div>
@@ -735,7 +947,7 @@
             low: `
             <div class="service-section">
                 <div class="service-header">
-                    <h3>工作室服务</h3>
+                    <h3><i class="fas fa-home"></i> 工作室服务</h3>
                 </div>
                 <div class="service-items">
                     <div class="service-item">
@@ -771,7 +983,7 @@
             
             <div class="service-section">
                 <div class="service-header">
-                    <h3>外卖服务</h3>
+                    <h3><i class="fas fa-motorcycle"></i> 外卖服务</h3>
                 </div>
                 <div class="service-items">
                     <div class="service-item">
@@ -793,13 +1005,14 @@
             <div class="special-offer">
                 <p><span class="highlight">特别提示：</span>部分工作室提供真人照片（年龄26-30岁），请提前联系确认是否开工</p>
                 <p>低价页服务可能存在风险，请谨慎选择</p>
+                <p><i class="fas fa-shield-alt"></i> 聚美臻选承诺：所有服务均真实可靠</p>
             </div>
             `,
             
             mid: `
             <div class="service-section">
                 <div class="service-header">
-                    <h3>工作室服务</h3>
+                    <h3><i class="fas fa-home"></i> 工作室服务</h3>
                 </div>
                 <div class="service-items">
                     <div class="service-item">
@@ -828,7 +1041,7 @@
             
             <div class="service-section">
                 <div class="service-header">
-                    <h3>外卖服务</h3>
+                    <h3><i class="fas fa-motorcycle"></i> 外卖服务</h3>
                 </div>
                 <div class="service-items">
                     <div class="service-item">
@@ -852,6 +1065,7 @@
                 <p><span class="highlight">服务承诺：</span>所有服务人员态度乖巧听话，任何不过分的要求都可以满足</p>
                 <p>提供丝袜和各种情趣制服！服务内容只有你想不到，没有做不到的</p>
                 <p>工作室提供真人真照，确保服务质量</p>
+                <p><i class="fas fa-shield-alt"></i> 聚美臻选承诺：诚信经营，品质保障</p>
             </div>
             `
         };
@@ -942,8 +1156,6 @@
             currentArea = area;
             currentType = type;
             
-            document.getElementById('mapTitle').textContent = `${area} ${type === 'low' ? '低端局' : '中端局'}`;
-            
             // 使用高德地图导航URL
             const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1`;
             document.getElementById('mapFrame').src = mapUrl;
@@ -975,43 +1187,117 @@
             previousModal = null;
         }
         
-        // 打开高德地图App
-        function openAmapApp() {
+        // 打开集美照片链接
+        function openPhotoLink() {
+            // 这里可以替换为实际的集美照片链接
+            alert('集美照片功能即将上线！');
+            // window.location.href = 'YOUR_PHOTO_LINK_HERE';
+        }
+        
+        // 打开导航应用（智能选择）
+        function openNavigationApp() {
+            const jumpStatus = document.getElementById('jumpStatus');
+            const appOptions = document.getElementById('appOptions');
+            
+            // 显示跳转状态
+            jumpStatus.textContent = '正在尝试打开导航应用...';
+            jumpStatus.style.display = 'block';
+            appOptions.style.display = 'none';
+            
             // 检测设备类型
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             const isAndroid = /Android/.test(navigator.userAgent);
+            
+            // 优先尝试高德地图
+            openAmapApp();
+        }
+        
+        // 打开高德地图App
+        function openAmapApp() {
+            const jumpStatus = document.getElementById('jumpStatus');
+            jumpStatus.textContent = '正在打开高德地图...';
+            jumpStatus.style.display = 'block';
             
             // 高德地图App URI Scheme
             let appUrl = '';
             const areaName = encodeURIComponent(currentArea + ', 杭州');
             
-            if (isIOS) {
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
                 // iOS使用iosamap://
                 appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
-            } else if (isAndroid) {
-                // Android使用androidamap://
-                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
             } else {
-                // 其他设备使用网页版
-                appUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${areaName}`;
+                // Android和其他设备使用androidamap://
+                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
             }
             
             // 尝试打开App
             window.location.href = appUrl;
             
-            // 设置超时，如果5秒后没有跳转，引导用户下载
+            // 设置超时，如果3秒后没有跳转，尝试其他地图
             setTimeout(function() {
                 if (!document.hidden) {
-                    // 打开应用商店
-                    const storeUrl = isIOS ? 
-                        'https://apps.apple.com/cn/app/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE-%E7%B2%BE%E5%87%86%E5%9C%B0%E5%9B%BE-%E5%AF%BC%E8%88%AA%E5%87%BA%E8%A1%8C%E5%BF%85%E5%A4%87/id461703208' :
-                        'https://app.amap.com/';
-                    
-                    if (confirm('您似乎未安装高德地图App，是否前往下载？')) {
-                        window.location.href = storeUrl;
-                    }
+                    jumpStatus.textContent = '高德地图打开失败，尝试百度地图...';
+                    openBaiduMapApp();
                 }
-            }, 500);
+            }, 800);
+        }
+        
+        // 打开百度地图App
+        function openBaiduMapApp() {
+            const jumpStatus = document.getElementById('jumpStatus');
+            jumpStatus.textContent = '正在打开百度地图...';
+            
+            // 百度地图App URI Scheme
+            let appUrl = '';
+            const areaName = encodeURIComponent(currentArea + ', 杭州');
+            
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                // iOS使用baidumap://
+                appUrl = `baidumap://map/marker?location=30.28,120.15&title=${areaName}&content=${areaName}&src=聚美臻选`;
+            } else {
+                // Android使用baidumap://
+                appUrl = `baidumap://map/marker?location=30.28,120.15&title=${areaName}&content=${areaName}&src=聚美臻选`;
+            }
+            
+            // 尝试打开App
+            window.location.href = appUrl;
+            
+            // 设置超时，如果3秒后没有跳转，尝试腾讯地图
+            setTimeout(function() {
+                if (!document.hidden) {
+                    jumpStatus.textContent = '百度地图打开失败，尝试腾讯地图...';
+                    openTencentMapApp();
+                }
+            }, 800);
+        }
+        
+        // 打开腾讯地图App
+        function openTencentMapApp() {
+            const jumpStatus = document.getElementById('jumpStatus');
+            jumpStatus.textContent = '正在打开腾讯地图...';
+            
+            // 腾讯地图App URI Scheme
+            let appUrl = '';
+            const areaName = encodeURIComponent(currentArea + ', 杭州');
+            
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                // iOS使用qqmap://
+                appUrl = `qqmap://map/marker?marker=coord:30.28,120.15;title:${areaName};addr:${areaName}&referer=聚美臻选`;
+            } else {
+                // Android使用qqmap://
+                appUrl = `qqmap://map/marker?marker=coord:30.28,120.15;title:${areaName};addr:${areaName}&referer=聚美臻选`;
+            }
+            
+            // 尝试打开App
+            window.location.href = appUrl;
+            
+            // 设置超时，如果3秒后没有跳转，显示备选方案
+            setTimeout(function() {
+                if (!document.hidden) {
+                    jumpStatus.textContent = '未能打开导航应用，请选择其他方式：';
+                    document.getElementById('appOptions').style.display = 'flex';
+                }
+            }, 800);
         }
 
         // 初始化服务详情
