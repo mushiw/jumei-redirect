@@ -17,17 +17,20 @@
         
         :root {
             --primary: #0d47a1;
-            --primary-dark: #093170;
+            --primary-dark: #0a2e5d;
             --secondary: #c62828;
             --accent: #00897b;
             --accent-dark: #00695c;
             --gold: #c79100;
+            --gold-dark: #a37200;
             --dark: #1a202c;
             --light: #ffffff;
             --gray: #718096;
             --light-gray: #f7fafc;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
         }
         
         body {
@@ -72,35 +75,72 @@
         }
         
         .logo-icon {
-            width: 52px;
-            height: 52px;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: pulse 2s infinite;
+            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+            position: relative;
+            overflow: hidden;
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 71, 161, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(13, 71, 161, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 71, 161, 0); }
+        .logo-icon::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+        
+        .logo-icon::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 40%, rgba(255,255,255,0.3) 100%);
         }
         
         .logo-icon i {
             font-size: 1.8rem;
             color: white;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo-icon .inner-icon {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            bottom: 5px;
+            right: 5px;
+            z-index: 1;
+        }
+        
+        .logo-icon .inner-icon i {
+            font-size: 0.8rem;
+            color: white;
         }
         
         header h1 {
-            color: var(--primary);
             font-size: 2.1rem;
             font-weight: 700;
             letter-spacing: 0.5px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         .subtitle {
@@ -179,27 +219,49 @@
         }
         
         .option-card .badge {
-            background: var(--accent);
             color: white;
             font-size: 0.8rem;
             padding: 4px 10px;
             border-radius: 20px;
             margin-left: 8px;
             font-weight: 500;
-            box-shadow: 0 2px 4px rgba(0, 137, 123, 0.3);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .option-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
             color: white;
-            box-shadow: 0 4px 8px rgba(13, 71, 161, 0.4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 低端局样式 - 调整为深蓝色 */
+        .option-card.low .option-icon {
+            background: linear-gradient(135deg, #0a2e5d 0%, #072147 100%);
+        }
+        .option-card.low .badge {
+            background: #0a2e5d;
+        }
+        
+        /* 中端局样式 - 使用高端局的金色 */
+        .option-card.mid .option-icon {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+        }
+        .option-card.mid .badge {
+            background: var(--accent);
+        }
+        
+        /* 高端局样式 - 使用中端局的金色 */
+        .option-card.high .option-icon {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+        }
+        .option-card.high .badge {
+            background: var(--gold);
         }
         
         /* 底部认证 - 优化间距 */
@@ -623,44 +685,17 @@
             box-shadow: 0 2px 6px rgba(199, 145, 0, 0.4);
         }
         
-        .jump-status {
-            flex: 1;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--gray);
-            padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            margin-left: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-        
-        .jump-status i {
-            margin-right: 8px;
-            color: var(--accent);
-            font-size: 1rem;
-        }
-        
-        .success-status {
-            color: #2e7d32;
-        }
-        
-        .error-status {
-            color: #c62828;
-        }
-        
-        /* 服务详情样式 */
+        /* 服务详情样式 - 重新设计 */
         .service-section {
-            background: var(--light-gray);
+            background: var(--glass-bg);
             border-radius: 16px;
-            padding: 18px;
-            margin-bottom: 18px;
+            padding: 16px;
+            margin-bottom: 16px;
             position: relative;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
         }
         
         .service-header {
@@ -675,6 +710,13 @@
             color: var(--primary);
             font-size: 1.2rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .service-header i {
+            margin-right: 10px;
+            color: var(--accent);
         }
         
         .service-items {
@@ -684,15 +726,26 @@
         }
         
         .service-item {
-            background: var(--light);
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 14px;
             padding: 14px;
             display: flex;
             align-items: center;
             transition: var(--transition);
             font-size: 0.95rem;
-            box-shadow: var(--card-shadow);
-            border-left: 4px solid var(--accent);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
         }
         
         .service-item:active {
@@ -701,6 +754,7 @@
         
         .service-info {
             flex: 1;
+            padding-left: 12px;
         }
         
         .service-name {
@@ -714,22 +768,22 @@
             color: var(--secondary);
             font-weight: 700;
             font-size: 1.05rem;
+            display: inline-block;
+            background: rgba(198, 40, 40, 0.1);
+            padding: 2px 8px;
+            border-radius: 8px;
         }
         
-        .service-desc {
-            color: var(--gray);
-            font-size: 0.85rem;
-            margin-top: 6px;
-            line-height: 1.5;
-        }
-        
+        /* 服务承诺简化 */
         .special-offer {
             background: rgba(255, 241, 193, 0.3);
             border-radius: 16px;
-            padding: 18px;
+            padding: 16px;
             text-align: center;
-            margin: 22px 0;
+            margin: 18px 0;
             border: 1px dashed var(--gold);
+            position: relative;
+            overflow: hidden;
         }
         
         .special-offer p {
@@ -737,6 +791,8 @@
             font-size: 0.95rem;
             line-height: 1.6;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
         
         .highlight {
@@ -763,8 +819,8 @@
             }
             
             .logo-icon {
-                width: 46px;
-                height: 46px;
+                width: 50px;
+                height: 50px;
             }
             
             .options-grid {
@@ -792,13 +848,13 @@
             }
             
             .modal-content {
-                padding: 25px 20px;
+                padding: 20px 16px;
                 border-radius: 18px;
             }
             
             .area-list {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+                gap: 10px;
             }
             
             .service-item {
@@ -820,11 +876,6 @@
                 min-height: 44px;
             }
             
-            .jump-status {
-                font-size: 0.8rem;
-                padding: 8px 12px;
-            }
-            
             .footer-section {
                 padding: 5px 0;
             }
@@ -837,6 +888,9 @@
             <div class="logo-container">
                 <div class="logo-icon">
                     <i class="fas fa-crown"></i>
+                    <div class="inner-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
                 </div>
                 <h1>聚美臻选</h1>
             </div>
@@ -844,21 +898,21 @@
         </header>
         
         <div class="options-grid">
-            <div class="option-card" onclick="openAreaModal('low')">
+            <div class="option-card low" onclick="openAreaModal('low')">
                 <div class="option-icon">
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
                 <h2>低端局</h2>
                 <div class="badge">实惠精选</div>
             </div>
-            <div class="option-card" onclick="openAreaModal('mid')">
+            <div class="option-card mid" onclick="openAreaModal('mid')">
                 <div class="option-icon">
                     <i class="fas fa-crown"></i>
                 </div>
                 <h2>中端局</h2>
                 <div class="badge">品质优选</div>
             </div>
-            <div class="option-card" onclick="openHighModal()">
+            <div class="option-card high" onclick="openHighModal()">
                 <div class="option-icon">
                     <i class="fas fa-gem"></i>
                 </div>
@@ -908,9 +962,6 @@
                 <div class="map-back-btn" onclick="closeMapModal()">
                     <i class="fas fa-arrow-left"></i>
                 </div>
-                <div class="jump-status" id="jumpStatus">
-                    <i class="fas fa-info-circle"></i> 请手动输入地址导航
-                </div>
             </div>
             <div class="map-container">
                 <iframe id="mapFrame" src="about:blank" frameborder="0"></iframe>
@@ -927,7 +978,7 @@
             </div>
         </div>
         
-        <!-- 服务详情模态框 -->
+        <!-- 服务详情模态框 - 优化滚动效果 -->
         <div id="detailModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('detailModal')">
@@ -959,19 +1010,19 @@
                         <div class="service-item">
                             <div class="service-info">
                                 <div class="service-name">私人定制服务</div>
-                                <div class="service-desc">根据个人需求专属定制</div>
+                                <div class="service-price">专属定制</div>
                             </div>
                         </div>
                         <div class="service-item">
                             <div class="service-info">
                                 <div class="service-name">豪华环境体验</div>
-                                <div class="service-desc">五星级酒店专属房间</div>
+                                <div class="service-price">五星级酒店</div>
                             </div>
                         </div>
                         <div class="service-item">
                             <div class="service-info">
                                 <div class="service-name">全天候专属服务</div>
-                                <div class="service-desc">24小时随时响应</div>
+                                <div class="service-price">24小时响应</div>
                             </div>
                         </div>
                     </div>
@@ -993,7 +1044,7 @@
             high: []
         };
 
-        // 详情数据
+        // 详情数据 - 优化后
         const detailData = {
             low: `
             <div class="service-section">
@@ -1005,28 +1056,24 @@
                         <div class="service-info">
                             <div class="service-name">一课</div>
                             <div class="service-price">5 (吹做)</div>
-                            <div class="service-desc">标准60分钟服务</div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">一课升级</div>
                             <div class="service-price">6 (吹做推)</div>
-                            <div class="service-desc">额外推拿服务</div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">莞式一课</div>
                             <div class="service-price">8</div>
-                            <div class="service-desc">全套莞式服务体验</div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">页课</div>
                             <div class="service-price">22-24</div>
-                            <div class="service-desc">过夜服务</div>
                         </div>
                     </div>
                 </div>
@@ -1041,13 +1088,12 @@
                         <div class="service-info">
                             <div class="service-name">一课</div>
                             <div class="service-price">8 (吹做推)</div>
-                            <div class="service-desc">酒店上门服务</div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-info">
-                            <div class="service-name">酒店要求</div>
-                            <div class="service-desc">需登记酒店不去</div>
+                            <div class="service-name">两课</div>
+                            <div class="service-price">14 (吹做推)</div>
                         </div>
                     </div>
                 </div>
@@ -1055,7 +1101,6 @@
             
             <div class="special-offer">
                 <p><span class="highlight">特别提示：</span>部分工作室提供真人照片（年龄26-30岁），请提前联系确认是否开工</p>
-                <p>低价页服务可能存在风险，请谨慎选择</p>
                 <p><i class="fas fa-shield-alt"></i> 聚美臻选承诺：所有服务均真实可靠</p>
             </div>
             `,
@@ -1070,21 +1115,18 @@
                         <div class="service-info">
                             <div class="service-name">一课</div>
                             <div class="service-price">1.4k (60分钟)</div>
-                            <div class="service-desc">基础服务套餐</div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">两课</div>
                             <div class="service-price">2.4k (100分钟)</div>
-                            <div class="service-desc">延长服务时间</div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">页课</div>
                             <div class="service-price">4k</div>
-                            <div class="service-desc">11点后至第二天自然醒</div>
                         </div>
                     </div>
                 </div>
@@ -1099,14 +1141,12 @@
                         <div class="service-info">
                             <div class="service-name">一课</div>
                             <div class="service-price">1.6k (60分钟)</div>
-                            <div class="service-desc">酒店上门服务</div>
                         </div>
                     </div>
                     <div class="service-item">
                         <div class="service-info">
                             <div class="service-name">两课</div>
                             <div class="service-price">2.6k (100分钟)</div>
-                            <div class="service-desc">延长服务时间</div>
                         </div>
                     </div>
                 </div>
@@ -1115,7 +1155,6 @@
             <div class="special-offer">
                 <p><span class="highlight">服务承诺：</span>所有服务人员态度乖巧听话，任何不过分的要求都可以满足</p>
                 <p>提供丝袜和各种情趣制服！服务内容只有你想不到，没有做不到的</p>
-                <p>工作室提供真人真照，确保服务质量</p>
                 <p><i class="fas fa-shield-alt"></i> 聚美臻选承诺：诚信经营，品质保障</p>
             </div>
             `
@@ -1128,42 +1167,29 @@
         // 模态框状态管理
         let currentModal = null;
         let previousModal = null;
-        
-        // 跳转状态管理
-        let jumpTimeout = null;
-        let jumpSuccess = false;
 
         // 页面加载时初始化
         window.onload = function() {
-            // 添加触感效果 - 修复安卓点击卡顿问题
-            document.querySelectorAll('.option-card, .area-item, .detail-btn, .service-item, .app-jump-btn, .photo-btn').forEach(el => {
-                // 使用指针事件统一处理
-                el.addEventListener('pointerdown', function() {
-                    if (!this.classList.contains('active')) {
-                        this.style.transform = 'scale(0.95)';
-                        this.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.15)';
-                    }
-                });
-                
-                el.addEventListener('pointerup', function() {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                });
-                
-                el.addEventListener('pointercancel', function() {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                });
-                
-                el.addEventListener('pointerleave', function() {
-                    this.style.transform = '';
-                    this.style.boxShadow = '';
-                });
-            });
-            
             // 调整高度以适应移动设备
             adjustHeightForMobile();
+            
+            // 缓存DOM元素
+            cacheDOMElements();
         };
+        
+        // 缓存DOM元素
+        function cacheDOMElements() {
+            window.domCache = {
+                areaModal: document.getElementById('areaModal'),
+                areaTitle: document.getElementById('areaTitle'),
+                areaList: document.getElementById('areaList'),
+                detailContent: document.getElementById('detailContent'),
+                detailModal: document.getElementById('detailModal'),
+                highModal: document.getElementById('highModal'),
+                mapModal: document.getElementById('mapModal'),
+                mapFrame: document.getElementById('mapFrame')
+            };
+        }
         
         // 调整移动设备高度
         function adjustHeightForMobile() {
@@ -1182,8 +1208,7 @@
             // 保存当前类型
             window.currentType = type;
             
-            const areaTitle = document.getElementById('areaTitle');
-            const areaList = document.getElementById('areaList');
+            const { areaTitle, areaList } = window.domCache;
             
             areaTitle.textContent = type === 'low' ? '低端局区域选择' : '中端局区域选择';
             areaList.innerHTML = '';
@@ -1196,14 +1221,14 @@
                 areaList.appendChild(areaItem);
             });
             
-            document.getElementById('detailContent').innerHTML = detailData[type];
+            window.domCache.detailContent.innerHTML = detailData[type];
             
             // 保存上一个模态框状态
             previousModal = currentModal;
             currentModal = 'areaModal';
             
             // 打开模态框
-            document.getElementById('areaModal').classList.add('active');
+            window.domCache.areaModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
@@ -1214,7 +1239,7 @@
             currentModal = 'highModal';
             
             // 打开模态框
-            document.getElementById('highModal').classList.add('active');
+            window.domCache.highModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
@@ -1225,7 +1250,7 @@
             currentModal = 'detailModal';
             
             // 打开模态框
-            document.getElementById('detailModal').classList.add('active');
+            window.domCache.detailModal.classList.add('active');
         }
 
         // 关闭模态框
@@ -1244,27 +1269,22 @@
             
             // 使用高德地图导航URL - 添加缩放级别参数
             const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
-            document.getElementById('mapFrame').src = mapUrl;
+            window.domCache.mapFrame.src = mapUrl;
             
             // 保存上一个模态框状态
             previousModal = currentModal;
             currentModal = 'mapModal';
             
             // 关闭区域选择模态框
-            document.getElementById('areaModal').classList.remove('active');
+            window.domCache.areaModal.classList.remove('active');
             
             // 打开地图模态框
-            document.getElementById('mapModal').classList.add('active');
-            
-            // 重置状态提示
-            const jumpStatus = document.getElementById('jumpStatus');
-            jumpStatus.innerHTML = '<i class="fas fa-info-circle"></i> 请手动输入地址导航';
-            jumpStatus.classList.remove('success-status', 'error-status');
+            window.domCache.mapModal.classList.add('active');
         }
 
         // 关闭地图模态框
         function closeMapModal() {
-            document.getElementById('mapModal').classList.remove('active');
+            window.domCache.mapModal.classList.remove('active');
             
             // 返回上一个模态框
             if (previousModal) {
@@ -1285,20 +1305,6 @@
         
         // 打开导航应用（智能选择）
         function openNavigationApp() {
-            const jumpStatus = document.getElementById('jumpStatus');
-            
-            // 重置跳转状态
-            jumpSuccess = false;
-            
-            // 清除之前的超时
-            if (jumpTimeout) {
-                clearTimeout(jumpTimeout);
-            }
-            
-            // 显示跳转状态
-            jumpStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 正在尝试打开导航应用...';
-            jumpStatus.classList.remove('success-status', 'error-status');
-            
             const areaName = encodeURIComponent(currentArea + ', 杭州');
             let appUrl = '';
             let fallbackUrl = '';
@@ -1314,19 +1320,13 @@
                 fallbackUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${areaName}&src=mypage&callnative=0&zoom=15`;
             }
             
-            // 记录跳转开始时间
-            const startTime = Date.now();
-            
             // 尝试直接打开App
             window.location.href = appUrl;
             
             // 设置超时检测
-            jumpTimeout = setTimeout(() => {
-                // 如果仍然在页面中且未标记为成功，说明跳转失败
-                if (!jumpSuccess && !document.hidden) {
-                    jumpStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 跳转失败，请手动输入地址导航';
-                    jumpStatus.classList.add('error-status');
-                    
+            setTimeout(() => {
+                // 如果仍然在页面中，说明跳转失败
+                if (!document.hidden) {
                     // 提供手动导航选项
                     setTimeout(() => {
                         if (confirm('无法打开导航应用，是否使用网页版地图导航？')) {
@@ -1335,30 +1335,10 @@
                     }, 800);
                 }
             }, 800);
-            
-            // 监听页面隐藏事件（跳转成功会触发页面隐藏）
-            document.addEventListener('visibilitychange', function handler() {
-                if (document.hidden) {
-                    // 标记跳转成功
-                    jumpSuccess = true;
-                    
-                    // 清除超时检测
-                    if (jumpTimeout) {
-                        clearTimeout(jumpTimeout);
-                    }
-                    
-                    // 跳转成功，更新状态
-                    jumpStatus.innerHTML = '<i class="fas fa-check-circle"></i> 导航应用已打开';
-                    jumpStatus.classList.add('success-status');
-                    
-                    // 移除事件监听
-                    document.removeEventListener('visibilitychange', handler);
-                }
-            });
         }
         
         // 初始化服务详情
-        document.getElementById('detailContent').innerHTML = detailData.low;
+        window.domCache.detailContent.innerHTML = detailData.low;
         
         // 监听窗口大小变化
         window.addEventListener('resize', adjustHeightForMobile);
