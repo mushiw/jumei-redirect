@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>聚美臻选 - 诚信品质服务</title>
+    <title>聚美臻选 - 导航优化版</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* 修复：移除开头的无效注释 */
         * {
             margin: 0;
             padding: 0;
@@ -586,40 +587,14 @@
             font-size: 0.9rem;
             color: var(--gray);
             display: none;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 12px;
+            border-left: 4px solid var(--accent);
         }
         
         .jump-status.active {
             display: block;
-        }
-        
-        .app-options {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-            display: none;
-        }
-        
-        .app-option {
-            flex: 1;
-            background: var(--light);
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: var(--card-shadow);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .app-option:active {
-            transform: scale(0.97);
-        }
-        
-        .app-option i {
-            font-size: 1.6rem;
-            margin-bottom: 8px;
-            color: var(--primary);
         }
         
         /* 服务详情样式 */
@@ -855,22 +830,7 @@
                     </div>
                     
                     <div class="jump-status" id="jumpStatus">
-                        正在尝试打开导航应用...
-                    </div>
-                    
-                    <div class="app-options" id="appOptions">
-                        <div class="app-option" onclick="openAmapApp()">
-                            <i class="fas fa-map"></i>
-                            <div>高德地图</div>
-                        </div>
-                        <div class="app-option" onclick="openBaiduMapApp()">
-                            <i class="fas fa-location-dot"></i>
-                            <div>百度地图</div>
-                        </div>
-                        <div class="app-option" onclick="openTencentMapApp()">
-                            <i class="fas fa-map-location-dot"></i>
-                            <div>腾讯地图</div>
-                        </div>
+                        温馨提示：请手动输入地址导航
                     </div>
                 </div>
             </div>
@@ -1089,6 +1049,9 @@
                     }, 200);
                 });
             });
+            
+            // 初始化提示信息为隐藏状态
+            document.getElementById('jumpStatus').style.display = 'none';
         };
 
         // 打开区域选择模态框
@@ -1156,8 +1119,11 @@
             currentArea = area;
             currentType = type;
             
-            // 使用高德地图导航URL
-            const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1`;
+            // 隐藏提示信息
+            document.getElementById('jumpStatus').style.display = 'none';
+            
+            // 使用高德地图导航URL - 添加缩放级别参数
+            const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
             document.getElementById('mapFrame').src = mapUrl;
             
             // 保存上一个模态框状态
@@ -1197,12 +1163,10 @@
         // 打开导航应用（智能选择）
         function openNavigationApp() {
             const jumpStatus = document.getElementById('jumpStatus');
-            const appOptions = document.getElementById('appOptions');
             
             // 显示跳转状态
             jumpStatus.textContent = '正在尝试打开导航应用...';
             jumpStatus.style.display = 'block';
-            appOptions.style.display = 'none';
             
             // 检测设备类型
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -1212,11 +1176,9 @@
             openAmapApp();
         }
         
-        // 打开高德地图App
+        // 打开高德地图App - 修复版
         function openAmapApp() {
             const jumpStatus = document.getElementById('jumpStatus');
-            jumpStatus.textContent = '正在打开高德地图...';
-            jumpStatus.style.display = 'block';
             
             // 高德地图App URI Scheme
             let appUrl = '';
@@ -1226,78 +1188,25 @@
                 // iOS使用iosamap://
                 appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
             } else {
-                // Android和其他设备使用androidamap://
+                // Android使用intent方式
                 appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
             }
             
             // 尝试打开App
-            window.location.href = appUrl;
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = appUrl;
+            document.body.appendChild(iframe);
             
-            // 设置超时，如果3秒后没有跳转，尝试其他地图
-            setTimeout(function() {
+            // 设置超时检测
+            setTimeout(() => {
+                document.body.removeChild(iframe);
+                
+                // 如果仍然在页面中，说明跳转失败
                 if (!document.hidden) {
-                    jumpStatus.textContent = '高德地图打开失败，尝试百度地图...';
-                    openBaiduMapApp();
+                    jumpStatus.innerHTML = '<i class="fas fa-info-circle"></i> 温馨提示：请手动输入地址导航';
                 }
-            }, 800);
-        }
-        
-        // 打开百度地图App
-        function openBaiduMapApp() {
-            const jumpStatus = document.getElementById('jumpStatus');
-            jumpStatus.textContent = '正在打开百度地图...';
-            
-            // 百度地图App URI Scheme
-            let appUrl = '';
-            const areaName = encodeURIComponent(currentArea + ', 杭州');
-            
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                // iOS使用baidumap://
-                appUrl = `baidumap://map/marker?location=30.28,120.15&title=${areaName}&content=${areaName}&src=聚美臻选`;
-            } else {
-                // Android使用baidumap://
-                appUrl = `baidumap://map/marker?location=30.28,120.15&title=${areaName}&content=${areaName}&src=聚美臻选`;
-            }
-            
-            // 尝试打开App
-            window.location.href = appUrl;
-            
-            // 设置超时，如果3秒后没有跳转，尝试腾讯地图
-            setTimeout(function() {
-                if (!document.hidden) {
-                    jumpStatus.textContent = '百度地图打开失败，尝试腾讯地图...';
-                    openTencentMapApp();
-                }
-            }, 800);
-        }
-        
-        // 打开腾讯地图App
-        function openTencentMapApp() {
-            const jumpStatus = document.getElementById('jumpStatus');
-            jumpStatus.textContent = '正在打开腾讯地图...';
-            
-            // 腾讯地图App URI Scheme
-            let appUrl = '';
-            const areaName = encodeURIComponent(currentArea + ', 杭州');
-            
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                // iOS使用qqmap://
-                appUrl = `qqmap://map/marker?marker=coord:30.28,120.15;title:${areaName};addr:${areaName}&referer=聚美臻选`;
-            } else {
-                // Android使用qqmap://
-                appUrl = `qqmap://map/marker?marker=coord:30.28,120.15;title:${areaName};addr:${areaName}&referer=聚美臻选`;
-            }
-            
-            // 尝试打开App
-            window.location.href = appUrl;
-            
-            // 设置超时，如果3秒后没有跳转，显示备选方案
-            setTimeout(function() {
-                if (!document.hidden) {
-                    jumpStatus.textContent = '未能打开导航应用，请选择其他方式：';
-                    document.getElementById('appOptions').style.display = 'flex';
-                }
-            }, 800);
+            }, 500);
         }
 
         // 初始化服务详情
