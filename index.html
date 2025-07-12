@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* 修复：移除开头的无效注释 */
         * {
             margin: 0;
             padding: 0;
@@ -32,34 +31,41 @@
         }
         
         body {
-            background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             color: var(--dark);
             min-height: 100vh;
             padding: 15px;
-            position: relative;
-            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .container {
             max-width: 500px;
+            width: 100%;
             margin: 0 auto;
             position: relative;
-            padding-bottom: 60px;
+            padding: 25px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            min-height: 85vh;
         }
         
-        /* 头部样式 */
+        /* 头部样式 - 优化间距 */
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 25px 0 15px;
-            position: relative;
+            margin-bottom: 25px;
+            padding: 10px 0;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         
         .logo-icon {
@@ -72,6 +78,13 @@
             justify-content: center;
             margin-right: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(26, 86, 219, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(26, 86, 219, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(26, 86, 219, 0); }
         }
         
         .logo-icon i {
@@ -81,17 +94,15 @@
         
         header h1 {
             color: var(--primary);
-            font-size: 2.4rem;
+            font-size: 2.1rem;
             font-weight: 700;
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
+            letter-spacing: 0.5px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
         
         .subtitle {
             color: var(--gray);
-            font-size: 1rem;
+            font-size: 0.9rem;
             margin-top: 8px;
             font-weight: 400;
             position: relative;
@@ -104,21 +115,22 @@
             height: 3px;
             background: linear-gradient(90deg, var(--gold), transparent);
             margin: 8px auto 0;
-            border-radius: 3px;
+            border-radius: 2px;
         }
         
-        /* 选项卡片样式 */
+        /* 选项卡片样式 - 尺寸优化 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 18px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin: 20px 0;
+            flex-grow: 1;
         }
         
         .option-card {
             background: var(--light);
-            border-radius: 18px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 18px 20px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
             cursor: pointer;
@@ -127,8 +139,8 @@
             display: flex;
             align-items: center;
             border: 1px solid rgba(0, 0, 0, 0.03);
-            position: relative;
             z-index: 1;
+            height: 85px;
         }
         
         .option-card::before {
@@ -154,7 +166,7 @@
         }
         
         .option-card h2 {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 600;
             color: var(--dark);
             margin-left: 18px;
@@ -164,10 +176,10 @@
         .option-card .badge {
             background: var(--accent);
             color: white;
-            font-size: 0.85rem;
-            padding: 4px 12px;
+            font-size: 0.8rem;
+            padding: 4px 10px;
             border-radius: 20px;
-            margin-left: 10px;
+            margin-left: 8px;
             font-weight: 500;
             box-shadow: 0 2px 4px rgba(14, 159, 110, 0.2);
         }
@@ -180,22 +192,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: white;
             box-shadow: 0 4px 8px rgba(26, 86, 219, 0.3);
         }
         
-        /* 底部认证 */
+        /* 底部认证 - 优化样式 */
         .certification {
             text-align: center;
-            margin-top: 40px;
-            padding: 20px 15px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 18px;
+            margin-top: auto;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
             box-shadow: var(--card-shadow);
             position: relative;
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
         }
         
         .certification::before {
@@ -210,33 +223,33 @@
         
         .certification h3 {
             color: var(--primary);
-            font-size: 1.2rem;
-            margin-bottom: 12px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
         .certification h3 i {
-            margin-right: 10px;
+            margin-right: 8px;
             color: var(--gold);
+            font-size: 1rem;
         }
         
         .certification p {
             color: var(--gray);
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
         }
         
         .seal {
             display: inline-block;
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
             color: white;
-            padding: 8px 25px;
+            padding: 6px 18px;
             border-radius: 30px;
-            margin-top: 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             box-shadow: 0 4px 6px rgba(14, 159, 110, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -244,10 +257,26 @@
         
         .footer {
             text-align: center;
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: 10px;
+            padding: 8px 0;
             color: var(--gray);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            opacity: 0.85;
+            font-weight: 500;
+        }
+        
+        .contact-info {
+            text-align: center;
+            margin-top: 5px;
+            color: var(--gray);
+            font-size: 0.75rem;
+            opacity: 0.85;
+            font-weight: 500;
+        }
+        
+        .contact-info strong {
+            color: var(--primary);
+            font-weight: 600;
         }
 
         /* 模态框样式 */
@@ -274,8 +303,8 @@
         
         .modal-content {
             background: var(--light);
-            padding: 30px 25px;
-            border-radius: 22px;
+            padding: 28px 22px;
+            border-radius: 20px;
             width: 90%;
             max-width: 500px;
             max-height: 85vh;
@@ -306,8 +335,8 @@
             color: var(--primary);
             transition: var(--transition);
             z-index: 10;
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -323,10 +352,10 @@
         .modal-title {
             margin: 0 0 20px 0;
             color: var(--primary);
-            font-size: 1.5rem;
+            font-size: 1.45rem;
             font-weight: 700;
             text-align: center;
-            padding-top: 5px;
+            padding-top: 8px;
             position: relative;
         }
         
@@ -343,14 +372,13 @@
         /* 区域选择 - 突出设计 */
         .area-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 18px;
-            margin: 25px 0;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
         }
         
         .area-item {
-            padding: 16px 10px;
-            background: white;
+            padding: 14px 10px;
             border-radius: 16px;
             text-align: center;
             cursor: pointer;
@@ -386,14 +414,14 @@
         .detail-btn {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
             border-radius: 16px;
-            padding: 18px;
+            padding: 16px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            margin-top: 25px;
+            margin-top: 20px;
             color: white;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             box-shadow: 0 5px 15px rgba(14, 159, 110, 0.3);
             position: relative;
             overflow: hidden;
@@ -417,8 +445,8 @@
         
         .integrity-text {
             display: block;
-            margin-top: 10px;
-            font-size: 0.9rem;
+            margin-top: 8px;
+            font-size: 0.85rem;
             font-weight: 400;
             opacity: 0.9;
         }
@@ -445,21 +473,21 @@
         }
         
         .map-header {
-            padding: 10px 15px;
+            padding: 12px 16px;
             background: var(--light);
             display: flex;
             align-items: center;
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
             z-index: 10;
-            min-height: 46px;
+            min-height: 48px;
         }
         
         .map-back-btn {
             font-size: 1.4rem;
             color: var(--primary);
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -488,7 +516,7 @@
             flex: 1;
         }
         
-        /* App跳转按钮样式 */
+        /* App跳转按钮样式 - 宽度调整 */
         .app-jump-container {
             padding: 15px;
             background: rgba(255, 255, 255, 0.95);
@@ -507,9 +535,9 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             border: none;
-            border-radius: 14px;
-            padding: 14px 15px;
-            font-size: 1rem;
+            border-radius: 16px;
+            padding: 14px 10px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -534,7 +562,7 @@
         
         .app-jump-btn i {
             margin-right: 8px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         
         .app-jump-btn:active {
@@ -546,9 +574,9 @@
             background: linear-gradient(135deg, var(--gold) 0%, #b7791f 100%);
             color: white;
             border: none;
-            border-radius: 14px;
-            padding: 14px 15px;
-            font-size: 1rem;
+            border-radius: 16px;
+            padding: 14px 10px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -573,7 +601,7 @@
         
         .photo-btn i {
             margin-right: 8px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         
         .photo-btn:active {
@@ -582,27 +610,31 @@
         }
         
         .jump-status {
+            flex: 1;
             text-align: center;
-            margin-top: 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
-            display: none;
+            padding: 8px 12px;
             background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            padding: 12px;
-            border-left: 4px solid var(--accent);
+            border-radius: 20px;
+            margin-left: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
-        .jump-status.active {
-            display: block;
+        .jump-status i {
+            margin-right: 8px;
+            color: var(--accent);
+            font-size: 1rem;
         }
         
         /* 服务详情样式 */
         .service-section {
             background: var(--light-gray);
-            border-radius: 18px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
             position: relative;
             overflow: hidden;
             box-shadow: var(--card-shadow);
@@ -611,31 +643,31 @@
         .service-header {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .service-header h3 {
             color: var(--primary);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
         }
         
         .service-items {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 12px;
         }
         
         .service-item {
             background: var(--light);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 16px;
+            padding: 14px;
             display: flex;
             align-items: center;
             transition: var(--transition);
-            font-size: 1rem;
+            font-size: 0.95rem;
             box-shadow: var(--card-shadow);
             border-left: 4px solid var(--accent);
         }
@@ -647,36 +679,37 @@
         .service-name {
             font-weight: 700;
             color: var(--dark);
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            font-size: 1.05rem;
         }
         
         .service-price {
             color: var(--secondary);
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
         }
         
         .service-desc {
             color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 8px;
+            font-size: 0.85rem;
+            margin-top: 6px;
             line-height: 1.5;
         }
         
         .special-offer {
             background: rgba(255, 241, 193, 0.3);
             border-radius: 16px;
-            padding: 20px;
+            padding: 18px;
             text-align: center;
-            margin: 30px 0;
+            margin: 22px 0;
             border: 1px dashed var(--gold);
         }
         
         .special-offer p {
             color: var(--dark);
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 12px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
         }
         
         .highlight {
@@ -687,58 +720,71 @@
         /* 响应式设计 */
         @media (max-width: 480px) {
             .container {
-                padding: 10px;
+                padding: 20px 15px;
+                min-height: 82vh;
             }
             
             header {
-                padding: 20px 0 10px;
+                padding: 8px 0;
+                margin-bottom: 20px;
             }
             
             header h1 {
-                font-size: 2.1rem;
+                font-size: 1.8rem;
+            }
+            
+            .logo-icon {
+                width: 45px;
+                height: 45px;
             }
             
             .option-card {
-                padding: 18px;
+                padding: 16px;
+                height: 80px;
             }
             
             .option-card h2 {
-                font-size: 1.25rem;
+                font-size: 1.15rem;
             }
             
             .option-icon {
-                width: 44px;
-                height: 44px;
-                font-size: 1.3rem;
+                width: 42px;
+                height: 42px;
+                font-size: 1.1rem;
             }
             
             .modal-content {
                 padding: 25px 20px;
-                border-radius: 20px;
+                border-radius: 18px;
             }
             
             .area-list {
-                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-                gap: 15px;
+                grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+                gap: 12px;
             }
             
             .service-item {
-                padding: 14px;
+                padding: 12px;
             }
             
             .app-jump-btn, .photo-btn {
-                padding: 12px 10px;
-                font-size: 0.9rem;
+                padding: 12px 8px;
+                font-size: 0.85rem;
             }
             
             .app-jump-btn i, .photo-btn i {
                 margin-right: 6px;
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             
             .map-header {
-                padding: 8px 12px;
-                min-height: 42px;
+                padding: 10px 12px;
+                min-height: 44px;
+            }
+            
+            .jump-status {
+                font-size: 0.8rem;
+                padding: 6px 10px;
             }
         }
     </style>
@@ -779,17 +825,19 @@
             </div>
         </div>
         
-        <!-- 底部认证 -->
+        <!-- 底部认证 - 添加官方认证标识 -->
         <div class="certification">
             <h3><i class="fas fa-shield-alt"></i> 聚美臻选官方认证</h3>
-            <p>所有服务均通过7大项严格审核，保障您的体验品质</p>
             <p>诚信经营 · 真实信息 · 品质保障</p>
             <div class="seal">诚信品质保障</div>
         </div>
         
-        <!-- 备案信息 -->
+        <!-- 备案信息和联系方式 -->
         <div class="footer">
-            聚美臻选 © 2023 | 浙ICP备XXXXXX号-1 | 品质服务认证编号：JMPZ2023
+            聚美臻选 © 2023 | 浙ICP备XXXXXX号-1
+        </div>
+        <div class="contact-info">
+            防失联请加QQ：<strong>859704071</strong>
         </div>
         
         <!-- 区域选择模态框 -->
@@ -816,6 +864,9 @@
                 <div class="map-back-btn" onclick="closeMapModal()">
                     <i class="fas fa-arrow-left"></i>
                 </div>
+                <div class="jump-status" id="jumpStatus">
+                    <i class="fas fa-info-circle"></i> 请手动输入地址导航
+                </div>
             </div>
             <div class="map-container">
                 <iframe id="mapFrame" src="about:blank" frameborder="0"></iframe>
@@ -827,10 +878,6 @@
                         <button class="photo-btn" onclick="openPhotoLink()">
                             <i class="fas fa-images"></i> 集美照片
                         </button>
-                    </div>
-                    
-                    <div class="jump-status" id="jumpStatus">
-                        温馨提示：请手动输入地址导航
                     </div>
                 </div>
             </div>
@@ -886,7 +933,7 @@
                     </div>
                 </div>
                 
-                <div class="detail-btn" style="margin-top: 20px;" onclick="window.location.href='http://baidu.com'">
+                <div class="detail-btn" style="margin-top: 18px;" onclick="window.location.href='http://baidu.com'">
                     <i class="fas fa-gem"></i> 立即访问高端服务
                     <span class="integrity-text">尊享体验 · 品质保证</span>
                 </div>
@@ -1049,9 +1096,6 @@
                     }, 200);
                 });
             });
-            
-            // 初始化提示信息为隐藏状态
-            document.getElementById('jumpStatus').style.display = 'none';
         };
 
         // 打开区域选择模态框
@@ -1119,9 +1163,6 @@
             currentArea = area;
             currentType = type;
             
-            // 隐藏提示信息
-            document.getElementById('jumpStatus').style.display = 'none';
-            
             // 使用高德地图导航URL - 添加缩放级别参数
             const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
             document.getElementById('mapFrame').src = mapUrl;
@@ -1155,9 +1196,7 @@
         
         // 打开集美照片链接
         function openPhotoLink() {
-            // 这里可以替换为实际的集美照片链接
-            alert('集美照片功能即将上线！');
-            // window.location.href = 'YOUR_PHOTO_LINK_HERE';
+            alert('集美照片功能即将上线，敬请期待！');
         }
         
         // 打开导航应用（智能选择）
@@ -1165,20 +1204,7 @@
             const jumpStatus = document.getElementById('jumpStatus');
             
             // 显示跳转状态
-            jumpStatus.textContent = '正在尝试打开导航应用...';
-            jumpStatus.style.display = 'block';
-            
-            // 检测设备类型
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            const isAndroid = /Android/.test(navigator.userAgent);
-            
-            // 优先尝试高德地图
-            openAmapApp();
-        }
-        
-        // 打开高德地图App - 修复版
-        function openAmapApp() {
-            const jumpStatus = document.getElementById('jumpStatus');
+            jumpStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 正在打开导航应用...';
             
             // 高德地图App URI Scheme
             let appUrl = '';
@@ -1204,9 +1230,9 @@
                 
                 // 如果仍然在页面中，说明跳转失败
                 if (!document.hidden) {
-                    jumpStatus.innerHTML = '<i class="fas fa-info-circle"></i> 温馨提示：请手动输入地址导航';
+                    jumpStatus.innerHTML = '<i class="fas fa-info-circle"></i> 请手动输入地址导航';
                 }
-            }, 500);
+            }, 1500);
         }
 
         // 初始化服务详情
