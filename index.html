@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>聚美臻选 - 导航优化版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>聚美臻选 - 专业导航服务</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -16,17 +16,17 @@
         }
         
         :root {
-            --primary: #1a56db;
-            --primary-dark: #0e4bc4;
-            --secondary: #e53e3e;
-            --accent: #0e9f6e;
-            --accent-dark: #057a55;
-            --gold: #d69e2e;
+            --primary: #0d47a1;
+            --primary-dark: #093170;
+            --secondary: #c62828;
+            --accent: #00897b;
+            --accent-dark: #00695c;
+            --gold: #c79100;
             --dark: #1a202c;
             --light: #ffffff;
             --gray: #718096;
             --light-gray: #f7fafc;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
@@ -34,10 +34,11 @@
             background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             color: var(--dark);
             min-height: 100vh;
-            padding: 15px;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .container {
@@ -45,19 +46,21 @@
             width: 100%;
             margin: 0 auto;
             position: relative;
-            padding: 25px 20px;
+            padding: 20px 15px;
             background: white;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            min-height: 85vh;
+            min-height: calc(100vh - 40px);
+            max-height: calc(100vh - 40px);
+            overflow: hidden;
         }
         
         /* 头部样式 - 优化间距 */
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding: 10px 0;
         }
         
@@ -69,8 +72,8 @@
         }
         
         .logo-icon {
-            width: 50px;
-            height: 50px;
+            width: 52px;
+            height: 52px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             border-radius: 50%;
             display: flex;
@@ -82,9 +85,9 @@
         }
         
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(26, 86, 219, 0.4); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(26, 86, 219, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(26, 86, 219, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 71, 161, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(13, 71, 161, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(13, 71, 161, 0); }
         }
         
         .logo-icon i {
@@ -118,13 +121,15 @@
             border-radius: 2px;
         }
         
-        /* 选项卡片样式 - 尺寸优化 */
+        /* 选项卡片样式 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
             gap: 15px;
             margin: 20px 0;
             flex-grow: 1;
+            overflow-y: auto;
+            padding: 5px;
         }
         
         .option-card {
@@ -140,7 +145,7 @@
             align-items: center;
             border: 1px solid rgba(0, 0, 0, 0.03);
             z-index: 1;
-            height: 85px;
+            min-height: 85px;
         }
         
         .option-card::before {
@@ -150,7 +155,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(26, 86, 219, 0.05) 0%, rgba(14, 75, 196, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.1) 0%, rgba(9, 49, 112, 0.1) 100%);
             opacity: 0;
             transition: var(--transition);
             z-index: -1;
@@ -181,7 +186,7 @@
             border-radius: 20px;
             margin-left: 8px;
             font-weight: 500;
-            box-shadow: 0 2px 4px rgba(14, 159, 110, 0.2);
+            box-shadow: 0 2px 4px rgba(0, 137, 123, 0.3);
         }
         
         .option-icon {
@@ -194,10 +199,10 @@
             justify-content: center;
             font-size: 1.3rem;
             color: white;
-            box-shadow: 0 4px 8px rgba(26, 86, 219, 0.3);
+            box-shadow: 0 4px 8px rgba(13, 71, 161, 0.4);
         }
         
-        /* 底部认证 - 优化样式 */
+        /* 底部认证 */
         .certification {
             text-align: center;
             margin-top: auto;
@@ -251,27 +256,34 @@
             border-radius: 30px;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 4px 6px rgba(14, 159, 110, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 137, 123, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 底部信息 */
+        .footer-section {
+            text-align: center;
+            margin-top: auto;
+            padding: 10px 0;
+            background: transparent;
         }
         
         .footer {
             text-align: center;
-            margin-top: 10px;
-            padding: 8px 0;
             color: var(--gray);
             font-size: 0.75rem;
             opacity: 0.85;
             font-weight: 500;
+            padding: 5px 0;
         }
         
         .contact-info {
             text-align: center;
-            margin-top: 5px;
             color: var(--gray);
             font-size: 0.75rem;
             opacity: 0.85;
             font-weight: 500;
+            padding: 5px 0;
         }
         
         .contact-info strong {
@@ -294,6 +306,7 @@
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .modal.active {
@@ -341,11 +354,11 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background: rgba(26, 86, 219, 0.1);
+            background: rgba(13, 71, 161, 0.1);
         }
         
         .back-btn:active {
-            background: rgba(26, 86, 219, 0.2);
+            background: rgba(13, 71, 161, 0.2);
             transform: scale(0.9);
         }
         
@@ -422,7 +435,7 @@
             color: white;
             font-weight: 600;
             font-size: 1.05rem;
-            box-shadow: 0 5px 15px rgba(14, 159, 110, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 137, 123, 0.4);
             position: relative;
             overflow: hidden;
             border: none;
@@ -440,7 +453,7 @@
         
         .detail-btn:active {
             transform: scale(0.97);
-            box-shadow: 0 2px 8px rgba(14, 159, 110, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 137, 123, 0.4);
         }
         
         .integrity-text {
@@ -465,6 +478,7 @@
             transition: var(--transition);
             display: flex;
             flex-direction: column;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .map-modal.active {
@@ -498,7 +512,7 @@
         
         .map-back-btn:active {
             transform: scale(0.9);
-            background: rgba(26, 86, 219, 0.1);
+            background: rgba(13, 71, 161, 0.1);
         }
         
         .map-container {
@@ -545,7 +559,7 @@
             align-items: center;
             justify-content: center;
             flex: 1;
-            box-shadow: 0 4px 10px rgba(26, 86, 219, 0.3);
+            box-shadow: 0 4px 10px rgba(13, 71, 161, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -567,11 +581,11 @@
         
         .app-jump-btn:active {
             transform: scale(0.97);
-            box-shadow: 0 2px 6px rgba(26, 86, 219, 0.3);
+            box-shadow: 0 2px 6px rgba(13, 71, 161, 0.4);
         }
         
         .photo-btn {
-            background: linear-gradient(135deg, var(--gold) 0%, #b7791f 100%);
+            background: linear-gradient(135deg, var(--gold) 0%, #a37200 100%);
             color: white;
             border: none;
             border-radius: 16px;
@@ -584,7 +598,7 @@
             align-items: center;
             justify-content: center;
             flex: 1;
-            box-shadow: 0 4px 10px rgba(214, 158, 46, 0.3);
+            box-shadow: 0 4px 10px rgba(199, 145, 0, 0.4);
             position: relative;
             overflow: hidden;
         }
@@ -606,7 +620,7 @@
         
         .photo-btn:active {
             transform: scale(0.97);
-            box-shadow: 0 2px 6px rgba(214, 158, 46, 0.3);
+            box-shadow: 0 2px 6px rgba(199, 145, 0, 0.4);
         }
         
         .jump-status {
@@ -717,16 +731,18 @@
             font-weight: 700;
         }
         
-        /* 响应式设计 */
+        /* 响应式设计 - 针对移动设备优化 */
         @media (max-width: 480px) {
             .container {
-                padding: 20px 15px;
-                min-height: 82vh;
+                padding: 15px;
+                min-height: calc(100vh - 30px);
+                max-height: calc(100vh - 30px);
+                border-radius: 18px;
             }
             
             header {
                 padding: 8px 0;
-                margin-bottom: 20px;
+                margin-bottom: 15px;
             }
             
             header h1 {
@@ -734,13 +750,18 @@
             }
             
             .logo-icon {
-                width: 45px;
-                height: 45px;
+                width: 46px;
+                height: 46px;
+            }
+            
+            .options-grid {
+                gap: 12px;
+                margin: 15px 0;
             }
             
             .option-card {
                 padding: 16px;
-                height: 80px;
+                min-height: 80px;
             }
             
             .option-card h2 {
@@ -751,6 +772,10 @@
                 width: 42px;
                 height: 42px;
                 font-size: 1.1rem;
+            }
+            
+            .certification {
+                padding: 15px;
             }
             
             .modal-content {
@@ -785,6 +810,10 @@
             .jump-status {
                 font-size: 0.8rem;
                 padding: 6px 10px;
+            }
+            
+            .footer-section {
+                padding: 5px 0;
             }
         }
     </style>
@@ -825,7 +854,7 @@
             </div>
         </div>
         
-        <!-- 底部认证 - 添加官方认证标识 -->
+        <!-- 底部认证 -->
         <div class="certification">
             <h3><i class="fas fa-shield-alt"></i> 聚美臻选官方认证</h3>
             <p>诚信经营 · 真实信息 · 品质保障</p>
@@ -833,11 +862,13 @@
         </div>
         
         <!-- 备案信息和联系方式 -->
-        <div class="footer">
-            聚美臻选 © 2023 | 浙ICP备XXXXXX号-1
-        </div>
-        <div class="contact-info">
-            防失联请加QQ：<strong>859704071</strong>
+        <div class="footer-section">
+            <div class="footer">
+                聚美臻选 © 2023 | 浙ICP备XXXXXX号-1
+            </div>
+            <div class="contact-info">
+                防失联请加QQ：<strong>859704071</strong>
+            </div>
         </div>
         
         <!-- 区域选择模态框 -->
@@ -1096,7 +1127,22 @@
                     }, 200);
                 });
             });
+            
+            // 调整高度以适应移动设备
+            adjustHeightForMobile();
         };
+        
+        // 调整移动设备高度
+        function adjustHeightForMobile() {
+            const container = document.querySelector('.container');
+            const windowHeight = window.innerHeight;
+            
+            if (windowHeight < 700) {
+                container.style.minHeight = 'calc(100vh - 20px)';
+                container.style.maxHeight = 'calc(100vh - 20px)';
+                container.style.padding = '15px';
+            }
+        }
 
         // 打开区域选择模态框
         function openAreaModal(type) {
@@ -1237,6 +1283,9 @@
 
         // 初始化服务详情
         document.getElementById('detailContent').innerHTML = detailData.low;
+        
+        // 监听窗口大小变化
+        window.addEventListener('resize', adjustHeightForMobile);
     </script>
 </body>
 </html>
