@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>聚美臻选</title>
+    <title>聚美臻选 - 地图导航优化</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -354,12 +354,18 @@
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--dark);
+            flex-grow: 1;
         }
         
         .map-container {
             flex: 1;
             background: #eaeaea;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
         
         .map-container iframe {
@@ -466,6 +472,61 @@
             font-weight: 600;
         }
         
+        /* App跳转按钮样式 */
+        .app-jump-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .app-jump-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(106, 90, 249, 0.3);
+        }
+        
+        .app-jump-btn i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .app-jump-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(106, 90, 249, 0.3);
+        }
+        
+        .app-jump-tips {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--dark);
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .app-jump-tips h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 480px) {
             .container {
@@ -506,6 +567,11 @@
             
             .service-item {
                 padding: 12px;
+            }
+            
+            .app-jump-btn {
+                padding: 12px 20px;
+                font-size: 1rem;
             }
         }
     </style>
@@ -583,6 +649,17 @@
                 <iframe id="mapFrame" src="about:blank" frameborder="0"></iframe>
                 <div class="map-tips">
                     提示：点击地图中的区域名称可直接导航 | 若未自动跳转，请点击右上角在浏览器中打开
+                </div>
+                <div class="app-jump-container">
+                    <button class="app-jump-btn" onclick="openAmapApp()">
+                        <i class="fas fa-map-marked-alt"></i> 在高德地图App中打开
+                    </button>
+                    <div class="app-jump-tips">
+                        <h4>使用提示</h4>
+                        <p>1. 点击上方按钮跳转至高德地图App</p>
+                        <p>2. 若未安装App，将引导至应用商店下载</p>
+                        <p>3. 在App中可直接导航至目的地</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -779,6 +856,10 @@
             `
         };
         
+        // 当前选择的区域
+        let currentArea = '';
+        let currentType = '';
+        
         // 模态框状态管理
         let currentModal = null;
         let previousModal = null;
@@ -858,9 +939,12 @@
 
         // 打开地图模态框
         function openMapModal(area, type) {
+            currentArea = area;
+            currentType = type;
+            
             document.getElementById('mapTitle').textContent = `${area} ${type === 'low' ? '低端局' : '中端局'}`;
             
-            // 使用高德地图导航URL - 修复跳转问题
+            // 使用高德地图导航URL
             const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1`;
             document.getElementById('mapFrame').src = mapUrl;
             
@@ -889,6 +973,45 @@
             }
             
             previousModal = null;
+        }
+        
+        // 打开高德地图App
+        function openAmapApp() {
+            // 检测设备类型
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            // 高德地图App URI Scheme
+            let appUrl = '';
+            const areaName = encodeURIComponent(currentArea + ', 杭州');
+            
+            if (isIOS) {
+                // iOS使用iosamap://
+                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
+            } else if (isAndroid) {
+                // Android使用androidamap://
+                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
+            } else {
+                // 其他设备使用网页版
+                appUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${areaName}`;
+            }
+            
+            // 尝试打开App
+            window.location.href = appUrl;
+            
+            // 设置超时，如果5秒后没有跳转，引导用户下载
+            setTimeout(function() {
+                if (!document.hidden) {
+                    // 打开应用商店
+                    const storeUrl = isIOS ? 
+                        'https://apps.apple.com/cn/app/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE-%E7%B2%BE%E5%87%86%E5%9C%B0%E5%9B%BE-%E5%AF%BC%E8%88%AA%E5%87%BA%E8%A1%8C%E5%BF%85%E5%A4%87/id461703208' :
+                        'https://app.amap.com/';
+                    
+                    if (confirm('您似乎未安装高德地图App，是否前往下载？')) {
+                        window.location.href = storeUrl;
+                    }
+                }
+            }, 500);
         }
 
         // 初始化服务详情
