@@ -34,11 +34,24 @@
             background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             color: var(--dark);
             min-height: 100vh;
-            padding: 0;
+            min-height: -webkit-fill-available; /* iOS 特殊处理 */
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            padding: 0;
+            position: relative;
+        }
+        
+        /* iOS 专用样式 */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+            .container {
+                min-height: -webkit-fill-available;
+                max-height: -webkit-fill-available;
+                height: -webkit-fill-available;
+            }
         }
         
         .container {
@@ -52,8 +65,8 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            min-height: calc(100vh - 40px);
-            max-height: calc(100vh - 40px);
+            min-height: 90vh;
+            max-height: 90vh;
             overflow: hidden;
         }
         
@@ -306,7 +319,6 @@
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .modal.active {
@@ -478,7 +490,6 @@
             transition: var(--transition);
             display: flex;
             flex-direction: column;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .map-modal.active {
@@ -731,22 +742,42 @@
             font-weight: 700;
         }
         
-        /* 响应式设计 - 针对移动设备优化 */
-        @media (max-width: 480px) {
+        /* 响应式设计 - 针对iOS优化 */
+        @media screen and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
             .container {
+                min-height: 100vh;
+                max-height: 100vh;
+                height: 100vh;
+                border-radius: 0;
+                padding: 20px 15px;
+            }
+            
+            body {
+                padding: 0;
+                background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            }
+            
+            .options-grid {
+                max-height: 45vh;
+            }
+            
+            .certification {
+                margin-bottom: 10px;
+            }
+            
+            .footer-section {
+                padding-bottom: 20px;
+            }
+        }
+        
+        /* 小屏幕设备优化 */
+        @media (max-height: 700px) {
+            .container {
+                min-height: 100vh;
+                max-height: 100vh;
+                height: 100vh;
+                border-radius: 0;
                 padding: 15px;
-                min-height: calc(100vh - 30px);
-                max-height: calc(100vh - 30px);
-                border-radius: 18px;
-            }
-            
-            header {
-                padding: 8px 0;
-                margin-bottom: 15px;
-            }
-            
-            header h1 {
-                font-size: 1.8rem;
             }
             
             .logo-icon {
@@ -754,18 +785,17 @@
                 height: 46px;
             }
             
+            header h1 {
+                font-size: 1.9rem;
+            }
+            
             .options-grid {
-                gap: 12px;
-                margin: 15px 0;
+                max-height: 45vh;
             }
             
             .option-card {
-                padding: 16px;
-                min-height: 80px;
-            }
-            
-            .option-card h2 {
-                font-size: 1.15rem;
+                padding: 15px;
+                min-height: 75px;
             }
             
             .option-icon {
@@ -776,44 +806,6 @@
             
             .certification {
                 padding: 15px;
-            }
-            
-            .modal-content {
-                padding: 25px 20px;
-                border-radius: 18px;
-            }
-            
-            .area-list {
-                grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
-                gap: 12px;
-            }
-            
-            .service-item {
-                padding: 12px;
-            }
-            
-            .app-jump-btn, .photo-btn {
-                padding: 12px 8px;
-                font-size: 0.85rem;
-            }
-            
-            .app-jump-btn i, .photo-btn i {
-                margin-right: 6px;
-                font-size: 1rem;
-            }
-            
-            .map-header {
-                padding: 10px 12px;
-                min-height: 44px;
-            }
-            
-            .jump-status {
-                font-size: 0.8rem;
-                padding: 6px 10px;
-            }
-            
-            .footer-section {
-                padding: 5px 0;
             }
         }
     </style>
@@ -1128,20 +1120,34 @@
                 });
             });
             
-            // 调整高度以适应移动设备
-            adjustHeightForMobile();
+            // iOS设备特殊处理
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                adjustForIOS();
+            }
         };
         
-        // 调整移动设备高度
-        function adjustHeightForMobile() {
+        // iOS设备特殊处理
+        function adjustForIOS() {
             const container = document.querySelector('.container');
             const windowHeight = window.innerHeight;
             
-            if (windowHeight < 700) {
-                container.style.minHeight = 'calc(100vh - 20px)';
-                container.style.maxHeight = 'calc(100vh - 20px)';
-                container.style.padding = '15px';
-            }
+            // 设置容器高度
+            container.style.minHeight = '100vh';
+            container.style.maxHeight = '100vh';
+            container.style.height = '100vh';
+            container.style.borderRadius = '0';
+            
+            // 调整选项区域高度
+            const optionsGrid = document.querySelector('.options-grid');
+            optionsGrid.style.maxHeight = '45vh';
+            optionsGrid.style.overflowY = 'auto';
+            
+            // 添加底部安全区域
+            const footerSection = document.querySelector('.footer-section');
+            footerSection.style.paddingBottom = 'env(safe-area-inset-bottom)';
+            
+            // 添加iOS专用样式
+            document.body.style.overflow = 'hidden';
         }
 
         // 打开区域选择模态框
@@ -1283,9 +1289,6 @@
 
         // 初始化服务详情
         document.getElementById('detailContent').innerHTML = detailData.low;
-        
-        // 监听窗口大小变化
-        window.addEventListener('resize', adjustHeightForMobile);
     </script>
 </body>
 </html>
