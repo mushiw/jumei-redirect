@@ -23,6 +23,9 @@
             --accent-dark: #00695c;
             --gold: #c79100;
             --gold-dark: #a37200;
+            --silver-light: #f0f0f极速版0;
+            --silver: #c0c0c0;
+            --silver-dark: #a0a0a0;
             --dark: #1a202c;
             --light: #ffffff;
             --gray: #718096;
@@ -31,6 +34,11 @@
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.3);
+            --gradient-primary: linear-gradient(135deg, #0a2e5d 0%, #072147 100%);
+            --gradient-accent: linear-gradient(135deg, #00897b 0%, #00695c 100%);
+            --gradient-gold: linear-gradient(135deg, #c79100 0%, #a37200 100%);
+            --gradient-logo: linear-gradient(135deg, #0d47a1 0%, #00897b 50%, #c79100 100%);
+            --gradient-title: linear-gradient(90deg, #0d47a1, #00897b, #c79100);
         }
         
         body {
@@ -72,92 +80,89 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 12px;
+            flex-direction: column;
         }
         
         .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-logo);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
+            margin-bottom: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.5);
         }
         
         .logo-icon::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 60%);
+            transform: rotate(30deg);
+        }
+        
+        .logo-icon::after {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
-        }
-        
-        .logo-icon::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, transparent 40%, rgba(255,255,255,0.3) 100%);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, transparent 80%);
         }
         
         .logo-icon i {
-            font-size: 1.8rem;
+            font-size: 3.5rem;
             color: white;
             position: relative;
             z-index: 2;
-        }
-        
-        .logo-icon .inner-icon {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            bottom: 5px;
-            right: 5px;
-            z-index: 1;
-        }
-        
-        .logo-icon .inner-icon i {
-            font-size: 0.8rem;
-            color: white;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         header h1 {
-            font-size: 2.1rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
-            background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 50%, var(--accent) 100%);
+            background: var(--gradient-title);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 8px;
+            animation: gradientShift 8s infinite alternate;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         
         .subtitle {
             color: var(--gray);
-            font-size: 0.9rem;
+            font-size: 1.05rem;
             margin-top: 8px;
-            font-weight: 400;
+            font-weight: 500;
             position: relative;
+            padding: 0 15px;
+            line-height: 1.4;
+            text-align: center;
         }
         
         .subtitle::after {
             content: "";
             display: block;
-            width: 50px;
+            width: 60px;
             height: 3px;
-            background: linear-gradient(90deg, var(--gold), transparent);
-            margin: 8px auto 0;
+            background: linear-gradient(90deg, var(--silver), transparent);
+            margin: 12px auto 0;
             border-radius: 2px;
         }
         
@@ -175,7 +180,7 @@
         .option-card {
             background: var(--light);
             border-radius: 16px;
-            padding: 18px 20px;
+            padding: 20px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
             cursor: pointer;
@@ -185,7 +190,7 @@
             align-items: center;
             border: 1px solid rgba(0, 0, 0, 0.03);
             z-index: 1;
-            min-height: 90px;
+            min-height: 100px;
             user-select: none;
         }
         
@@ -212,8 +217,8 @@
         }
         
         .option-card h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
+            font-size: 1.35rem;
+            font-weight: 700;
             color: var(--dark);
             margin-left: 18px;
             flex-grow: 1;
@@ -221,37 +226,37 @@
         
         .option-card .badge {
             color: white;
-            font-size: 0.8rem;
-            padding: 4px 10px;
+            font-size: 0.9rem;
+            padding: 6px 14px;
             border-radius: 20px;
             margin-left: 8px;
-            font-weight: 500;
+            font-weight: 600;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .option-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 58px;
+            height: 58px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
             color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
         /* 低端局样式 */
         .option-card.low .option-icon {
-            background: linear-gradient(135deg, #0a2e5d 0%, #072147 100%);
+            background: var(--gradient-primary);
         }
         .option-card.low .badge {
-            background: #0a2e5d;
+            background: var(--gradient-primary);
         }
         
         /* 中端局样式 */
         .option-card.mid .option-icon {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            background: var(--gradient-accent);
         }
         .option-card.mid .badge {
             background: var(--accent);
@@ -259,7 +264,7 @@
         
         /* 高端局样式 */
         .option-card.high .option-icon {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            background: var(--gradient-gold);
         }
         .option-card.high .badge {
             background: var(--gold);
@@ -291,7 +296,7 @@
         
         .certification h3 {
             color: var(--primary);
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -301,29 +306,30 @@
         .certification h3 i {
             margin-right: 8px;
             color: var(--gold);
-            font-size: 1rem;
+            font-size: 1.2rem;
         }
         
         .certification p {
             color: var(--gray);
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             line-height: 1.5;
             margin-bottom: 12px;
+            text-align: center;
         }
         
         .seal {
             display: inline-block;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            background: var(--gradient-accent);
             color: white;
-            padding: 6px 18px;
+            padding: 8px 20px;
             border-radius: 30px;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             font-weight: 600;
             box-shadow: 0 4px 6px rgba(0, 137, 123, 0.4);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        /* 底部信息 */
+        /* 底部信息 - 增加间距 */
         .footer-section {
             text-align: center;
             margin-top: auto;
@@ -334,16 +340,17 @@
         .footer {
             text-align: center;
             color: var(--gray);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             opacity: 0.85;
             font-weight: 500;
             padding: 5px 0;
+            margin-bottom: 8px;
         }
         
         .contact-info {
             text-align: center;
             color: var(--gray);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             opacity: 0.85;
             font-weight: 500;
             padding: 5px 0;
@@ -386,32 +393,13 @@
             max-height: 85vh;
             overflow-y: auto;
             position: relative;
-            transform: translateY(20px);
+            transform: translate极速版Y(20px);
             transition: transform 0.4s ease;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            margin: auto;
         }
         
-        /* 自定义滚动条样式 - 统一iOS和Android */
-        .modal-content::-webkit-scrollbar {
-            width: 8px;
-        }
-        
-        .modal-content::-webkit-scrollbar-track {
-            background: rgba(245, 247, 250, 0.6);
-            border-radius: 10px;
-        }
-        
-        .modal-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--primary), var(--accent));
-            border-radius: 10px;
-            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        }
-        
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-        
-        /* 微信风格返回键 */
+        /* 返回按钮优化 */
         .back-btn {
             position: absolute;
             top: 20px;
@@ -421,8 +409,8 @@
             color: var(--primary);
             transition: var(--transition);
             z-index: 10;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -438,7 +426,7 @@
         .modal-title {
             margin: 0 0 20px 0;
             color: var(--primary);
-            font-size: 1.45rem;
+            font-size: 1.5rem;
             font-weight: 700;
             text-align: center;
             padding-top: 8px;
@@ -448,10 +436,10 @@
         .modal-title::after {
             content: "";
             display: block;
-            width: 50px;
+            width: 60px;
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--accent));
-            margin: 12px auto 0;
+            margin: 14px auto 0;
             border-radius: 2px;
         }
         
@@ -464,16 +452,16 @@
         }
         
         .area-item {
-            padding: 14px 10px;
+            padding: 16px 10px;
             border-radius: 16px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.1rem;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(0, 0, 0, 0.05);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--gradient-primary);
             color: white;
             position: relative;
             overflow: hidden;
@@ -496,9 +484,15 @@
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         }
         
+        /* 美团集美特殊样式 */
+        .meituan-area {
+            background: linear-gradient(135deg, #06c1de 0%, #0077b6 100%);
+            grid-column: span 2;
+        }
+        
         /* 服务详情按钮 */
         .detail-btn {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            background: var(--gradient-accent);
             border-radius: 16px;
             padding: 16px;
             text-align: center;
@@ -507,7 +501,7 @@
             margin-top: 20px;
             color: white;
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             box-shadow: 0 5px 15px rgba(0, 137, 123, 0.4);
             position: relative;
             overflow: hidden;
@@ -532,7 +526,7 @@
         .integrity-text {
             display: block;
             margin-top: 8px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 400;
             opacity: 0.9;
         }
@@ -573,8 +567,8 @@
             font-size: 1.4rem;
             color: var(--primary);
             cursor: pointer;
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -619,12 +613,12 @@
         }
         
         .app-jump-btn {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: var(--gradient-primary);
             color: white;
             border: none;
             border-radius: 16px;
-            padding: 14px 10px;
-            font-size: 0.95rem;
+            padding: 16px 10px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -649,7 +643,7 @@
         
         .app-jump-btn i {
             margin-right: 8px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         
         .app-jump-btn:active {
@@ -658,12 +652,12 @@
         }
         
         .photo-btn {
-            background: linear-gradient(135deg, var(--gold) 0%, #a37200 100%);
+            background: var(--gradient-gold);
             color: white;
             border: none;
             border-radius: 16px;
-            padding: 14px 10px;
-            font-size: 0.95rem;
+            padding: 16px 10px;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
@@ -688,7 +682,7 @@
         
         .photo-btn i {
             margin-right: 8px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
         
         .photo-btn:active {
@@ -708,21 +702,22 @@
         }
         
         .modal-intro h2 {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             color: var(--primary);
             margin-bottom: 10px;
         }
         
         .modal-intro p {
             color: var(--gray);
-            font-size: 1rem;
+            font-size: 1.05rem;
             line-height: 1.5;
+            text-align: center;
         }
         
         .modal-section {
             background: rgba(245, 247, 250, 0.6);
             border-radius: 16px;
-            padding: 16px;
+            padding: 18px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
@@ -730,11 +725,12 @@
         .modal-section h3 {
             display: flex;
             align-items: center;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             color: var(--primary);
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            justify-content: center;
         }
         
         .modal-section h3 i {
@@ -749,16 +745,15 @@
         .package-item {
             background: white;
             border-radius: 14px;
-            padding: 16px;
+            padding: 18px;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-            /* 移除缩放效果 */
         }
         
         .package-name {
             display: flex;
             align-items: center;
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: var(--primary-dark);
             margin-bottom: 12px;
         }
@@ -795,14 +790,14 @@
         .service-item, .tip-item {
             display: flex;
             align-items: flex-start;
-            padding: 10px;
+            padding: 12px;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 12px;
         }
         
         .service-icon, .tip-icon {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             background: var(--primary);
             border-radius: 50%;
             display: flex;
@@ -815,7 +810,7 @@
         
         .service-text, .tip-item > div:last-child {
             color: var(--dark);
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.5;
         }
         
@@ -825,22 +820,22 @@
             padding: 15px;
             background: rgba(245, 247, 250, 0.8);
             border-radius: 16px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--gray);
         }
         
-        /* 访问按钮样式 */
+        /* 访问按钮样式 - 使用高端局金色渐变 */
         .access-btn {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            background: var(--gradient-gold);
             border-radius: 16px;
-            padding: 16px;
+            padding: 18px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
             margin: 20px auto 0;
             color: white;
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             box-shadow: 0 5px 15px rgba(199, 145, 0, 0.4);
             position: relative;
             overflow: hidden;
@@ -870,31 +865,10 @@
         
         .access-btn i {
             margin-bottom: 8px;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
         
-        /* 邀请码样式 */
-        .invite-code {
-            text-align: center;
-            padding: 12px;
-            margin: 15px 0;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 8px rgba(0, 137, 123, 0.3);
-        }
-        
-        .invite-code span {
-            background: white;
-            color: var(--accent-dark);
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-left: 8px;
-        }
-        
-        /* iOS提示框 - 美化UI */
+        /* iOS提示框 */
         .ios-prompt {
             position: fixed;
             top: 0;
@@ -951,7 +925,7 @@
         }
         
         .ios-title {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--primary);
             margin-bottom: 15px;
             font-weight: 700;
@@ -961,27 +935,27 @@
         .ios-instruction {
             background: var(--light-gray);
             border-radius: 12px;
-            padding: 15px;
+            padding: 18px;
             margin: 20px 0;
             text-align: left;
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--dark);
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .ios-instruction ol {
             padding-left: 20px;
-            margin: 10px 0;
+            margin: 12px 0;
         }
         
         .ios-instruction li {
-            margin-bottom: 8px;
-            line-height: 1.5;
+            margin-bottom: 10px;
+            line-height: 1.6;
         }
         
         .arrow-down {
             margin: 20px 0;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--gold);
             animation: bounce 1.5s infinite;
         }
@@ -992,25 +966,39 @@
             60% {transform: translateY(-10px);}
         }
         
-        /* 邀请码在iOS提示框中 */
-        .ios-invite-code {
-            text-align: center;
-            padding: 12px;
-            margin: 15px 0;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 8px rgba(0, 137, 123, 0.3);
+        /* 加载动画 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z极速版-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
         
-        .ios-invite-code span {
-            background: white;
-            color: var(--accent-dark);
-            padding: 4px 12px;
-            border-radius: 20px;
-            margin-left: 8px;
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--gold);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         /* 响应式设计 */
@@ -1019,7 +1007,7 @@
                 padding: 15px;
                 min-height: calc(100vh - 30px);
                 max-height: calc(100vh - 30px);
-                border-radius: 18px;
+                border-radius极速版: 18px;
             }
             
             header {
@@ -1028,12 +1016,12 @@
             }
             
             header h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .logo-icon {
-                width: 50px;
-                height: 50px;
+                width: 85px;
+                height: 85px;
             }
             
             .options-grid {
@@ -1043,17 +1031,17 @@
             
             .option-card {
                 padding: 16px;
-                min-height: 85px;
+                min-height: 90px;
             }
             
             .option-card h2 {
-                font-size: 1.15rem;
+                font-size: 1.2rem;
             }
             
             .option-icon {
-                width: 42px;
-                height: 42px;
-                font-size: 1.1rem;
+                width: 48px;
+                height: 48px;
+                font-size: 1.4rem;
             }
             
             .certification {
@@ -1071,13 +1059,13 @@
             }
             
             .app-jump-btn, .photo-btn {
-                padding: 12px 8px;
-                font-size: 0.85rem;
+                padding: 14px 8px;
+                font-size: 0.9rem;
             }
             
             .app-jump-btn i, .photo-btn i {
                 margin-right: 6px;
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
             .map-header {
@@ -1090,16 +1078,16 @@
             }
             
             .modal-section h3 {
-                font-size: 1.15rem;
+                font-size: 1.2rem;
             }
             
             .package-item {
-                padding: 12px;
+                padding: 14px;
             }
             
             .access-btn {
-                padding: 14px;
-                font-size: 1rem;
+                padding: 16px;
+                font-size: 1.05rem;
                 width: 100%;
             }
         }
@@ -1110,14 +1098,11 @@
         <header>
             <div class="logo-container">
                 <div class="logo-icon">
-                    <i class="fas fa-crown"></i>
-                    <div class="inner-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
+                    <i class="fas fa-star"></i>
                 </div>
                 <h1>聚美臻选</h1>
+                <div class="subtitle">品质服务 · 臻心之选 · 诚信保障</div>
             </div>
-            <div class="subtitle">品质服务 · 臻心之选 · 诚信保障</div>
         </header>
         
         <div class="options-grid">
@@ -1253,7 +1238,7 @@
                                 </div>
                                 <div class="package-option">
                                     <span>一课（60分钟）</span>
-                                    <span>￥4.8k</span>
+                                    <span>￥4.8k</极速版span>
                                 </div>
                                 <div class="package-option">
                                     <span>两课（100分钟）</span>
@@ -1268,7 +1253,7 @@
                     </div>
                     
                     <div class="modal-section">
-                        <h3><i class="fas fa-star"></i> 服务说明</h3>
+                        <h3>服务说明</h3>
                         <div class="solution-list">
                             <div class="service-item">
                                 <div class="service-icon">
@@ -1354,46 +1339,46 @@
             </div>
         </div>
         
-        <!-- iOS提示框 - 美化UI -->
-        <div id="iosPrompt" class="ios-prompt">
-            <div class="ios-content">
-                <div class="ios-close" onclick="closeIosPrompt()">
-                    <i class="fas fa-times"></i>
-                </div>
-                <h3 class="ios-title">请粘贴至浏览器打开</h3>
-                
-                <!-- iOS专属邀请码 -->
-                <div class="ios-invite-code">
-                    <i class="fas fa-ticket-alt"></i> 您的专属邀请码: <span>6699</span>
-                </div>
-                
-                <p>复制以下链接并粘贴到Safari浏览器地址栏：</p>
-                <div class="ios-instruction">
-                    <div id="iosLink" style="word-break: break-all; padding: 10px; background: #f0f8ff; border-radius: 8px; margin: 10px 0; font-weight: 500;">http://baidu.com</div>
-                    <ol>
-                        <li>长按上方链接并选择"复制"</li>
-                        <li>切换到Safari浏览器</li>
-                        <li>在地址栏长按并选择"粘贴"</li>
-                        <li>点击"前往"访问服务</li>
-                    </ol>
-                </div>
-                <div class="arrow-down">
-                    <i class="fas fa-long-arrow-alt-down"></i>
-                </div>
-                <p>粘贴到下方浏览器地址栏打开</p>
+        <!-- 加载动画 -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    
+    <!-- iOS提示框 - 移出主容器 -->
+    <div id="iosPrompt" class="ios-prompt">
+        <div class="ios-content">
+            <div class="ios-close" onclick="closeIosPrompt()">
+                <i class="fas fa-times"></i>
             </div>
+            <h3 class="ios-title">请粘贴至浏览器打开</h3>
+            
+            <p>复制以下链接并粘贴到Safari浏览器地址栏：</p>
+            <div class="ios-instruction">
+                <div id="iosLink" style="word-break: break-all; padding: 12px; background: #f0f8ff; border-radius: 10px; margin: 12px 0; font-weight: 500; font-size: 1rem;">http://baidu.com</div>
+                <ol>
+                    <li>长按上方链接并选择"复制"</li>
+                    <li>切换到Safari浏览器</li>
+                    <li>在地址栏长按并选择"粘贴"</li>
+                    <li>点击"前往"访问服务</li>
+                </ol>
+            </div>
+            <div class="arrow-down">
+                <i class="fas fa-long-arrow-alt-down"></i>
+            </div>
+            <p>粘贴到下方浏览器地址栏打开</p>
         </div>
     </div>
 
     <script>
-        // 区域数据
+        // 区域数据 - 中端局添加了滨江区
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
-            mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区'],
+            mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区', '滨江区'], // 添加了滨江区
             high: []
         };
 
-        // 详情数据 - 统一格式
+        // 详情数据 - 已优化排版
         const detailData = {
             low: `
             <div class="modal-intro">
@@ -1635,7 +1620,7 @@
             </div>
             
             <div class="modal-section">
-                <h3><i class="fas fa-star"></i> 服务说明</h3>
+                <h3>服务说明</h3>
                 <div class="solution-list">
                     <div class="service-item">
                         <div class="service-icon">
@@ -1671,7 +1656,7 @@
                         <div class="service-text">
                             支持提前预约，时间安排更灵活
                         </div>
-                    </div>
+                    </极速版div>
                 </div>
             </div>
             
@@ -1680,7 +1665,7 @@
                 <div class="solution-list">
                     <div class="tip-item">
                         <div class="tip-icon">
-                            <i class="fas fa-check-circle"></i>
+                            <极速版i class="fas fa-check-circle"></i>
                         </div>
                         <div>
                             服务均为高品质定制，非市面上中低端
@@ -1723,15 +1708,8 @@
         let currentArea = '';
         let currentType = '';
         
-        // 模态框状态管理
-        let currentModal = null;
-        let previousModal = null;
-
         // 页面加载时初始化
         window.onload = function() {
-            // 调整高度以适应移动设备
-            adjustHeightForMobile();
-            
             // 缓存DOM元素
             cacheDOMElements();
         };
@@ -1748,24 +1726,25 @@
                 mapModal: document.getElementById('mapModal'),
                 mapFrame: document.getElementById('mapFrame'),
                 iosPrompt: document.getElementById('iosPrompt'),
-                iosLink: document.getElementById('iosLink')
+                iosLink: document.getElementById('iosLink'),
+                loadingOverlay: document.getElementById('loadingOverlay')
             };
         }
+
+        // 显示加载动画
+        function showLoading() {
+            window.domCache.loadingOverlay.classList.add('active');
+        }
         
-        // 调整移动设备高度
-        function adjustHeightForMobile() {
-            const container = document.querySelector('.container');
-            const windowHeight = window.innerHeight;
-            
-            if (windowHeight < 700) {
-                container.style.minHeight = 'calc(100vh - 20px)';
-                container.style.maxHeight = 'calc(100vh - 20px)';
-                container.style.padding = '15px';
-            }
+        // 隐藏加载动画
+        function hideLoading() {
+            window.domCache.loadingOverlay.classList.remove('active');
         }
 
         // 打开区域选择模态框
         function openAreaModal(type) {
+            showLoading();
+            
             // 保存当前类型
             window.currentType = type;
             
@@ -1774,46 +1753,52 @@
             areaTitle.textContent = type === 'low' ? '低端局区域选择' : '中端局区域选择';
             areaList.innerHTML = '';
             
+            // 添加所有区域
             areaData[type].forEach(area => {
                 const areaItem = document.createElement('div');
                 areaItem.className = 'area-item';
                 areaItem.textContent = area;
                 areaItem.onclick = () => {
-                    // 添加小延迟避免快速操作问题
-                    setTimeout(() => openMapModal(area, type), 50);
+                    openMapModal(area, type);
                 };
                 areaList.appendChild(areaItem);
             });
             
+            // 如果是中端局，添加美团集美作为最后一个选项
+            if (type === 'mid') {
+                const meituanItem = document.createElement('div');
+                meituanItem.className = 'area-item meituan-area';
+                meituanItem.innerHTML = `<i class="fas fa-shopping-bag"></i> 美团集美`;
+                meituanItem.onclick = () => {
+                    window.open('http://baidu.com', '_blank');
+                };
+                areaList.appendChild(meituanItem);
+            }
+            
             window.domCache.detailContent.innerHTML = detailData[type];
             
-            // 保存上一个模态框状态
-            previousModal = currentModal;
-            currentModal = 'areaModal';
-            
             // 打开模态框
-            window.domCache.areaModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                window.domCache.areaModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                hideLoading();
+            }, 300);
         }
 
         // 打开高端模态框
         function openHighModal() {
-            // 保存上一个模态框状态
-            previousModal = currentModal;
-            currentModal = 'highModal';
+            showLoading();
             
             // 打开模态框
-            window.domCache.highModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                window.domCache.highModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                hideLoading();
+            }, 300);
         }
 
         // 打开详情模态框
         function openDetailModal() {
-            // 保存上一个模态框状态
-            previousModal = currentModal;
-            currentModal = 'detailModal';
-            
-            // 打开模态框
             window.domCache.detailModal.classList.add('active');
         }
 
@@ -1821,45 +1806,34 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
             document.body.style.overflow = '';
-            
-            // 重置当前模态框状态
-            currentModal = null;
         }
 
         // 打开地图模态框
         function openMapModal(area, type) {
+            showLoading();
+            
             currentArea = area;
             currentType = type;
             
             // 使用高德地图导航URL
             const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
-            window.domCache.mapFrame.src = mapUrl;
-            
-            // 保存上一个模态框状态
-            previousModal = currentModal;
-            currentModal = 'mapModal';
             
             // 关闭区域选择模态框
             window.domCache.areaModal.classList.remove('active');
             
-            // 打开地图模态框
-            window.domCache.mapModal.classList.add('active');
+            setTimeout(() => {
+                window.domCache.mapFrame.src = mapUrl;
+                window.domCache.mapModal.classList.add('active');
+                hideLoading();
+            }, 300);
         }
 
         // 关闭地图模态框
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
-            
-            // 返回上一个模态框
-            if (previousModal) {
-                document.getElementById(previousModal).classList.add('active');
-                currentModal = previousModal;
-            } else {
-                document.body.style.overflow = '';
-                currentModal = null;
-            }
-            
-            previousModal = null;
+            window.domCache.mapFrame.src = "about:blank";
+            // 重新打开区域选择模态框
+            window.domCache.areaModal.classList.add('active');
         }
         
         // 打开集美照片链接
@@ -1923,9 +1897,6 @@
         
         // 初始化服务详情
         window.domCache.detailContent.innerHTML = detailData.low;
-        
-        // 监听窗口大小变化
-        window.addEventListener('resize', adjustHeightForMobile);
     </script>
 </body>
 </html>
