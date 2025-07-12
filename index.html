@@ -34,24 +34,11 @@
             background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             color: var(--dark);
             min-height: 100vh;
-            min-height: -webkit-fill-available; /* iOS 特殊处理 */
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0;
-            position: relative;
-        }
-        
-        /* iOS 专用样式 */
-        @supports (-webkit-touch-callout: none) {
-            body {
-                min-height: -webkit-fill-available;
-            }
-            .container {
-                min-height: -webkit-fill-available;
-                max-height: -webkit-fill-available;
-                height: -webkit-fill-available;
-            }
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .container {
@@ -65,15 +52,15 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
-            min-height: 90vh;
-            max-height: 90vh;
+            min-height: calc(100vh - 40px);
+            max-height: calc(100vh - 40px);
             overflow: hidden;
         }
         
         /* 头部样式 - 优化间距 */
         header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             padding: 10px 0;
         }
         
@@ -134,12 +121,12 @@
             border-radius: 2px;
         }
         
-        /* 选项卡片样式 */
+        /* 选项卡片样式 - 增加间距 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 20px 0;
+            gap: 18px;
+            margin: 24px 0;
             flex-grow: 1;
             overflow-y: auto;
             padding: 5px;
@@ -158,7 +145,7 @@
             align-items: center;
             border: 1px solid rgba(0, 0, 0, 0.03);
             z-index: 1;
-            min-height: 85px;
+            min-height: 90px;
         }
         
         .option-card::before {
@@ -179,8 +166,8 @@
         }
         
         .option-card:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            transform: scale(0.95);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         
         .option-card h2 {
@@ -215,7 +202,7 @@
             box-shadow: 0 4px 8px rgba(13, 71, 161, 0.4);
         }
         
-        /* 底部认证 */
+        /* 底部认证 - 优化间距 */
         .certification {
             text-align: center;
             margin-top: auto;
@@ -319,6 +306,7 @@
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .modal.active {
@@ -464,7 +452,7 @@
         }
         
         .detail-btn:active {
-            transform: scale(0.97);
+            transform: scale(0.95);
             box-shadow: 0 2px 8px rgba(0, 137, 123, 0.4);
         }
         
@@ -490,6 +478,7 @@
             transition: var(--transition);
             display: flex;
             flex-direction: column;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .map-modal.active {
@@ -591,7 +580,7 @@
         }
         
         .app-jump-btn:active {
-            transform: scale(0.97);
+            transform: scale(0.95);
             box-shadow: 0 2px 6px rgba(13, 71, 161, 0.4);
         }
         
@@ -630,7 +619,7 @@
         }
         
         .photo-btn:active {
-            transform: scale(0.97);
+            transform: scale(0.95);
             box-shadow: 0 2px 6px rgba(199, 145, 0, 0.4);
         }
         
@@ -639,19 +628,28 @@
             text-align: center;
             font-size: 0.85rem;
             color: var(--gray);
-            padding: 8px 12px;
+            padding: 10px 15px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             margin-left: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
         }
         
         .jump-status i {
             margin-right: 8px;
             color: var(--accent);
             font-size: 1rem;
+        }
+        
+        .success-status {
+            color: #2e7d32;
+        }
+        
+        .error-status {
+            color: #c62828;
         }
         
         /* 服务详情样式 */
@@ -695,6 +693,10 @@
             font-size: 0.95rem;
             box-shadow: var(--card-shadow);
             border-left: 4px solid var(--accent);
+        }
+        
+        .service-item:active {
+            transform: scale(0.97);
         }
         
         .service-info {
@@ -742,42 +744,22 @@
             font-weight: 700;
         }
         
-        /* 响应式设计 - 针对iOS优化 */
-        @media screen and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+        /* 响应式设计 - 针对移动设备优化 */
+        @media (max-width: 480px) {
             .container {
-                min-height: 100vh;
-                max-height: 100vh;
-                height: 100vh;
-                border-radius: 0;
-                padding: 20px 15px;
-            }
-            
-            body {
-                padding: 0;
-                background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
-            }
-            
-            .options-grid {
-                max-height: 45vh;
-            }
-            
-            .certification {
-                margin-bottom: 10px;
-            }
-            
-            .footer-section {
-                padding-bottom: 20px;
-            }
-        }
-        
-        /* 小屏幕设备优化 */
-        @media (max-height: 700px) {
-            .container {
-                min-height: 100vh;
-                max-height: 100vh;
-                height: 100vh;
-                border-radius: 0;
                 padding: 15px;
+                min-height: calc(100vh - 30px);
+                max-height: calc(100vh - 30px);
+                border-radius: 18px;
+            }
+            
+            header {
+                padding: 8px 0;
+                margin-bottom: 15px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
             }
             
             .logo-icon {
@@ -785,17 +767,18 @@
                 height: 46px;
             }
             
-            header h1 {
-                font-size: 1.9rem;
-            }
-            
             .options-grid {
-                max-height: 45vh;
+                gap: 16px;
+                margin: 15px 0;
             }
             
             .option-card {
-                padding: 15px;
-                min-height: 75px;
+                padding: 16px;
+                min-height: 85px;
+            }
+            
+            .option-card h2 {
+                font-size: 1.15rem;
             }
             
             .option-icon {
@@ -806,6 +789,44 @@
             
             .certification {
                 padding: 15px;
+            }
+            
+            .modal-content {
+                padding: 25px 20px;
+                border-radius: 18px;
+            }
+            
+            .area-list {
+                grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+                gap: 12px;
+            }
+            
+            .service-item {
+                padding: 12px;
+            }
+            
+            .app-jump-btn, .photo-btn {
+                padding: 12px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .app-jump-btn i, .photo-btn i {
+                margin-right: 6px;
+                font-size: 1rem;
+            }
+            
+            .map-header {
+                padding: 10px 12px;
+                min-height: 44px;
+            }
+            
+            .jump-status {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            
+            .footer-section {
+                padding: 5px 0;
             }
         }
     </style>
@@ -1111,43 +1132,47 @@
         // 页面加载时初始化
         window.onload = function() {
             // 添加触感效果
-            document.querySelectorAll('.option-card, .area-item, .detail-btn').forEach(el => {
-                el.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.97)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 200);
+            document.querySelectorAll('.option-card, .area-item, .detail-btn, .service-item, .app-jump-btn, .photo-btn').forEach(el => {
+                el.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
+                    this.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.15)';
+                });
+                
+                el.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+                
+                el.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.95)';
+                    this.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.15)';
+                });
+                
+                el.addEventListener('mouseup', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                });
+                
+                el.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
                 });
             });
             
-            // iOS设备特殊处理
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                adjustForIOS();
-            }
+            // 调整高度以适应移动设备
+            adjustHeightForMobile();
         };
         
-        // iOS设备特殊处理
-        function adjustForIOS() {
+        // 调整移动设备高度
+        function adjustHeightForMobile() {
             const container = document.querySelector('.container');
             const windowHeight = window.innerHeight;
             
-            // 设置容器高度
-            container.style.minHeight = '100vh';
-            container.style.maxHeight = '100vh';
-            container.style.height = '100vh';
-            container.style.borderRadius = '0';
-            
-            // 调整选项区域高度
-            const optionsGrid = document.querySelector('.options-grid');
-            optionsGrid.style.maxHeight = '45vh';
-            optionsGrid.style.overflowY = 'auto';
-            
-            // 添加底部安全区域
-            const footerSection = document.querySelector('.footer-section');
-            footerSection.style.paddingBottom = 'env(safe-area-inset-bottom)';
-            
-            // 添加iOS专用样式
-            document.body.style.overflow = 'hidden';
+            if (windowHeight < 700) {
+                container.style.minHeight = 'calc(100vh - 20px)';
+                container.style.maxHeight = 'calc(100vh - 20px)';
+                container.style.padding = '15px';
+            }
         }
 
         // 打开区域选择模态框
@@ -1228,6 +1253,11 @@
             
             // 打开地图模态框
             document.getElementById('mapModal').classList.add('active');
+            
+            // 重置状态提示
+            const jumpStatus = document.getElementById('jumpStatus');
+            jumpStatus.innerHTML = '<i class="fas fa-info-circle"></i> 请手动输入地址导航';
+            jumpStatus.classList.remove('success-status', 'error-status');
         }
 
         // 关闭地图模态框
@@ -1256,39 +1286,64 @@
             const jumpStatus = document.getElementById('jumpStatus');
             
             // 显示跳转状态
-            jumpStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 正在打开导航应用...';
+            jumpStatus.innerHTML = '<i class="fas fa-sync-alt fa-spin"></i> 正在尝试打开导航应用...';
+            jumpStatus.classList.remove('success-status', 'error-status');
             
-            // 高德地图App URI Scheme
-            let appUrl = '';
             const areaName = encodeURIComponent(currentArea + ', 杭州');
+            let appUrl = '';
+            let fallbackUrl = '';
             
+            // 判断设备类型
             if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                // iOS使用iosamap://
+                // iOS设备
                 appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
+                fallbackUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${areaName}&src=mypage&callnative=0&zoom=15`;
             } else {
-                // Android使用intent方式
+                // Android设备
                 appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
+                fallbackUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${areaName}&src=mypage&callnative=0&zoom=15`;
             }
             
-            // 尝试打开App
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.src = appUrl;
-            document.body.appendChild(iframe);
+            // 记录跳转开始时间
+            const startTime = Date.now();
+            
+            // 尝试直接打开App
+            window.location.href = appUrl;
             
             // 设置超时检测
             setTimeout(() => {
-                document.body.removeChild(iframe);
-                
                 // 如果仍然在页面中，说明跳转失败
-                if (!document.hidden) {
-                    jumpStatus.innerHTML = '<i class="fas fa-info-circle"></i> 请手动输入地址导航';
+                if (!document.hidden && (Date.now() - startTime) > 500) {
+                    jumpStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 跳转失败，请手动输入地址导航';
+                    jumpStatus.classList.add('error-status');
+                    
+                    // 提供手动导航选项
+                    setTimeout(() => {
+                        if (confirm('无法打开导航应用，是否使用网页版地图导航？')) {
+                            window.open(fallbackUrl, '_blank');
+                        }
+                    }, 800);
                 }
-            }, 1500);
+            }, 800);
+            
+            // 监听页面隐藏事件（跳转成功会触发页面隐藏）
+            document.addEventListener('visibilitychange', function handler() {
+                if (document.hidden) {
+                    // 跳转成功，更新状态
+                    jumpStatus.innerHTML = '<i class="fas fa-check-circle"></i> 导航应用已打开';
+                    jumpStatus.classList.add('success-status');
+                    
+                    // 移除事件监听
+                    document.removeEventListener('visibilitychange', handler);
+                }
+            });
         }
-
+        
         // 初始化服务详情
         document.getElementById('detailContent').innerHTML = detailData.low;
+        
+        // 监听窗口大小变化
+        window.addEventListener('resize', adjustHeightForMobile);
     </script>
 </body>
 </html>
