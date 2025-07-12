@@ -60,7 +60,7 @@
             overflow: hidden;
         }
         
-        /* 头部样式 - 优化间距 */
+        /* 头部样式 */
         header {
             text-align: center;
             margin-bottom: 10px;
@@ -161,7 +161,7 @@
             border-radius: 2px;
         }
         
-        /* 选项卡片样式 - 增加间距 */
+        /* 选项卡片样式 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -240,7 +240,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         
-        /* 低端局样式 - 调整为深蓝色 */
+        /* 低端局样式 */
         .option-card.low .option-icon {
             background: linear-gradient(135deg, #0a2e5d 0%, #072147 100%);
         }
@@ -248,7 +248,7 @@
             background: #0a2e5d;
         }
         
-        /* 中端局样式 - 使用高端局的金色 */
+        /* 中端局样式 */
         .option-card.mid .option-icon {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
         }
@@ -256,7 +256,7 @@
             background: var(--accent);
         }
         
-        /* 高端局样式 - 使用中端局的金色 */
+        /* 高端局样式 */
         .option-card.high .option-icon {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
         }
@@ -264,7 +264,7 @@
             background: var(--gold);
         }
         
-        /* 底部认证 - 优化间距 */
+        /* 底部认证 */
         .certification {
             text-align: center;
             margin-top: auto;
@@ -390,10 +390,19 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
         }
         
-        /* 隐藏滚动条 */
+        /* 自定义滚动条样式 */
         .modal-content::-webkit-scrollbar {
-            width: 0;
+            width: 6px;
+        }
+        
+        .modal-content::-webkit-scrollbar-track {
             background: transparent;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 10px;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         }
         
         .modal.active .modal-content {
@@ -444,7 +453,7 @@
             border-radius: 2px;
         }
         
-        /* 区域选择 - 优化为两列布局 */
+        /* 区域选择 */
         .area-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -485,7 +494,7 @@
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         }
         
-        /* 服务详情按钮 - 突出设计 */
+        /* 服务详情按钮 */
         .detail-btn {
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
             border-radius: 16px;
@@ -526,7 +535,7 @@
             opacity: 0.9;
         }
         
-        /* 地图导航模态框 - 全屏 */
+        /* 地图导航模态框 */
         .map-modal {
             position: fixed;
             top: 0;
@@ -592,7 +601,7 @@
             flex: 1;
         }
         
-        /* App跳转按钮样式 - 宽度调整 */
+        /* App跳转按钮样式 */
         .app-jump-container {
             padding: 15px;
             background: rgba(255, 255, 255, 0.95);
@@ -685,122 +694,292 @@
             box-shadow: 0 2px 6px rgba(199, 145, 0, 0.4);
         }
         
-        /* 服务详情样式 - 重新设计 */
-        .service-section {
-            background: var(--glass-bg);
+        /* 统一服务详情样式 */
+        .modal-body {
+            padding: 10px 0;
+        }
+        
+        .modal-intro {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .modal-intro h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .modal-intro p {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .modal-section {
+            background: rgba(245, 247, 250, 0.6);
             border-radius: 16px;
             padding: 16px;
-            margin-bottom: 16px;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
         
-        .service-header {
+        .modal-section h3 {
             display: flex;
             align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .service-header h3 {
+            font-size: 1.25rem;
             color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 700;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        
+        .modal-section h3 i {
+            margin-right: 10px;
+        }
+        
+        .package-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .package-item {
+            background: white;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            /* 移除缩放效果 */
+        }
+        
+        .package-name {
             display: flex;
             align-items: center;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
         }
         
-        .service-header i {
-            margin-right: 10px;
-            color: var(--accent);
+        .package-name i {
+            margin-right: 8px;
         }
         
-        .service-items {
+        .package-option {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        .package-option:last-child {
+            border-bottom: none;
+        }
+        
+        .package-option span:first-child {
+            color: var(--dark);
+        }
+        
+        .package-option span:last-child {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        .solution-list {
             display: grid;
-            grid-template-columns: 1fr;
             gap: 12px;
         }
         
-        .service-item {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 14px;
-            padding: 14px;
+        .service-item, .tip-item {
             display: flex;
-            align-items: center;
-            transition: var(--transition);
-            font-size: 0.95rem;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
+            align-items: flex-start;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
         }
         
-        .service-item::before {
+        .service-icon, .tip-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .service-text, .tip-item > div:last-child {
+            color: var(--dark);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .modal-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(245, 247, 250, 0.8);
+            border-radius: 16px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* 访问按钮样式 */
+        .access-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 20px auto 0;
+            color: white;
+            font-weight: 600;
+            font-size: 1.05rem;
+            box-shadow: 0 5px 15px rgba(199, 145, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 300px;
+        }
+        
+        .access-btn::before {
             content: "";
             position: absolute;
             top: 0;
             left: 0;
-            width: 4px;
+            width: 100%;
             height: 100%;
-            background: var(--accent);
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
         }
         
-        .service-item:active {
-            transform: scale(0.97);
+        .access-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(199, 145, 0, 0.4);
         }
         
-        .service-info {
-            flex: 1;
-            padding-left: 12px;
+        .access-btn i {
+            margin-bottom: 8px;
+            font-size: 1.5rem;
         }
         
-        .service-name {
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 6px;
-            font-size: 1.05rem;
-        }
-        
-        .service-price {
-            color: var(--secondary);
-            font-weight: 700;
-            font-size: 1.05rem;
-            display: inline-block;
-            background: rgba(198, 40, 40, 0.1);
-            padding: 2px 8px;
-            border-radius: 8px;
-        }
-        
-        /* 服务承诺简化 */
-        .special-offer {
-            background: rgba(255, 241, 193, 0.3);
-            border-radius: 16px;
-            padding: 16px;
+        /* 邀请码样式 */
+        .invite-code {
             text-align: center;
-            margin: 18px 0;
-            border: 1px dashed var(--gold);
-            position: relative;
-            overflow: hidden;
+            padding: 12px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 8px rgba(0, 137, 123, 0.3);
         }
         
-        .special-offer p {
-            color: var(--dark);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
+        .invite-code span {
+            background: white;
+            color: var(--accent-dark);
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-left: 8px;
         }
         
-        .highlight {
+        /* iOS提示框 */
+        .ios-prompt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .ios-prompt.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .ios-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+        }
+        
+        .ios-prompt.active .ios-content {
+            transform: translateY(0);
+        }
+        
+        .ios-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.4rem;
+            color: var(--gray);
+            cursor: pointer;
+        }
+        
+        .ios-title {
+            font-size: 1.4rem;
             color: var(--primary);
+            margin-bottom: 15px;
             font-weight: 700;
         }
         
-        /* 响应式设计 - 针对移动设备优化 */
+        .ios-instruction {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+        
+        .ios-instruction ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .ios-instruction li {
+            margin-bottom: 8px;
+        }
+        
+        .arrow-down {
+            margin: 20px 0;
+            font-size: 2.5rem;
+            color: var(--gold);
+            animation: bounce 1.5s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        /* 响应式设计 */
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
@@ -857,10 +1036,6 @@
                 gap: 10px;
             }
             
-            .service-item {
-                padding: 12px;
-            }
-            
             .app-jump-btn, .photo-btn {
                 padding: 12px 8px;
                 font-size: 0.85rem;
@@ -878,6 +1053,20 @@
             
             .footer-section {
                 padding: 5px 0;
+            }
+            
+            .modal-section h3 {
+                font-size: 1.15rem;
+            }
+            
+            .package-item {
+                padding: 12px;
+            }
+            
+            .access-btn {
+                padding: 14px;
+                font-size: 1rem;
+                width: 100%;
             }
         }
     </style>
@@ -948,7 +1137,7 @@
                 
                 <div class="area-list" id="areaList"></div>
                 
-                <!-- 服务详情按钮 - 突出设计 -->
+                <!-- 服务详情按钮 -->
                 <div class="detail-btn" onclick="openDetailModal()">
                     <i class="fas fa-info-circle"></i> 查看服务详情
                     <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
@@ -956,7 +1145,7 @@
             </div>
         </div>
         
-        <!-- 地图导航模态框 - 全屏 -->
+        <!-- 地图导航模态框 -->
         <div id="mapModal" class="map-modal">
             <div class="map-header">
                 <div class="map-back-btn" onclick="closeMapModal()">
@@ -978,7 +1167,7 @@
             </div>
         </div>
         
-        <!-- 服务详情模态框 - 优化滚动效果 -->
+        <!-- 服务详情模态框 -->
         <div id="detailModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('detailModal')">
@@ -997,41 +1186,166 @@
                 </div>
                 <h3 class="modal-title">高端局专享</h3>
                 
-                <div class="special-offer">
-                    <p><i class="fas fa-crown"></i> 尊贵VIP专享服务</p>
-                    <p class="highlight">顶级体验 · 奢华享受 · 专属定制</p>
+                <div class="modal-body">
+                    <div class="modal-intro">
+                        <h2>服务详情</h2>
+                        <p>高端品质定制化服务，满足您的个性化需求</p>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
+                        <div class="package-list">
+                            <div class="package-item">
+                                <div class="package-name">
+                                    <i class="fas fa-bullseye"></i> 3k 套餐
+                                </div>
+                                <div class="package-option">
+                                    <span>一课（60分钟）</span>
+                                    <span>￥2.8k</span>
+                                </div>
+                                <div class="package-option">
+                                    <span>两课（100分钟）</span>
+                                    <span>￥4.8k</span>
+                                </div>
+                                <div class="package-option">
+                                    <span>页课（十一点后至自然醒）</span>
+                                    <span>￥8k</span>
+                                </div>
+                            </div>
+                            
+                            <div class="package-item">
+                                <div class="package-name">
+                                    <i class="fas fa-star"></i> 5k 套餐
+                                </div>
+                                <div class="package-option">
+                                    <span>一课（60分钟）</span>
+                                    <span>￥4.8k</span>
+                                </div>
+                                <div class="package-option">
+                                    <span>两课（100分钟）</span>
+                                    <span>￥8k</span>
+                                </div>
+                                <div class="package-option">
+                                    <span>页课（十一点后至自然醒）</span>
+                                    <span>￥14k</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3><i class="fas fa-star"></i> 服务说明</h3>
+                        <div class="solution-list">
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-map-pin"></i>
+                                </div>
+                                <div class="service-text">
+                                   服务内容，请查看个人主页简介
+                                </div>
+                            </div>
+                            
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-puzzle-piece"></i>
+                                </div>
+                                <div class="service-text">
+                                   特殊需求提前沟通，看个人特色
+                                </div>
+                            </div>
+                            
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div class="service-text">
+                                   拒绝低质服务，注重体验与细节
+                                </div>
+                            </div>
+                            
+                            <div class="service-item">
+                                <div class="service-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div class="service-text">
+                                    支持提前预约，时间安排更灵活
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-section">
+                        <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+                        <div class="solution-list">
+                            <div class="tip-item">
+                                <div class="tip-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div>
+                                    服务均为高品质定制，非市面上中低端
+                                </div>
+                            </div>
+                            
+                            <div class="tip-item">
+                                <div class="tip-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div>
+                                    均需提前支付定金，避免不必要的麻烦
+                                </div>
+                            </div>
+                            
+                            <div class="tip-item">
+                                <div class="tip-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <div>
+                                    诚信是基础，细节是态度，服务见真章
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 邀请码移动到按钮上方 -->
+                    <div class="invite-code">
+                        <i class="fas fa-ticket-alt"></i> 您的专属邀请码 <span>6699</span>
+                    </div>
+                    
+                    <!-- 访问按钮 -->
+                    <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
+                        <i class="fas fa-gem"></i>
+                        立即访问高端服务
+                        <span class="integrity-text">尊享体验 · 品质保证</span>
+                    </button>
                 </div>
                 
-                <div class="service-section">
-                    <div class="service-header">
-                        <h3>高端服务特色</h3>
-                    </div>
-                    <div class="service-items">
-                        <div class="service-item">
-                            <div class="service-info">
-                                <div class="service-name">私人定制服务</div>
-                                <div class="service-price">专属定制</div>
-                            </div>
-                        </div>
-                        <div class="service-item">
-                            <div class="service-info">
-                                <div class="service-name">豪华环境体验</div>
-                                <div class="service-price">五星级酒店</div>
-                            </div>
-                        </div>
-                        <div class="service-item">
-                            <div class="service-info">
-                                <div class="service-name">全天候专属服务</div>
-                                <div class="service-price">24小时响应</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
                 </div>
-                
-                <div class="detail-btn" style="margin-top: 18px;" onclick="window.location.href='http://baidu.com'">
-                    <i class="fas fa-gem"></i> 立即访问高端服务
-                    <span class="integrity-text">尊享体验 · 品质保证</span>
+            </div>
+        </div>
+        
+        <!-- iOS提示框 -->
+        <div id="iosPrompt" class="ios-prompt">
+            <div class="ios-content">
+                <div class="ios-close" onclick="closeIosPrompt()">
+                    <i class="fas fa-times"></i>
                 </div>
+                <h3 class="ios-title">请粘贴至浏览器打开</h3>
+                <p>复制以下链接并粘贴到Safari浏览器地址栏：</p>
+                <div class="ios-instruction">
+                    <div id="iosLink" style="word-break: break-all; padding: 10px; background: #f0f8ff; border-radius: 8px; margin: 10px 0;">http://baidu.com</div>
+                    <ol>
+                        <li>长按上方链接并选择"复制"</li>
+                        <li>切换到Safari浏览器</li>
+                        <li>在地址栏长按并选择"粘贴"</li>
+                        <li>点击"前往"访问服务</li>
+                    </ol>
+                </div>
+                <div class="arrow-down">
+                    <i class="fas fa-long-arrow-alt-down"></i>
+                </div>
+                <p>粘贴到下方浏览器地址栏打开</p>
             </div>
         </div>
     </div>
@@ -1044,118 +1358,332 @@
             high: []
         };
 
-        // 详情数据 - 优化后
+        // 详情数据 - 统一格式
         const detailData = {
             low: `
-            <div class="service-section">
-                <div class="service-header">
-                    <h3><i class="fas fa-home"></i> 工作室服务</h3>
-                </div>
-                <div class="service-items">
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">一课</div>
-                            <div class="service-price">5 (吹做)</div>
+            <div class="modal-intro">
+                <h2>服务详情</h2>
+                <p>实惠精选，品质保障</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
+                <div class="package-list">
+                    <div class="package-item">
+                        <div class="package-name">
+                            <i class="fas fa-bullseye"></i> 工作室套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课</span>
+                            <span>5 (吹做)</span>
+                        </div>
+                        <div class="package-option">
+                            <span>一课升级</span>
+                            <span>6 (吹做推)</span>
+                        </div>
+                        <div class="package-option">
+                            <span>莞式一课</span>
+                            <span>8</span>
+                        </div>
+                        <div class="package-option">
+                            <span>页课</span>
+                            <span>22-24</span>
                         </div>
                     </div>
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">一课升级</div>
-                            <div class="service-price">6 (吹做推)</div>
+                    
+                    <div class="package-item">
+                        <div class="package-name">
+                            <i class="fas fa-motorcycle"></i> 外卖套餐
                         </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">莞式一课</div>
-                            <div class="service-price">8</div>
+                        <div class="package-option">
+                            <span>一课</span>
+                            <span>8 (吹做推)</span>
                         </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">页课</div>
-                            <div class="service-price">22-24</div>
+                        <div class="package-option">
+                            <span>两课</span>
+                            <span>14 (吹做推)</span>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="service-section">
-                <div class="service-header">
-                    <h3><i class="fas fa-motorcycle"></i> 外卖服务</h3>
-                </div>
-                <div class="service-items">
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">一课</div>
-                            <div class="service-price">8 (吹做推)</div>
+            <div class="modal-section">
+                <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            部分工作室提供真人照片（年龄26-30岁）
                         </div>
                     </div>
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">两课</div>
-                            <div class="service-price">14 (吹做推)</div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            请提前联系确认是否开工
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            聚美臻选承诺：所有服务均真实可靠
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            支持多种支付方式，透明消费无隐藏费用
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div>
+                            所有服务人员均经过健康检测
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="special-offer">
-                <p><span class="highlight">特别提示：</span>部分工作室提供真人照片（年龄26-30岁），请提前联系确认是否开工</p>
-                <p><i class="fas fa-shield-alt"></i> 聚美臻选承诺：所有服务均真实可靠</p>
+            <div class="modal-footer">
+                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
             </div>
             `,
             
             mid: `
-            <div class="service-section">
-                <div class="service-header">
-                    <h3><i class="fas fa-home"></i> 工作室服务</h3>
-                </div>
-                <div class="service-items">
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">一课</div>
-                            <div class="service-price">1.4k (60分钟)</div>
+            <div class="modal-intro">
+                <h2>服务详情</h2>
+                <p>品质优选，满意之选</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
+                <div class="package-list">
+                    <div class="package-item">
+                        <div class="package-name">
+                            <i class="fas fa-bullseye"></i> 工作室套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课（60分钟）</span>
+                            <span>1.4k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>两课（100分钟）</span>
+                            <span>2.4k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>页课</span>
+                            <span>4k</span>
                         </div>
                     </div>
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">两课</div>
-                            <div class="service-price">2.4k (100分钟)</div>
+                    
+                    <div class="package-item">
+                        <div class="package-name">
+                            <i class="fas fa-motorcycle"></i> 外卖套餐
                         </div>
-                    </div>
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">页课</div>
-                            <div class="service-price">4k</div>
+                        <div class="package-option">
+                            <span>一课（60分钟）</span>
+                            <span>1.6k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>两课（100分钟）</span>
+                            <span>2.6k</span>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="service-section">
-                <div class="service-header">
-                    <h3><i class="fas fa-motorcycle"></i> 外卖服务</h3>
-                </div>
-                <div class="service-items">
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">一课</div>
-                            <div class="service-price">1.6k (60分钟)</div>
+            <div class="modal-section">
+                <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            所有服务人员态度乖巧听话
                         </div>
                     </div>
-                    <div class="service-item">
-                        <div class="service-info">
-                            <div class="service-name">两课</div>
-                            <div class="service-price">2.6k (100分钟)</div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            任何不过分的要求都可以满足
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div>
+                            提供丝袜和各种情趣制服
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            聚美臻选承诺：诚信经营，品质保障
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            提前预约可享受VIP专属通道
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="special-offer">
-                <p><span class="highlight">服务承诺：</span>所有服务人员态度乖巧听话，任何不过分的要求都可以满足</p>
-                <p>提供丝袜和各种情趣制服！服务内容只有你想不到，没有做不到的</p>
-                <p><i class="fas fa-shield-alt"></i> 聚美臻选承诺：诚信经营，品质保障</p>
+            <div class="modal-footer">
+                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
+            </div>
+            `,
+            
+            high: `
+            <div class="modal-intro">
+                <h2>服务详情</h2>
+                <p>高端品质定制化服务，满足您的个性化需求</p>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
+                <div class="package-list">
+                    <div class="package-item">
+                        <div class="package-name">
+                            <i class="fas fa-bullseye"></i> 3k 套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课（60分钟）</span>
+                            <span>￥2.8k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>两课（100分钟）</span>
+                            <span>￥4.8k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>页课（十一点后至自然醒）</span>
+                            <span>￥8k</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-item">
+                        <div class="package-name">
+                            <i class="fas fa-star"></i> 5k 套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课（60分钟）</span>
+                            <span>￥4.8k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>两课（100分钟）</span>
+                            <span>￥8k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>页课（十一点后至自然醒）</span>
+                            <span>￥14k</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fas fa-star"></i> 服务说明</h3>
+                <div class="solution-list">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-map-pin"></i>
+                        </div>
+                        <div class="service-text">
+                           服务内容，请查看个人主页简介
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <div class="service-text">
+                           特殊需求提前沟通，看个人特色
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="service-text">
+                           拒绝低质服务，注重体验与细节
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="service-text">
+                            支持提前预约，时间安排更灵活
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-section">
+                <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            服务均为高品质定制，非市面上中低端
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div>
+                            均需提前支付定金，避免不必要的麻烦
+                        </div>
+                    </div>
+                    
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div>
+                            诚信是基础，细节是态度，服务见真章
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="invite-code">
+                <i class="fas fa-ticket-alt"></i> 您的专属邀请码 <span>6699</span>
+            </div>
+            
+            <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
+                <i class="fas fa-gem"></i>
+                立即访问高端服务
+                <span class="integrity-text">尊享体验 · 品质保证</span>
+            </button>
+            
+            <div class="modal-footer">
+                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
             </div>
             `
         };
@@ -1187,7 +1715,9 @@
                 detailModal: document.getElementById('detailModal'),
                 highModal: document.getElementById('highModal'),
                 mapModal: document.getElementById('mapModal'),
-                mapFrame: document.getElementById('mapFrame')
+                mapFrame: document.getElementById('mapFrame'),
+                iosPrompt: document.getElementById('iosPrompt'),
+                iosLink: document.getElementById('iosLink')
             };
         }
         
@@ -1267,7 +1797,7 @@
             currentArea = area;
             currentType = type;
             
-            // 使用高德地图导航URL - 添加缩放级别参数
+            // 使用高德地图导航URL
             const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
             window.domCache.mapFrame.src = mapUrl;
             
@@ -1303,7 +1833,7 @@
             alert('集美照片功能即将上线，敬请期待！');
         }
         
-        // 打开导航应用（智能选择）
+        // 打开导航应用
         function openNavigationApp() {
             const areaName = encodeURIComponent(currentArea + ', 杭州');
             let appUrl = '';
@@ -1335,6 +1865,26 @@
                     }, 800);
                 }
             }, 800);
+        }
+        
+        // 打开服务链接（区分iOS和安卓）
+        function openServiceLink(type, url) {
+            // 判断是否为iOS设备
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                // 显示iOS提示框
+                window.domCache.iosLink.textContent = url;
+                window.domCache.iosPrompt.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // 安卓设备直接打开
+                window.open(url, '_blank');
+            }
+        }
+        
+        // 关闭iOS提示框
+        function closeIosPrompt() {
+            window.domCache.iosPrompt.classList.remove('active');
+            document.body.style.overflow = '';
         }
         
         // 初始化服务详情
