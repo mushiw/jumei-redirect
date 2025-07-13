@@ -112,8 +112,8 @@
         /* 头部样式优化 */
         header {
             text-align: center;
-            margin-bottom: 15px;
-            padding: 15px 0;
+            margin-bottom: 10px;
+            padding: 10px 0;
             flex-shrink: 0;
         }
         
@@ -202,8 +202,8 @@
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 10px 0;
             padding: 5px;
             height: auto;
             flex-shrink: 0;
@@ -312,9 +312,9 @@
         .certification {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
             border-radius: 14px;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
-            margin: 15px 0;
+            margin: 12px 0;
             border: 1px solid rgba(102, 126, 234, 0.1);
         }
         
@@ -662,6 +662,22 @@
             font-size: 0.95rem;
         }
         
+        /* 新的提示框样式 */
+        .tip-box {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .tip-content {
+            color: var(--dark);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            padding: 8px 0;
+        }
+        
         /* 访问按钮样式优化 */
         .access-btn {
             width: 100%;
@@ -900,6 +916,8 @@
             box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
         }
         
+
+        
         .area-item.selected::before {
             opacity: 0;
         }
@@ -1024,6 +1042,120 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+        
+        /* 集美照片模态框样式 */
+        .photo-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .photo-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .photo-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+            padding: 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .photo-back-btn {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .photo-back-btn:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+        
+        .photo-title {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .photo-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .photo-content {
+            padding: 80px 20px 20px;
+            min-height: 100%;
+        }
+        
+        .photo-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+        
+        .photo-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .photo-placeholder p {
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        
+        .photo-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .photo-info h4 {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+        
+        .photo-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin: 0;
+            line-height: 1.5;
         }
         
         .app-jump-container {
@@ -1396,35 +1528,50 @@
           font-weight: 700;
           box-shadow: 0 2px 8px rgba(179,136,255,0.10);
         }
-        .option-card.mid .option-icon {
+        .option-card.low .option-icon,
+        .option-card.mid .option-icon,
+        .option-card.high .option-icon {
           width: 54px !important;
           height: 54px !important;
           border-radius: 16px !important;
-          background: #f3e8ff !important;
-          box-shadow: 0 4px 16px rgba(179,136,255,0.10) !important;
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        
+        .option-card.low .option-icon {
+          background: #e0f2fe !important;
+          box-shadow: 0 4px 16px rgba(79,172,254,0.10) !important;
+        }
+        
+        .option-card.mid .option-icon {
+          background: #f3e8ff !important;
+          box-shadow: 0 4px 16px rgba(179,136,255,0.10) !important;
+        }
+        
+        .option-card.high .option-icon {
+          background: #fef3c7 !important;
+          box-shadow: 0 4px 16px rgba(247,180,44,0.10) !important;
         }
 
         /* 主界面卡片移动端适配 */
         @media (max-width: 600px) {
           .options-grid {
-            gap: 8px !important;
-            margin: 8px 0 !important;
+            gap: 6px !important;
+            margin: 6px 0 !important;
           }
           .option-card {
-            min-height: 56px !important;
-            padding: 10px 12px !important;
-            margin-bottom: 8px !important;
+            min-height: 52px !important;
+            padding: 8px 12px !important;
+            margin-bottom: 6px !important;
             border-radius: 16px !important;
           }
           .option-icon {
-            width: 38px !important;
-            height: 38px !important;
-            font-size: 1.1rem !important;
-            margin-right: 8px !important;
-            border-radius: 10px !important;
+            width: 42px !important;
+            height: 42px !important;
+            font-size: 1.2rem !important;
+            margin-right: 10px !important;
+            border-radius: 12px !important;
           }
           .option-content h2 {
             font-size: 1.05rem !important;
@@ -1574,9 +1721,28 @@
                         <button class="app-jump-btn" onclick="openNavigationApp()">
                             <i class="fas fa-map-marked-alt"></i> App导航
                         </button>
-                        <button class="photo-btn" onclick="openPhotoLink()">
+                        <button class="photo-btn" onclick="openPhotoModal()">
                             <i class="fas fa-images"></i> 集美照片
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 集美照片模态框 -->
+        <div id="photoModal" class="photo-modal">
+            <div class="photo-header">
+                <div class="photo-back-btn" onclick="closePhotoModal()">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h3 class="photo-title" id="photoTitle">集美照片</h3>
+            </div>
+            <div class="photo-container">
+                <div class="photo-content" id="photoContent">
+                    <!-- 照片内容将在这里动态加载 -->
+                    <div class="photo-placeholder">
+                        <i class="fas fa-images"></i>
+                        <p>照片内容加载中...</p>
                     </div>
                 </div>
             </div>
@@ -1771,6 +1937,56 @@
             high: []
         };
 
+        // 区域坐标数据 - 按服务类型分组的独立坐标
+        const areaCoordinates = {
+            low: {
+                '余杭区': { lat: 30.4219, lng: 120.2994, name: '余杭区' },
+                '西湖区': { lat: 30.2599, lng: 120.1303, name: '西湖区' },
+                '拱墅区': { lat: 30.3191, lng: 120.1411, name: '拱墅区' },
+                '临平区': { lat: 30.4219, lng: 120.2994, name: '临平区' },
+                '上城区': { lat: 30.2429, lng: 120.1694, name: '上城区' },
+                '钱塘区': { lat: 30.3191, lng: 120.1411, name: '钱塘区' },
+                '滨江区': { lat: 30.2084, lng: 120.2119, name: '滨江区' },
+                '萧山区': { lat: 30.1833, lng: 120.2585, name: '萧山区' },
+                '临安区': { lat: 30.2333, lng: 119.7167, name: '临安区' },
+                '富阳区': { lat: 30.0489, lng: 119.9603, name: '富阳区' }
+            },
+            mid: {
+                '余杭区': { lat: 30.4220, lng: 120.2995, name: '余杭区' },
+                '西湖区': { lat: 30.2600, lng: 120.1304, name: '西湖区' },
+                '上城区': { lat: 30.2430, lng: 120.1695, name: '上城区' },
+                '萧山区': { lat: 30.1834, lng: 120.2586, name: '萧山区' },
+                '临平区': { lat: 30.4221, lng: 120.2996, name: '临平区' },
+                '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区' }
+            },
+            high: {}
+        };
+
+        // 区域照片链接数据 - 按服务类型分组的独立照片链接
+        const areaPhotoLinks = {
+            low: {
+                '余杭区': 'https://example.com/photos/yuhang-low.jpg',
+                '西湖区': 'https://example.com/photos/xihu-low.jpg',
+                '拱墅区': 'https://example.com/photos/gongshu-low.jpg',
+                '临平区': 'https://example.com/photos/linping-low.jpg',
+                '上城区': 'https://example.com/photos/shangcheng-low.jpg',
+                '钱塘区': 'https://example.com/photos/qiantang-low.jpg',
+                '滨江区': 'https://example.com/photos/binjiang-low.jpg',
+                '萧山区': 'https://example.com/photos/xiaoshan-low.jpg',
+                '临安区': 'https://example.com/photos/linan-low.jpg',
+                '富阳区': 'https://example.com/photos/fuyang-low.jpg'
+            },
+            mid: {
+                '余杭区': 'https://example.com/photos/yuhang-mid.jpg',
+                '西湖区': 'https://example.com/photos/xihu-mid.jpg',
+                '上城区': 'https://example.com/photos/shangcheng-mid.jpg',
+                '萧山区': 'https://example.com/photos/xiaoshan-mid.jpg',
+                '临平区': 'https://example.com/photos/linping-mid.jpg',
+                '滨江区': 'https://example.com/photos/binjiang-mid.jpg'
+            },
+            high: {}
+        };
+
         // 详情数据 - 已优化排版
         const detailData = {
             low: `
@@ -1796,12 +2012,12 @@
             </div>
             <div class="modal-section">
                 <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="solution-list">
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-check-circle"></i></div><div>部分工作室提供真人照片（年龄26-30岁）</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-clock"></i></div><div>请提前联系确认是否开工</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-shield-alt"></i></div><div>聚美臻选承诺：所有服务均真实可靠</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-money-bill-wave"></i></div><div>支持多种支付方式，透明消费无隐藏费用</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-user-check"></i></div><div>所有服务人员均经过健康检测</div></div>
+                <div class="tip-box">
+                    <div class="tip-content">部分工作室提供真人照片（年龄26-30岁）</div>
+                    <div class="tip-content">请提前联系确认是否开工</div>
+                    <div class="tip-content">聚美臻选承诺：所有服务均真实可靠</div>
+                    <div class="tip-content">支持多种支付方式，透明消费无隐藏费用</div>
+                    <div class="tip-content">所有服务人员均经过健康检测</div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1830,12 +2046,12 @@
             </div>
             <div class="modal-section">
                 <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="solution-list">
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-check-circle"></i></div><div>所有服务人员态度乖巧听话</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-star"></i></div><div>任何不过分的要求都可以满足</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-tshirt"></i></div><div>提供丝袜和各种情趣制服</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-shield-alt"></i></div><div>聚美臻选承诺：诚信经营，品质保障</div></div>
-                    <div class="tip-item"><div class="tip-icon"><i class="fas fa-calendar-check"></i></div><div>提前预约可享受VIP专属通道</div></div>
+                <div class="tip-box">
+                    <div class="tip-content">所有服务人员态度乖巧听话</div>
+                    <div class="tip-content">任何不过分的要求都可以满足</div>
+                    <div class="tip-content">提供丝袜和各种情趣制服</div>
+                    <div class="tip-content">聚美臻选承诺：诚信经营，品质保障</div>
+                    <div class="tip-content">提前预约可享受VIP专属通道</div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1994,6 +2210,8 @@
                 highModal: document.getElementById('highModal'),
                 mapModal: document.getElementById('mapModal'),
                 mapFrame: document.getElementById('mapFrame'),
+                photoModal: document.getElementById('photoModal'),
+                photoContent: document.getElementById('photoContent'),
                 iosPrompt: document.getElementById('iosPrompt'),
                 iosLink: document.getElementById('iosLink'),
                 loadingOverlay: document.getElementById('loadingOverlay')
@@ -2030,7 +2248,9 @@
                 else if (type === 'mid') areaClass += ' mid-area-btn';
                 else if (type === 'high') areaClass += ' high-area-btn';
                 areaItem.className = areaClass;
+                
                 areaItem.textContent = area;
+                
                 areaItem.onclick = () => {
                     openMapModal(area, type);
                 };
@@ -2097,8 +2317,16 @@
             currentArea = area;
             currentType = type;
             
-            // 使用高德地图导航URL
-            const mapUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
+            // 获取区域坐标数据
+            const coordinates = areaCoordinates[type] && areaCoordinates[type][area];
+            if (!coordinates) {
+                console.error('未找到区域坐标数据:', area, '服务类型:', type);
+                hideLoading();
+                return;
+            }
+            
+            // 使用高德地图导航URL，使用独立的经纬度坐标
+            const mapUrl = `https://uri.amap.com/marker?position=${coordinates.lng},${coordinates.lat}&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
             
             // 关闭区域选择模态框
             window.domCache.areaModal.classList.remove('active');
@@ -2118,22 +2346,84 @@
             window.domCache.areaModal.classList.add('active');
         }
         
-        // 打开集美照片链接
-        function openPhotoLink() {
-            alert('集美照片功能即将上线，敬请期待！');
+        // 打开集美照片模态框
+        function openPhotoModal() {
+            showLoading();
+            
+            // 关闭地图模态框
+            window.domCache.mapModal.classList.remove('active');
+            
+            setTimeout(() => {
+                // 这里可以动态加载照片内容
+                loadPhotoContent();
+                window.domCache.photoModal.classList.add('active');
+                hideLoading();
+            }, 300);
+        }
+        
+        // 关闭集美照片模态框
+        function closePhotoModal() {
+            window.domCache.photoModal.classList.remove('active');
+            // 重新打开地图模态框
+            window.domCache.mapModal.classList.add('active');
+        }
+        
+        // 加载照片内容
+        function loadPhotoContent() {
+            const photoContent = document.getElementById('photoContent');
+            const photoTitle = document.getElementById('photoTitle');
+            
+            // 获取当前区域和服务类型
+            const currentAreaName = currentArea;
+            const currentServiceType = currentType;
+            
+            // 更新标题
+            const serviceTypeText = currentServiceType === 'low' ? '实惠' : currentServiceType === 'mid' ? '品质' : '尊享';
+            photoTitle.textContent = `${currentAreaName} - ${serviceTypeText}服务照片`;
+            
+            // 获取对应的照片链接
+            const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
+            
+            if (photoLink) {
+                // 只显示图片，不显示说明
+                photoContent.innerHTML = `
+                    <div class="photo-gallery">
+                        <div class="photo-item">
+                            <img src="${photoLink}" alt="${currentAreaName}照片" style="width: 100%; border-radius: 12px; margin-bottom: 15px;">
+                        </div>
+                    </div>
+                `;
+            } else {
+                // 如果没有对应的照片链接，显示占位内容
+                photoContent.innerHTML = `
+                    <div class="photo-placeholder">
+                        <i class="fas fa-images"></i>
+                        <p>${currentAreaName} - ${serviceTypeText}服务照片</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">照片内容即将上线，敬请期待！</p>
+                    </div>
+                `;
+            }
         }
         
         // 打开导航应用
         function openNavigationApp() {
             const areaName = encodeURIComponent(currentArea + ', 杭州');
+            
+            // 获取当前区域的坐标数据
+            const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
+            if (!coordinates) {
+                console.error('未找到区域坐标数据:', currentArea, '服务类型:', currentType);
+                return;
+            }
+            
             let appUrl = '';
             let fallbackUrl = '';
             if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
-                fallbackUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${areaName}&src=mypage&callnative=0&zoom=15`;
+                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${coordinates.lat}&lon=${coordinates.lng}&dev=0`;
+                fallbackUrl = `https://uri.amap.com/marker?position=${coordinates.lng},${coordinates.lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
             } else {
-                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=30.28&lon=120.15&dev=0`;
-                fallbackUrl = `https://uri.amap.com/marker?position=120.15,30.28&name=${areaName}&src=mypage&callnative=0&zoom=15`;
+                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${coordinates.lat}&lon=${coordinates.lng}&dev=0`;
+                fallbackUrl = `https://uri.amap.com/marker?position=${coordinates.lng},${coordinates.lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
             }
 
             let jumpSuccess = false;
