@@ -1811,17 +1811,46 @@
             visibility: visible;
         }
         #areaModal .modal-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            position: relative;
+            overflow: visible;
         }
-        #areaModal .modal-inner {
-            width: 100%;
+        #areaModal .modal-title-bar {
             display: flex;
-            flex-direction: column;
-            align-items: stretch;
+            align-items: center;
+            background: linear-gradient(90deg, #667eea, #4facfe, #f093fb);
+            border-top-left-radius: 22px;
+            border-top-right-radius: 22px;
+            padding: 0 0 0 8px;
+            width: 100%;
+            min-height: 56px;
+        }
+        #areaModal .back-btn {
+            position: static;
+            margin-right: 8px;
+        }
+        #areaModal .modal-title {
+            flex: 1;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            background: none;
+            border-radius: 0;
+            padding: 18px 0;
+            margin: 0;
+        }
+        #areaModal .area-list {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 18px 12px 0 12px;
+            margin: 0 auto;
+            gap: 14px;
+        }
+        #areaModal .area-item {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 95%;
+            margin: 0 auto;
         }
         @media (min-width: 601px) {
             #areaModal .modal-content {
@@ -1900,10 +1929,12 @@
         <div id="areaModal" class="modal">
             <div class="modal-content" style="display: flex; flex-direction: column; justify-content: center; min-height: 100vh;">
                 <div class="modal-inner" style="display: flex; flex-direction: column; align-items: stretch; width: 100%;">
-                    <div class="back-btn" onclick="closeModal('areaModal')">
-                        <i class="fas fa-arrow-left"></i>
+                    <div class="modal-title-bar">
+                        <div class="back-btn" onclick="closeModal('areaModal')">
+                            <i class="fas fa-arrow-left"></i>
+                        </div>
+                        <span class="modal-title" id="areaTitle">区域选择</span>
                     </div>
-                    <h3 class="modal-title" id="areaTitle">区域选择</h3>
                     <div class="area-list" id="areaList"></div>
                     <div class="detail-btn" onclick="openDetailModal(window.currentType)">
                         <i class="fas fa-info-circle"></i> 查看服务详情
@@ -1950,19 +1981,23 @@
         </div>
         
         <div id="detailModal" class="modal">
-            <div class="back-btn" onclick="closeModal('detailModal')">
-                <i class="fas fa-arrow-left"></i>
+            <div class="modal-title-bar">
+                <div class="back-btn" onclick="closeModal('detailModal')">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <span class="modal-title" id="detailTitle">服务详情</span>
             </div>
-            <h3 class="modal-title" id="detailTitle">服务详情</h3>
             <div class="modal-body" id="detailContent"></div>
         </div>
         
         <div id="highModal" class="modal">
             <div class="modal-content">
-                <div class="back-btn" onclick="closeModal('highModal')">
-                    <i class="fas fa-arrow-left"></i>
+                <div class="modal-title-bar">
+                    <div class="back-btn" onclick="closeModal('highModal')">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <span class="modal-title">高端局专享</span>
                 </div>
-                <h3 class="modal-title">高端局专享</h3>
                 
                 <div class="modal-body">
                     <div class="modal-intro">
