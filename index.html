@@ -1118,10 +1118,15 @@
         }
         .photo-btn {
             background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
+            margin-left: 8px;
         }
         .app-jump-btn:hover, .photo-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+        }
+        .app-jump-btn:active, .photo-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
         }
         
         .photo-modal {
