@@ -1074,14 +1074,14 @@
             left: 0;
             right: 0;
             bottom: env(safe-area-inset-bottom);
-            padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+            padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
             background: transparent;
             box-shadow: none;
             border-radius: 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            gap: 0;
+            gap: 32px;
             z-index: 10;
             width: 100vw;
             max-width: 500px;
@@ -1091,10 +1091,10 @@
         }
         .map-bottom-bar .app-jump-btn,
         .map-bottom-bar .photo-btn {
-            max-width: 170px;
+            max-width: 150px;
             min-width: 0;
-            flex: 1 1 0;
-            margin: 0 6px;
+            flex: 1;
+            margin: 0;
         }
         @media (max-width: 600px) {
             .map-bottom-bar {
@@ -1102,18 +1102,20 @@
                 padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
                 margin: 0 2px 0 2px;
                 bottom: env(safe-area-inset-bottom);
+                gap: 24px;
             }
             .map-bottom-bar .app-jump-btn,
             .map-bottom-bar .photo-btn {
-                max-width: 150px;
-                margin: 0 4px;
+                max-width: 120px;
             }
         }
         @media (max-width: 400px) {
+            .map-bottom-bar {
+                gap: 16px;
+            }
             .map-bottom-bar .app-jump-btn,
             .map-bottom-bar .photo-btn {
-                max-width: 110px;
-                margin: 0 2px;
+                max-width: 90px;
             }
         }
         .app-jump-btn, .photo-btn {
