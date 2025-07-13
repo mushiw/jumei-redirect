@@ -966,6 +966,9 @@
             margin-top: 4px;
         }
         
+        body.modal-open {
+            overflow: hidden !important;
+        }
         .map-modal {
             position: fixed;
             top: 0;
@@ -977,6 +980,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -1038,7 +1042,7 @@
             right: 0;
             bottom: 0;
             z-index: 1100;
-            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 100%);
+            background: #fff;
             padding: 20px 20px 20px 20px;
             box-sizing: border-box;
         }
@@ -2307,12 +2311,14 @@
             window.domCache.areaModal.classList.remove('active');
             window.domCache.mapModal.classList.add('active');
             setMapModalTouchPrevention(true);
+            document.body.classList.add('modal-open');
         }
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
             if (window.domCache.mapFrame) window.domCache.mapFrame.src = "about:blank";
             window.domCache.areaModal.classList.add('active');
             setMapModalTouchPrevention(false);
+            document.body.classList.remove('modal-open');
         }
         
         function openPhotoModal() {
