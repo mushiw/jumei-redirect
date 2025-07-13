@@ -1118,7 +1118,7 @@
         }
         .photo-btn {
             background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
-            margin-left: 2px;
+            margin-left: 2px !important;
         }
         .app-jump-btn:hover, .photo-btn:hover {
             transform: translateY(-2px);
@@ -1734,9 +1734,13 @@
                 font-size: 0.9rem;
             }
         }
+        .app-jump-btn.active, .photo-btn.active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+        }
     </style>
 </head>
-<body>
+<body ontouchstart="">
     <div class="container">
         <header>
             <div class="logo-container">
@@ -2578,6 +2582,14 @@
         }
         window.addEventListener('resize', setMapModalHeight);
         window.addEventListener('orientationchange', setMapModalHeight);
+    </script>
+    <script>
+    // 兼容移动端:active动画
+    document.querySelectorAll('.app-jump-btn, .photo-btn').forEach(btn => {
+      btn.addEventListener('touchstart', () => btn.classList.add('active'));
+      btn.addEventListener('touchend', () => btn.classList.remove('active'));
+      btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
+    });
     </script>
 
 </body>
