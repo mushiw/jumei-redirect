@@ -2258,7 +2258,20 @@
             }
         }
 
+        // 禁止地图弹窗内双击放大和选中
+        function setMapModalTouchPrevention(enable) {
+            if (enable) {
+                document.body.style.touchAction = 'manipulation';
+                document.body.style.userSelect = 'none';
+            } else {
+                document.body.style.touchAction = '';
+                document.body.style.userSelect = '';
+            }
+        }
+        // 修改openMapModal和closeMapModal调用
         function openMapModal(area, type) {
+            currentArea = area;
+            currentType = type;
             // 检查坐标
             if (type === 'mid' && area === '余杭区') {
                 alert('暂未开通，敬请期待');
@@ -2281,12 +2294,13 @@
             // 切换modal显示
             window.domCache.areaModal.classList.remove('active');
             window.domCache.mapModal.classList.add('active');
+            setMapModalTouchPrevention(true);
         }
-
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
             if (window.domCache.mapFrame) window.domCache.mapFrame.src = "about:blank";
             window.domCache.areaModal.classList.add('active');
+            setMapModalTouchPrevention(false);
         }
         
         function openPhotoModal() {
@@ -2334,53 +2348,40 @@
             }
         }
         
+        // 优化App导航跳转逻辑
         function openNavigationApp() {
             const areaName = encodeURIComponent(currentArea + ', 杭州');
-            
             const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
             if (!coordinates) {
-                console.error('未找到区域坐标数据:', currentArea, '服务类型:', currentType);
+                alert('未找到区域坐标数据');
                 return;
             }
-            
+            const lat = coordinates.lat;
+            const lng = coordinates.lng;
+            const ua = navigator.userAgent;
             let appUrl = '';
-            let fallbackUrl = '';
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${coordinates.lat}&lon=${coordinates.lng}&dev=0`;
-                fallbackUrl = `https://uri.amap.com/marker?position=${coordinates.lng},${coordinates.lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
-            } else {
-                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${coordinates.lat}&lon=${coordinates.lng}&dev=0`;
-                fallbackUrl = `https://uri.amap.com/marker?position=${coordinates.lng},${coordinates.lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
+            let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
+
+            // 直接按平台判断
+            if (!/iPad|iPhone|iPod|Android/i.test(ua)) {
+                window.open(fallbackUrl, '_blank');
+                return;
             }
-
-            let jumpSuccess = false;
-            const handleVisibilityChange = () => {
-                if (document.hidden) {
-                    jumpSuccess = true;
-                    document.removeEventListener('visibilitychange', handleVisibilityChange);
-                }
-            };
-            const handleBlur = () => {
-                jumpSuccess = true;
-                window.removeEventListener('blur', handleBlur);
-            };
-            document.addEventListener('visibilitychange', handleVisibilityChange);
-            window.addEventListener('blur', handleBlur);
-
+            if (/iPad|iPhone|iPod/.test(ua)) {
+                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
+            } else if (/Android/i.test(ua)) {
+                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
+            }
+            let jumped = false;
+            const t = setTimeout(function() {
+                if (!jumped) window.open(fallbackUrl, '_blank');
+            }, 1800);
             window.location.href = appUrl;
-
-            setTimeout(() => {
-                document.removeEventListener('visibilitychange', handleVisibilityChange);
-                window.removeEventListener('blur', handleBlur);
-                if (jumpSuccess) return;
-                setTimeout(() => {
-                    if (!jumpSuccess) {
-                        if (confirm('无法打开导航应用，是否使用网页版地图导航？')) {
-                            window.open(fallbackUrl, '_blank');
-                        }
-                    }
-                }, 800);
-            }, 2000);
+            window.onblur = function() {
+                jumped = true;
+                clearTimeout(t);
+                window.onblur = null;
+            };
         }
         
         function openServiceLink(type, url) {
