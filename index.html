@@ -341,8 +341,13 @@
         
         .footer-section {
             margin-top: auto;
-            padding: 10px 0;
+            padding: 4px 0 2px 0;
             text-align: center;
+        }
+        .footer-contact {
+            color: #718096;
+            font-size: 0.85rem;
+            margin-top: 2px;
         }
         
         .footer {
@@ -1787,6 +1792,43 @@
             cursor: pointer;
             border: none;
         }
+        #areaModal.modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--light);
+            z-index: 9999;
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        #areaModal.modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        #areaModal .modal-content {
+            width: 100%;
+            max-width: 100%;
+            min-height: 100vh;
+            border-radius: 0;
+            margin: 0;
+            padding: 0;
+            display: block;
+            animation: none;
+            overflow: visible;
+            box-shadow: none;
+            transform: none;
+        }
+        #areaModal .modal-body {
+            padding: 20px;
+            margin-top: 0;
+            max-height: none;
+            overflow: visible;
+        }
     </style>
 </head>
 <body ontouchstart="">
@@ -1839,7 +1881,10 @@
         
         <div class="footer-section">
             <div class="footer">
-                聚美臻选 © 2023 | QQ：915637409
+                聚美臻选 © 2023
+            </div>
+            <div class="footer-contact">
+                防失联加QQ: 915637409
             </div>
         </div>
         
