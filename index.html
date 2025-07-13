@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>聚美臻选 - 专业导航服务</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -33,14 +33,14 @@
             --card-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-bg: rgba(255, 255, 255, 0.15);
             --glass-border: rgba(255, 255, 255, 0.2);
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --gradient-gold: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
             --gradient-logo: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             --gradient-title: linear-gradient(90deg, #667eea, #4facfe, #f093fb);
-            --gradient-bg: linear-gradient(120deg, #f5f7fa 0%, #e9e4f0 100%);
+            --gradient-bg: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
             --low-gradient: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
             --mid-gradient: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
             --high-gradient: linear-gradient(100deg, #f7b42c 0%, #fcf6ba 100%);
@@ -51,7 +51,7 @@
         
         body {
             background: var(--gradient-bg);
-            color: var(--dark);
+            color: var(--light);
             min-height: 100vh;
             padding: 0;
             display: flex;
@@ -69,20 +69,21 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            background: linear-gradient(45deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
             z-index: -1;
             animation: float 6s ease-in-out infinite;
+            filter: blur(50px);
         }
         
         body::before {
-            top: -150px;
-            right: -150px;
+            top: 10%;
+            right: -50px;
             animation-delay: 0s;
         }
         
         body::after {
-            bottom: -150px;
-            left: -150px;
+            bottom: 10%;
+            left: -50px;
             animation-delay: 3s;
         }
         
@@ -100,7 +101,7 @@
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -110,7 +111,7 @@
         
         header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             padding: 10px 0;
             flex-shrink: 0;
         }
@@ -119,33 +120,34 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2px;
+            margin-bottom: 10px;
             flex-direction: column;
             position: relative;
         }
         
         .logo-icon {
-            width: 90px;
-            height: 90px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             background: conic-gradient(from 210deg, #232b5d 0deg, #7b2ff2 120deg, #f7b42c 240deg, #232b5d 360deg);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 32px rgba(80,120,255,0.13);
-            margin: 0 auto 10px auto;
+            box-shadow: 0 8px 32px rgba(80,120,255,0.2);
+            margin: 0 auto 15px auto;
             position: relative;
-            animation: pulse 2s infinite;
+            animation: pulse 3s infinite;
+            border: 2px solid rgba(255,255,255,0.1);
         }
         
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(123, 47, 242, 0.7); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(123, 47, 242, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(123, 47, 242, 0); }
         }
         
         .logo-icon i {
-            font-size: 2.6rem;
+            font-size: 3rem;
             color: #fff;
             background: linear-gradient(90deg, #232b5d 0%, #7b2ff2 50%, #f7b42c 100%);
             -webkit-background-clip: text;
@@ -153,84 +155,61 @@
             background-clip: text;
         }
         
-        .logo-crown {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2rem;
-            color: #f7b42c;
-            filter: drop-shadow(0 2px 4px #fff8);
-        }
-        
-        .logo-diamond {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.1rem;
-            color: #7b2ff2;
-            filter: drop-shadow(0 2px 4px #fff8);
-        }
-        
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            background: linear-gradient(90deg, #232b5d 0%, #7b2ff2 40%, #f7b42c 100%);
+            background: linear-gradient(90deg, #a1c4fd, #c2e9fb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
             letter-spacing: 2px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(161, 196, 253, 0.3);
         }
         
         .subtitle {
-            color: #7b2ff2;
+            color: #c2e9fb;
             font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-            background: linear-gradient(90deg, #7b2ff2 0%, #f7b42c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
         }
         
         .subtitle::after {
             content: "";
             display: block;
-            width: 60px;
-            height: 3px;
+            width: 80px;
+            height: 4px;
             background: linear-gradient(90deg, var(--accent), var(--secondary));
-            margin: 10px auto 0;
-            border-radius: 2px;
+            margin: 12px auto 0;
+            border-radius: 4px;
         }
         
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 15px 0;
+            gap: 20px;
+            margin: 20px 0;
             padding: 5px;
             height: auto;
             flex-shrink: 0;
         }
         
         .option-card {
-            background: var(--light);
-            border-radius: 22px;
-            padding: 20px;
-            box-shadow: var(--card-shadow);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: var(--transition);
             cursor: pointer;
             position: relative;
             overflow: hidden;
             display: flex;
             align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 1;
-            min-height: 90px;
+            min-height: 110px;
             user-select: none;
         }
         
@@ -241,19 +220,16 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
-            opacity: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%);
+            opacity: 0.8;
             transition: var(--transition);
             z-index: -1;
         }
         
         .option-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-        }
-        
-        .option-card:hover::before {
-            opacity: 1;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
         }
         
         .option-card.low { background: none !important; }
@@ -274,7 +250,7 @@
             z-index: -1;
             border-radius: 24px;
             animation: rotate 4s linear infinite;
-            opacity: 1;
+            opacity: 0.8;
         }
         
         @keyframes rotate {
@@ -284,35 +260,39 @@
         }
         
         .option-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 16px;
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            font-size: 1.5rem;
+            margin-right: 20px;
+            font-size: 1.8rem;
             color: white;
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
         
         .option-card.low .option-icon {
-            background: #e0f2fe !important;
-            box-shadow: 0 4px 16px rgba(79,172,254,0.10) !important;
-            color: #4facfe !important;
+            background: rgba(161, 196, 253, 0.2) !important;
+            box-shadow: 0 4px 20px rgba(161, 196, 253, 0.2) !important;
+            color: #a1c4fd !important;
+            border: 1px solid rgba(161, 196, 253, 0.3);
         }
         
         .option-card.mid .option-icon {
-            background: #f3e8ff !important;
-            box-shadow: 0 4px 16px rgba(179,136,255,0.10) !important;
-            color: #b388ff !important;
+            background: rgba(194, 233, 251, 0.2) !important;
+            box-shadow: 0 4px 20px rgba(194, 233, 251, 0.2) !important;
+            color: #c2e9fb !important;
+            border: 1px solid rgba(194, 233, 251, 0.3);
         }
         
         .option-card.high .option-icon {
-            background: #fef3c7 !important;
-            box-shadow: 0 4px 16px rgba(247,180,44,0.10) !important;
-            color: #f7b42c !important;
+            background: rgba(255, 215, 0, 0.2) !important;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2) !important;
+            color: #ffd700 !important;
+            border: 1px solid rgba(255, 215, 0, 0.3);
         }
         
         .option-content {
@@ -324,111 +304,128 @@
         
         .option-card h2 {
             margin: 0;
-            font-weight: 700;
-            font-size: 1.5rem;
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
         }
         
         .option-card.low h2 {
-            color: #4facfe !important;
+            color: #a1c4fd !important;
+            text-shadow: 0 0 10px rgba(161, 196, 253, 0.5);
         }
         
         .option-card.mid h2 {
-            color: #b388ff !important;
+            color: #c2e9fb !important;
+            text-shadow: 0 0 10px rgba(194, 233, 251, 0.5);
         }
         
         .option-card.high h2 {
-            color: #b8860b !important;
+            color: #ffd700 !important;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
         
         .badge {
             display: inline-block;
-            padding: 6px 20px;
-            border-radius: 999px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.10);
-            letter-spacing: 0.5px;
+            padding: 8px 24px;
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
         .option-card.low .badge {
-            background: linear-gradient(90deg, #3a8dde 0%, #e0e7ff 100%);
-            color: #232b5d;
+            background: rgba(161, 196, 253, 0.3);
+            color: #a1c4fd;
+            border: 1px solid rgba(161, 196, 253, 0.5);
         }
         
         .option-card.mid .badge {
-            background: #f3e8ff !important;
-            color: #b388ff !important;
-            font-weight: 700;
+            background: rgba(194, 233, 251, 0.3);
+            color: #c2e9fb;
+            border: 1px solid rgba(194, 233, 251, 0.5);
         }
         
         .option-card.high .badge {
-            background: linear-gradient(90deg, #f7b42c 0%, #fcf6ba 100%);
-            color: #b8860b;
+            background: rgba(255, 215, 0, 0.3);
+            color: #ffd700;
+            border: 1px solid rgba(255, 215, 0, 0.5);
         }
         
         .certification {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
-            border-radius: 14px;
-            padding: 12px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(240, 147, 251, 0.1) 100%);
+            border-radius: 20px;
+            padding: 16px;
             text-align: center;
-            margin: 12px 0;
-            border: 1px solid rgba(102, 126, 234, 0.1);
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
         }
         
         .certification h3 {
-            color: var(--primary);
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 6px;
+            color: #c2e9fb;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
         .certification p {
-            color: var(--gray);
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin-bottom: 15px;
         }
         
         .seal {
             display: inline-block;
-            padding: 6px 12px;
-            background: var(--gradient-primary);
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+            border-radius: 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            letter-spacing: 1px;
         }
         
         .footer-section {
             margin-top: auto;
-            padding: 4px 0 2px 0;
+            padding: 10px 0 5px 0;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
         .footer-contact {
-            color: #718096;
-            font-size: 0.85rem;
-            margin-top: 2px;
-        }
-        
-        .footer {
-            color: var(--gray);
-            font-size: 0.8rem;
-            margin-bottom: 3px;
-        }
-        
-        .contact-info {
-            color: var(--primary);
-            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            margin-top: 8px;
             font-weight: 500;
         }
         
+        .footer {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .contact-info {
+            color: #c2e9fb;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        /* 模态框样式优化 */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
             z-index: 1000;
             display: flex;
@@ -440,26 +437,15 @@
             overflow: hidden;
         }
         
-        /* 修复iOS右上角泛白问题 */
-        #areaModal.modal {
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            background: rgba(0, 0, 0, 0.7);
-        }
-        
-        #areaModal .modal-content {
-            margin: 0;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-        
         .modal.active {
             opacity: 1;
             visibility: visible;
         }
         
         .modal-content {
-            background: var(--light);
-            border-radius: 20px;
+            background: rgba(30, 30, 50, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
             padding: 0;
             max-width: 90%;
             max-height: 85vh;
@@ -467,10 +453,11 @@
             position: relative;
             transform: scale(0.9);
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .modal.active .modal-content {
@@ -478,30 +465,31 @@
         }
         
         .modal-title {
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 18px;
+            padding: 22px;
             margin: 0;
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.4rem;
+            font-weight: 700;
             text-align: center;
             flex-shrink: 0;
+            letter-spacing: 1px;
         }
         
         .modal-body {
-            padding: 20px;
+            padding: 25px;
             overflow-y: auto;
             flex: 1;
-            max-height: calc(85vh - 60px);
+            max-height: calc(85vh - 70px);
         }
         
         .back-btn {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.9);
+            top: 18px;
+            left: 18px;
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -509,293 +497,203 @@
             cursor: pointer;
             transition: var(--transition);
             z-index: 10;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .back-btn:hover {
-            background: white;
+            background: rgba(255, 255, 255, 0.2);
             transform: scale(1.1);
         }
         
-        #detailModal.modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--light);
-            z-index: 9999;
-            display: block;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        
-        #detailModal.modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        #detailModal .modal-content {
-            width: 100%;
-            max-width: 100%;
-            min-height: 100vh;
-            border-radius: 0;
-            margin: 0;
-            padding: 0;
-            display: block;
-            animation: none;
-            overflow: visible;
-            box-shadow: none;
-            transform: none;
-        }
-        
-        #detailModal .modal-body {
-            padding: 20px;
-            margin-top: 0;
-            max-height: none;
-            overflow: visible;
-        }
-        
-        #detailModal .back-btn {
-            position: fixed;
-            left: 20px;
-            top: 20px;
-            z-index: 10000;
-            background: rgba(255,255,255,0.95);
-            border-radius: 50%;
-            width: 44px; height: 44px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            cursor: pointer;
-            transition: all 0.2s;
-            backdrop-filter: blur(10px);
-        }
-        
-        #detailModal .back-btn:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-        
-        #detailModal .back-btn:active {
-            transform: scale(0.95);
-        }
-        
-        #detailModal .modal-title {
-            background: var(--gradient-primary);
+        .back-btn i {
             color: white;
-            padding: 20px;
-            margin: 0;
-            font-size: 1.3rem;
-            font-weight: 600;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 1.4rem;
         }
         
-        .modal-intro {
-            display: block;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9e4f0 100%);
-            border-radius: 16px;
-            padding: 18px 16px;
-            margin-bottom: 18px;
-            font-size: 1.08rem;
-            color: #5a5a5a;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.06);
-        }
-        @media (max-width: 600px) {
-            .modal-intro {
-                padding: 12px 6px;
-                font-size: 0.98rem;
-                margin-bottom: 12px;
-            }
+        /* 区域选择样式 */
+        #areaModal .modal-content {
+            background: rgba(20, 20, 40, 0.9);
         }
         
-        .modal-section {
-            background: rgba(248, 250, 252, 0.8);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-        
-        .modal-section h3 {
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .modal-section h3 i {
-            margin-right: 10px;
-            color: var(--accent);
-        }
-        
-        .package-list {
+        .area-list {
             display: grid;
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 25px;
         }
         
-        .package-item {
-            background: white;
-            border-radius: 14px;
-            padding: 16px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        .area-item {
+            background: linear-gradient(100deg, #3a36b0, #5a67d8);
+            color: #fff;
+            border-radius: 20px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            box-shadow: 0 8px 30px rgba(58, 54, 176, 0.3);
+            padding: 22px 0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 8px rgba(255,255,255,0.5);
         }
         
-        .package-name {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            font-size: 1.1rem;
+        .area-item:hover, .area-item:active {
+            background: linear-gradient(100deg, #5a67d8, #3a36b0);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(58, 54, 176, 0.5);
         }
         
-        .package-name i {
-            margin-right: 10px;
-            color: var(--accent);
+        .area-item.selected {
+            background: linear-gradient(100deg, #f7b42c, #fcf6ba);
+            color: #b8860b;
+            box-shadow: 0 16px 40px rgba(247, 180, 44, 0.4);
+            transform: scale(1.08);
+        }
+
+        .area-item.low-area-btn {
+            background: linear-gradient(100deg, #232b5d, #3a8dde);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(35,43,93,0.3);
         }
         
-        .package-option {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        .area-item.mid-area-btn {
+            background: linear-gradient(100deg, #5a36b0, #8a67d8);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(90, 54, 176, 0.3);
         }
         
-        .package-option:last-child {
-            border-bottom: none;
+        .area-item.high-area-btn {
+            background: linear-gradient(100deg, #f7b42c, #fcf6ba);
+            color: #b8860b;
+            box-shadow: 0 8px 30px rgba(247, 180, 44, 0.3);
         }
         
-        .package-option span:first-child {
-            color: var(--dark);
+        .detail-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 25px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 0 25px 25px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .detail-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
+        }
+        
+        .integrity-text {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 8px;
             font-weight: 500;
         }
         
-        .package-option span:last-child {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1.1rem;
+        /* 响应式调整 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+                border-radius: 20px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-icon {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .logo-icon i {
+                font-size: 2.5rem;
+            }
+            
+            .options-grid {
+                gap: 15px;
+                margin: 15px 0;
+            }
+            
+            .option-card {
+                padding: 20px;
+                min-height: 100px;
+            }
+            
+            .option-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.5rem;
+                margin-right: 15px;
+            }
+            
+            .option-card h2 {
+                font-size: 1.6rem;
+            }
+            
+            .badge {
+                font-size: 0.9rem;
+                padding: 7px 18px;
+            }
+            
+            .area-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            .area-item {
+                padding: 18px 0;
+                font-size: 1.1rem;
+            }
+            
+            .detail-btn {
+                padding: 16px 20px;
+                font-size: 1.1rem;
+                margin: 0 20px 20px;
+            }
         }
         
-        .solution-list {
-            display: grid;
-            gap: 12px;
+        @media (max-width: 400px) {
+            .option-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px 15px;
+            }
+            
+            .option-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .option-content {
+                flex-direction: column;
+            }
+            
+            .badge {
+                margin-top: 12px;
+            }
+            
+            .area-list {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 15px;
+            }
         }
         
-        .service-item, .tip-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-        
-        .service-icon, .tip-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.9rem;
-        }
-        
-        .service-icon {
-            background: var(--gradient-accent);
-            color: white;
-        }
-        
-        .tip-icon {
-            background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
-            color: white;
-        }
-        
-        .service-text, .tip-item div {
-            color: var(--dark);
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-        
-        .tip-box {
-            background: white;
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .tip-content {
-            color: var(--dark);
-            line-height: 1.6;
-            font-size: 0.95rem;
-            padding: 8px 0;
-        }
-        
-        .access-btn {
-            width: 100%;
-            padding: 18px 25px;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-            margin-top: 20px;
-        }
-        
-        .access-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .access-btn:hover::before {
-            left: 100%;
-        }
-        
-        .access-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        .modal-footer {
-            background: rgba(248, 250, 252, 0.8);
-            padding: 15px 20px;
-            text-align: center;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            margin-top: 20px;
-        }
-        
-        .modal-footer p {
-            color: var(--gray);
-            font-size: 0.85rem;
-            margin: 0;
-        }
-        
+        /* 加载动画 */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -819,10 +717,10 @@
         }
         
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid var(--accent);
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid var(--accent);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -832,851 +730,105 @@
             100% { transform: rotate(360deg); }
         }
         
-        .ios-prompt {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+        /* 其他模态框样式 */
+        #detailModal .modal-content {
+            background: rgba(20, 20, 40, 0.95);
         }
         
-        .ios-prompt.active {
-            opacity: 1;
-            visibility: visible;
+        #highModal .modal-content {
+            background: rgba(30, 20, 40, 0.95);
         }
         
-        .ios-content {
-            background: white;
-            border-radius: 18px;
+        .modal-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
             padding: 25px;
-            max-width: 90%;
-            width: 380px;
-            text-align: center;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .ios-prompt.active .ios-content {
-            transform: scale(1);
-        }
-        
-        .ios-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.1);
+        .modal-section h3 {
+            color: #c2e9fb;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
+            gap: 12px;
         }
         
-        .ios-close:hover {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        
-        .ios-title {
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        
-        .ios-instruction {
-            background: rgba(248, 250, 252, 0.8);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 12px 0;
-            text-align: left;
-        }
-        
-        .ios-instruction ol {
-            margin: 8px 0 0 0;
-            padding-left: 18px;
-        }
-        
-        .ios-instruction li {
-            margin-bottom: 6px;
-            color: var(--dark);
-            font-size: 0.85rem;
-        }
-        
-        .arrow-down {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin: 12px 0;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-8px); }
-            60% { transform: translateY(-4px); }
-        }
-        .area-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            padding: 18px;
-        }
-        
-        .area-item {
-            background: linear-gradient(100deg, #a1c4fd 0%, #c2e9fb 100%);
-            color: #1a237e;
+        .package-item {
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 18px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+        }
+        
+        .package-name {
+            color: #a1c4fd;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .package-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 1.1rem;
+        }
+        
+        .package-option:last-child {
+            border-bottom: none;
+        }
+        
+        .package-option span:first-child {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .package-option span:last-child {
+            color: #ffd700;
             font-weight: 700;
-            box-shadow: 0 6px 24px 0 rgba(80,120,255,0.13), 0 1.5px 4px 0 rgba(80,120,255,0.10);
-            padding: 18px 0;
-            text-align: center;
-            cursor: pointer;
-            transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
-            position: relative;
-            z-index: 1;
-            outline: none;
-            border: none;
-            user-select: none;
-            margin-bottom: 2px;
+            font-size: 1.2rem;
         }
         
-        .area-item:hover, .area-item:active {
-            background: linear-gradient(100deg, #6dd5fa 0%, #2980b9 100%);
-            color: #fff;
-            box-shadow: 0 12px 32px 0 rgba(80,120,255,0.18), 0 2px 8px 0 rgba(80,120,255,0.13);
-            transform: scale(1.045);
-        }
-        
-        .area-item.selected {
-            background: linear-gradient(100deg, #2196f3 0%, #21cbf3 100%);
-            color: #fff;
-            box-shadow: 0 16px 36px 0 rgba(33,203,243,0.22), 0 4px 12px 0 rgba(33,203,243,0.15);
-            transform: scale(1.06);
-        }
-
-        .area-item:active::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 120%;
-            height: 120%;
-            background: rgba(255,255,255,0.18);
-            border-radius: 50%;
-            transform: translate(-50%,-50%) scale(0.8);
-            animation: ripple 0.4s linear;
-            z-index: 2;
-            pointer-events: none;
-        }
-        
-        @keyframes ripple {
-            0% { opacity: 1; transform: translate(-50%,-50%) scale(0.8); }
-            100% { opacity: 0; transform: translate(-50%,-50%) scale(1.6); }
-        }
-
-        .meituan-area {
-            grid-column: span 2;
-            background: linear-gradient(90deg, #ffe066 0%, #ffd600 80%, #ffcc00 100%) !important;
-            color: #b58105 !important;
-            font-weight: 700;
-            border-radius: 18px !important;
-            box-shadow: 0 4px 16px rgba(234,179,8,0.18) !important;
-            border: none !important;
-        }
-        
-        .meituan-area:hover {
-            background: linear-gradient(90deg, #ffd600 0%, #ffb300 100%) !important;
-            color: #7a5700 !important;
-        }
-        
-        .meituan-area i {
-            color: #b58105 !important;
-        }
-        
-        .detail-btn {
-            background: var(--gradient-primary);
+        .access-btn {
+            width: 100%;
+            padding: 22px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 12px 20px;
-            border-radius: 14px;
-            text-align: center;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             transition: var(--transition);
-            margin: 15px;
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
             position: relative;
             overflow: hidden;
+            margin-top: 25px;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
-        .detail-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .detail-btn:hover::before {
-            left: 100%;
-        }
-        
-        .detail-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        .access-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.6);
         }
         
         .integrity-text {
             display: block;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
+            margin-top: 8px;
+            font-weight: 500;
             opacity: 0.8;
-            margin-top: 4px;
-        }
-        
-        body.modal-open {
-            overflow: hidden !important;
-        }
-        .map-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh; /* JS会动态设置为window.innerHeight */
-            background: rgba(245,247,250,0.96);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            padding: 0;
-            margin: 0;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            max-height: 100vh;
-        }
-        .map-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .map-container {
-            max-width: 500px;
-            width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-            position: relative;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            height: 100vh; /* JS会动态设置为window.innerHeight */
-            /* JS会动态调整高度 */
-        }
-        @media (max-width: 600px) {
-            .map-container {
-                border-radius: 0;
-                max-width: 100vw;
-            }
-        }
-        #mapFrame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-            flex: 1 1 auto;
-        }
-        .map-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1200;
-            padding: calc(8px + env(safe-area-inset-top)) 0 0 0;
-            background: #fff;
-            box-shadow: 0 2px 12px rgba(102, 126, 234, 0.08);
-            border-radius: 0;
-            display: flex;
-            align-items: center; /* 垂直居中 */
-            justify-content: flex-start;
-            min-height: 56px;
-            gap: 8px;
-        }
-        .map-back-btn {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            margin-left: 12px;
-        }
-        .map-back-btn:hover {
-            background: #fff;
-            transform: scale(1.08);
-        }
-        .map-header-title {
-            font-size: 1.08rem;
-            font-weight: 600;
-            color: #232b5d;
-            margin-left: 10px;
-            height: 40px;
-            line-height: 40px;
-            display: flex;
-            align-items: center;
-            flex: 1 1 auto;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .map-bottom-bar {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: env(safe-area-inset-bottom);
-            padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-            background: transparent;
-            box-shadow: none;
-            border-radius: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 32px;
-            z-index: 10;
-            width: 100vw;
-            max-width: 500px;
-            left: 50%;
-            transform: translateX(-50%);
-            margin: 0;
-        }
-        @media (max-width: 600px) {
-            .map-bottom-bar {
-                gap: 24px !important;
-            }
-        }
-        @media (max-width: 400px) {
-            .map-bottom-bar {
-                gap: 16px !important;
-            }
-        }
-        .map-bottom-bar .app-jump-btn,
-        .map-bottom-bar .photo-btn {
-            max-width: 210px;
-            min-width: 0;
-            flex: 1;
-            margin: 0;
-        }
-        @media (max-width: 600px) {
-            .map-bottom-bar .app-jump-btn,
-            .map-bottom-bar .photo-btn {
-                max-width: 160px;
-            }
-        }
-        @media (max-width: 400px) {
-            .map-bottom-bar .app-jump-btn,
-            .map-bottom-bar .photo-btn {
-                max-width: 130px;
-            }
-        }
-        .app-jump-btn, .photo-btn {
-            flex: 1;
-            max-width: 180px;
-            padding: 14px 0;
-            border: none;
-            border-radius: 16px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-            position: relative;
-            overflow: hidden;
-            background: var(--gradient-primary);
-            color: #fff;
-        }
-        .photo-btn {
-            background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
-        }
-        
-
-        .app-jump-btn:hover, .photo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
-        }
-        .app-jump-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-        .photo-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-        
-        .photo-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        
-        .photo-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .photo-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            padding: 20px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .photo-back-btn {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .photo-back-btn:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-        
-        .photo-title {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .photo-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        
-        .photo-content {
-            padding: 80px 20px 20px;
-            min-height: 100%;
-        }
-        
-        .photo-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 300px;
-            color: rgba(255, 255, 255, 0.7);
-            text-align: center;
-        }
-        
-        .photo-placeholder i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        
-        .photo-placeholder p {
-            font-size: 1.1rem;
-            margin: 0;
-        }
-        
-        .photo-info {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .photo-info h4 {
-            color: white;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 0 0 10px 0;
-        }
-        
-        .photo-info p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-            margin: 0;
-            line-height: 1.5;
-        }
-        
-        .app-jump-container {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1100;
-            background: transparent;
-            padding: 20px 20px calc(20px + env(safe-area-inset-bottom)) 20px;
-            box-sizing: border-box;
-        }
-        @media (max-width: 600px) {
-            .app-jump-container {
-                bottom: 0;
-            }
-        }
-        
-        .app-buttons-row {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .app-jump-btn, .photo-btn {
-            flex: 1;
-            max-width: 180px;
-            padding: 16px 20px;
-            border: none;
-            border-radius: 16px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .app-jump-btn {
-            background: var(--gradient-primary);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-        
-        .photo-btn {
-            background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-        
-        .app-jump-btn::before, .photo-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .app-jump-btn:hover::before, .photo-btn:hover::before {
-            left: 100%;
-        }
-        
-        .app-jump-btn:hover, .photo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-        }
-        
-        @media (max-width: 600px) {
-            .container {
-                padding: 12px;
-                border-radius: 18px;
-            }
-            
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .logo-icon {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .logo-icon i {
-                font-size: 2.2rem;
-            }
-            
-            .options-grid {
-                gap: 12px;
-                margin: 12px 0;
-            }
-            
-            .option-card {
-                padding: 16px;
-                min-height: 80px;
-            }
-            
-            .option-icon {
-                width: 45px;
-                height: 45px;
-                font-size: 1.3rem;
-                margin-right: 12px;
-            }
-            
-            .option-card h2 {
-                font-size: 1.4rem;
-                margin-bottom: 0;
-                margin-top: 0;
-                font-weight: 700;
-            }
-            
-            .badge {
-                font-size: 0.8rem;
-                padding: 4px 10px;
-            }
-            
-            .area-list {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-                padding: 12px;
-            }
-            
-            .area-item {
-                padding: 12px 10px;
-                font-size: 0.9rem;
-            }
-            
-            .modal-content {
-                max-width: 95%;
-                border-radius: 18px;
-            }
-            
-            .modal-body {
-                padding: 15px;
-            }
-            
-            .app-buttons-row {
-                flex-direction: row;
-                gap: 12px;
-            }
-            
-            .app-jump-btn, .photo-btn {
-                max-width: none;
-                flex: 1;
-                padding: 14px 16px;
-                font-size: 0.95rem;
-            }
-            
-            .ios-content {
-                padding: 20px;
-                max-width: 95%;
-            }
-            
-            .footer-section {
-                padding: 8px 0;
-            }
-            
-            .footer {
-                margin-bottom: 2px;
-            }
-            
-            #detailModal .modal-body {
-                padding: 15px;
-            }
-            
-            #detailModal .back-btn {
-                left: 15px;
-                top: 15px;
-                width: 40px;
-                height: 40px;
-            }
-            
-            #detailModal .modal-title {
-                padding: 15px;
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .app-buttons-row {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .app-jump-btn, .photo-btn {
-                max-width: none;
-                padding: 12px 14px;
-                font-size: 0.9rem;
-            }
-            
-            .area-list {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-                padding: 10px;
-            }
-            
-            .area-item {
-                padding: 10px 8px;
-                font-size: 0.85rem;
-            }
-        }
-
-        .area-item.low-area-btn {
-            background: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
-            color: #fff;
-            box-shadow: 0 6px 24px 0 rgba(35,43,93,0.13), 0 1.5px 4px 0 rgba(35,43,93,0.10);
-        }
-        .area-item.low-area-btn:hover, .area-item.low-area-btn:active, .area-item.low-area-btn.selected {
-            background: linear-gradient(100deg, #3a8dde 0%, #232b5d 100%);
-            color: #fff;
-        }
-        .area-item.mid-area-btn {
-            background: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
-            color: #fff;
-            box-shadow: 0 6px 24px 0 rgba(35,43,93,0.13), 0 1.5px 4px 0 rgba(35,43,93,0.10);
-        }
-        .area-item.mid-area-btn:hover, .area-item.mid-area-btn:active, .area-item.mid-area-btn.selected {
-            background: linear-gradient(100deg, #3a8dde 0%, #232b5d 100%);
-            color: #fff;
-        }
-        .area-item.high-area-btn {
-            background: linear-gradient(100deg, #f7b42c 0%, #fcf6ba 100%);
-            color: #b8860b;
-            box-shadow: 0 6px 24px 0 rgba(247,180,44,0.13), 0 1.5px 4px 0 rgba(247,180,44,0.10);
-        }
-        .area-item.high-area-btn:hover, .area-item.high-area-btn:active, .area-item.high-area-btn.selected {
-            background: linear-gradient(100deg, #fcf6ba 0%, #f7b42c 100%);
-            color: #b8860b;
-        }
-
-        #highModal.modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--light);
-            z-index: 9999;
-            display: block;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        #highModal.modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        #highModal .modal-content {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            min-height: 100vh;
-            border-radius: 0;
-            margin: 0;
-            padding: 0;
-            display: block;
-            animation: none;
-            overflow: visible;
-            box-shadow: none;
-            transform: none;
-        }
-        #highModal .modal-body {
-            padding: 20px;
-            margin-top: 0;
-            max-height: none;
-            overflow: visible;
-        }
-        #highModal .modal-title,
-        #highModal .modal-footer,
-        #highModal .back-btn {
-            position: static !important;
-        }
-
-        #detailModal .modal-title, #highModal .modal-title {
-            position: static !important;
-            top: auto !important;
-            z-index: auto !important;
-            box-shadow: none !important;
-        }
-
-        @media (max-width: 600px) {
-            .app-buttons-row {
-                flex-direction: row !important;
-                gap: 10px !important;
-            }
-            .app-jump-btn, .photo-btn {
-                padding: 14px 16px;
-                font-size: 0.95rem;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .app-buttons-row {
-                flex-direction: column;
-                gap: 8px;
-            }
-            .app-jump-btn, .photo-btn {
-                max-width: none;
-                padding: 12px 14px;
-                font-size: 0.9rem;
-            }
-        }
-        .app-jump-btn.active, .photo-btn.active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-
-        .map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn {
-            transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .map-bottom-bar .app-jump-btn.active, .map-bottom-bar .photo-btn.active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-        #highModal .back-btn {
-            position: absolute !important;
-            top: 16px !important;
-            left: 16px !important;
-            width: 44px;
-            height: 44px;
-            background: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 10;
-            cursor: pointer;
-            border: none;
         }
     </style>
 </head>
@@ -1685,7 +837,7 @@
         <header>
             <div class="logo-container">
                 <div class="logo-icon">
-                    <i class="fas fa-star"></i>
+                    <i class="fas fa-crown"></i>
                 </div>
                 <h1>聚美臻选</h1>
                 <div class="subtitle">品质服务 · 臻心之选 · 诚信保障</div>
@@ -1704,7 +856,7 @@
             </div>
             <div class="option-card mid" onclick="openAreaModal('mid')">
                 <div class="option-icon">
-                    <i class="fas fa-crown"></i>
+                    <i class="fas fa-star"></i>
                 </div>
                 <div class="option-content">
                     <h2>中端局</h2>
@@ -1737,6 +889,7 @@
             </div>
         </div>
         
+        <!-- 区域选择模态框 -->
         <div id="areaModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('areaModal')">
@@ -1744,7 +897,9 @@
                 </div>
                 <h3 class="modal-title" id="areaTitle">区域选择</h3>
                 
-                <div class="area-list" id="areaList"></div>
+                <div class="area-list" id="areaList">
+                    <!-- 区域列表将通过JS动态生成 -->
+                </div>
                 
                 <div class="detail-btn" onclick="openDetailModal(window.currentType)">
                     <i class="fas fa-info-circle"></i> 查看服务详情
@@ -1753,60 +908,30 @@
             </div>
         </div>
         
-        <div id="mapModal" class="map-modal">
-            <div class="map-container">
-                <div class="map-header">
-                    <div class="map-back-btn" onclick="closeMapModal()">
-                        <i class="fas fa-arrow-left"></i>
-                    </div>
-                    <div class="map-header-title" id="mapHeaderTitle">地图导航</div>
-                </div>
-                <iframe id="mapFrame" src="about:blank" frameborder="0" style="width:100%;height:100%;border:none;"></iframe>
-                <div class="map-bottom-bar">
-                    <button class="app-jump-btn" onclick="openNavigationApp()">
-                        <i class="fas fa-map-marked-alt"></i> App导航
-                    </button>
-                    <button class="photo-btn" onclick="openPhotoModal()">
-                        <i class="fas fa-images"></i> 集美照片
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <div id="photoModal" class="photo-modal">
-            <div class="photo-header">
-                <div class="photo-back-btn" onclick="closePhotoModal()">
+        <!-- 服务详情模态框 -->
+        <div id="detailModal" class="modal">
+            <div class="modal-content">
+                <div class="back-btn" onclick="closeModal('detailModal')">
                     <i class="fas fa-arrow-left"></i>
                 </div>
-            </div>
-            <div class="photo-container">
-                <div class="photo-content" id="photoContent">
-                    <div class="photo-placeholder">
-                        <i class="fas fa-images"></i>
-                        <p>照片内容加载中...</p>
-                    </div>
+                <h3 class="modal-title" id="detailTitle">服务详情</h3>
+                <div class="modal-body" id="detailContent">
+                    <!-- 详情内容将通过JS动态生成 -->
                 </div>
             </div>
         </div>
         
-        <div id="detailModal" class="modal">
-            <div class="back-btn" onclick="closeModal('detailModal')">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-            <h3 class="modal-title" id="detailTitle">服务详情</h3>
-            <div class="modal-body" id="detailContent"></div>
-        </div>
-        
+        <!-- 高端服务模态框 -->
         <div id="highModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('highModal')">
                     <i class="fas fa-arrow-left"></i>
                 </div>
                 <h3 class="modal-title">高端局专享</h3>
-                
                 <div class="modal-body">
-                    <div class="modal-intro">
-                        <p>高端品质定制化服务，满足您的个性化需求</p>
+                    <div class="modal-section">
+                        <h3><i class="fas fa-crown"></i> 尊贵体验</h3>
+                        <p>高端品质定制化服务，满足您的个性化需求，提供无与伦比的尊享体验。</p>
                     </div>
                     
                     <div class="modal-section">
@@ -1814,7 +939,7 @@
                         <div class="package-list">
                             <div class="package-item">
                                 <div class="package-name">
-                                    <i class="fas fa-bullseye"></i> 3k 套餐
+                                    <i class="fas fa-diamond"></i> 钻石套餐
                                 </div>
                                 <div class="package-option">
                                     <span>一课（60分钟）</span>
@@ -1832,7 +957,7 @@
                             
                             <div class="package-item">
                                 <div class="package-name">
-                                    <i class="fas fa-star"></i> 5k 套餐
+                                    <i class="fas fa-gem"></i> 铂金套餐
                                 </div>
                                 <div class="package-option">
                                     <span>一课（60分钟）</span>
@@ -1851,76 +976,25 @@
                     </div>
                     
                     <div class="modal-section">
-                        <h3>服务说明</h3>
-                        <div class="solution-list">
-                            <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-map-pin"></i>
-                                </div>
-                                <div class="service-text">
-                                   服务内容，请查看个人主页简介
-                                </div>
-                            </div>
-                            
-                            <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-puzzle-piece"></i>
-                                </div>
-                                <div class="service-text">
-                                   特殊需求提前沟通，看个人特色
-                                </div>
-                            </div>
-                            
-                            <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-ban"></i>
-                                </div>
-                                <div class="service-text">
-                                   拒绝低质服务，注重体验与细节
-                                </div>
-                            </div>
-                            
-                            <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </div>
-                                <div class="service-text">
-                                    支持提前预约，时间安排更灵活
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-section">
-                        <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                        <div class="solution-list">
-                            <div class="tip-item">
-                                <div class="tip-icon">
-                                    <i class="fas fa-check-circle"></i>
-                                </div>
-                                <div>
-                                    服务均为高品质定制，非市面上中低端
-                                </div>
-                            </div>
-                            
-                            <div class="tip-item">
-                                <div class="tip-icon">
-                                    <i class="fas fa-comments"></i>
-                                </div>
-                                <div>
-                                    均需提前支付定金，避免不必要的麻烦
-                                </div>
-                            </div>
-                            
-                            <div class="tip-item">
-                                <div class="tip-icon">
-                                    <i class="fas fa-link"></i>
-                                </div>
-                                <div>
-                                    诚信是基础，细节是态度，服务见真章
-                                </div>
-                            </div>
-                        </div>
+                        <h3><i class="fas fa-star"></i> 专属服务</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <i class="fas fa-check-circle" style="color: #ffd700; margin-right: 10px;"></i>
+                                <span>私人订制，满足个性化需求</span>
+                            </li>
+                            <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <i class="fas fa-check-circle" style="color: #ffd700; margin-right: 10px;"></i>
+                                <span>高端场所，极致舒适体验</span>
+                            </li>
+                            <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                <i class="fas fa-check-circle" style="color: #ffd700; margin-right: 10px;"></i>
+                                <span>专业团队，品质保障</span>
+                            </li>
+                            <li style="padding: 12px 0;">
+                                <i class="fas fa-check-circle" style="color: #ffd700; margin-right: 10px;"></i>
+                                <span>VIP专属通道，优先预约</span>
+                            </li>
+                        </ul>
                     </div>
                     
                     <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
@@ -1929,42 +1003,15 @@
                         <span class="integrity-text">尊享体验 · 品质保证</span>
                     </button>
                 </div>
-                
-                <div class="modal-footer">
-                    <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
-                </div>
             </div>
         </div>
         
+        <!-- 加载动画 -->
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
         </div>
     </div>
     
-    <div id="iosPrompt" class="ios-prompt">
-        <div class="ios-content">
-            <div class="ios-close" onclick="closeIosPrompt()">
-                <i class="fas fa-times"></i>
-            </div>
-            <h3 class="ios-title">请粘贴至浏览器打开</h3>
-            
-            <p>复制以下链接并粘贴到Safari浏览器地址栏：</p>
-            <div class="ios-instruction">
-                <div id="iosLink" style="word-break: break-all; padding: 12px; background: #f0f8ff; border-radius: 10px; margin: 12px 0; font-weight: 500; font-size: 1rem;">http://baidu.com</div>
-                <ol>
-                    <li>长按上方链接并选择"复制"</li>
-                    <li>切换到Safari浏览器</li>
-                    <li>在地址栏长按并选择"粘贴"</li>
-                    <li>点击"前往"访问服务</li>
-                </ol>
-            </div>
-            <div class="arrow-down">
-                <i class="fas fa-long-arrow-alt-down"></i>
-            </div>
-            <p>粘贴到下方浏览器地址栏打开</p>
-        </div>
-    </div>
-
     <script>
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
@@ -1996,40 +1043,17 @@
             high: {}
         };
 
-        const areaPhotoLinks = {
-            low: {
-                '余杭区': 'https://i.ibb.co/xqJ46HD9/IMG-0342.jpg',
-                '西湖区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '拱墅区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '临平区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '上城区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '钱塘区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '临安区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '富阳区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
-            },
-            mid: {
-                '余杭区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '西湖区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '上城区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '临平区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
-            },
-            high: {}
-        };
-
         const detailData = {
             low: `
-            <div class="modal-intro">
-                <p>实惠精选，品质保障</p>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                <div class="package-list">
+                <div class="modal-section">
+                    <h3><i class="fas fa-tags"></i> 低端局服务</h3>
+                    <p>实惠精选，品质保障，提供高性价比的服务体验。</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
                     <div class="package-item">
-                        <div class="package-name"><i class="fas fa-bullseye"></i> 工作室套餐</div>
+                        <div class="package-name"><i class="fas fa-home"></i> 工作室套餐</div>
                         <div class="package-option"><span>一课</span><span>5 (吹做)</span></div>
                         <div class="package-option"><span>一课升级</span><span>6 (吹做推)</span></div>
                         <div class="package-option"><span>莞式一课</span><span>8</span></div>
@@ -2041,30 +1065,39 @@
                         <div class="package-option"><span>两课</span><span>14 (吹做推)</span></div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="tip-box">
-                    <div class="tip-content">部分工作室提供真人照片（年龄26-30岁）</div>
-                    <div class="tip-content">请提前联系确认是否开工</div>
-                    <div class="tip-content">聚美臻选承诺：所有服务均真实可靠</div>
-                    <div class="tip-content">支持多种支付方式，透明消费无隐藏费用</div>
-                    <div class="tip-content">所有服务人员均经过健康检测</div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #a1c4fd; margin-right: 10px;"></i>
+                            <span>部分工作室提供真人照片（年龄26-30岁）</span>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #a1c4fd; margin-right: 10px;"></i>
+                            <span>请提前联系确认是否开工</span>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #a1c4fd; margin-right: 10px;"></i>
+                            <span>聚美臻选承诺：所有服务均真实可靠</span>
+                        </li>
+                        <li style="padding: 12px 0;">
+                            <i class="fas fa-check" style="color: #a1c4fd; margin-right: 10px;"></i>
+                            <span>支持多种支付方式，透明消费无隐藏费用</span>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
-            </div>
             `,
             mid: `
-            <div class="modal-intro">
-                <p>品质优选，优质服务</p>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                <div class="package-list">
+                <div class="modal-section">
+                    <h3><i class="fas fa-tags"></i> 中端局服务</h3>
+                    <p>品质优选，优质服务，提供更舒适的服务体验。</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
                     <div class="package-item">
-                        <div class="package-name"><i class="fas fa-bullseye"></i> 工作室套餐</div>
+                        <div class="package-name"><i class="fas fa-home"></i> 工作室套餐</div>
                         <div class="package-option"><span>一课（60分钟）</span><span>1.4k</span></div>
                         <div class="package-option"><span>两课（100分钟）</span><span>2.4k</span></div>
                         <div class="package-option"><span>页课</span><span>4k</span></div>
@@ -2075,149 +1108,28 @@
                         <div class="package-option"><span>两课（100分钟）</span><span>2.6k</span></div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-section">
-                <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="tip-box">
-                    <div class="tip-content">所有服务人员态度乖巧听话</div>
-                    <div class="tip-content">任何不过分的要求都可以满足</div>
-                    <div class="tip-content">提供丝袜和各种情趣制服</div>
-                    <div class="tip-content">聚美臻选承诺：诚信经营，品质保障</div>
-                    <div class="tip-content">提前预约可享受VIP专属通道</div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #c2e9fb; margin-right: 10px;"></i>
+                            <span>所有服务人员态度乖巧听话</span>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #c2e9fb; margin-right: 10px;"></i>
+                            <span>任何不过分的要求都可以满足</span>
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                            <i class="fas fa-check" style="color: #c2e9fb; margin-right: 10px;"></i>
+                            <span>提供丝袜和各种情趣制服</span>
+                        </li>
+                        <li style="padding: 12px 0;">
+                            <i class="fas fa-check" style="color: #c2e9fb; margin-right: 10px;"></i>
+                            <span>提前预约可享受VIP专属通道</span>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
-            </div>
-            `,
-            high: `
-            <div class="modal-intro">
-                <p>高端品质定制化服务，满足您的个性化需求</p>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                <div class="package-list">
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-bullseye"></i> 3k 套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课（60分钟）</span>
-                            <span>￥2.8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>两课（100分钟）</span>
-                            <span>￥4.8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>页课（十一点后至自然醒）</span>
-                            <span>￥8k</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-star"></i> 5k 套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课（60分钟）</span>
-                            <span>￥4.8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>两课（100分钟）</span>
-                            <span>￥8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>页课（十一点后至自然醒）</span>
-                            <span>￥14k</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-section">
-                <h3>服务说明</h3>
-                <div class="solution-list">
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-map-pin"></i>
-                        </div>
-                        <div class="service-text">
-                           服务内容，请查看个人主页简介
-                        </div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-puzzle-piece"></i>
-                        </div>
-                        <div class="service-text">
-                           特殊需求提前沟通，看个人特色
-                        </div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-ban"></i>
-                        </div>
-                        <div class="service-text">
-                           拒绝低质服务，注重体验与细节
-                        </div>
-                    </div>
-                    
-                    <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="service-text">
-                            支持提前预约，时间安排更灵活
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="solution-list">
-                    <div class="tip-item">
-                        <div class="tip-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div>
-                            服务均为高品质定制，非市面上中低端
-                        </div>
-                    </div>
-                    
-                    <div class="tip-item">
-                        <div class="tip-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <div>
-                            均需提前支付定金，避免不必要的麻烦
-                        </div>
-                    </div>
-                    
-                    <div class="tip-item">
-                        <div class="tip-icon">
-                            <i class="fas fa-link"></i>
-                        </div>
-                        <div>
-                            诚信是基础，细节是态度，服务见真章
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
-                <i class="fas fa-gem"></i>
-                立即访问高端服务
-                <span class="integrity-text">尊享体验 · 品质保证</span>
-            </button>
-            
-            <div class="modal-footer">
-                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
-            </div>
             `
         };
         
@@ -2226,13 +1138,6 @@
         
         window.onload = function() {
             cacheDOMElements();
-            
-            // 监听窗口大小改变事件
-            window.addEventListener('resize', function() {
-                if (window.domCache.mapModal.classList.contains('active')) {
-                    adjustMapContainerHeight();
-                }
-            });
         };
         
         function cacheDOMElements() {
@@ -2243,12 +1148,6 @@
                 detailContent: document.getElementById('detailContent'),
                 detailModal: document.getElementById('detailModal'),
                 highModal: document.getElementById('highModal'),
-                mapModal: document.getElementById('mapModal'),
-                mapFrame: document.getElementById('mapFrame'),
-                photoModal: document.getElementById('photoModal'),
-                photoContent: document.getElementById('photoContent'),
-                iosPrompt: document.getElementById('iosPrompt'),
-                iosLink: document.getElementById('iosLink'),
                 loadingOverlay: document.getElementById('loadingOverlay')
             };
         }
@@ -2276,7 +1175,6 @@
                 let areaClass = 'area-item';
                 if (type === 'low') areaClass += ' low-area-btn';
                 else if (type === 'mid') areaClass += ' mid-area-btn';
-                else if (type === 'high') areaClass += ' high-area-btn';
                 areaItem.className = areaClass;
                 
                 areaItem.textContent = area;
@@ -2329,254 +1227,28 @@
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
             document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
         }
 
-        // 禁止地图弹窗内双击放大和选中
-        function setMapModalTouchPrevention(enable) {
-            if (enable) {
-                document.body.style.touchAction = 'manipulation';
-                document.body.style.userSelect = 'none';
-            } else {
-                document.body.style.touchAction = '';
-                document.body.style.userSelect = '';
-            }
-        }
-        // 修改openMapModal和closeMapModal调用
         function openMapModal(area, type) {
             currentArea = area;
             currentType = type;
+            
             if (type === 'mid' && area === '余杭区') {
                 alert('暂未开通，敬请期待');
                 return;
             }
+            
             if (!areaCoordinates[type] || !areaCoordinates[type][area]) {
                 alert('未找到该区域的坐标信息，请稍后再试');
                 return;
             }
-            const coordinates = areaCoordinates[type][area];
-            const lng = coordinates.lng;
-            const lat = coordinates.lat;
-            const markerName = coordinates.name;
-            const name = encodeURIComponent(markerName);
-            var mapFrame = document.getElementById('mapFrame');
-            mapFrame.src = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`;
-            window.domCache.areaModal.classList.remove('active');
-            window.domCache.mapModal.classList.add('active');
-            setMapModalTouchPrevention(true);
-            document.body.classList.add('modal-open');
-            document.body.style.overflow = 'hidden';
-            // 设置顶部标题
-            var mapHeaderTitle = document.getElementById('mapHeaderTitle');
-            if(mapHeaderTitle) mapHeaderTitle.textContent = markerName || '地图导航';
-            // 动态设置高度，适配任务栏
-            setMapModalHeight();
-        }
-        function closeMapModal() {
-            window.domCache.mapModal.classList.remove('active');
-            if (window.domCache.mapFrame) window.domCache.mapFrame.src = "about:blank";
-            window.domCache.areaModal.classList.add('active');
-            setMapModalTouchPrevention(false);
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-        }
-        
-        function adjustMapContainerHeight() {
-            const mapContainer = document.querySelector('.map-container');
-            if (!mapContainer) return;
             
-            const viewportHeight = window.innerHeight;
-            const viewportWidth = window.innerWidth;
-            
-            // 根据屏幕尺寸和设备类型调整高度
-            let heightReduction = 80; // 默认减少80px
-            
-            if (viewportWidth <= 400) {
-                heightReduction = 100;
-            } else if (viewportWidth <= 600) {
-                heightReduction = 80;
-            }
-            
-            // 处理横屏模式
-            if (viewportWidth > viewportHeight) {
-                heightReduction += 20;
-            }
-            
-            // 处理小屏幕设备
-            if (viewportHeight < 600) {
-                heightReduction += 40;
-            }
-            
-            const newHeight = Math.max(viewportHeight - heightReduction, 400);
-            mapContainer.style.height = `${newHeight}px`;
-        }
-        
-        function openPhotoModal() {
-            showLoading();
-            
-            window.domCache.mapModal.classList.remove('active');
-            setMapModalTouchPrevention(false);
-            
-            setTimeout(() => {
-                loadPhotoContent();
-                window.domCache.photoModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-open');
-                hideLoading();
-            }, 300);
-        }
-        
-        function closePhotoModal() {
-            window.domCache.photoModal.classList.remove('active');
-            window.domCache.mapModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-open');
-            setMapModalTouchPrevention(true);
-            setMapModalHeight();
-        }
-        
-        function loadPhotoContent() {
-            const photoContent = document.getElementById('photoContent');
-            const currentAreaName = currentArea;
-            const currentServiceType = currentType;
-            const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
-            
-            console.log('Loading photo for:', currentAreaName, currentServiceType, photoLink);
-            
-            if (photoLink && photoLink !== 'https://example.com/photos/placeholder.jpg') {
-                photoContent.innerHTML = `
-                    <div class="photo-gallery">
-                        <div class="photo-item">
-                            <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;" 
-                                 onload="console.log('Photo loaded successfully:', '${photoLink}')" 
-                                 onerror="handlePhotoError(this, '${photoLink}')">
-                        </div>
-                    </div>
-                `;
-            } else {
-                photoContent.innerHTML = `
-                    <div class="photo-placeholder">
-                        <i class="fas fa-images"></i>
-                        <p style="font-size: 0.9rem; margin-top: 10px;">照片内容即将上线，敬请期待！</p>
-                    </div>
-                `;
-            }
-        }
-        
-        // 添加处理照片加载错误的函数
-        function handlePhotoError(imgElement, photoLink) {
-            console.error('Photo failed to load:', photoLink);
-            // 尝试重新加载一次
-            let retryCount = imgElement.getAttribute('data-retry') || 0;
-            if (retryCount < 1) {
-                imgElement.setAttribute('data-retry', 1);
-                imgElement.src = photoLink + '?retry=' + new Date().getTime();
-            } else {
-                imgElement.parentElement.parentElement.innerHTML='<div class="photo-placeholder"><i class="fas fa-images"></i><p style="font-size: 0.9rem; margin-top: 10px;">照片加载失败，请稍后重试</p></div>';
-            }
-        }
-        
-        // 优化App导航跳转逻辑
-        function openNavigationApp() {
-            const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
-            if (!coordinates) {
-                alert('未找到区域坐标数据');
-                return;
-            }
-            const lat = coordinates.lat;
-            const lng = coordinates.lng;
-            const markerName = coordinates.name;
-            const areaName = encodeURIComponent(markerName);
-            const ua = navigator.userAgent;
-            let appUrl = '';
-            let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
-            if (!/iPad|iPhone|iPod|Android/i.test(ua)) {
-                window.open(fallbackUrl, '_blank');
-                return;
-            }
-            if (/iPad|iPhone|iPod/.test(ua)) {
-                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
-            } else if (/Android/i.test(ua)) {
-                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
-            }
-            let jumped = false;
-            const t = setTimeout(function() {
-                if (!jumped) window.open(fallbackUrl, '_blank');
-            }, 1800);
-            window.location.href = appUrl;
-            window.onblur = function() {
-                jumped = true;
-                clearTimeout(t);
-                window.onblur = null;
-            };
+            alert(`已选择: ${area} ${type}局\n即将打开导航...`);
         }
         
         function openServiceLink(type, url) {
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                window.domCache.iosLink.textContent = url;
-                window.domCache.iosPrompt.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            } else {
-                window.open(url, '_blank');
-            }
+            window.open(url, '_blank');
         }
-        
-        function closeIosPrompt() {
-            window.domCache.iosPrompt.classList.remove('active');
-            document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
-        }
-        
-        window.domCache.detailContent.innerHTML = detailData.low;
-
-        // JS部分，动态设置高度，适配移动端任务栏
-        function setMapModalHeight() {
-            var modal = document.getElementById('mapModal');
-            var container = document.querySelector('.map-container');
-            if (modal) {
-                modal.style.height = window.innerHeight + 'px';
-            }
-            if (container) {
-                container.style.height = window.innerHeight + 'px';
-            }
-        }
-        
-        // 确保地图界面状态正确
-        function ensureMapModalState() {
-            if (window.domCache.mapModal.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-open');
-                setMapModalTouchPrevention(true);
-                setMapModalHeight();
-            }
-        }
-        window.addEventListener('resize', setMapModalHeight);
-        window.addEventListener('orientationchange', setMapModalHeight);
-        
-        // 监听页面焦点变化，确保地图状态正确
-        window.addEventListener('focus', ensureMapModalState);
-        window.addEventListener('pageshow', ensureMapModalState);
-        
-        // 兼容移动端:active动画
-        document.querySelectorAll('.app-jump-btn, .photo-btn').forEach(btn => {
-          btn.addEventListener('touchstart', () => btn.classList.add('active'));
-          btn.addEventListener('touchend', () => btn.classList.remove('active'));
-          btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
-        });
-        
-        // 兼容地图底部按钮点击动画
-        document.querySelectorAll('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn').forEach(btn => {
-          btn.addEventListener('touchstart', () => btn.classList.add('active'));
-          btn.addEventListener('touchend', () => btn.classList.remove('active'));
-          btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
-        });
-        
-        // 确保地图界面按钮点击后状态正确
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn')) {
-                setTimeout(ensureMapModalState, 100);
-            }
-        });
     </script>
 </body>
 </html>
