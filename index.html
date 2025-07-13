@@ -1119,6 +1119,9 @@
         }
         .photo-btn {
             background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
+        }
+        
+        .map-bottom-bar .photo-btn {
             margin-left: 6px !important;
         }
         .app-jump-btn:hover, .photo-btn:hover {
@@ -1395,6 +1398,10 @@
                 flex: 1;
                 padding: 14px 16px;
                 font-size: 0.95rem;
+            }
+            
+            .map-bottom-bar .photo-btn {
+                margin-left: 6px !important;
             }
             
             .ios-content {
@@ -1734,6 +1741,10 @@
                 padding: 12px 14px;
                 font-size: 0.9rem;
             }
+            
+            .map-bottom-bar .photo-btn {
+                margin-left: 6px !important;
+            }
         }
         .app-jump-btn.active, .photo-btn.active {
             transform: scale(0.96);
@@ -1835,7 +1846,7 @@
                     <button class="app-jump-btn" onclick="openNavigationApp()">
                         <i class="fas fa-map-marked-alt"></i> App导航
                     </button>
-                    <button class="photo-btn" onclick="openPhotoModal()">
+                    <button class="photo-btn" onclick="openPhotoModal()" style="margin-left: 6px !important;">
                         <i class="fas fa-images"></i> 集美照片
                     </button>
                 </div>
