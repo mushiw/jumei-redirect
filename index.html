@@ -1687,48 +1687,54 @@
         }
 
         #highModal.modal {
-          position: fixed;
-          top: 0; left: 0; right: 0; bottom: 0;
-          width: 100vw;
-          height: 100vh;
-          background: var(--light);
-          z-index: 9999;
-          display: block;
-          opacity: 0;
-          visibility: hidden;
-          transition: opacity 0.3s ease;
-          overflow-y: auto;
-          overflow-x: hidden;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--light);
+            z-index: 9999;
+            display: block;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         #highModal.modal.active {
-          opacity: 1;
-          visibility: visible;
+            opacity: 1;
+            visibility: visible;
         }
         #highModal .modal-content {
-          width: 100%;
-          max-width: 100%;
-          min-height: 100vh;
-          border-radius: 0;
-          margin: 0;
-          padding: 0;
-          display: block;
-          animation: none;
-          overflow: visible;
-          box-shadow: none;
-          transform: none;
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            min-height: 100vh;
+            border-radius: 0;
+            margin: 0;
+            padding: 0;
+            display: block;
+            animation: none;
+            overflow: visible;
+            box-shadow: none;
+            transform: none;
         }
-        #highModal .modal-title {
-          position: static !important;
-          top: auto !important;
-          z-index: auto !important;
-          box-shadow: none !important;
+        #highModal .modal-body {
+            padding: 20px;
+            margin-top: 0;
+            max-height: none;
+            overflow: visible;
+        }
+        #highModal .modal-title,
+        #highModal .modal-footer,
+        #highModal .back-btn {
+            position: static !important;
         }
 
         #detailModal .modal-title, #highModal .modal-title {
-          position: static !important;
-          top: auto !important;
-          z-index: auto !important;
-          box-shadow: none !important;
+            position: static !important;
+            top: auto !important;
+            z-index: auto !important;
+            box-shadow: none !important;
         }
 
                 @media (max-width: 600px) {
@@ -1764,6 +1770,22 @@
         .map-bottom-bar .app-jump-btn.active, .map-bottom-bar .photo-btn.active {
             transform: scale(0.96);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+        }
+        #highModal .back-btn {
+            position: absolute !important;
+            top: 16px !important;
+            left: 16px !important;
+            width: 44px;
+            height: 44px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+            cursor: pointer;
+            border: none;
         }
     </style>
 </head>
