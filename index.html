@@ -62,7 +62,6 @@
             overflow-x: hidden;
         }
         
-        /* 背景装饰元素 */
         body::before,
         body::after {
             content: '';
@@ -109,7 +108,6 @@
             border: 1px solid var(--glass-border);
         }
         
-        /* 头部样式优化 */
         header {
             text-align: center;
             margin-bottom: 10px;
@@ -198,7 +196,6 @@
             border-radius: 2px;
         }
         
-        /* 选项卡片样式优化 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -308,7 +305,6 @@
             color: #b8860b;
         }
         
-        /* 底部认证样式优化 */
         .certification {
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
             border-radius: 14px;
@@ -342,7 +338,6 @@
             box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
         }
         
-        /* 底部信息样式优化 */
         .footer-section {
             margin-top: auto;
             padding: 10px 0;
@@ -361,7 +356,6 @@
             font-weight: 500;
         }
         
-        /* 修复模态框滚动问题 */
         .modal {
             position: fixed;
             top: 0;
@@ -423,7 +417,6 @@
             max-height: calc(85vh - 60px);
         }
         
-        /* 统一所有模态框返回键样式 */
         .back-btn {
             position: absolute;
             top: 15px;
@@ -446,7 +439,6 @@
             transform: scale(1.1);
         }
         
-        /* 服务详情模态框特殊处理 */
         #detailModal.modal {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -512,7 +504,6 @@
             transform: scale(0.95);
         }
         
-        /* 服务详情页面标题 */
         #detailModal .modal-title {
             background: var(--gradient-primary);
             color: white;
@@ -527,7 +518,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        /* 服务详情内容样式优化 */
         .modal-intro {
             display: block;
             background: linear-gradient(135deg, #f5f7fa 0%, #e9e4f0 100%);
@@ -662,7 +652,6 @@
             font-size: 0.95rem;
         }
         
-        /* 新的提示框样式 */
         .tip-box {
             background: white;
             border-radius: 12px;
@@ -678,7 +667,6 @@
             padding: 8px 0;
         }
         
-        /* 访问按钮样式优化 */
         .access-btn {
             width: 100%;
             padding: 18px 25px;
@@ -716,7 +704,6 @@
             box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
         }
         
-        /* 模态框底部样式 */
         .modal-footer {
             background: rgba(248, 250, 252, 0.8);
             padding: 15px 20px;
@@ -731,7 +718,6 @@
             margin: 0;
         }
         
-        /* 加载动画优化 */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -768,7 +754,6 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* iOS提示框样式优化 */
         .ios-prompt {
             position: fixed;
             top: 0;
@@ -864,7 +849,6 @@
             40% { transform: translateY(-8px); }
             60% { transform: translateY(-4px); }
         }
-        /* 区域选择样式优化 - 改进按钮效果 */
         .area-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -922,7 +906,6 @@
             opacity: 0;
         }
         
-        /* 美团集美特殊样式 - 占据两列 */
         .meituan-area {
             grid-column: span 2;
             background: linear-gradient(90deg, #ffe066 0%, #ffd600 80%, #ffcc00 100%) !important;
@@ -942,7 +925,6 @@
             color: #b58105 !important;
         }
         
-        /* 服务详情按钮样式优化 */
         .detail-btn {
             background: var(--gradient-primary);
             color: white;
@@ -984,7 +966,6 @@
             margin-top: 4px;
         }
         
-        /* 地图模态框样式优化 */
         .map-modal {
             position: fixed;
             top: 0;
@@ -1044,7 +1025,6 @@
             border: none;
         }
         
-        /* 集美照片模态框样式 */
         .photo-modal {
             position: fixed;
             top: 0;
@@ -1222,7 +1202,6 @@
             box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
         }
         
-        /* 移动端优化 */
         @media (max-width: 600px) {
             .container {
                 padding: 12px;
@@ -1316,7 +1295,6 @@
                 margin-bottom: 2px;
             }
             
-            /* 服务详情页面移动端优化 */
             #detailModal .modal-body {
                 padding: 15px;
             }
@@ -1334,7 +1312,6 @@
             }
         }
         
-        /* 超小屏幕优化 */
         @media (max-width: 400px) {
             .app-buttons-row {
                 flex-direction: column;
@@ -1359,7 +1336,6 @@
             }
         }
 
-        /* 区域按钮美化 */
         .area-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1410,7 +1386,6 @@
             transform: translateY(-2px) scale(1.012);
         }
 
-        /* 按钮波纹动画 */
         .area-item:active::after {
             content: '';
             position: absolute;
@@ -1430,14 +1405,12 @@
             100% { opacity: 0; transform: translate(-50%,-50%) scale(1.6); }
         }
 
-        /* 细节优化 */
         .badge {
             box-shadow: 0 2px 8px rgba(102, 126, 234, 0.10);
             font-size: 0.9rem;
             padding: 6px 20px;
         }
 
-        /* 适配移动端区域按钮 */
         @media (max-width: 600px) {
             .area-list {
                 gap: 12px;
@@ -1449,7 +1422,6 @@
             }
         }
 
-        /* 区域按钮风格递进 */
         .area-item.low-area-btn {
             background: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
             color: #fff;
@@ -1497,7 +1469,6 @@
           background-clip: unset !important;
         }
 
-        /* 主界面卡片logo和标题美化 */
         .option-card.low .option-icon i,
         .option-card.low h2 {
           color: #4facfe !important;
@@ -1555,7 +1526,6 @@
           box-shadow: 0 4px 16px rgba(247,180,44,0.10) !important;
         }
 
-        /* 主界面卡片移动端适配 */
         @media (max-width: 600px) {
           .options-grid {
             gap: 6px !important;
@@ -1583,7 +1553,6 @@
           }
         }
 
-        /* 高端局详情滑动体验与服务详情一致 */
         #highModal.modal {
           position: fixed;
           top: 0; left: 0; right: 0; bottom: 0;
@@ -1622,7 +1591,6 @@
           box-shadow: none !important;
         }
 
-        /* 服务详情栏随页面滑动 */
         #detailModal .modal-title, #highModal .modal-title {
           position: static !important;
           top: auto !important;
@@ -1630,7 +1598,6 @@
           box-shadow: none !important;
         }
 
-        /* 保证 app-buttons-row 在移动端也是横向排列 */
         @media (max-width: 600px) {
           .app-buttons-row {
             flex-direction: row !important;
@@ -1681,14 +1648,12 @@
             </div>
         </div>
         
-        <!-- 底部认证 -->
         <div class="certification">
             <h3><i class="fas fa-shield-alt"></i> 聚美臻选官方认证</h3>
             <p>诚信经营 · 真实信息 · 品质保障</p>
             <div class="seal">诚信品质保障</div>
         </div>
         
-        <!-- 备案信息和联系方式 -->
         <div class="footer-section">
             <div class="footer">
                 聚美臻选 © 2023 | 浙ICP备XXXXXX号-1
@@ -1698,7 +1663,6 @@
             </div>
         </div>
         
-        <!-- 区域选择模态框 -->
         <div id="areaModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('areaModal')">
@@ -1708,7 +1672,6 @@
                 
                 <div class="area-list" id="areaList"></div>
                 
-                <!-- 服务详情按钮 -->
                 <div class="detail-btn" onclick="openDetailModal(window.currentType)">
                     <i class="fas fa-info-circle"></i> 查看服务详情
                     <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
@@ -1716,7 +1679,6 @@
             </div>
         </div>
         
-        <!-- 地图导航模态框 -->
         <div id="mapModal" class="map-modal">
             <div class="map-header">
                 <div class="map-back-btn" onclick="closeMapModal()">
@@ -1724,7 +1686,7 @@
                 </div>
             </div>
             <div class="map-container">
-                <iframe id="mapFrame" src="about:blank" frameborder="0"></iframe>
+                <iframe id="mapFrame" src="about:blank" frameborder="0" style="width:100%;height:100%;border:none;"></iframe>
                 <div class="app-jump-container">
                     <div class="app-buttons-row">
                         <button class="app-jump-btn" onclick="openNavigationApp()">
@@ -1738,18 +1700,15 @@
             </div>
         </div>
         
-        <!-- 集美照片模态框 -->
         <div id="photoModal" class="photo-modal">
             <div class="photo-header">
                 <div class="photo-back-btn" onclick="closePhotoModal()">
                     <i class="fas fa-arrow-left"></i>
                 </div>
-                <!-- 移除标题栏 -->
             </div>
             <div class="photo-container">
                 <div class="photo-content" id="photoContent">
-                    <!-- 照片内容将在这里动态加载 -->
-                    <div class="photo-placeholder">
+                                    <div class="photo-placeholder">
                         <i class="fas fa-images"></i>
                         <p>照片内容加载中...</p>
                     </div>
@@ -1757,7 +1716,6 @@
             </div>
         </div>
         
-        <!-- 服务详情页面 -->
         <div id="detailModal" class="modal">
             <div class="back-btn" onclick="closeModal('detailModal')">
                 <i class="fas fa-arrow-left"></i>
@@ -1766,7 +1724,6 @@
             <div class="modal-body" id="detailContent"></div>
         </div>
         
-        <!-- 高端局模态框 -->
         <div id="highModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('highModal')">
@@ -1893,7 +1850,6 @@
                         </div>
                     </div>
                     
-                    <!-- 访问按钮 -->
                     <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
                         <i class="fas fa-gem"></i>
                         立即访问高端服务
@@ -1907,13 +1863,11 @@
             </div>
         </div>
         
-        <!-- 加载动画 -->
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
         </div>
     </div>
     
-    <!-- iOS提示框 - 移出主容器 -->
     <div id="iosPrompt" class="ios-prompt">
         <div class="ios-content">
             <div class="ios-close" onclick="closeIosPrompt()">
@@ -1939,17 +1893,15 @@
     </div>
 
     <script>
-        // 区域数据 - 中端局添加了滨江区
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
             mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区', '滨江区'], // 添加了滨江区
             high: []
         };
 
-        // 区域坐标数据 - 按服务类型分组的独立坐标
         const areaCoordinates = {
             low: {
-                '余杭区': { lat: 30.4219, lng: 120.2994, name: '余杭区' },
+                '余杭区': { lat: 30.345644, lng: 120.088822, name: '余杭区' },
                 '西湖区': { lat: 30.2599, lng: 120.1303, name: '西湖区' },
                 '拱墅区': { lat: 30.3191, lng: 120.1411, name: '拱墅区' },
                 '临平区': { lat: 30.4219, lng: 120.2994, name: '临平区' },
@@ -1971,32 +1923,30 @@
             high: {}
         };
 
-        // 区域照片链接数据 - 按服务类型分组的独立照片链接
         const areaPhotoLinks = {
             low: {
-                '余杭区': 'https://example.com/photos/yuhang-low.jpg',
-                '西湖区': 'https://example.com/photos/xihu-low.jpg',
-                '拱墅区': 'https://example.com/photos/gongshu-low.jpg',
-                '临平区': 'https://example.com/photos/linping-low.jpg',
-                '上城区': 'https://example.com/photos/shangcheng-low.jpg',
-                '钱塘区': 'https://example.com/photos/qiantang-low.jpg',
-                '滨江区': 'https://example.com/photos/binjiang-low.jpg',
-                '萧山区': 'https://example.com/photos/xiaoshan-low.jpg',
-                '临安区': 'https://example.com/photos/linan-low.jpg',
-                '富阳区': 'https://example.com/photos/fuyang-low.jpg'
+                '余杭区': 'https://pnx3.bmwca.cn/wwaVk7',
+                '西湖区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '拱墅区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '临平区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
+                '上城区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '钱塘区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
+                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '临安区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '富阳区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
             },
             mid: {
-                '余杭区': 'https://example.com/photos/yuhang-mid.jpg',
-                '西湖区': 'https://example.com/photos/xihu-mid.jpg',
-                '上城区': 'https://example.com/photos/shangcheng-mid.jpg',
-                '萧山区': 'https://example.com/photos/xiaoshan-mid.jpg',
-                '临平区': 'https://example.com/photos/linping-mid.jpg',
-                '滨江区': 'https://example.com/photos/binjiang-mid.jpg'
+                '余杭区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '西湖区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '上城区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
+                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '临平区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
             },
             high: {}
         };
 
-        // 详情数据 - 已优化排版
         const detailData = {
             low: `
             <div class="modal-intro">
@@ -2198,17 +2148,13 @@
             `
         };
         
-        // 当前选择的区域
         let currentArea = '';
         let currentType = '';
         
-        // 页面加载时初始化
         window.onload = function() {
-            // 缓存DOM元素
             cacheDOMElements();
         };
         
-        // 缓存DOM元素
         function cacheDOMElements() {
             window.domCache = {
                 areaModal: document.getElementById('areaModal'),
@@ -2227,21 +2173,17 @@
             };
         }
 
-        // 显示加载动画
         function showLoading() {
             window.domCache.loadingOverlay.classList.add('active');
         }
         
-        // 隐藏加载动画
         function hideLoading() {
             window.domCache.loadingOverlay.classList.remove('active');
         }
 
-        // 打开区域选择模态框
         function openAreaModal(type) {
             showLoading();
             
-            // 保存当前类型
             window.currentType = type;
             
             const { areaTitle, areaList } = window.domCache;
@@ -2249,7 +2191,6 @@
             areaTitle.textContent = type === 'low' ? '低端局区域选择' : '中端局区域选择';
             areaList.innerHTML = '';
             
-            // 添加所有区域
             areaData[type].forEach(area => {
                 const areaItem = document.createElement('div');
                 let areaClass = 'area-item';
@@ -2266,7 +2207,6 @@
                 areaList.appendChild(areaItem);
             });
             
-            // 如果是中端局，添加美团集美作为最后一个选项
             if (type === 'mid') {
                 const meituanItem = document.createElement('div');
                 meituanItem.className = 'area-item meituan-area';
@@ -2279,7 +2219,6 @@
             
             window.domCache.detailContent.innerHTML = detailData[type];
             
-            // 打开模态框
             setTimeout(() => {
                 window.domCache.areaModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2287,11 +2226,9 @@
             }, 300);
         }
 
-        // 打开高端模态框
         function openHighModal() {
             showLoading();
             
-            // 打开模态框
             setTimeout(() => {
                 window.domCache.highModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2299,9 +2236,7 @@
             }, 300);
         }
 
-        // 打开详情页面
         function openDetailModal(type) {
-            // 根据当前类型动态设置内容
             if (type && detailData[type]) {
                 window.domCache.detailContent.innerHTML = detailData[type];
             } else {
@@ -2311,7 +2246,6 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // 关闭模态框
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
             if (modalId === 'detailModal') {
@@ -2319,98 +2253,91 @@
             }
         }
 
-        // 打开地图模态框
         function openMapModal(area, type) {
             showLoading();
-            
             currentArea = area;
             currentType = type;
             
-            // 获取区域坐标数据
-            const coordinates = areaCoordinates[type] && areaCoordinates[type][area];
-            if (!coordinates) {
+            // 确保坐标数据存在
+            if (!areaCoordinates[type] || !areaCoordinates[type][area]) {
                 console.error('未找到区域坐标数据:', area, '服务类型:', type);
                 hideLoading();
+                alert('未找到该区域的坐标信息，请稍后再试');
                 return;
             }
             
-            // 使用高德地图导航URL，使用独立的经纬度坐标
-            const mapUrl = `https://uri.amap.com/marker?position=${coordinates.lng},${coordinates.lat}&name=${encodeURIComponent(area + ', 杭州')}&src=mypage&callnative=1&zoom=15`;
+            const coordinates = areaCoordinates[type][area];
+            const lat = coordinates.lat;
+            const lng = coordinates.lng;
             
-            // 关闭区域选择模态框
+            // 创建高德地图URL - 修正参数顺序为经度,纬度
+            const areaName = encodeURIComponent(area + ', 杭州');
+            const mapUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=18&_t=${Date.now()}`;
+            
+            console.log('【调试】地图URL:', mapUrl);
+            
             window.domCache.areaModal.classList.remove('active');
             
-            setTimeout(() => {
-                window.domCache.mapFrame.src = mapUrl;
-                window.domCache.mapModal.classList.add('active');
-                hideLoading();
-            }, 300);
+            // 直接设置iframe的src，无需setTimeout
+            window.domCache.mapFrame.src = mapUrl;
+            window.domCache.mapModal.classList.add('active');
+            hideLoading();
         }
 
-        // 关闭地图模态框
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
-            window.domCache.mapFrame.src = "about:blank";
-            // 重新打开区域选择模态框
+            if (window.domCache.mapFrame) window.domCache.mapFrame.src = "about:blank";
             window.domCache.areaModal.classList.add('active');
         }
         
-        // 打开集美照片模态框
         function openPhotoModal() {
             showLoading();
             
-            // 关闭地图模态框
             window.domCache.mapModal.classList.remove('active');
             
             setTimeout(() => {
-                // 这里可以动态加载照片内容
                 loadPhotoContent();
                 window.domCache.photoModal.classList.add('active');
                 hideLoading();
             }, 300);
         }
         
-        // 关闭集美照片模态框
         function closePhotoModal() {
             window.domCache.photoModal.classList.remove('active');
-            // 重新打开地图模态框
             window.domCache.mapModal.classList.add('active');
         }
         
-        // 加载照片内容
         function loadPhotoContent() {
             const photoContent = document.getElementById('photoContent');
-            // 不再设置标题
-            // 获取当前区域和服务类型
             const currentAreaName = currentArea;
             const currentServiceType = currentType;
-            // 获取对应的照片链接
             const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
-            if (photoLink) {
-                // 只显示图片，不显示说明
+            
+            console.log('Loading photo for:', currentAreaName, currentServiceType, photoLink);
+            
+            if (photoLink && photoLink !== 'https://example.com/photos/placeholder.jpg') {
                 photoContent.innerHTML = `
                     <div class="photo-gallery">
                         <div class="photo-item">
-                            <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;">
+                            <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;" 
+                                 onload="console.log('Photo loaded successfully:', '${photoLink}')" 
+                                 onerror="console.error('Photo failed to load:', '${photoLink}'); this.parentElement.parentElement.innerHTML='<div class=\\"photo-placeholder\\"><i class=\\"fas fa-images\\"></i><p style=\\"font-size: 0.9rem; margin-top: 10px;\\">照片加载失败，请稍后重试</p></div>'">
                         </div>
                     </div>
                 `;
             } else {
-                // 如果没有对应的照片链接，显示占位内容
                 photoContent.innerHTML = `
                     <div class="photo-placeholder">
                         <i class="fas fa-images"></i>
-                        <p style=\"font-size: 0.9rem; margin-top: 10px;\">照片内容即将上线，敬请期待！</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">照片内容即将上线，敬请期待！</p>
                     </div>
                 `;
             }
         }
         
-        // 打开导航应用
         function openNavigationApp() {
             const areaName = encodeURIComponent(currentArea + ', 杭州');
             
-            // 获取当前区域的坐标数据
             const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
             if (!coordinates) {
                 console.error('未找到区域坐标数据:', currentArea, '服务类型:', currentType);
@@ -2457,27 +2384,21 @@
             }, 2000);
         }
         
-        // 打开服务链接（区分iOS和安卓）
         function openServiceLink(type, url) {
-            // 判断是否为iOS设备
             if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                // 显示iOS提示框
                 window.domCache.iosLink.textContent = url;
                 window.domCache.iosPrompt.classList.add('active');
                 document.body.style.overflow = 'hidden';
             } else {
-                // 安卓设备直接打开
                 window.open(url, '_blank');
             }
         }
         
-        // 关闭iOS提示框
         function closeIosPrompt() {
             window.domCache.iosPrompt.classList.remove('active');
             document.body.style.overflow = '';
         }
         
-        // 初始化服务详情
         window.domCache.detailContent.innerHTML = detailData.low;
     </script>
 
