@@ -380,6 +380,18 @@
             overflow: hidden;
         }
         
+        /* 修复iOS右上角泛白问题 */
+        #areaModal.modal {
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        #areaModal .modal-content {
+            margin: 0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
         .modal.active {
             opacity: 1;
             visibility: visible;
@@ -1036,7 +1048,7 @@
             padding: calc(8px + env(safe-area-inset-top)) 0 0 0;
             background: #fff;
             box-shadow: 0 2px 12px rgba(102, 126, 234, 0.08);
-            border-radius: 0 0 18px 18px;
+            border-radius: 0;
             display: flex;
             align-items: center; /* 垂直居中 */
             justify-content: flex-start;
