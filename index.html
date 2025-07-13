@@ -1074,14 +1074,14 @@
             left: 0;
             right: 0;
             bottom: env(safe-area-inset-bottom);
-            padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
+            padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
             background: transparent;
             box-shadow: none;
             border-radius: 0;
             display: flex;
-            gap: 18px;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            gap: 0;
             z-index: 10;
             width: 100vw;
             max-width: 500px;
@@ -1091,41 +1091,29 @@
         }
         .map-bottom-bar .app-jump-btn,
         .map-bottom-bar .photo-btn {
-            max-width: 150px;
+            max-width: 170px;
             min-width: 0;
-            flex: 1;
-            padding: 12px 0;
-            font-size: 1rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-            position: relative;
-            overflow: hidden;
+            flex: 1 1 0;
+            margin: 0 6px;
         }
-        /* 移动端适配 */
         @media (max-width: 600px) {
             .map-bottom-bar {
                 border-radius: 14px 14px calc(18px + env(safe-area-inset-bottom)) calc(18px + env(safe-area-inset-bottom));
                 padding: 10px 8px calc(10px + env(safe-area-inset-bottom));
                 margin: 0 2px 0 2px;
                 bottom: env(safe-area-inset-bottom);
-                gap: 14px;
             }
             .map-bottom-bar .app-jump-btn,
             .map-bottom-bar .photo-btn {
-                width: 120px;
-                padding: 12px 0;
-                font-size: 0.95rem;
+                max-width: 150px;
+                margin: 0 4px;
             }
         }
         @media (max-width: 400px) {
-            .map-bottom-bar {
-                gap: 10px;
-            }
             .map-bottom-bar .app-jump-btn,
             .map-bottom-bar .photo-btn {
-                width: 100px;
-                padding: 10px 0;
-                font-size: 0.9rem;
+                max-width: 110px;
+                margin: 0 2px;
             }
         }
         .app-jump-btn, .photo-btn {
