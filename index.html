@@ -40,7 +40,7 @@
             --gradient-gold: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
             --gradient-logo: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             --gradient-title: linear-gradient(90deg, #667eea, #4facfe, #f093fb);
-            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-bg: linear-gradient(120deg, #f5f7fa 0%, #e9e4f0 100%);
             --low-gradient: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
             --mid-gradient: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
             --high-gradient: linear-gradient(100deg, #f7b42c 0%, #fcf6ba 100%);
@@ -50,7 +50,7 @@
         }
         
         body {
-            background: linear-gradient(120deg, #f5f7fa 0%, #e9e4f0 100%);
+            background: var(--gradient-bg);
             color: var(--dark);
             min-height: 100vh;
             padding: 0;
@@ -121,6 +121,7 @@
             justify-content: center;
             margin-bottom: 2px;
             flex-direction: column;
+            position: relative;
         }
         
         .logo-icon {
@@ -134,7 +135,15 @@
             box-shadow: 0 8px 32px rgba(80,120,255,0.13);
             margin: 0 auto 10px auto;
             position: relative;
+            animation: pulse 2s infinite;
         }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
         .logo-icon i {
             font-size: 2.6rem;
             color: #fff;
@@ -143,6 +152,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        
         .logo-crown {
             position: absolute;
             top: 10px;
@@ -152,6 +162,7 @@
             color: #f7b42c;
             filter: drop-shadow(0 2px 4px #fff8);
         }
+        
         .logo-diamond {
             position: absolute;
             bottom: 10px;
@@ -199,8 +210,8 @@
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin: 0;
+            gap: 15px;
+            margin: 15px 0;
             padding: 5px;
             height: auto;
             flex-shrink: 0;
@@ -208,7 +219,7 @@
         
         .option-card {
             background: var(--light);
-            border-radius: 18px;
+            border-radius: 22px;
             padding: 20px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
@@ -237,7 +248,7 @@
         }
         
         .option-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             box-shadow: var(--card-shadow-hover);
         }
         
@@ -247,12 +258,35 @@
         
         .option-card.low { background: none !important; }
         .option-card.mid { background: none !important; }
-        .option-card.high { background: none !important; }
+        .option-card.high { 
+            background: none !important;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+        
+        .option-card.high::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: var(--high-gradient);
+            z-index: -1;
+            border-radius: 24px;
+            animation: rotate 4s linear infinite;
+            opacity: 1;
+        }
+        
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
         
         .option-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -263,15 +297,22 @@
             overflow: hidden;
         }
         
-        .option-card.low .option-icon,
+        .option-card.low .option-icon {
+            background: #e0f2fe !important;
+            box-shadow: 0 4px 16px rgba(79,172,254,0.10) !important;
+            color: #4facfe !important;
+        }
+        
         .option-card.mid .option-icon {
-            background: rgba(35,43,93,0.13);
-            color: #232b5d;
+            background: #f3e8ff !important;
+            box-shadow: 0 4px 16px rgba(179,136,255,0.10) !important;
+            color: #b388ff !important;
         }
         
         .option-card.high .option-icon {
-            background: rgba(247,180,44,0.13);
-            color: #f7b42c;
+            background: #fef3c7 !important;
+            box-shadow: 0 4px 16px rgba(247,180,44,0.10) !important;
+            color: #f7b42c !important;
         }
         
         .option-content {
@@ -280,27 +321,46 @@
             justify-content: space-between;
             width: 100%;
         }
+        
         .option-card h2 {
             margin: 0;
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
         }
+        
+        .option-card.low h2 {
+            color: #4facfe !important;
+        }
+        
+        .option-card.mid h2 {
+            color: #b388ff !important;
+        }
+        
+        .option-card.high h2 {
+            color: #b8860b !important;
+        }
+        
         .badge {
             display: inline-block;
-            padding: 4px 16px;
+            padding: 6px 20px;
             border-radius: 999px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            background: linear-gradient(90deg, #e0e7ff 0%, #f0f8ff 100%);
-            color: #3b82f6;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.10);
             letter-spacing: 0.5px;
         }
-        .option-card.low .badge,
-        .option-card.mid .badge {
+        
+        .option-card.low .badge {
             background: linear-gradient(90deg, #3a8dde 0%, #e0e7ff 100%);
             color: #232b5d;
         }
+        
+        .option-card.mid .badge {
+            background: #f3e8ff !important;
+            color: #b388ff !important;
+            font-weight: 700;
+        }
+        
         .option-card.high .badge {
             background: linear-gradient(90deg, #f7b42c 0%, #fcf6ba 100%);
             color: #b8860b;
@@ -870,60 +930,63 @@
         .area-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 15px;
+            gap: 18px;
+            padding: 18px;
         }
         
         .area-item {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 14px;
-            padding: 14px 12px;
+            background: linear-gradient(100deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #1a237e;
+            border-radius: 18px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            box-shadow: 0 6px 24px 0 rgba(80,120,255,0.13), 0 1.5px 4px 0 rgba(80,120,255,0.10);
+            padding: 18px 0;
             text-align: center;
             cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            font-size: 0.95rem;
-            font-weight: 500;
+            transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
             position: relative;
-            overflow: hidden;
+            z-index: 1;
+            outline: none;
+            border: none;
+            user-select: none;
+            margin-bottom: 2px;
         }
         
-        .area-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
-            opacity: 0;
-            transition: var(--transition);
-        }
-        
-        .area-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-            border-color: var(--primary);
-        }
-        
-        .area-item:hover::before {
-            opacity: 1;
+        .area-item:hover, .area-item:active {
+            background: linear-gradient(100deg, #6dd5fa 0%, #2980b9 100%);
+            color: #fff;
+            box-shadow: 0 12px 32px 0 rgba(80,120,255,0.18), 0 2px 8px 0 rgba(80,120,255,0.13);
+            transform: scale(1.045);
         }
         
         .area-item.selected {
-            background: var(--gradient-primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
+            background: linear-gradient(100deg, #2196f3 0%, #21cbf3 100%);
+            color: #fff;
+            box-shadow: 0 16px 36px 0 rgba(33,203,243,0.22), 0 4px 12px 0 rgba(33,203,243,0.15);
+            transform: scale(1.06);
         }
-        
 
-        
-        .area-item.selected::before {
-            opacity: 0;
+        .area-item:active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 120%;
+            height: 120%;
+            background: rgba(255,255,255,0.18);
+            border-radius: 50%;
+            transform: translate(-50%,-50%) scale(0.8);
+            animation: ripple 0.4s linear;
+            z-index: 2;
+            pointer-events: none;
         }
         
+        @keyframes ripple {
+            0% { opacity: 1; transform: translate(-50%,-50%) scale(0.8); }
+            100% { opacity: 0; transform: translate(-50%,-50%) scale(1.6); }
+        }
+
         .meituan-area {
             grid-column: span 2;
             background: linear-gradient(90deg, #ffe066 0%, #ffd600 80%, #ffcc00 100%) !important;
@@ -1389,7 +1452,7 @@
             }
             
             .option-card h2 {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
                 margin-bottom: 0;
                 margin-top: 0;
                 font-weight: 700;
@@ -1486,92 +1549,6 @@
             }
         }
 
-        .area-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            padding: 18px;
-        }
-        .area-item {
-            background: linear-gradient(100deg, #a1c4fd 0%, #c2e9fb 100%);
-            color: #1a237e;
-            border-radius: 18px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            box-shadow: 0 6px 24px 0 rgba(80,120,255,0.13), 0 1.5px 4px 0 rgba(80,120,255,0.10);
-            padding: 18px 0;
-            text-align: center;
-            cursor: pointer;
-            transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
-            position: relative;
-            z-index: 1;
-            outline: none;
-            border: none;
-            user-select: none;
-            margin-bottom: 2px;
-        }
-        .area-item:hover, .area-item:active {
-            background: linear-gradient(100deg, #6dd5fa 0%, #2980b9 100%);
-            color: #fff;
-            box-shadow: 0 12px 32px 0 rgba(80,120,255,0.18), 0 2px 8px 0 rgba(80,120,255,0.13);
-            transform: scale(1.045);
-        }
-        .area-item.selected {
-            background: linear-gradient(100deg, #2196f3 0%, #21cbf3 100%);
-            color: #fff;
-            box-shadow: 0 16px 36px 0 rgba(33,203,243,0.22), 0 4px 12px 0 rgba(33,203,243,0.15);
-            transform: scale(1.06);
-        }
-
-        /* 卡片美化 */
-        .option-card {
-            border-radius: 22px;
-            box-shadow: 0 6px 32px 0 rgba(80,120,255,0.10), 0 1.5px 4px 0 rgba(80,120,255,0.08);
-            background: #fff;
-            transition: box-shadow 0.18s, transform 0.18s;
-            margin-bottom: 18px;
-        }
-        .option-card:hover {
-            box-shadow: 0 16px 48px 0 rgba(80,120,255,0.16), 0 4px 12px 0 rgba(80,120,255,0.12);
-            transform: translateY(-2px) scale(1.012);
-        }
-
-        .area-item:active::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 120%;
-            height: 120%;
-            background: rgba(255,255,255,0.18);
-            border-radius: 50%;
-            transform: translate(-50%,-50%) scale(0.8);
-            animation: ripple 0.4s linear;
-            z-index: 2;
-            pointer-events: none;
-        }
-        @keyframes ripple {
-            0% { opacity: 1; transform: translate(-50%,-50%) scale(0.8); }
-            100% { opacity: 0; transform: translate(-50%,-50%) scale(1.6); }
-        }
-
-        .badge {
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.10);
-            font-size: 0.9rem;
-            padding: 6px 20px;
-        }
-
-        @media (max-width: 600px) {
-            .area-list {
-                gap: 12px;
-                padding: 10px;
-            }
-            .area-item {
-                font-size: 1rem;
-                padding: 13px 0;
-            }
-        }
-
         .area-item.low-area-btn {
             background: linear-gradient(100deg, #232b5d 0%, #3a8dde 100%);
             color: #fff;
@@ -1598,109 +1575,6 @@
         .area-item.high-area-btn:hover, .area-item.high-area-btn:active, .area-item.high-area-btn.selected {
             background: linear-gradient(100deg, #fcf6ba 0%, #f7b42c 100%);
             color: #b8860b;
-        }
-
-        .option-card.mid .option-icon {
-          background: rgba(35,43,93,0.13);
-          color: #232b5d;
-        }
-        .option-card.mid h2 {
-          color: #232b5d !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-        .option-card.mid .option-icon i {
-          color: #232b5d !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-
-        .option-card.low .option-icon i,
-        .option-card.low h2 {
-          color: #4facfe !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-        .option-card.mid .option-icon i,
-        .option-card.mid h2 {
-          color: #b388ff !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-        .option-card.high .option-icon i,
-        .option-card.high h2 {
-          color: #b8860b !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-
-        .option-card.mid .badge {
-          background: #f3e8ff !important;
-          color: #b388ff !important;
-          font-weight: 700;
-          box-shadow: 0 2px 8px rgba(179,136,255,0.10);
-        }
-        .option-card.low .option-icon,
-        .option-card.mid .option-icon,
-        .option-card.high .option-icon {
-          width: 54px !important;
-          height: 54px !important;
-          border-radius: 16px !important;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        
-        .option-card.low .option-icon {
-          background: #e0f2fe !important;
-          box-shadow: 0 4px 16px rgba(79,172,254,0.10) !important;
-        }
-        
-        .option-card.mid .option-icon {
-          background: #f3e8ff !important;
-          box-shadow: 0 4px 16px rgba(179,136,255,0.10) !important;
-        }
-        
-        .option-card.high .option-icon {
-          background: #fef3c7 !important;
-          box-shadow: 0 4px 16px rgba(247,180,44,0.10) !important;
-        }
-
-        @media (max-width: 600px) {
-          .options-grid {
-            gap: 6px !important;
-            margin: 6px 0 !important;
-          }
-          .option-card {
-            min-height: 52px !important;
-            padding: 8px 12px !important;
-            margin-bottom: 6px !important;
-            border-radius: 16px !important;
-          }
-          .option-icon {
-            width: 42px !important;
-            height: 42px !important;
-            font-size: 1.2rem !important;
-            margin-right: 10px !important;
-            border-radius: 12px !important;
-          }
-                      .option-content h2 {
-                font-size: 1.4rem !important;
-            }
-          .badge {
-            font-size: 0.85rem !important;
-            padding: 4px 10px !important;
-          }
         }
 
         #highModal.modal {
@@ -1754,7 +1628,7 @@
             box-shadow: none !important;
         }
 
-                @media (max-width: 600px) {
+        @media (max-width: 600px) {
             .app-buttons-row {
                 flex-direction: row !important;
                 gap: 10px !important;
@@ -1907,7 +1781,7 @@
             </div>
             <div class="photo-container">
                 <div class="photo-content" id="photoContent">
-                                    <div class="photo-placeholder">
+                    <div class="photo-placeholder">
                         <i class="fas fa-images"></i>
                         <p>照片内容加载中...</p>
                     </div>
@@ -2575,7 +2449,7 @@
                         <div class="photo-item">
                             <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;" 
                                  onload="console.log('Photo loaded successfully:', '${photoLink}')" 
-                                 onerror="console.error('Photo failed to load:', '${photoLink}'); this.parentElement.parentElement.innerHTML='<div class=\\"photo-placeholder\\"><i class=\\"fas fa-images\\"></i><p style=\\"font-size: 0.9rem; margin-top: 10px;\\">照片加载失败，请稍后重试</p></div>'">
+                                 onerror="handlePhotoError(this, '${photoLink}')">
                         </div>
                     </div>
                 `;
@@ -2586,6 +2460,19 @@
                         <p style="font-size: 0.9rem; margin-top: 10px;">照片内容即将上线，敬请期待！</p>
                     </div>
                 `;
+            }
+        }
+        
+        // 添加处理照片加载错误的函数
+        function handlePhotoError(imgElement, photoLink) {
+            console.error('Photo failed to load:', photoLink);
+            // 尝试重新加载一次
+            let retryCount = imgElement.getAttribute('data-retry') || 0;
+            if (retryCount < 1) {
+                imgElement.setAttribute('data-retry', 1);
+                imgElement.src = photoLink + '?retry=' + new Date().getTime();
+            } else {
+                imgElement.parentElement.parentElement.innerHTML='<div class="photo-placeholder"><i class="fas fa-images"></i><p style="font-size: 0.9rem; margin-top: 10px;">照片加载失败，请稍后重试</p></div>';
             }
         }
         
@@ -2669,17 +2556,15 @@
         // 监听页面焦点变化，确保地图状态正确
         window.addEventListener('focus', ensureMapModalState);
         window.addEventListener('pageshow', ensureMapModalState);
-    </script>
-    <script>
-    // 兼容移动端:active动画
-    document.querySelectorAll('.app-jump-btn, .photo-btn').forEach(btn => {
-      btn.addEventListener('touchstart', () => btn.classList.add('active'));
-      btn.addEventListener('touchend', () => btn.classList.remove('active'));
-      btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
-    });
-    </script>
-    <script>
-            // 兼容地图底部按钮点击动画
+        
+        // 兼容移动端:active动画
+        document.querySelectorAll('.app-jump-btn, .photo-btn').forEach(btn => {
+          btn.addEventListener('touchstart', () => btn.classList.add('active'));
+          btn.addEventListener('touchend', () => btn.classList.remove('active'));
+          btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
+        });
+        
+        // 兼容地图底部按钮点击动画
         document.querySelectorAll('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn').forEach(btn => {
           btn.addEventListener('touchstart', () => btn.classList.add('active'));
           btn.addEventListener('touchend', () => btn.classList.remove('active'));
@@ -2693,6 +2578,5 @@
             }
         });
     </script>
-
 </body>
 </html>
