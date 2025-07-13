@@ -2541,10 +2541,13 @@
             showLoading();
             
             window.domCache.mapModal.classList.remove('active');
+            setMapModalTouchPrevention(false);
             
             setTimeout(() => {
                 loadPhotoContent();
                 window.domCache.photoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                document.body.classList.add('modal-open');
                 hideLoading();
             }, 300);
         }
@@ -2552,8 +2555,10 @@
         function closePhotoModal() {
             window.domCache.photoModal.classList.remove('active');
             window.domCache.mapModal.classList.add('active');
-            document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+            setMapModalTouchPrevention(true);
+            setMapModalHeight();
         }
         
         function loadPhotoContent() {
@@ -2648,8 +2653,22 @@
                 container.style.height = window.innerHeight + 'px';
             }
         }
+        
+        // 确保地图界面状态正确
+        function ensureMapModalState() {
+            if (window.domCache.mapModal.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+                document.body.classList.add('modal-open');
+                setMapModalTouchPrevention(true);
+                setMapModalHeight();
+            }
+        }
         window.addEventListener('resize', setMapModalHeight);
         window.addEventListener('orientationchange', setMapModalHeight);
+        
+        // 监听页面焦点变化，确保地图状态正确
+        window.addEventListener('focus', ensureMapModalState);
+        window.addEventListener('pageshow', ensureMapModalState);
     </script>
     <script>
     // 兼容移动端:active动画
@@ -2660,12 +2679,19 @@
     });
     </script>
     <script>
-    // 兼容地图底部按钮点击动画
-    document.querySelectorAll('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn').forEach(btn => {
-      btn.addEventListener('touchstart', () => btn.classList.add('active'));
-      btn.addEventListener('touchend', () => btn.classList.remove('active'));
-      btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
-    });
+            // 兼容地图底部按钮点击动画
+        document.querySelectorAll('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn').forEach(btn => {
+          btn.addEventListener('touchstart', () => btn.classList.add('active'));
+          btn.addEventListener('touchend', () => btn.classList.remove('active'));
+          btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
+        });
+        
+        // 确保地图界面按钮点击后状态正确
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn')) {
+                setTimeout(ensureMapModalState, 100);
+            }
+        });
     </script>
 
 </body>
