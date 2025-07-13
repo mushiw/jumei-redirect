@@ -378,7 +378,6 @@
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             overflow: hidden;
-            touch-action: none;
         }
         
         .modal.active {
@@ -975,20 +974,6 @@
         
         body.modal-open {
             overflow: hidden !important;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            touch-action: none;
-        }
-        
-        /* 高端局和服务详情界面不受modal-open影响，保持可滚动 */
-        body.modal-open #highModal.modal,
-        body.modal-open #detailModal.modal {
-            overflow-y: auto !important;
-            position: fixed !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            touch-action: auto !important;
         }
         .map-modal {
             position: fixed;
@@ -1725,16 +1710,18 @@
             visibility: visible;
         }
         #highModal .modal-content {
+            position: relative;
             width: 100%;
             max-width: 100%;
+            min-height: 100vh;
             border-radius: 0;
             margin: 0;
             padding: 0;
             display: block;
             animation: none;
+            overflow: visible;
             box-shadow: none;
             transform: none;
-            /* 不要min-height/overflow */
         }
         #highModal .modal-body {
             padding: 20px;
@@ -1804,24 +1791,6 @@
             z-index: 10;
             cursor: pointer;
             border: none;
-        }
-        /* --- 修正返回按钮定位和滚动 --- */
-        #detailModal .back-btn,
-        #highModal .back-btn {
-          position: absolute !important;
-          top: 16px !important;
-          left: 16px !important;
-          z-index: 10 !important;
-        }
-        #detailModal.modal,
-        #highModal.modal {
-          overflow-y: auto !important;
-          height: 100vh !important;
-        }
-        #detailModal .modal-content,
-        #highModal .modal-content {
-          min-height: 100vh !important;
-          overflow: visible !important;
         }
     </style>
 </head>
@@ -2447,7 +2416,6 @@
             setTimeout(() => {
                 window.domCache.areaModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-open');
                 hideLoading();
             }, 300);
         }
@@ -2457,7 +2425,7 @@
             
             setTimeout(() => {
                 window.domCache.highModal.classList.add('active');
-                // 高端局界面允许滚动，不添加modal-open类
+                document.body.style.overflow = 'hidden';
                 hideLoading();
             }, 300);
         }
@@ -2469,17 +2437,13 @@
                 window.domCache.detailContent.innerHTML = detailData.low;
             }
             window.domCache.detailModal.classList.add('active');
-            // 服务详情界面允许滚动，不添加modal-open类
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
-            // 确保所有需要禁止滚动的modal都关闭后才恢复滚动
-            const activeModals = document.querySelectorAll('#areaModal.active, .map-modal.active, .photo-modal.active, .ios-prompt.active');
-            if (activeModals.length === 0) {
-                document.body.style.overflow = '';
-                document.body.classList.remove('modal-open');
-            }
+            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
         }
 
         // 禁止地图弹窗内双击放大和选中
@@ -2527,7 +2491,8 @@
             if (window.domCache.mapFrame) window.domCache.mapFrame.src = "about:blank";
             window.domCache.areaModal.classList.add('active');
             setMapModalTouchPrevention(false);
-            // 不需要在这里移除modal-open类，因为areaModal会重新添加
+            document.body.classList.remove('modal-open');
+            document.body.style.overflow = '';
         }
         
         function adjustMapContainerHeight() {
@@ -2568,7 +2533,6 @@
             setTimeout(() => {
                 loadPhotoContent();
                 window.domCache.photoModal.classList.add('active');
-                document.body.classList.add('modal-open');
                 hideLoading();
             }, 300);
         }
@@ -2576,7 +2540,8 @@
         function closePhotoModal() {
             window.domCache.photoModal.classList.remove('active');
             window.domCache.mapModal.classList.add('active');
-            // 不需要在这里移除modal-open类，因为mapModal会重新添加
+            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
         }
         
         function loadPhotoContent() {
@@ -2647,7 +2612,6 @@
                 window.domCache.iosLink.textContent = url;
                 window.domCache.iosPrompt.classList.add('active');
                 document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-open');
             } else {
                 window.open(url, '_blank');
             }
@@ -2655,12 +2619,8 @@
         
         function closeIosPrompt() {
             window.domCache.iosPrompt.classList.remove('active');
-            // 确保所有modal都关闭后才恢复滚动
-            const activeModals = document.querySelectorAll('.modal.active, .map-modal.active, .photo-modal.active, .ios-prompt.active');
-            if (activeModals.length === 0) {
-                document.body.style.overflow = '';
-                document.body.classList.remove('modal-open');
-            }
+            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
         }
         
         window.domCache.detailContent.innerHTML = detailData.low;
