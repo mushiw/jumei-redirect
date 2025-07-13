@@ -980,6 +980,16 @@
             height: 100%;
             touch-action: none;
         }
+        
+        /* 高端局和服务详情界面不受modal-open影响，保持可滚动 */
+        body.modal-open #highModal.modal,
+        body.modal-open #detailModal.modal {
+            overflow-y: auto !important;
+            position: fixed !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            touch-action: auto !important;
+        }
         .map-modal {
             position: fixed;
             top: 0;
@@ -2431,8 +2441,7 @@
             
             setTimeout(() => {
                 window.domCache.highModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-open');
+                // 高端局界面允许滚动，不添加modal-open类
                 hideLoading();
             }, 300);
         }
@@ -2444,14 +2453,13 @@
                 window.domCache.detailContent.innerHTML = detailData.low;
             }
             window.domCache.detailModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-open');
+            // 服务详情界面允许滚动，不添加modal-open类
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
-            // 确保所有modal都关闭后才恢复滚动
-            const activeModals = document.querySelectorAll('.modal.active, .map-modal.active, .photo-modal.active');
+            // 确保所有需要禁止滚动的modal都关闭后才恢复滚动
+            const activeModals = document.querySelectorAll('#areaModal.active, .map-modal.active, .photo-modal.active, .ios-prompt.active');
             if (activeModals.length === 0) {
                 document.body.style.overflow = '';
                 document.body.classList.remove('modal-open');
