@@ -1140,7 +1140,7 @@
         
         .app-jump-container {
             position: absolute;
-            bottom: 0;
+            bottom: 60px;
             left: 0;
             right: 0;
             background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 100%);
@@ -1148,6 +1148,11 @@
             /* iOS地址栏适配 */
             padding-bottom: 20px;
             padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+        }
+        @media (max-width: 600px) {
+            .app-jump-container {
+                bottom: 80px;
+            }
         }
         
         .app-buttons-row {
@@ -1901,7 +1906,7 @@
 
         const areaCoordinates = {
             low: {
-                '余杭区': { lat: 30.345644, lng: 120.088822, name: '余杭区' },
+                '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区' },
                 '西湖区': { lat: 30.2599, lng: 120.1303, name: '西湖区' },
                 '拱墅区': { lat: 30.3191, lng: 120.1411, name: '拱墅区' },
                 '临平区': { lat: 30.4219, lng: 120.2994, name: '临平区' },
@@ -1913,7 +1918,7 @@
                 '富阳区': { lat: 30.0489, lng: 119.9603, name: '富阳区' }
             },
             mid: {
-                '余杭区': { lat: 30.4220, lng: 120.2995, name: '余杭区' },
+                '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区' },
                 '西湖区': { lat: 30.2600, lng: 120.1304, name: '西湖区' },
                 '上城区': { lat: 30.2430, lng: 120.1695, name: '上城区' },
                 '萧山区': { lat: 30.1834, lng: 120.2586, name: '萧山区' },
@@ -2254,34 +2259,28 @@
         }
 
         function openMapModal(area, type) {
-            showLoading();
-            currentArea = area;
-            currentType = type;
-            
-            // 确保坐标数据存在
+            // 检查坐标
+            if (type === 'mid' && area === '余杭区') {
+                alert('暂未开通，敬请期待');
+                return;
+            }
             if (!areaCoordinates[type] || !areaCoordinates[type][area]) {
-                console.error('未找到区域坐标数据:', area, '服务类型:', type);
-                hideLoading();
                 alert('未找到该区域的坐标信息，请稍后再试');
                 return;
             }
-            
             const coordinates = areaCoordinates[type][area];
-            const lat = coordinates.lat;
             const lng = coordinates.lng;
-            
-            // 创建高德地图URL - 修正参数顺序为经度,纬度
-            const areaName = encodeURIComponent(area + ', 杭州');
-            const mapUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=18&_t=${Date.now()}`;
-            
-            console.log('【调试】地图URL:', mapUrl);
-            
+            const lat = coordinates.lat;
+            // 仅低端局余杭区特殊处理
+            let markerName = area;
+            if (type === 'low' && area === '余杭区') markerName = '金地广场b1座';
+            const name = encodeURIComponent(markerName);
+            // 设置iframe src
+            var mapFrame = document.getElementById('mapFrame');
+            mapFrame.src = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`;
+            // 切换modal显示
             window.domCache.areaModal.classList.remove('active');
-            
-            // 直接设置iframe的src，无需setTimeout
-            window.domCache.mapFrame.src = mapUrl;
             window.domCache.mapModal.classList.add('active');
-            hideLoading();
         }
 
         function closeMapModal() {
