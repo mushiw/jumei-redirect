@@ -1033,7 +1033,7 @@
             box-shadow: 0 2px 12px rgba(102, 126, 234, 0.08);
             border-radius: 0 0 18px 18px;
             display: flex;
-            align-items: center;
+            align-items: center; /* 垂直居中 */
             justify-content: flex-start;
             min-height: 56px;
             gap: 8px;
@@ -1060,6 +1060,10 @@
             font-weight: 600;
             color: #232b5d;
             margin-left: 10px;
+            height: 40px;
+            line-height: 40px;
+            display: flex;
+            align-items: center;
             flex: 1 1 auto;
             white-space: nowrap;
             overflow: hidden;
@@ -1087,10 +1091,9 @@
         }
         .map-bottom-bar .app-jump-btn,
         .map-bottom-bar .photo-btn {
-            width: 120px;
+            max-width: 150px;
             min-width: 0;
-            max-width: none;
-            flex: none;
+            flex: 1;
             padding: 12px 0;
             font-size: 1rem;
             border-radius: 16px;
