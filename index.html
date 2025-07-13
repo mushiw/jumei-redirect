@@ -1628,6 +1628,14 @@
           z-index: auto !important;
           box-shadow: none !important;
         }
+
+        /* 保证 app-buttons-row 在移动端也是横向排列 */
+        @media (max-width: 600px) {
+          .app-buttons-row {
+            flex-direction: row !important;
+            gap: 10px !important;
+          }
+        }
     </style>
 </head>
 <body>
@@ -1735,7 +1743,7 @@
                 <div class="photo-back-btn" onclick="closePhotoModal()">
                     <i class="fas fa-arrow-left"></i>
                 </div>
-                <h3 class="photo-title" id="photoTitle">集美照片</h3>
+                <!-- 移除标题栏 -->
             </div>
             <div class="photo-container">
                 <div class="photo-content" id="photoContent">
@@ -2371,25 +2379,18 @@
         // 加载照片内容
         function loadPhotoContent() {
             const photoContent = document.getElementById('photoContent');
-            const photoTitle = document.getElementById('photoTitle');
-            
+            // 不再设置标题
             // 获取当前区域和服务类型
             const currentAreaName = currentArea;
             const currentServiceType = currentType;
-            
-            // 更新标题
-            const serviceTypeText = currentServiceType === 'low' ? '实惠' : currentServiceType === 'mid' ? '品质' : '尊享';
-            photoTitle.textContent = `${currentAreaName} - ${serviceTypeText}服务照片`;
-            
             // 获取对应的照片链接
             const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
-            
             if (photoLink) {
                 // 只显示图片，不显示说明
                 photoContent.innerHTML = `
                     <div class="photo-gallery">
                         <div class="photo-item">
-                            <img src="${photoLink}" alt="${currentAreaName}照片" style="width: 100%; border-radius: 12px; margin-bottom: 15px;">
+                            <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;">
                         </div>
                     </div>
                 `;
@@ -2398,8 +2399,7 @@
                 photoContent.innerHTML = `
                     <div class="photo-placeholder">
                         <i class="fas fa-images"></i>
-                        <p>${currentAreaName} - ${serviceTypeText}服务照片</p>
-                        <p style="font-size: 0.9rem; margin-top: 10px;">照片内容即将上线，敬请期待！</p>
+                        <p style=\"font-size: 0.9rem; margin-top: 10px;\">照片内容即将上线，敬请期待！</p>
                     </div>
                 `;
             }
