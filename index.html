@@ -974,7 +974,7 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100vh; /* JS会动态设置为window.innerHeight */
             background: rgba(245,247,250,0.96);
             z-index: 1000;
             display: flex;
@@ -1005,7 +1005,7 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            height: 80vh;
+            height: 100vh; /* JS会动态设置为window.innerHeight */
             /* JS会动态调整高度 */
         }
         @media (max-width: 600px) {
@@ -1065,7 +1065,7 @@
             text-overflow: ellipsis;
         }
         .map-bottom-bar {
-            position: absolute;
+            position: fixed;
             left: 0;
             right: 0;
             bottom: 0;
@@ -1079,6 +1079,10 @@
             align-items: center;
             z-index: 10;
             margin: 0 8px 0 8px;
+            width: 100vw;
+            max-width: 500px;
+            left: 50%;
+            transform: translateX(-50%);
         }
         @media (max-width: 600px) {
             .map-header {
@@ -2412,8 +2416,8 @@
             // 设置顶部标题
             var mapHeaderTitle = document.getElementById('mapHeaderTitle');
             if(mapHeaderTitle) mapHeaderTitle.textContent = markerName || '地图导航';
-            // 动态调整地图容器高度
-            adjustMapContainerHeight();
+            // 动态设置高度，适配任务栏
+            setMapModalHeight();
         }
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
@@ -2550,6 +2554,20 @@
         }
         
         window.domCache.detailContent.innerHTML = detailData.low;
+
+        // JS部分，动态设置高度，适配移动端任务栏
+        function setMapModalHeight() {
+            var modal = document.getElementById('mapModal');
+            var container = document.querySelector('.map-container');
+            if (modal) {
+                modal.style.height = window.innerHeight + 'px';
+            }
+            if (container) {
+                container.style.height = window.innerHeight + 'px';
+            }
+        }
+        window.addEventListener('resize', setMapModalHeight);
+        window.addEventListener('orientationchange', setMapModalHeight);
     </script>
 
 </body>
