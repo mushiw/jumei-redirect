@@ -378,6 +378,7 @@
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             overflow: hidden;
+            touch-action: none;
         }
         
         .modal.active {
@@ -974,6 +975,10 @@
         
         body.modal-open {
             overflow: hidden !important;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            touch-action: none;
         }
         .map-modal {
             position: fixed;
@@ -1036,7 +1041,7 @@
             padding: calc(8px + env(safe-area-inset-top)) 0 0 0;
             background: #fff;
             box-shadow: 0 2px 12px rgba(102, 126, 234, 0.08);
-            border-radius: 0 !important;
+            border-radius: 0 0 18px 18px;
             display: flex;
             align-items: center; /* 垂直居中 */
             justify-content: flex-start;
@@ -1792,113 +1797,6 @@
             cursor: pointer;
             border: none;
         }
-        #areaModal.modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--light);
-            z-index: 9999;
-            display: block;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        #areaModal.modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        #areaModal .modal-content {
-            position: relative;
-            overflow: visible;
-        }
-        #areaModal .modal-title-bar {
-            display: flex;
-            align-items: center;
-            background: linear-gradient(90deg, #667eea, #4facfe, #f093fb);
-            border-top-left-radius: 22px;
-            border-top-right-radius: 22px;
-            padding: 0 0 0 8px;
-            width: 100%;
-            min-height: 56px;
-        }
-        #areaModal .back-btn {
-            position: static;
-            margin-right: 8px;
-        }
-        #areaModal .modal-title {
-            flex: 1;
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: 600;
-            text-align: center;
-            background: none;
-            border-radius: 0;
-            padding: 18px 0;
-            margin: 0;
-            display: block; /* 新增，确保span或h3等都能居中 */
-            width: 100%;    /* 新增，确保宽度撑满 */
-        }
-        #areaModal .area-list {
-            box-sizing: border-box;
-            width: 100%;
-            padding: 18px 12px 0 12px;
-            margin: 0 auto;
-            gap: 14px;
-        }
-        #areaModal .area-item {
-            box-sizing: border-box;
-            width: 100%;
-            max-width: 95%;
-            margin: 0 auto;
-        }
-        @media (min-width: 601px) {
-            #areaModal .modal-content {
-                width: 100vw !important;
-                height: 100vh !important;
-                max-width: 100vw !important;
-                min-height: 100vh !important;
-                border-radius: 0 !important;
-                margin: 0 !important;
-                box-shadow: none !important;
-                display: flex !important;
-                flex-direction: column !important;
-                justify-content: center !important;
-                align-items: center !important;
-            }
-        }
-        @media (max-width: 600px) {
-          #areaModal .modal-content,
-          #areaModal .modal-inner,
-          #areaModal .area-list {
-            width: 100vw !important;
-            max-width: 100vw !important;
-            margin: 0 !important;
-            border-radius: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            box-sizing: border-box;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-          }
-        }
-        @media (min-width: 601px) {
-          #areaModal .modal-content,
-          #areaModal .modal-inner,
-          #areaModal .area-list {
-            width: 100vw !important;
-            max-width: 100vw !important;
-            margin: 0 !important;
-            border-radius: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            box-sizing: border-box;
-            padding-left: 0 !important;
-            padding-right: 0 !important;
-          }
-        }
     </style>
 </head>
 <body ontouchstart="">
@@ -1959,19 +1857,17 @@
         </div>
         
         <div id="areaModal" class="modal">
-            <div class="modal-content" style="display: flex; flex-direction: column; justify-content: center; min-height: 100vh;">
-                <div class="modal-inner" style="display: flex; flex-direction: column; align-items: stretch; width: 100%;">
-                    <div class="modal-title-bar">
-                        <div class="back-btn" onclick="closeModal('areaModal')">
-                            <i class="fas fa-arrow-left"></i>
-                        </div>
-                        <span class="modal-title" id="areaTitle">区域选择</span>
-                    </div>
-                    <div class="area-list" id="areaList"></div>
-                    <div class="detail-btn" onclick="openDetailModal(window.currentType)">
-                        <i class="fas fa-info-circle"></i> 查看服务详情
-                        <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
-                    </div>
+            <div class="modal-content">
+                <div class="back-btn" onclick="closeModal('areaModal')">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h3 class="modal-title" id="areaTitle">区域选择</h3>
+                
+                <div class="area-list" id="areaList"></div>
+                
+                <div class="detail-btn" onclick="openDetailModal(window.currentType)">
+                    <i class="fas fa-info-circle"></i> 查看服务详情
+                    <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
                 </div>
             </div>
         </div>
@@ -2525,6 +2421,7 @@
             setTimeout(() => {
                 window.domCache.areaModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                document.body.classList.add('modal-open');
                 hideLoading();
             }, 300);
         }
@@ -2535,6 +2432,7 @@
             setTimeout(() => {
                 window.domCache.highModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                document.body.classList.add('modal-open');
                 hideLoading();
             }, 300);
         }
@@ -2547,12 +2445,17 @@
             }
             window.domCache.detailModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
         }
 
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
-            document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
+            // 确保所有modal都关闭后才恢复滚动
+            const activeModals = document.querySelectorAll('.modal.active, .map-modal.active, .photo-modal.active');
+            if (activeModals.length === 0) {
+                document.body.style.overflow = '';
+                document.body.classList.remove('modal-open');
+            }
         }
 
         // 禁止地图弹窗内双击放大和选中
@@ -2600,8 +2503,7 @@
             if (window.domCache.mapFrame) window.domCache.mapFrame.src = "about:blank";
             window.domCache.areaModal.classList.add('active');
             setMapModalTouchPrevention(false);
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
+            // 不需要在这里移除modal-open类，因为areaModal会重新添加
         }
         
         function adjustMapContainerHeight() {
@@ -2642,6 +2544,7 @@
             setTimeout(() => {
                 loadPhotoContent();
                 window.domCache.photoModal.classList.add('active');
+                document.body.classList.add('modal-open');
                 hideLoading();
             }, 300);
         }
@@ -2649,8 +2552,7 @@
         function closePhotoModal() {
             window.domCache.photoModal.classList.remove('active');
             window.domCache.mapModal.classList.add('active');
-            document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
+            // 不需要在这里移除modal-open类，因为mapModal会重新添加
         }
         
         function loadPhotoContent() {
@@ -2721,6 +2623,7 @@
                 window.domCache.iosLink.textContent = url;
                 window.domCache.iosPrompt.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                document.body.classList.add('modal-open');
             } else {
                 window.open(url, '_blank');
             }
@@ -2728,8 +2631,12 @@
         
         function closeIosPrompt() {
             window.domCache.iosPrompt.classList.remove('active');
-            document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
+            // 确保所有modal都关闭后才恢复滚动
+            const activeModals = document.querySelectorAll('.modal.active, .map-modal.active, .photo-modal.active, .ios-prompt.active');
+            if (activeModals.length === 0) {
+                document.body.style.overflow = '';
+                document.body.classList.remove('modal-open');
+            }
         }
         
         window.domCache.detailContent.innerHTML = detailData.low;
