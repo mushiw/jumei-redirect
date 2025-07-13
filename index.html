@@ -283,6 +283,7 @@
         .option-card h2 {
             margin: 0;
             font-weight: 700;
+            font-size: 2rem;
         }
         .badge {
             display: inline-block;
@@ -1353,7 +1354,7 @@
             }
             
             .option-card h2 {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
                 margin-bottom: 0;
                 margin-top: 0;
                 font-weight: 700;
@@ -1735,6 +1736,16 @@
             }
         }
         .app-jump-btn.active, .photo-btn.active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+        }
+        .map-bottom-bar .photo-btn {
+            margin-left: 4px !important;
+        }
+        .map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn {
+            transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .map-bottom-bar .app-jump-btn.active, .map-bottom-bar .photo-btn.active {
             transform: scale(0.96);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
         }
@@ -2586,6 +2597,14 @@
     <script>
     // 兼容移动端:active动画
     document.querySelectorAll('.app-jump-btn, .photo-btn').forEach(btn => {
+      btn.addEventListener('touchstart', () => btn.classList.add('active'));
+      btn.addEventListener('touchend', () => btn.classList.remove('active'));
+      btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
+    });
+    </script>
+    <script>
+    // 兼容地图底部按钮点击动画
+    document.querySelectorAll('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn').forEach(btn => {
       btn.addEventListener('touchstart', () => btn.classList.add('active'));
       btn.addEventListener('touchend', () => btn.classList.remove('active'));
       btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
