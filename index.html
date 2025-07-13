@@ -1070,19 +1070,19 @@
             right: 0;
             bottom: 0;
             padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-            background: #fff;
-            box-shadow: 0 -2px 12px rgba(102, 126, 234, 0.08);
-            border-radius: 18px 18px calc(24px + env(safe-area-inset-bottom)) calc(24px + env(safe-area-inset-bottom));
+            background: transparent;
+            box-shadow: none;
+            border-radius: 0;
             display: flex;
             gap: 14px;
             justify-content: center;
             align-items: center;
             z-index: 10;
-            margin: 0 8px 0 8px;
             width: 100vw;
             max-width: 500px;
             left: 50%;
             transform: translateX(-50%);
+            margin: 0;
         }
         @media (max-width: 600px) {
             .map-header {
