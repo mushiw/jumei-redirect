@@ -1036,7 +1036,7 @@
             padding: calc(8px + env(safe-area-inset-top)) 0 0 0;
             background: #fff;
             box-shadow: 0 2px 12px rgba(102, 126, 234, 0.08);
-            border-radius: 0 0 18px 18px;
+            border-radius: 0 !important;
             display: flex;
             align-items: center; /* 垂直居中 */
             justify-content: flex-start;
@@ -1811,23 +1811,32 @@
             visibility: visible;
         }
         #areaModal .modal-content {
-            width: 100%;
-            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            border-radius: 0;
-            margin: 0;
-            padding: 0;
-            display: block;
-            animation: none;
-            overflow: visible;
-            box-shadow: none;
-            transform: none;
         }
-        #areaModal .modal-body {
-            padding: 20px;
-            margin-top: 0;
-            max-height: none;
-            overflow: visible;
+        #areaModal .modal-inner {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        @media (min-width: 601px) {
+            #areaModal .modal-content {
+                width: 100vw !important;
+                height: 100vh !important;
+                max-width: 100vw !important;
+                min-height: 100vh !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
         }
     </style>
 </head>
@@ -1889,17 +1898,17 @@
         </div>
         
         <div id="areaModal" class="modal">
-            <div class="modal-content">
-                <div class="back-btn" onclick="closeModal('areaModal')">
-                    <i class="fas fa-arrow-left"></i>
-                </div>
-                <h3 class="modal-title" id="areaTitle">区域选择</h3>
-                
-                <div class="area-list" id="areaList"></div>
-                
-                <div class="detail-btn" onclick="openDetailModal(window.currentType)">
-                    <i class="fas fa-info-circle"></i> 查看服务详情
-                    <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
+            <div class="modal-content" style="display: flex; flex-direction: column; justify-content: center; min-height: 100vh;">
+                <div class="modal-inner" style="display: flex; flex-direction: column; align-items: stretch; width: 100%;">
+                    <div class="back-btn" onclick="closeModal('areaModal')">
+                        <i class="fas fa-arrow-left"></i>
+                    </div>
+                    <h3 class="modal-title" id="areaTitle">区域选择</h3>
+                    <div class="area-list" id="areaList"></div>
+                    <div class="detail-btn" onclick="openDetailModal(window.currentType)">
+                        <i class="fas fa-info-circle"></i> 查看服务详情
+                        <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
+                    </div>
                 </div>
             </div>
         </div>
