@@ -979,47 +979,22 @@
             visibility: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        
         .map-modal.active {
             opacity: 1;
             visibility: visible;
         }
-        
-        .map-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            padding: 20px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%);
-        }
-        
-        .map-back-btn {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .map-back-btn:hover {
-            background: white;
-            transform: scale(1.1);
-        }
-        
         .map-container {
-            width: 100%;
-            height: 100%;
+            width: 90vw;
+            height: 70vh;
+            max-width: 600px;
+            max-height: 500px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
             position: relative;
+            background: #fff;
         }
-        
-        .map-container iframe {
+        #mapFrame {
             width: 100%;
             height: 100%;
             border: none;
@@ -1900,30 +1875,30 @@
     <script>
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
-            mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区', '滨江区'], // 添加了滨江区
+            mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区', '滨江区'],
             high: []
         };
 
         const areaCoordinates = {
             low: {
-                '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区' },
-                '西湖区': { lat: 30.2599, lng: 120.1303, name: '西湖区' },
-                '拱墅区': { lat: 30.3191, lng: 120.1411, name: '拱墅区' },
-                '临平区': { lat: 30.4219, lng: 120.2994, name: '临平区' },
-                '上城区': { lat: 30.2429, lng: 120.1694, name: '上城区' },
-                '钱塘区': { lat: 30.3191, lng: 120.1411, name: '钱塘区' },
-                '滨江区': { lat: 30.2084, lng: 120.2119, name: '滨江区' },
-                '萧山区': { lat: 30.1833, lng: 120.2585, name: '萧山区' },
-                '临安区': { lat: 30.2333, lng: 119.7167, name: '临安区' },
-                '富阳区': { lat: 30.0489, lng: 119.9603, name: '富阳区' }
+                '余杭区': { lat: 30.339750, lng: 120.082039, name: '金地广场b1座' },
+                '西湖区': { lat: 30.269489, lng: 120.140498, name: '西湖嘉华中心' },
+                '拱墅区': { lat: 30.3191, lng: 120.1411, name: '拱墅区低端点' },
+                '临平区': { lat: 30.4219, lng: 120.2994, name: '临平区低端点' },
+                '上城区': { lat: 30.2429, lng: 120.1694, name: '上城区低端点' },
+                '钱塘区': { lat: 30.3191, lng: 120.1411, name: '钱塘区低端点' },
+                '滨江区': { lat: 30.2084, lng: 120.2119, name: '滨江区低端点' },
+                '萧山区': { lat: 30.1833, lng: 120.2585, name: '萧山区低端点' },
+                '临安区': { lat: 30.2333, lng: 119.7167, name: '临安区低端点' },
+                '富阳区': { lat: 30.0489, lng: 119.9603, name: '富阳区低端点' }
             },
             mid: {
-                '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区' },
-                '西湖区': { lat: 30.2600, lng: 120.1304, name: '西湖区' },
-                '上城区': { lat: 30.2430, lng: 120.1695, name: '上城区' },
-                '萧山区': { lat: 30.1834, lng: 120.2586, name: '萧山区' },
-                '临平区': { lat: 30.4221, lng: 120.2996, name: '临平区' },
-                '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区' }
+                '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区中端点' },
+                '西湖区': { lat: 30.2600, lng: 120.1304, name: '西湖区中端点' },
+                '上城区': { lat: 30.2430, lng: 120.1695, name: '上城区中端点' },
+                '萧山区': { lat: 30.1834, lng: 120.2586, name: '萧山区中端点' },
+                '临平区': { lat: 30.4221, lng: 120.2996, name: '临平区中端点' },
+                '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区中端点' }
             },
             high: {}
         };
@@ -2272,7 +2247,6 @@
         function openMapModal(area, type) {
             currentArea = area;
             currentType = type;
-            // 检查坐标
             if (type === 'mid' && area === '余杭区') {
                 alert('暂未开通，敬请期待');
                 return;
@@ -2284,14 +2258,10 @@
             const coordinates = areaCoordinates[type][area];
             const lng = coordinates.lng;
             const lat = coordinates.lat;
-            // 仅低端局余杭区特殊处理
-            let markerName = area;
-            if (type === 'low' && area === '余杭区') markerName = '金地广场b1座';
+            const markerName = coordinates.name;
             const name = encodeURIComponent(markerName);
-            // 设置iframe src
             var mapFrame = document.getElementById('mapFrame');
             mapFrame.src = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`;
-            // 切换modal显示
             window.domCache.areaModal.classList.remove('active');
             window.domCache.mapModal.classList.add('active');
             setMapModalTouchPrevention(true);
@@ -2350,7 +2320,6 @@
         
         // 优化App导航跳转逻辑
         function openNavigationApp() {
-            const areaName = encodeURIComponent(currentArea + ', 杭州');
             const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
             if (!coordinates) {
                 alert('未找到区域坐标数据');
@@ -2358,11 +2327,11 @@
             }
             const lat = coordinates.lat;
             const lng = coordinates.lng;
+            const markerName = coordinates.name;
+            const areaName = encodeURIComponent(markerName);
             const ua = navigator.userAgent;
             let appUrl = '';
             let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
-
-            // 直接按平台判断
             if (!/iPad|iPhone|iPod|Android/i.test(ua)) {
                 window.open(fallbackUrl, '_blank');
                 return;
