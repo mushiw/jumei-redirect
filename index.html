@@ -32,12 +32,12 @@
             --light-gray: #F2F2F7;
             
             /* iOS 26 液态玻璃风格 - 简单大气 */
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.3);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.12);
-            --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.38);
+            --glass-shadow: 0 8px 42px rgba(0, 0, 0, 0.12);
+            --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.18);
+            --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.12);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             
             --gradient-primary: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
@@ -46,10 +46,10 @@
             --gradient-logo: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #FF2D92 100%);
             --gradient-title: linear-gradient(90deg, #007AFF, #00C7BE, #FF2D92);
             --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            --low-gradient: linear-gradient(135deg, #1C1C1E 0%, #2C2C2E 100%);
+            --low-gradient: linear-gradient(135deg, #2C2C2E 0%, #3C3C3E 100%);
             --mid-gradient: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
             --high-gradient: linear-gradient(135deg, #FF9500 0%, #FF6B35 100%);
-            --low-dark: #1C1C1E;
+            --low-dark: #2C2C2E;
             --mid-dark: #007AFF;
             --high-gold: #FF9500;
         }
@@ -310,17 +310,6 @@
             border: 1px solid rgba(255, 255, 255, 0.25);
         }
         
-        .option-card.low .option-icon,
-        .option-card.mid .option-icon {
-            background: rgba(35,43,93,0.13);
-            color: #232b5d;
-        }
-        
-        .option-card.high .option-icon {
-            background: rgba(247,180,44,0.13);
-            color: #f7b42c;
-        }
-        
         .option-content {
             display: flex;
             align-items: center;
@@ -345,8 +334,8 @@
         }
         .option-card.low .badge,
         .option-card.mid .badge {
-            background: linear-gradient(90deg, rgba(28,28,30,0.1) 0%, rgba(28,28,30,0.05) 100%);
-            color: #1C1C1E;
+            background: linear-gradient(90deg, rgba(51,51,51,0.1) 0%, rgba(51,51,51,0.05) 100%);
+            color: #333;
         }
         .option-card.high .badge {
             background: linear-gradient(90deg, rgba(255,149,0,0.1) 0%, rgba(255,149,0,0.05) 100%);
@@ -473,12 +462,16 @@
         .modal-title {
             background: var(--gradient-primary);
             color: white;
-            padding: 20px;
+            padding: 16px;
             margin: 0;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             text-align: center;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
         }
         
         .modal-body {
@@ -490,24 +483,29 @@
         
         .back-btn {
             position: absolute;
-            top: 15px;
+            top: 16px;
             left: 15px;
-            width: 44px;
-            height: 44px;
+            transform: none;
+            width: 38px;
+            height: 38px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s;
             z-index: 10;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
         .back-btn:hover {
             background: white;
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+        
+        .back-btn:active {
+            transform: scale(0.95);
         }
         
         #detailModal.modal {
@@ -554,11 +552,12 @@
         #detailModal .back-btn {
             position: fixed;
             left: 20px;
-            top: 20px;
+            top: 16px;
+            transform: none;
             z-index: 10000;
             background: rgba(255,255,255,0.95);
             border-radius: 50%;
-            width: 44px; height: 44px;
+            width: 38px; height: 38px;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             cursor: pointer;
@@ -568,7 +567,7 @@
         
         #detailModal .back-btn:hover {
             background: white;
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         
         #detailModal .back-btn:active {
@@ -578,9 +577,9 @@
         #detailModal .modal-title {
             background: var(--gradient-primary);
             color: white;
-            padding: 20px;
+            padding: 16px;
             margin: 0;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 600;
             text-align: center;
             position: sticky;
@@ -1044,7 +1043,7 @@
         .detail-btn {
             background: var(--gradient-primary);
             color: white;
-            padding: 12px 20px;
+            padding: 14px 20px;
             border-radius: 14px;
             text-align: center;
             cursor: pointer;
@@ -1053,6 +1052,8 @@
             box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
             position: relative;
             overflow: hidden;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         
         .detail-btn::before {
@@ -1167,7 +1168,7 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             margin-left: 16px;
             backdrop-filter: blur(20px);
@@ -1177,6 +1178,10 @@
         .map-back-btn:hover {
             background: rgba(255,255,255,0.9);
             transform: scale(1.05);
+        }
+        
+        .map-back-btn:active {
+            transform: scale(0.95);
         }
         .map-header-title {
             font-size: 1.08rem;
@@ -1263,6 +1268,16 @@
             background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
         }
         
+        .map-bottom-bar .photo-btn {
+            background: linear-gradient(135deg, #FF2D92 0%, #e91e63 100%);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .map-bottom-bar .photo-btn i {
+            color: #fff !important;
+        }
+        
 
         .app-jump-btn:hover, .photo-btn:hover {
             transform: translateY(-2px);
@@ -1318,13 +1333,17 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.2s;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
         .photo-back-btn:hover {
             background: white;
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+        
+        .photo-back-btn:active {
+            transform: scale(0.95);
         }
         
         .photo-title {
@@ -1559,9 +1578,10 @@
             
             #detailModal .back-btn {
                 left: 15px;
-                top: 15px;
-                width: 40px;
-                height: 40px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 38px;
+                height: 38px;
             }
             
             #detailModal .modal-title {
@@ -1687,12 +1707,14 @@
         }
 
         .area-item.low-area-btn {
-            background: linear-gradient(100deg, #1C1C1E 0%, #2C2C2E 100%);
+            background: linear-gradient(100deg, #007AFF 0%, #5856D6 100%);
             color: #fff;
-            box-shadow: 0 6px 24px 0 rgba(28,28,30,0.12), 0 1.5px 4px 0 rgba(28,28,30,0.08);
+            box-shadow: 0 6px 24px 0 rgba(0,122,255,0.12), 0 1.5px 4px 0 rgba(0,122,255,0.08);
+            border: 1px solid var(--glass-border);
+            transition: background 0.3s, color 0.2s, box-shadow 0.2s, transform 0.15s, border 0.2s;
         }
         .area-item.low-area-btn:hover, .area-item.low-area-btn:active, .area-item.low-area-btn.selected {
-            background: linear-gradient(100deg, #2C2C2E 0%, #1C1C1E 100%);
+            background: linear-gradient(100deg, #5856D6 0%, #007AFF 100%);
             color: #fff;
         }
         .area-item.mid-area-btn {
@@ -1735,7 +1757,7 @@
 
         .option-card.low .option-icon i,
         .option-card.low h2 {
-          color: #1C1C1E !important;
+          color: #333 !important;
           background: none !important;
           -webkit-background-clip: unset !important;
           -webkit-text-fill-color: unset !important;
@@ -1776,8 +1798,8 @@
         }
         
         .option-card.low .option-icon {
-          background: rgba(28,28,30,0.1) !important;
-          box-shadow: 0 4px 16px rgba(28,28,30,0.08) !important;
+          background: rgba(51,51,51,0.1) !important;
+          box-shadow: 0 4px 16px rgba(51,51,51,0.08) !important;
         }
         
         .option-card.mid .option-icon {
@@ -1900,18 +1922,30 @@
         }
 
         .map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn {
-            transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
-        .map-bottom-bar .app-jump-btn.active, .map-bottom-bar .photo-btn.active {
+        .map-bottom-bar .app-jump-btn:hover,
+        .map-bottom-bar .photo-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--primary) 0%, #5856D6 100%);
+            filter: brightness(1.05);
+        }
+        .map-bottom-bar .photo-btn:hover {
+            background: linear-gradient(135deg, #FF2D92 0%, #e91e63 100%);
+        }
+        .map-bottom-bar .app-jump-btn:active,
+        .map-bottom-bar .photo-btn:active {
             transform: scale(0.96);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
         }
         #highModal .back-btn {
             position: absolute !important;
-            top: 16px !important;
-            left: 16px !important;
-            width: 44px;
-            height: 44px;
+            top: 16px;
+            left: 16px;
+            transform: none;
+            width: 38px;
+            height: 38px;
             background: #fff;
             border-radius: 50%;
             display: flex;
@@ -1921,6 +1955,16 @@
             z-index: 10;
             cursor: pointer;
             border: none;
+            transition: all 0.2s;
+        }
+        
+        #highModal .back-btn:hover {
+            background: white;
+            transform: scale(1.05);
+        }
+        
+        #highModal .back-btn:active {
+            transform: scale(0.95);
         }
         .app-jump-btn i {
             color: #fff !important;
@@ -1931,6 +1975,13 @@
             color: #fff !important;
             border: 1.5px solid rgba(255,149,0,0.22) !important;
             box-shadow: 0 8px 32px 0 rgba(255,149,0,0.13), 0 1.5px 4px 0 rgba(255,149,0,0.08), inset 0 1.5px 12px 0 rgba(255,255,255,0.18) !important;
+            font-size: 1.2rem;
+            padding: 20px 25px;
+        }
+        
+        /* 认证徽章向右移动 */
+        .certification .seal {
+            right: 20px !important;
         }
     </style>
 </head>
@@ -2003,7 +2054,7 @@
             </svg>
             <h3 style="color:#22c55e;position:relative;z-index:1;"><i class="fas fa-shield-alt" style="color:#22c55e;"></i> 聚美臻选官方认证</h3>
             <p style="position:relative;z-index:1;">诚信经营 · 真实信息 · 品质保障</p>
-            <div class="seal" style="background:rgba(34,197,94,0.12);color:#22c55e;box-shadow:none;font-size:0.7rem;display:inline-flex;align-items:center;gap:2px;position:absolute;top:8px;right:10px;padding:2px 7px;z-index:2;min-width:0;min-height:0;border-radius:10px;font-weight:600;">
+            <div class="seal" style="background:rgba(34,197,94,0.12);color:#22c55e;box-shadow:none;font-size:0.7rem;display:inline-flex;align-items:center;gap:2px;position:absolute;top:8px;right:20px;padding:2px 7px;z-index:2;min-width:0;min-height:0;border-radius:10px;font-weight:600;">
                 <i class="fas fa-check-circle" style="color:#22c55e;font-size:0.82em;"></i> √已验证
             </div>
         </div>
