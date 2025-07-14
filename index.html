@@ -641,6 +641,7 @@
             justify-content: center !important;
             z-index: 10000 !important;
             transition: all 0.2s;
+            transform-origin: left top;
         }
         @media (max-width: 600px) {
             #detailModal .back-btn {
@@ -2262,6 +2263,46 @@
         #detailModal .back-btn:hover,
         #detailModal .back-btn:active {
             transform-origin: left top !important;
+        }
+
+        /* 安卓端弹窗内容和区域选择降级优化 */
+        .android .modal-content,
+        .android .area-list,
+        .android .area-item,
+        .android .meituan-area {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(255,255,255,0.96) !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+            z-index: 1001 !important;
+        }
+
+        .android .area-list {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+            padding: 10px !important;
+            overflow: visible !important;
+        }
+
+        .android .area-item,
+        .android .meituan-area {
+            display: block !important;
+            color: #333 !important;
+            border-radius: 18px !important;
+            font-weight: 600 !important;
+            font-size: 1rem !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+            border: 1px solid #eee !important;
+            background: rgba(255,255,255,0.96) !important;
+            z-index: 1002 !important;
+        }
+
+        .android .meituan-area {
+            background: linear-gradient(90deg, #ffe066 0%, #ffd600 80%, #ffcc00 100%) !important;
+            color: #b58105 !important;
+            font-weight: 700 !important;
+            border: none !important;
         }
     </style>
 </head>
