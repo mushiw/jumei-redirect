@@ -564,22 +564,25 @@
         }
         
         #detailModal .back-btn {
-            position: absolute;
-            left: 16px;
-            top: 18px;
-            width: 38px;
-            height: 38px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
+            position: fixed !important;
+            top: 16px !important;
+            left: 16px !important;
+            width: 38px !important;
+            height: 38px !important;
+            background: rgba(255,255,255,0.95) !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            z-index: 10000 !important;
         }
         @media (max-width: 600px) {
             #detailModal .back-btn {
-                left: 8px;
-                top: 12px;
-                width: 34px;
-                height: 34px;
+                top: 8px !important;
+                left: 8px !important;
+                width: 34px !important;
+                height: 34px !important;
             }
         }
         #detailModal .modal-title {
