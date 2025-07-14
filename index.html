@@ -436,6 +436,7 @@
             visibility: visible;
         }
         
+        /* 动态缩放动画 */
         .modal-content {
             background: var(--glass-bg);
             backdrop-filter: blur(50px) saturate(200%);
@@ -454,7 +455,6 @@
             flex-direction: column;
             border: 1px solid var(--glass-border);
         }
-        
         .modal.active .modal-content {
             transform: scale(1);
         }
@@ -553,7 +553,8 @@
             animation: none;
             overflow: visible;
             box-shadow: none;
-            transform: none;
+            /* 不要 transform: none; */
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
         #detailModal .modal-body {
@@ -564,25 +565,25 @@
         }
         
         #detailModal .back-btn {
-            position: fixed !important;
-            top: 16px !important;
-            left: 16px !important;
-            width: 38px !important;
-            height: 38px !important;
-            background: rgba(255,255,255,0.95) !important;
-            border-radius: 50% !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            z-index: 10000 !important;
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 38px;
+            height: 38px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
         }
         @media (max-width: 600px) {
             #detailModal .back-btn {
-                top: 8px !important;
-                left: 8px !important;
-                width: 34px !important;
-                height: 34px !important;
+                top: 8px;
+                left: 8px;
+                width: 34px;
+                height: 34px;
             }
         }
         #detailModal .modal-title {
@@ -2310,10 +2311,10 @@
         </div>
         
         <div id="detailModal" class="modal">
-            <div class="back-btn" onclick="closeModal('detailModal')">
-                <i class="fas fa-arrow-left"></i>
-            </div>
             <div class="modal-content">
+                <div class="back-btn" onclick="closeModal('detailModal')">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
                 <h3 class="modal-title" id="detailTitle">服务详情</h3>
                 <div class="modal-body" id="detailContent"></div>
             </div>
