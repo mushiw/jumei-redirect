@@ -637,18 +637,17 @@
         }
         
         .map-back-btn {
-            font-size: 1.3rem;
-            color: var(--primary);
-            cursor: pointer;
-            width: 38px;
-            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            margin-right: 12px;
-            transition: var(--transition);
+            width: 38px;
+            height: 38px;
+            margin-right: 6px;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--primary);
             background: none;
+            border-radius: 0;
         }
         
         .map-back-btn:active {
@@ -902,7 +901,7 @@
         .access-btn {
             background: var(--gradient-gold);
             border-radius: 16px;
-            padding: 10px;
+            padding: 5px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
@@ -1307,6 +1306,15 @@
             background: linear-gradient(135deg, #b07a00 0%, #e6b800 100%) !important;
             color: #fff !important;
         }
+        /* iOS灰色logo时雾化色也为灰色 */
+        #deviceLogo i {
+            animation: logoFloat 2.5s ease-in-out infinite alternate, logoGlow 3s linear infinite;
+            transition: filter 0.3s;
+        }
+        /* iOS灰色logo雾化色 */
+        .ios-apple-logo {
+            filter: drop-shadow(0 0 0px #888888) drop-shadow(0 0 8px #888888) !important;
+        }
     </style>
 </head>
 <body>
@@ -1583,11 +1591,11 @@
 
     <!-- 全屏图片预览层，初始隐藏 -->
     <div id="photoPreviewLayer" style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:#fff;flex-direction:column;align-items:center;justify-content:flex-start;">
-      <div style="display:flex;align-items:center;height:44px;width:100%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:0 8px 0 8px;position:sticky;top:0;z-index:10;">
-        <div id="photoPreviewBack" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-right:12px;cursor:pointer;font-size:1.3rem;color:var(--primary);background:none;border-radius:0;" onclick="closePhotoPreview()">
+      <div style="display:flex;align-items:center;height:44px;width:100%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:10px 8px 10px 8px;position:sticky;top:0;z-index:10;">
+        <div id="photoPreviewBack" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-right:6px;cursor:pointer;font-size:1.3rem;color:var(--primary);background:none;border-radius:0;" onclick="closePhotoPreview()">
           <i class="fas fa-arrow-left"></i>
         </div>
-        <div class="photo-preview-title">照片预览</div>
+        <div class="photo-preview-title" style="padding-left:2px;">照片预览</div>
       </div>
       <div id="photoPreviewContent" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 44px);padding:24px 0 0 0;"></div>
     </div>
@@ -2122,10 +2130,10 @@
         // 设备logo自动识别
         function setDeviceLogo() {
             const logoDiv = document.getElementById('deviceLogo');
-            let icon = '', color = '';
+            let icon = '', color = '', extraClass = '';
             const ua = navigator.userAgent;
             if (/iPad|iPhone|iPod/.test(ua)) {
-                icon = 'fa-apple'; color = '#888888';
+                icon = 'fa-apple'; color = '#888888'; extraClass = 'ios-apple-logo';
             } else if (/Android/.test(ua)) {
                 icon = 'fa-android'; color = '#3ddc84';
             } else if (/Win/.test(ua) || /Windows/.test(ua)) {
@@ -2133,7 +2141,7 @@
             } else {
                 icon = 'fa-laptop'; color = '#888';
             }
-            logoDiv.innerHTML = `<i class="fab ${icon}" style="font-size:3.5rem;color:${color};margin-bottom:10px;"></i>`;
+            logoDiv.innerHTML = `<i class=\"fab ${icon} ${extraClass}\" style=\"font-size:3.5rem;color:${color};margin-bottom:10px;\"></i>`;
         }
 
         function closePhotoPreview() {
@@ -2153,31 +2161,8 @@
             const areaName = encodeURIComponent(markerName);
             const ua = navigator.userAgent;
             let appUrl = '';
-            let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
-            // 优先尝试调起App，失败则跳H5
-            if (/iPad|iPhone|iPod/.test(ua)) {
-                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
-            } else if (/Android/i.test(ua)) {
-                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
-            }
-            if (appUrl) {
-                // 先尝试调起App，1.5秒后跳H5
-                let jumped = false;
-                const t = setTimeout(function() {
-                    if (!jumped) window.location.href = fallbackUrl;
-                }, 1500);
-                window.location.href = appUrl;
-                window.onblur = function() {
-                    jumped = true;
-                    clearTimeout(t);
-                    window.onblur = null;
-                };
-            } else {
-                // PC端或未知设备直接跳H5
-                window.location.href = fallbackUrl;
-            }
+            let fallbackUrl = ``;
         }
-
         // 检测iOS，仅为主界面底部按钮添加动态效果
         (function() {
             var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -2195,6 +2180,31 @@
                 `;
                 document.head.appendChild(style);
             }
+        })();
+
+        // 仅在安卓端注入自定义滚动条样式，模仿iOS细灰色滚动条，仅作用于模态框内容
+        (function() {
+          if (/Android/i.test(navigator.userAgent)) {
+            var style = document.createElement('style');
+            style.innerHTML = `
+              .modal-content, .modal-body {
+                scrollbar-width: thin;
+                scrollbar-color: rgba(120,120,120,0.35) transparent;
+              }
+              .modal-content::-webkit-scrollbar, .modal-body::-webkit-scrollbar {
+                width: 6px;
+                background: transparent;
+              }
+              .modal-content::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb {
+                background: rgba(120,120,120,0.35);
+                border-radius: 4px;
+              }
+              .modal-content::-webkit-scrollbar-track, .modal-body::-webkit-scrollbar-track {
+                background: transparent;
+              }
+            `;
+            document.head.appendChild(style);
+          }
         })();
     </script>
 </body>
