@@ -553,7 +553,7 @@
             animation: none;
             overflow: visible;
             box-shadow: none;
-            /* 不要 transform: none; */
+            /* transform: none;  // 已彻底删除 */
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         
@@ -1912,7 +1912,8 @@
             animation: none;
             overflow: visible;
             box-shadow: none;
-            transform: none;
+            /* transform: none;  // 已彻底删除 */
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         #highModal .modal-body {
             padding: 20px;
