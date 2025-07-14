@@ -2164,25 +2164,70 @@
             // 尝试多个地图App，按优先级顺序
             function tryMultipleApps(appUrls, fallbackUrl) {
                 let currentIndex = 0;
+                let hasJumped = false;
+                let startTime = Date.now();
                 
                 function tryNext() {
-                    if (currentIndex >= appUrls.length) {
-                        // 所有App都尝试失败，跳转H5
-                        window.location.href = fallbackUrl;
+                    if (hasJumped || currentIndex >= appUrls.length) {
+                        if (!hasJumped) {
+                            window.location.href = fallbackUrl;
+                        }
                         return;
                     }
                     
                     const appUrl = appUrls[currentIndex];
-                    const now = Date.now();
                     
+                    // 监听页面可见性变化
+                    const handleVisibilityChange = () => {
+                        if (document.hidden) {
+                            hasJumped = true;
+                            cleanup();
+                        }
+                    };
+                    
+                    // 监听页面焦点变化（用户点击确认或取消后页面会重新获得焦点）
+                    const handleFocus = () => {
+                        const timeDiff = Date.now() - startTime;
+                        if (timeDiff > 500 && timeDiff < 3000) { // 500ms-3s内的焦点变化可能是App弹窗交互
+                            hasJumped = true;
+                            cleanup();
+                        }
+                    };
+                    
+                    // 监听页面失焦（App弹窗出现时页面会失焦）
+                    const handleBlur = () => {
+                        hasJumped = true;
+                        cleanup();
+                    };
+                    
+                    // 监听beforeunload事件（页面即将卸载，说明要跳转到App）
+                    const handleBeforeUnload = () => {
+                        hasJumped = true;
+                        cleanup();
+                    };
+                    
+                    function cleanup() {
+                        document.removeEventListener('visibilitychange', handleVisibilityChange);
+                        document.removeEventListener('focus', handleFocus);
+                        window.removeEventListener('blur', handleBlur);
+                        window.removeEventListener('beforeunload', handleBeforeUnload);
+                    }
+                    
+                    document.addEventListener('visibilitychange', handleVisibilityChange);
+                    document.addEventListener('focus', handleFocus);
+                    window.addEventListener('blur', handleBlur);
+                    window.addEventListener('beforeunload', handleBeforeUnload);
+                    
+                    // 设置超时检测
                     setTimeout(() => {
-                        if (Date.now() - now < 1500) {
-                            // 当前App跳转失败，尝试下一个
+                        if (!hasJumped) {
+                            cleanup();
                             currentIndex++;
                             tryNext();
                         }
-                    }, 1200);
+                    }, 1500);
                     
+                    startTime = Date.now();
                     window.location.href = appUrl;
                 }
                 
