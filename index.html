@@ -2304,6 +2304,14 @@
             font-weight: 700 !important;
             border: none !important;
         }
+
+        @media (max-width: 6000px) { /* 兼容所有端 */
+          .android body::before,
+          .android body::after {
+            background: rgba(255,255,255,0.12) !important;
+            background-image: none !important;
+          }
+        }
     </style>
 </head>
 <body ontouchstart="">
