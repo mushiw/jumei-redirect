@@ -16,46 +16,33 @@
         }
         
         :root {
-            --primary: #007AFF;
-            --primary-dark: #0056CC;
-            --secondary: #FF2D92;
-            --accent: #00C7BE;
-            --accent-dark: #0099A8;
-            --gold: #FF9500;
-            --gold-dark: #E6850E;
-            --silver-light: #F2F2F7;
-            --silver: #E5E5EA;
-            --silver-dark: #D1D1D6;
-            --dark: #1C1C1E;
-            --light: #FFFFFF;
-            --gray: #8E8E93;
-            --light-gray: #F2F2F7;
-            
-            /* iOS 26 液态玻璃风格 - 简单大气 */
-            --glass-bg: rgba(255, 255, 255, 0.72);
-            --glass-border: rgba(255, 255, 255, 0.38);
-            --glass-shadow: 0 8px 42px rgba(0, 0, 0, 0.12);
-            --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.18);
-            --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            --card-shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.12);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            
-            --gradient-primary: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
-            --gradient-accent: linear-gradient(135deg, #00C7BE 0%, #007AFF 100%);
-            --gradient-gold: linear-gradient(135deg, #FF9500 0%, #FF6B35 100%);
-            --gradient-logo: linear-gradient(135deg, #007AFF 0%, #5856D6 50%, #FF2D92 100%);
-            --gradient-title: linear-gradient(90deg, #007AFF, #00C7BE, #FF2D92);
-            --gradient-bg: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            --low-gradient: linear-gradient(135deg, #2C2C2E 0%, #3C3C3E 100%);
-            --mid-gradient: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
-            --high-gradient: linear-gradient(135deg, #FF9500 0%, #FF6B35 100%);
-            --low-dark: #2C2C2E;
-            --mid-dark: #007AFF;
-            --high-gold: #FF9500;
+            --primary: #0d47a1;
+            --primary-dark: #0a2e5d;
+            --secondary: #c62828;
+            --accent: #00897b;
+            --accent-dark: #00695c;
+            --gold: #c79100;
+            --gold-dark: #a37200;
+            --silver-light: #f0f0f0;
+            --silver: #c0c0c0;
+            --silver-dark: #a0a0a0;
+            --dark: #1a202c;
+            --light: #ffffff;
+            --gray: #718096;
+            --light-gray: #f7fafc;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 极速版1);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --gradient-primary: linear-gradient(135deg, #0a2e5d 0%, #072147 100%);
+            --gradient-accent: linear-gradient(135deg, #00897b 0%, #00695c 100%);
+            --gradient-gold: linear-gradient(135deg, #c79100 0%, #a37200 100%);
+            --gradient-logo: linear-gradient(135deg, #0d47a极速版1 0%, #00897b 50%, #c79100 100%);
+            --gradient-title: linear-gradient(90deg, #0d47a1, #00897b, #c79100);
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
             color: var(--dark);
             min-height: 100vh;
             padding: 0;
@@ -63,37 +50,6 @@
             justify-content: center;
             align-items: center;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            position: relative;
-            overflow-x: hidden;
-        }
-        
-        body::before,
-        body::after {
-            content: '';
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            z-index: -1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        body::before {
-            top: -150px;
-            right: -150px;
-            animation-delay: 0s;
-        }
-        
-        body::after {
-            bottom: -150px;
-            left: -150px;
-            animation-delay: 3s;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
         }
         
         .container {
@@ -101,22 +57,20 @@
             width: 100%;
             margin: 0 auto;
             position: relative;
-            padding: 28px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(50px) saturate(200%);
-            -webkit-backdrop-filter: blur(50px) saturate(200%);
-            border-radius: 28px;
-            box-shadow: var(--glass-shadow);
+            padding: 15px;
+            background: #e6f9ec; /* 浅绿色 */
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             overflow: hidden;
-            border: 1px solid var(--glass-border);
         }
         
+        /* 头部样式 */
         header {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             padding: 10px 0;
             flex-shrink: 0;
         }
@@ -125,106 +79,81 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2px;
+            margin-bottom: 10px;
             flex-direction: column;
         }
         
         .logo-icon {
-            width: 110px;
-            height: 110px;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-title);
             border-radius: 50%;
-            background: conic-gradient(from 210deg, #007AFF 0deg, #5856D6 120deg, #FF2D92 240deg, #007AFF 360deg);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 16px 48px rgba(0, 122, 255, 0.12);
-            margin: 0 auto 20px auto;
+            margin-bottom: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             position: relative;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: logo-spin 6s linear infinite, logo-breath 2.8s ease-in-out infinite;
-            position: relative;
-            overflow: visible;
-            max-width: 110px;
-            max-height: 110px;
-            min-width: 60px;
-            min-height: 60px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.5);
         }
-        @keyframes logo-spin {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-        @keyframes logo-breath {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
-        }
-        @media (max-width: 600px) {
-            .logo-icon {
-                max-width: 72px;
-                max-height: 72px;
-            }
-        }
-        .logo-pulse {
+        
+        .logo-icon::before {
+            content: "";
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%,-50%);
-            width: 140px;
-            height: 140px;
-            z-index: 0;
-            pointer-events: none;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 60%);
+            transform: rotate(30deg);
         }
+        
+        .logo-icon::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, transparent 80%);
+        }
+        
         .logo-icon i {
-            font-size: 2.6rem;
-            color: #fff;
-            background: linear-gradient(90deg, #1C1C1E 0%, #5856D6 50%, #FF9500 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .logo-crown {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.2rem;
-            color: #FF9500;
-            filter: drop-shadow(0 2px 4px #fff8);
-        }
-        .logo-diamond {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.1rem;
-            color: #5856D6;
-            filter: drop-shadow(0 2px 4px #fff8);
+            font-size: 3.5rem;
+            color: white;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         header h1 {
             font-size: 2.4rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #007AFF 0%, #5856D6 50%, #FF2D92 100%);
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            background: var(--gradient-title);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
             color: transparent;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
+            animation: gradientShift 8s infinite alternate;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
         
         .subtitle {
-            color: #5856D6;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-            background: linear-gradient(90deg, #5856D6 0%, #FF9500 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
+            color: var(--gray);
+            font-size: 1.05rem;
+            margin-top: 8px;
+            font-weight: 500;
+            position: relative;
+            padding: 0 15px;
+            line-height: 1.4;
+            text-align: center;
         }
         
         .subtitle::after {
@@ -232,27 +161,26 @@
             display: block;
             width: 60px;
             height: 3px;
-            background: linear-gradient(90deg, #00C7BE, #FF2D92);
-            margin: 10px auto 0;
+            background: linear-gradient(90deg, var(--silver), transparent);
+            margin: 12px auto 0;
             border-radius: 2px;
         }
         
+        /* 选项卡片样式 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin: 0;
+            gap: 15px;
+            margin: 15px 0;
             padding: 5px;
             height: auto;
             flex-shrink: 0;
         }
         
         .option-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-radius: 20px;
-            padding: 28px;
+            background: var(--light);
+            border-radius: 16px;
+            padding: 18px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
             cursor: pointer;
@@ -260,9 +188,9 @@
             overflow: hidden;
             display: flex;
             align-items: center;
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(0, 0, 0, 0.03);
             z-index: 1;
-            min-height: 110px;
+            min-height: 100px;
             user-select: none;
         }
         
@@ -271,277 +199,601 @@
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(13, 71, 161, 0.1) 0%, rgba(9, 49, 112, 0.1) 100%);
             opacity: 0;
             transition: var(--transition);
             z-index: -1;
-        }
-        
-        .option-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--glass-shadow-hover);
-            background: rgba(255, 255, 255, 0.8);
         }
         
         .option-card:hover::before {
             opacity: 1;
         }
         
-        .option-card.low { background: none !important; }
-        .option-card.mid { background: none !important; }
-        .option-card.high { background: none !important; }
+        .option-card:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .option-card h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-left: 18px;
+            flex-grow: 1;
+        }
+        
+        .option-card.low h2 {
+            color: #08306b;
+        }
+        .option-card.mid h2 {
+            color: #00897b;
+        }
+        .option-card.high h2 {
+            color: #c79100;
+        }
+        
+        .option-card .badge {
+            color: white;
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-left: 8px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
         
         .option-icon {
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             color: white;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
-        .option-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
+        /* 低端局样式 */
+        .option-card.low .option-icon {
+            background: var(--gradient-primary);
         }
-        .option-card h2 {
-            margin: 0;
-            font-weight: 700;
-            font-size: 1.5rem;
+        .option-card.low .badge {
+            background: var(--gradient-primary);
         }
-        .badge {
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 999px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            background: linear-gradient(90deg, rgba(0,122,255,0.1) 0%, rgba(0,122,255,0.05) 100%);
-            color: #007AFF;
-            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.08);
-            letter-spacing: 0.5px;
+        
+        /* 中端局样式 */
+        .option-card.mid .option-icon {
+            background: var(--gradient-accent);
         }
-        .option-card.low .badge,
         .option-card.mid .badge {
-            background: linear-gradient(90deg, rgba(51,51,51,0.1) 0%, rgba(51,51,51,0.05) 100%);
-            color: #333;
+            background: var(--accent);
+        }
+        
+        /* 高端局样式 */
+        .option-card.high .option-icon {
+            background: var(--gradient-gold);
         }
         .option-card.high .badge {
-            background: linear-gradient(90deg, rgba(255,149,0,0.1) 0%, rgba(255,149,0,0.05) 100%);
-            color: #FF9500;
+            background: var(--gold);
         }
         
+        /* 底部认证 */
         .certification {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border-radius: 18px;
-            padding: 20px;
             text-align: center;
-            margin: 20px 0;
-            border: 1px solid var(--glass-border);
+            margin-top: auto;
+            padding: 15px;
+            background: #b6eac7;
+            border-radius: 16px;
             box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin: 10px 0;
+        }
+        /* 认证卡片右上角√图标 */
+        .cert-verified-icon {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: #4caf50;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.15);
+            z-index: 2;
+        }
+        /* 已验证小标签 */
+        .cert-verified-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #4caf50;
+            color: #fff;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 1.5px 7px 1.5px 5px;
+            position: absolute;
+            top: 4px;
+            right: 2px;
+            margin-left: 0;
+            vertical-align: middle;
+            gap: 6px;
+            z-index: 3;
+            box-shadow: 0 2px 8px rgba(76,175,80,0.15);
+            border: none;
+        }
+        .cert-verified-badge .badge-check {
+            width: 14px;
+            height: 14px;
+            background: #fff;
+            color: #4caf50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 2px;
+            box-shadow: 0 1px 4px rgba(76,175,80,0.10);
+        }
+        
+        .certification::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--accent));
         }
         
         .certification h3 {
-            color: #007AFF;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 8px;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .certification h3 i {
+            margin-right: 8px;
+            color: var(--gold);
+            font-size: 1.2rem;
         }
         
         .certification p {
-            color: #8E8E93;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            text-align: center;
         }
         
         .seal {
             display: inline-block;
-            padding: 8px 16px;
-            background: var(--gradient-primary);
+            background: var(--gradient-accent);
             color: white;
-            border-radius: 18px;
-            font-size: 0.85rem;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.95rem;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
+            box-shadow: 0 4px 6px rgba(0, 137, 123, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
+        /* 底部信息 */
         .footer-section {
-            margin-top: auto;
-            padding: 4px 0 2px 0;
             text-align: center;
-        }
-        .footer-contact {
-            color: #8E8E93;
-            font-size: 0.85rem;
-            margin-top: 2px;
+            padding: 10px 0 5px;
+            background: transparent;
+            flex-shrink: 0;
         }
         
         .footer {
-            color: #8E8E93;
-            font-size: 0.8rem;
-            margin-bottom: 3px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.85rem;
+            opacity: 0.85;
+            font-weight: 500;
+            padding: 3px 0;
         }
         
         .contact-info {
-            color: #007AFF;
+            text-align: center;
+            color: var(--gray);
             font-size: 0.85rem;
+            opacity: 0.85;
             font-weight: 500;
+            padding: 3px 0;
         }
         
+        .contact-info strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* 模态框样式 */
         .modal {
             position: fixed;
-            inset: 0;
-            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.6);
+            align-items: center;
+            z-index: 1000;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s;
+            transition: var(--transition);
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
+        
         .modal.active {
             opacity: 1;
             visibility: visible;
         }
+        
         .modal-content {
-            background: var(--glass-bg, #fff);
-            border-radius: 24px;
-            box-shadow: 0 8px 42px rgba(0,0,0,0.12);
-            position: relative;
-            width: 100%;
+            background: var(--light);
+            padding: 28px 22px;
+            border-radius: 20px;
+            width: 90%;
             max-width: 500px;
-            min-height: 300px;
-            transform: scale(0.9);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            margin: auto;
         }
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
+        
+        /* 返回按钮优化 */
         .back-btn {
             position: absolute;
-            top: 16px;
-            left: 16px;
-            width: 38px;
-            height: 38px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            top: 20px;
+            left: 20px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--primary);
+            transition: var(--transition);
+            z-index: 10;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: none;
-            cursor: pointer;
-            z-index: 10;
-            transition: background 0.2s, transform 0.2s;
+            border-radius: 50%;
+            background: rgba(13, 71, 161, 0.1);
         }
-        .back-btn:hover {
-            background: #fff;
-            transform: scale(1.05);
-        }
+        
         .back-btn:active {
-            transform: scale(0.95);
-        }
-        @media (max-width: 600px) {
-            .modal-content {
-                border-radius: 16px;
-                max-width: 98vw;
-            }
-            .back-btn {
-                top: 8px;
-                left: 8px;
-                width: 34px;
-                height: 34px;
-            }
+            background: rgba(13, 71, 161, 0.2);
+            transform: scale(0.9);
         }
         
         .modal-title {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 16px;
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 600;
+            margin: 0 0 20px 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
             text-align: center;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding-top: 8px;
             position: relative;
         }
         
-        .modal-body {
-            padding: 20px;
-            overflow-y: auto;
-            flex: 1;
-            max-height: calc(85vh - 60px);
+        .modal-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 14px auto 0;
+            border-radius: 2px;
         }
         
-        #detailModal .modal-title, #highModal .modal-title {
-            position: static !important;
-            top: auto !important;
-            z-index: auto !important;
-            box-shadow: none !important;
+        /* 区域选择 */
+        .area-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .area-item {
+            padding: 16px 10px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .area-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+            z-index: -1;
+        }
+        
+        .area-item:active {
+            transform: scale(0.97);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+        }
+        
+        /* 美团集美特殊样式 */
+        .meituan-area {
+            background: linear-gradient(135deg, #06c1de 0%, #0077b6 100%);
+            grid-column: span 2;
+        }
+        
+        /* 服务详情按钮 */
+        .detail-btn {
+            background: var(--gradient-accent);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 137, 123, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .detail-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+        
+        .detail-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(0, 137, 123, 0.4);
+        }
+        
+        .integrity-text {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        /* 地图导航模态框 */
+        .map-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--light);
+            z-index: 1000;
+            opacity极速版: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+        
+        .map-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .map-header {
+            padding: 12px 16px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+            min-height: 48px;
+        }
+        
+        .map-back-btn {
+            font-size: 1.4rem;
+            color: var(--primary);
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 0;
+            transition: var(--transition);
+        }
+        
+        .map-back-btn:active {
+            transform: scale(0.9);
+            background: rgba(13, 71, 161, 0.1);
+        }
+        
+        .map-container {
+            flex: 1;
+            background: #eaeaea;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            flex: 1;
+        }
+        
+        /* App跳转按钮样式 */
+        .app-jump-container {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .app-buttons-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .app-jump-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(13, 71, 161, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-jump-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+        
+        .app-jump-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .app-jump-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(13, 71, 161, 0.4);
+        }
+        
+        .photo-btn {
+            background: var(--gradient-gold);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 16px 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            box-shadow: 0 4px 10px rgba(199, 145, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .photo-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+        
+        .photo-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .photo-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 6px rgba(199, 145, 0, 0.4);
+        }
+        
+        /* 统一服务详情样式 */
+        .modal-body {
+            padding: 10px 0;
         }
         
         .modal-intro {
-            display: block;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9e4f0 100%);
-            border-radius: 16px;
-            padding: 18px 16px;
-            margin-bottom: 18px;
-            font-size: 1.08rem;
-            color: #5a5a5a;
             text-align: center;
-            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.06);
+            margin-bottom: 20px;
+            color: var(--dark);
         }
-        @media (max-width: 600px) {
-            .modal-intro {
-                padding: 12px 6px;
-                font-size: 0.98rem;
-                margin-bottom: 12px;
-            }
+        
+        .modal-intro h2 {
+            font-size: 1.7rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .modal-intro p {
+            color: var(--gray);
+            font-size: 1.05rem;
+            line-height: 1.5;
+            text-align: center;
         }
         
         .modal-section {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            border-radius: 16px;
-            padding: 20px;
+            background: rgba(245, 247, 250, 0.6);
+            border-radius: 16极速版px;
+            padding: 18px;
             margin-bottom: 20px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--card-shadow);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
         
         .modal-section h3 {
-            color: #007AFF;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
             display: flex;
             align-items: center;
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            justify-content: center;
         }
         
         .modal-section h3 i {
             margin-right: 10px;
-            color: #00C7BE;
         }
         
         .package-list {
@@ -550,35 +802,30 @@
         }
         
         .package-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(150%);
-            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            background: white;
             border-radius: 14px;
-            padding: 16px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--card-shadow);
+            padding: 18px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
         }
         
         .package-name {
-            font-weight: 600;
-            color: #007AFF;
-            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
         }
         
         .package-name i {
-            margin-right: 10px;
-            color: #00C7BE;
+            margin-right: 8px;
         }
         
         .package-option {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
         }
         
         .package-option:last-child {
@@ -586,14 +833,12 @@
         }
         
         .package-option span:first-child {
-            color: #1C1C1E;
-            font-weight: 500;
+            color: var(--dark);
         }
         
         .package-option span:last-child {
-            color: #007AFF;
-            font-weight: 600;
-            font-size: 1.1rem;
+            color: var(--secondary);
+            font-weight: 700;
         }
         
         .solution-list {
@@ -604,159 +849,194 @@
         .service-item, .tip-item {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
             padding: 12px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(150%);
-            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--glass-border);
         }
         
         .service-icon, .tip-icon {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-right: 12px;
+            color: white;
             flex-shrink: 0;
-            font-size: 0.9rem;
         }
         
-        .service-icon {
-            background: var(--gradient-accent);
-            color: white;
-        }
-        
-        .tip-icon {
-            background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
-            color: white;
-        }
-        
-        .service-text, .tip-item div {
-            color: #1C1C1E;
+        .service-text, .tip-item > div:last-child {
+            color: var(--dark);
+            font-size: 1rem;
             line-height: 1.5;
-            font-size: 0.95rem;
-        }
-        
-        .tip-box {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(150%);
-            -webkit-backdrop-filter: blur(20px) saturate(150%);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--glass-border);
-        }
-        
-        .tip-content {
-            color: #1C1C1E;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            padding: 8px 0;
-        }
-        
-        .access-btn, .app-jump-btn, .photo-btn {
-            background: rgba(255,255,255,0.22);
-            background-image:
-                linear-gradient(120deg,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0.08) 100%),
-                radial-gradient(circle at 70% 30%,rgba(34,197,94,0.08) 0%,rgba(0,122,255,0.06) 60%,transparent 100%);
-            backdrop-filter: blur(22px) saturate(180%);
-            -webkit-backdrop-filter: blur(22px) saturate(180%);
-            border-radius: 20px;
-            border: 1.5px solid rgba(255,255,255,0.32);
-            color: #007AFF;
-            font-weight: 700;
-            font-size: 1.08rem;
-            box-shadow:
-                0 8px 32px 0 rgba(0,122,255,0.13),
-                0 1.5px 4px 0 rgba(0,122,255,0.08),
-                inset 0 1.5px 12px 0 rgba(255,255,255,0.18);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.25s cubic-bezier(.4,0,.2,1);
-        }
-        .access-btn {
-            width: 100%;
-            padding: 18px 25px;
-            margin-top: 20px;
-        }
-        .app-jump-btn, .photo-btn {
-            padding: 14px 0;
-            min-width: 120px;
-        }
-        .access-btn::before, .app-jump-btn::before, .photo-btn::before {
-            content: '';
-            position: absolute;
-            left: -60%;
-            top: 0;
-            width: 120%;
-            height: 100%;
-            background: linear-gradient(120deg,rgba(255,255,255,0.32) 0%,rgba(255,255,255,0.08) 100%);
-            filter: blur(8px);
-            opacity: 0.8;
-            transition: left 0.5s;
-            z-index: 1;
-        }
-        .access-btn:hover::before, .app-jump-btn:hover::before, .photo-btn:hover::before {
-            left: 100%;
-        }
-        .access-btn:hover, .app-jump-btn:hover, .photo-btn:hover {
-            box-shadow: 0 16px 40px 0 rgba(0,122,255,0.18), 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 2px 16px 0 rgba(255,255,255,0.22);
-            background: rgba(255,255,255,0.32);
-        }
-        .access-btn:active, .app-jump-btn:active, .photo-btn:active {
-            background: rgba(255,255,255,0.18);
-            box-shadow: 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 1.5px 8px 0 rgba(255,255,255,0.13);
-        }
-        .access-btn i, .app-jump-btn i, .photo-btn i {
-            margin-right: 8px;
-            color: #007AFF;
-        }
-        .photo-btn {
-            color: #22c55e;
-        }
-        .photo-btn i {
-            color: #22c55e;
-        }
-        @media (max-width: 600px) {
-            .access-btn, .app-jump-btn, .photo-btn {
-                font-size: 0.98rem;
-                padding: 12px 0;
-                border-radius: 14px;
-            }
         }
         
         .modal-footer {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            padding: 15px 20px;
             text-align: center;
-            border-top: 1px solid var(--glass-border);
             margin-top: 20px;
+            padding: 15px;
+            background: rgba(245, 247, 250, 0.8);
+            border-radius: 16px;
+            font-size: 0.9rem;
+            color: var(--gray);
         }
         
-        .modal-footer p {
-            color: #8E8E93;
-            font-size: 0.85rem;
-            margin: 0;
+        /* 访问按钮样式 - 使用高端局金色渐变 */
+        .access-btn {
+            background: var(--gradient-gold);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 20px auto 0;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(199, 145, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 300px;
         }
         
+        .access-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+        }
+        
+        .access-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(199, 145, 0, 0.4);
+        }
+        
+        .access-btn i {
+            margin-bottom: 8px;
+            font-size: 1.6rem;
+        }
+        
+        /* iOS提示框 */
+        .ios-prompt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .ios-prompt.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .ios-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .ios-prompt.active .ios-content {
+            transform: translateY(0);
+        }
+        
+        .ios-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.4rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .ios-close:active {
+            transform: scale(0.9);
+            color: var(--primary);
+        }
+        
+        .ios-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+            padding-top: 10px;
+        }
+        
+        .ios-instruction {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 20px 0;
+            text-align: left;
+            font-size: 1rem;
+            color: var(--dark);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .ios-instruction ol {
+            padding-left: 20px;
+            margin: 12px 0;
+        }
+        
+        .ios-instruction li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .arrow-down {
+            margin: 20px 0;
+            font-size: 2.8rem;
+            color: var(--gold);
+            animation: bounce 1.5s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+        
+        /* 加载动画 */
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.7);
             display: flex;
-            align-items: center;
             justify-content: center;
-            z-index: 9999;
+            align-items: center;
+            z-index: 3000;
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -768,633 +1048,28 @@
         }
         
         .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid var(--accent);
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.3);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            border-top-color: var(--gold);
+            animation: spin 1s ease-in-out infinite;
         }
         
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            to { transform: rotate(360deg); }
         }
         
-        .ios-prompt {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        
-        .ios-prompt.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .ios-content {
-            background: white;
-            border-radius: 18px;
-            padding: 25px;
-            max-width: 90%;
-            width: 380px;
-            text-align: center;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
-        }
-        
-        .ios-prompt.active .ios-content {
-            transform: scale(1);
-        }
-        
-        .ios-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .ios-close:hover {
-            background: rgba(0, 0, 0, 0.2);
-        }
-        
-        .ios-title {
-            color: var(--primary);
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        
-        .ios-instruction {
-            background: rgba(248, 250, 252, 0.8);
-            border-radius: 12px;
-            padding: 15px;
-            margin: 12px 0;
-            text-align: left;
-        }
-        
-        .ios-instruction ol {
-            margin: 8px 0 0 0;
-            padding-left: 18px;
-        }
-        
-        .ios-instruction li {
-            margin-bottom: 6px;
-            color: var(--dark);
-            font-size: 0.85rem;
-        }
-        
-        .arrow-down {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin: 12px 0;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-8px); }
-            60% { transform: translateY(-4px); }
-        }
-        .area-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 15px;
-        }
-        
-        .area-item {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border-radius: 14px;
-            padding: 14px 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            font-size: 0.95rem;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .area-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(240, 147, 251, 0.05) 100%);
-            opacity: 0;
-            transition: var(--transition);
-        }
-        
-        .area-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-            border-color: var(--primary);
-        }
-        
-        .area-item:hover::before {
-            opacity: 1;
-        }
-        
-        .area-item.selected {
-            background: var(--gradient-primary);
-            color: white;
-            border-color: var(--primary);
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-
-        
-        .area-item.selected::before {
-            opacity: 0;
-        }
-        
-        .meituan-area {
-            grid-column: span 2;
-            background: linear-gradient(90deg, #ffe066 0%, #ffd600 80%, #ffcc00 100%) !important;
-            color: #b58105 !important;
-            font-weight: 700;
-            border-radius: 18px !important;
-            box-shadow: 0 4px 16px rgba(234,179,8,0.18) !important;
-            border: none !important;
-        }
-        
-        .meituan-area:hover {
-            background: linear-gradient(90deg, #ffd600 0%, #ffb300 100%) !important;
-            color: #7a5700 !important;
-        }
-        
-        .meituan-area i {
-            color: #b58105 !important;
-        }
-        
-        .detail-btn {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 14px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            margin: 15px;
-            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-        
-        .detail-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .detail-btn:hover::before {
-            left: 100%;
-        }
-        
-        .detail-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-        
-        .integrity-text {
-            display: block;
-            font-size: 0.75rem;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-        
-        body.modal-open {
-            overflow: hidden !important;
-        }
-        .map-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh; /* JS会动态设置为window.innerHeight */
-            background: rgba(245,247,250,0.96);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            padding: 0;
-            margin: 0;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            max-height: 100vh;
-        }
-        .map-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .map-container {
-            max-width: 500px;
-            width: 100%;
-            border-radius: 28px;
-            box-shadow: var(--glass-shadow);
-            background: var(--glass-bg);
-            backdrop-filter: blur(50px) saturate(200%);
-            -webkit-backdrop-filter: blur(50px) saturate(200%);
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-            position: relative;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            height: 100vh; /* JS会动态设置为window.innerHeight */
-            /* JS会动态调整高度 */
-        }
-        @media (max-width: 600px) {
-            .map-container {
-                border-radius: 0;
-                max-width: 100vw;
-            }
-        }
-        #mapFrame {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-            flex: 1 1 auto;
-        }
-        .map-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1200;
-            padding: calc(16px + env(safe-area-inset-top)) 0 0 0;
-            background: var(--glass-bg);
-            backdrop-filter: blur(40px) saturate(180%);
-            -webkit-backdrop-filter: blur(40px) saturate(180%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            border-radius: 0;
-            display: flex;
-            align-items: center; /* 垂直居中 */
-            justify-content: flex-start;
-            min-height: 64px;
-            gap: 16px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .map-back-btn {
-            width: 38px;
-            height: 38px;
-            background: rgba(255,255,255,0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-left: 16px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .map-back-btn:hover {
-            background: rgba(255,255,255,0.9);
-            transform: scale(1.05);
-        }
-        
-        .map-back-btn:active {
-            transform: scale(0.95);
-        }
-        .map-header-title {
-            font-size: 1.08rem;
-            font-weight: 600;
-            color: #1C1C1E;
-            margin-left: 10px;
-            height: 40px;
-            line-height: 40px;
-            display: flex;
-            align-items: center;
-            flex: 1 1 auto;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .map-bottom-bar {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: env(safe-area-inset-bottom);
-            padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-            background: transparent;
-            box-shadow: none;
-            border-radius: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 32px;
-            z-index: 10;
-            width: 100vw;
-            max-width: 500px;
-            left: 50%;
-            transform: translateX(-50%);
-            margin: 0;
-        }
-        @media (max-width: 600px) {
-            .map-bottom-bar {
-                gap: 24px !important;
-            }
-        }
-        @media (max-width: 400px) {
-            .map-bottom-bar {
-                gap: 16px !important;
-            }
-        }
-        .map-bottom-bar .app-jump-btn,
-        .map-bottom-bar .photo-btn {
-            max-width: 210px;
-            min-width: 0;
-            flex: 1;
-            margin: 0;
-        }
-        @media (max-width: 600px) {
-            .map-bottom-bar .app-jump-btn,
-            .map-bottom-bar .photo-btn {
-                max-width: 160px;
-            }
-        }
-        @media (max-width: 400px) {
-            .map-bottom-bar .app-jump-btn,
-            .map-bottom-bar .photo-btn {
-                max-width: 130px;
-            }
-        }
-        .app-jump-btn, .photo-btn {
-            flex: 1;
-            max-width: 180px;
-            padding: 16px 0;
-            border: none;
-            border-radius: 18px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-            position: relative;
-            overflow: hidden;
-            background: var(--gradient-primary);
-            color: #fff;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-        .photo-btn {
-            background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
-        }
-        
-        .map-bottom-bar .photo-btn {
-            background: linear-gradient(135deg, #FF2D92 0%, #e91e63 100%);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .map-bottom-bar .photo-btn i {
-            color: #fff !important;
-        }
-        
-
-        .app-jump-btn:hover, .photo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        .app-jump-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-        .photo-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-        
-        .photo-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        
-        .photo-modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        .photo-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10;
-            padding: 20px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 100%);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .photo-back-btn {
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .photo-back-btn:hover {
-            background: white;
-            transform: scale(1.05);
-        }
-        
-        .photo-back-btn:active {
-            transform: scale(0.95);
-        }
-        
-        .photo-title {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin: 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .photo-container {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        
-        .photo-content {
-            padding: 80px 20px 20px;
-            min-height: 100%;
-        }
-        
-        .photo-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 300px;
-            color: rgba(255, 255, 255, 0.7);
-            text-align: center;
-        }
-        
-        .photo-placeholder i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-        
-        .photo-placeholder p {
-            font-size: 1.1rem;
-            margin: 0;
-        }
-        
-        .photo-info {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .photo-info h4 {
-            color: white;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 0 0 10px 0;
-        }
-        
-        .photo-info p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-            margin: 0;
-            line-height: 1.5;
-        }
-        
-        .app-jump-container {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 1100;
-            background: transparent;
-            padding: 20px 20px calc(20px + env(safe-area-inset-bottom)) 20px;
-            box-sizing: border-box;
-        }
-        @media (max-width: 600px) {
-            .app-jump-container {
-                bottom: 0;
-            }
-        }
-        
-        .app-buttons-row {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .app-jump-btn, .photo-btn {
-            flex: 1;
-            max-width: 180px;
-            padding: 16px 20px;
-            border: none;
-            border-radius: 16px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .app-jump-btn {
-            background: var(--gradient-primary);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-        
-        .photo-btn {
-            background: linear-gradient(135deg, var(--secondary) 0%, #e91e63 100%);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-        
-        .app-jump-btn::before, .photo-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .app-jump-btn:hover::before, .photo-btn:hover::before {
-            left: 100%;
-        }
-        
-        .app-jump-btn:hover, .photo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-        }
-        
-        @media (max-width: 600px) {
+        /* 响应式设计 */
+        @media (max-width: 480px) {
             .container {
-                padding: 16px;
-                border-radius: 24px;
+                padding: 12px;
+                border-radius: 18px;
+            }
+            
+            header {
+                padding: 5px 0;
+                margin-bottom: 10px;
             }
             
             header h1 {
@@ -1402,668 +1077,181 @@
             }
             
             .logo-icon {
-                width: 80px;
-                height: 80px;
-            }
-            
-            .logo-icon i {
-                font-size: 2.4rem;
+                width: 85px;
+                height: 85px;
             }
             
             .options-grid {
-                gap: 16px;
-                margin: 16px 0;
+                gap: 12px;
+                margin: 10px 0;
             }
             
             .option-card {
-                padding: 20px;
+                padding: 16px;
                 min-height: 90px;
             }
             
-            .option-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.4rem;
-                margin-right: 16px;
-            }
-            
             .option-card h2 {
-                font-size: 1.4rem;
-                margin-bottom: 0;
-                margin-top: 0;
-                font-weight: 700;
+                font-size: 1.2rem;
             }
             
-            .badge {
-                font-size: 0.85rem;
-                padding: 5px 12px;
+            .option-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 1.4rem;
+            }
+            
+            .certification {
+                padding: 12px;
+                margin: 8px 0;
+            }
+            
+            .modal-content {
+                padding: 20px 16px;
+                border-radius: 18px;
             }
             
             .area-list {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
-                padding: 12px;
-            }
-            
-            .area-item {
-                padding: 12px 10px;
-                font-size: 0.9rem;
-            }
-            
-            .modal-content {
-                max-width: 95%;
-                border-radius: 18px;
-            }
-            
-            .modal-body {
-                padding: 15px;
-            }
-            
-            .app-buttons-row {
-                flex-direction: row;
-                gap: 12px;
             }
             
             .app-jump-btn, .photo-btn {
-                max-width: none;
-                flex: 1;
-                padding: 14px 16px;
-                font-size: 0.95rem;
+                padding: 14px 8px;
+                font-size: 0.9rem;
             }
             
-            .ios-content {
-                padding: 20px;
-                max-width: 95%;
+            .app-jump-btn i, .photo-btn i {
+                margin-right: 6px;
+                font-size: 1.1rem;
+            }
+            
+            .map-header {
+                padding: 10px 12px;
+                min-height: 44px;
             }
             
             .footer-section {
-                padding: 8px 0;
+                padding: 5px 0;
             }
             
-            .footer {
-                margin-bottom: 2px;
-            }
-            
-            #detailModal .modal-body {
-                padding: 15px;
-            }
-            
-            #detailModal .back-btn {
-                left: 15px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 38px;
-                height: 38px;
-            }
-            
-            #detailModal .modal-title {
-                padding: 15px;
+            .modal-section h3 {
                 font-size: 1.2rem;
+            }
+            
+            .package-item {
+                padding: 14px;
+            }
+            
+            .access-btn {
+                padding: 16px;
+                font-size: 1.05rem;
+                width: 100%;
             }
         }
         
-        @media (max-width: 400px) {
-            .app-buttons-row {
-                flex-direction: column;
-                gap: 8px;
+        /* 针对小屏幕高度优化 */
+        @media (max-height: 700px) {
+            .logo-icon {
+                width: 75px;
+                height: 75px;
             }
             
-            .app-jump-btn, .photo-btn {
-                max-width: none;
-                padding: 12px 14px;
-                font-size: 0.9rem;
+            header h1 {
+                font-size: 1.8rem;
             }
             
-            .area-list {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+            .subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .option-card {
+                padding: 14px;
+                min-height: 80px;
+            }
+            
+            .option-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+            }
+            
+            .option-card h2 {
+                font-size: 1.15rem;
+            }
+            
+            .option-card .badge {
+                font-size: 0.8rem;
+                padding: 4px 10px;
+            }
+            
+            .certification {
                 padding: 10px;
             }
             
-            .area-item {
-                padding: 10px 8px;
+            .certification h3 {
+                font-size: 1.1rem;
+            }
+            
+            .certification p {
+                font-size: 0.85rem;
+            }
+            
+            .seal {
+                padding: 6px 16px;
                 font-size: 0.85rem;
             }
         }
-
-        .area-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
-            padding: 18px;
-        }
-        .area-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(180%);
-            -webkit-backdrop-filter: blur(25px) saturate(180%);
-            color: var(--dark);
-            border-radius: 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            box-shadow: var(--card-shadow);
-            padding: 24px 0;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            z-index: 1;
-            outline: none;
-            border: 1px solid var(--glass-border);
-            user-select: none;
-            margin-bottom: 8px;
-        }
-        .area-item:hover, .area-item:active {
-            background: rgba(255, 255, 255, 0.85);
-            color: var(--dark);
-            box-shadow: var(--glass-shadow-hover);
-            transform: translateY(-2px) scale(1.01);
-        }
-        .area-item.selected {
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--primary);
-            box-shadow: var(--glass-shadow-hover);
-            transform: translateY(-2px) scale(1.02);
-            border: 1px solid rgba(0, 122, 255, 0.3);
-        }
-
-        /* 卡片美化 */
-        .option-card {
-            border-radius: 20px;
-            box-shadow: 0 6px 32px 0 rgba(0,122,255,0.08), 0 1.5px 4px 0 rgba(0,122,255,0.06);
-            background: var(--glass-bg);
-            transition: box-shadow 0.18s, transform 0.18s;
-            margin-bottom: 18px;
-        }
-        .option-card:hover {
-            box-shadow: 0 16px 48px 0 rgba(0,122,255,0.12), 0 4px 12px 0 rgba(0,122,255,0.08);
-            transform: translateY(-2px) scale(1.01);
-        }
-
-        .area-item:active::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 120%;
-            height: 120%;
-            background: rgba(255,255,255,0.18);
-            border-radius: 50%;
-            transform: translate(-50%,-50%) scale(0.8);
-            animation: ripple 0.4s linear;
-            z-index: 2;
-            pointer-events: none;
-        }
-        @keyframes ripple {
-            0% { opacity: 1; transform: translate(-50%,-50%) scale(0.8); }
-            100% { opacity: 0; transform: translate(-50%,-50%) scale(1.6); }
-        }
-
-        .badge {
-            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.08);
-            font-size: 0.9rem;
-            padding: 6px 20px;
-        }
-
-        @media (max-width: 600px) {
-            .area-list {
-                gap: 12px;
-                padding: 10px;
-            }
-            .area-item {
-                font-size: 1rem;
-                padding: 13px 0;
-                border-radius: 16px !important;
-                backdrop-filter: blur(20px) saturate(180%) !important;
-                -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-            }
-        }
-
-        .area-item.low-area-btn {
-            background: linear-gradient(100deg, #007AFF 0%, #5856D6 100%);
-            color: #fff;
-            box-shadow: 0 6px 24px 0 rgba(0,122,255,0.12), 0 1.5px 4px 0 rgba(0,122,255,0.08);
-            border: 1px solid var(--glass-border);
-            transition: background 0.3s, color 0.2s, box-shadow 0.2s, transform 0.15s, border 0.2s;
-        }
-        .area-item.low-area-btn:hover, .area-item.low-area-btn:active, .area-item.low-area-btn.selected {
-            background: linear-gradient(100deg, #5856D6 0%, #007AFF 100%);
-            color: #fff;
-        }
-        .area-item.mid-area-btn {
-            background: linear-gradient(100deg, #007AFF 0%, #5856D6 100%);
-            color: #fff;
-            box-shadow: 0 6px 24px 0 rgba(0,122,255,0.12), 0 1.5px 4px 0 rgba(0,122,255,0.08);
-        }
-        .area-item.mid-area-btn:hover, .area-item.mid-area-btn:active, .area-item.mid-area-btn.selected {
-            background: linear-gradient(100deg, #5856D6 0%, #007AFF 100%);
-            color: #fff;
-        }
-        .area-item.high-area-btn {
-            background: linear-gradient(100deg, #FF9500 0%, #FF6B35 100%);
-            color: #fff;
-            box-shadow: 0 6px 24px 0 rgba(255,149,0,0.12), 0 1.5px 4px 0 rgba(255,149,0,0.08);
-        }
-        .area-item.high-area-btn:hover, .area-item.high-area-btn:active, .area-item.high-area-btn.selected {
-            background: linear-gradient(100deg, #FF6B35 0%, #FF9500 100%);
-            color: #fff;
-        }
-
-        .option-card.mid .option-icon {
-          background: rgba(0,122,255,0.12);
-          color: #007AFF;
-        }
-        .option-card.mid h2 {
-          color: #007AFF !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-        .option-card.mid .option-icon i {
-          color: #007AFF !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-
-        .option-card.low .option-icon i,
-        .option-card.low h2 {
-          color: #333 !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-        .option-card.mid .option-icon i,
-        .option-card.mid h2 {
-          color: #007AFF !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-        .option-card.high .option-icon i,
-        .option-card.high h2 {
-          color: #FF9500 !important;
-          background: none !important;
-          -webkit-background-clip: unset !important;
-          -webkit-text-fill-color: unset !important;
-          background-clip: unset !important;
-        }
-
-        .option-card.mid .badge {
-          background: rgba(0,122,255,0.1) !important;
-          color: #007AFF !important;
-          font-weight: 700;
-          box-shadow: 0 2px 8px rgba(0,122,255,0.08);
-        }
-        .option-card.low .option-icon,
-        .option-card.mid .option-icon,
-        .option-card.high .option-icon {
-          width: 54px !important;
-          height: 54px !important;
-          border-radius: 16px !important;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
         
-        .option-card.low .option-icon {
-          background: rgba(51,51,51,0.1) !important;
-          box-shadow: 0 4px 16px rgba(51,51,51,0.08) !important;
-        }
-        
-        .option-card.mid .option-icon {
-          background: rgba(0,122,255,0.1) !important;
-          box-shadow: 0 4px 16px rgba(0,122,255,0.08) !important;
-        }
-        
-        .option-card.high .option-icon {
-          background: rgba(255,149,0,0.1) !important;
-          box-shadow: 0 4px 16px rgba(255,149,0,0.08) !important;
-        }
-
-        @media (max-width: 600px) {
-          .options-grid {
-            gap: 6px !important;
-            margin: 6px 0 !important;
-          }
-          .option-card {
-            min-height: 52px !important;
-            padding: 8px 12px !important;
-            margin-bottom: 6px !important;
-            border-radius: 14px !important;
-            backdrop-filter: blur(25px) saturate(180%) !important;
-            -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
-          }
-          .option-icon {
-            width: 42px !important;
-            height: 42px !important;
-            font-size: 1.2rem !important;
-            margin-right: 10px !important;
-            border-radius: 10px !important;
-            backdrop-filter: blur(15px) !important;
-            -webkit-backdrop-filter: blur(15px) !important;
-          }
-          .option-content h2 {
-            font-size: 1.4rem !important;
-          }
-          .badge {
-            font-size: 0.85rem !important;
-            padding: 4px 10px !important;
-          }
-        }
-
-        #highModal.modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--light);
-            z-index: 9999;
-            display: block;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        #highModal.modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        #highModal .modal-content {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            min-height: 100vh;
-            border-radius: 0;
-            margin: 0;
-            padding: 0;
-            display: block;
-            animation: none;
-            overflow: visible;
-            box-shadow: none;
-            /* transform: none;  // 已彻底删除 */
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        #highModal .modal-body {
-            padding: 20px;
-            margin-top: 0;
-            max-height: none;
-            overflow: visible;
-        }
-        #highModal .modal-title,
-        #highModal .modal-footer,
-        #highModal .back-btn {
-            position: static !important;
-        }
-
-        #detailModal .modal-title, #highModal .modal-title {
-            position: static !important;
-            top: auto !important;
-            z-index: auto !important;
-            box-shadow: none !important;
-        }
-
-                @media (max-width: 600px) {
-            .app-buttons-row {
-                flex-direction: row !important;
-                gap: 10px !important;
+        /* 针对超小屏幕高度优化 */
+        @media (max-height: 600px) {
+            .logo-icon {
+                width: 65px;
+                height: 65px;
             }
-            .app-jump-btn, .photo-btn {
-                padding: 14px 16px;
-                font-size: 0.95rem;
+            
+            .logo-icon i {
+                font-size: 2.5rem;
             }
-        }
-        
-        @media (max-width: 400px) {
-            .app-buttons-row {
-                flex-direction: column;
-                gap: 8px;
+            
+            header h1 {
+                font-size: 1.6rem;
             }
-            .app-jump-btn, .photo-btn {
-                max-width: none;
-                padding: 12px 14px;
+            
+            .subtitle {
                 font-size: 0.9rem;
             }
-        }
-        .app-jump-btn.active, .photo-btn.active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-
-        .map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn {
-            transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.15s cubic-bezier(0.25, 0.8, 0.25, 1), background 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .map-bottom-bar .app-jump-btn:hover,
-        .map-bottom-bar .photo-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            background: linear-gradient(135deg, var(--primary) 0%, #5856D6 100%);
-            filter: brightness(1.05);
-        }
-        .map-bottom-bar .photo-btn:hover {
-            background: linear-gradient(135deg, #FF2D92 0%, #e91e63 100%);
-        }
-        .map-bottom-bar .app-jump-btn:active,
-        .map-bottom-bar .photo-btn:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
-        }
-        #highModal .back-btn {
-            position: absolute !important;
-            top: 16px !important;
-            left: 16px !important;
-            transform: none;
-            width: 38px !important;
-            height: 38px !important;
-            background: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 10;
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-        
-        #highModal .back-btn:hover {
-            background: white;
-            transform: scale(1.05);
-        }
-        
-        #highModal .back-btn:active {
-            transform: scale(0.95);
-        }
-        .app-jump-btn i {
-            color: #fff !important;
-        }
-        /* 高端局专属亮金色按钮 */
-        .access-btn.high-gold {
-            background: linear-gradient(90deg,#FF9500,#FFB347) !important;
-            color: #fff !important;
-            border: 1.5px solid rgba(255,149,0,0.22) !important;
-            box-shadow: 0 8px 32px 0 rgba(255,149,0,0.13), 0 1.5px 4px 0 rgba(255,149,0,0.08), inset 0 1.5px 12px 0 rgba(255,255,255,0.18) !important;
-            font-size: 1.2rem;
-            padding: 20px 25px;
-        }
-        
-        /* 认证徽章向右移动 */
-        .certification .seal {
-            right: 20px !important;
-        }
-        #highModal .back-btn,
-        #areaModal .back-btn {
-            top: 18px !important;
-        }
-        @media (max-width: 600px) {
-            #highModal .back-btn,
-            #areaModal .back-btn {
-                top: 12px !important;
+            
+            .options-grid {
+                gap: 10px;
+                margin: 8px 0;
+            }
+            
+            .option-card {
+                min-height: 70px;
             }
         }
-        .seal {
-            position: absolute !important;
-            top: 0 !important;
-            right: 0 !important;
-            padding: 2px 6px !important;
-            margin: 0 !important;
-            border-radius: 10px !important;
-            z-index: 2 !important;
+        /* 动态logo动画样式 */
+        #deviceLogo i {
+            animation: logoFloat 2.5s ease-in-out infinite alternate, logoGlow 3s linear infinite;
+            transition: filter 0.3s;
         }
-
-        #areaModal .back-btn {
-            top: 12px !important;
+        @keyframes logoFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-16px); }
         }
-        @media (max-width: 600px) {
-            #areaModal .back-btn {
-                top: 6px !important;
-            }
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 0 0px #fff) drop-shadow(0 0 8px #b2f7ef); }
+            50% { filter: drop-shadow(0 0 12px #7ee787) drop-shadow(0 0 24px #b2f7ef); }
+            100% { filter: drop-shadow(0 0 0px #fff) drop-shadow(0 0 8px #b2f7ef); }
         }
-
-        #areaModal .back-btn,
-        #detailModal .back-btn {
-            width: 38px !important;
-            height: 38px !important;
-        }
-        @media (max-width: 600px) {
-            #areaModal .back-btn,
-            #detailModal .back-btn {
-                width: 34px !important;
-                height: 34px !important;
-            }
-        }
-
-        .seal {
-            margin-right: -12px !important;
-            top: 8px !important;
-        }
-        #areaModal .back-btn,
-        #highModal .back-btn,
-        #detailModal .back-btn {
-            top: 20px !important;
-        }
-        @media (max-width: 600px) {
-            #areaModal .back-btn,
-            #highModal .back-btn,
-            #detailModal .back-btn {
-                top: 12px !important;
-            }
-        }
-
-        #highModal .back-btn {
-            top: 16px !important;
-        }
-        @media (max-width: 600px) {
-            #highModal .back-btn {
-                top: 8px !important;
-            }
-        }
-        #areaModal .back-btn,
-        #detailModal .back-btn {
-            top: 20px !important;
-        }
-        @media (max-width: 600px) {
-            #areaModal .back-btn,
-            #detailModal .back-btn {
-                top: 12px !important;
-            }
-        }
-
-        #areaModal .back-btn,
-        #detailModal .back-btn {
-            top: 8px !important;
-        }
-        .seal {
-            right: -12px !important;
-        }
-
-        #areaModal .back-btn,
-        #detailModal .back-btn {
-            top: 16px !important;
-        }
-        .seal {
-            right: -24px !important;
-        }
-
-        #detailModal .back-btn {
-            top: 16px !important;
-        }
-        #detailModal .modal-title {
-            min-height: 38px !important;
-        }
-        #highModal .back-btn {
-            top: 20px !important;
-        }
-        @media (max-width: 600px) {
-            #highModal .back-btn {
-                top: 12px !important;
-            }
-        }
-
-        #detailModal .back-btn {
-            top: 12px !important;
-        }
-        #highModal .back-btn {
-            top: 12px !important;
-        }
-
-        #highModal .back-btn {
-            top: 18px !important;
-        }
-
-        #detailModal .back-btn {
-            top: 18px !important;
-            left: 16px !important;
-            width: 38px !important;
-            height: 38px !important;
-            background: rgba(255,255,255,0.95) !important;
-            border-radius: 50% !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            z-index: 10000 !important;
-        }
-
-        #highModal .back-btn {
-            top: 17px !important;
-        }
-        #detailModal .back-btn {
-            top: 16px !important;
-            left: 16px !important;
-            width: 38px !important;
-            height: 38px !important;
-            background: rgba(255,255,255,0.95) !important;
-            border-radius: 50% !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            z-index: 10000 !important;
-        }
-
     </style>
 </head>
-<body ontouchstart="">
+<body>
     <div class="container">
         <header>
             <div class="logo-container">
-                <div class="logo-icon">
-                    <span class="logo-pulse">
-                        <svg width="140" height="140" viewBox="0 0 140 140">
-                            <circle cx="70" cy="70" r="54" fill="none" stroke="#22c55e" stroke-width="2" opacity="0.18">
-                                <animate attributeName="r" values="54;64;54" dur="2.5s" repeatCount="indefinite"/>
-                                <animate attributeName="opacity" values="0.18;0.05;0.18" dur="2.5s" repeatCount="indefinite"/>
-                            </circle>
-                        </svg>
-                    </span>
-                    <i id="mainLogoIcon" class="fas fa-star"></i>
-                </div>
+                <div id="deviceLogo"></div>
                 <h1>聚美臻选</h1>
                 <div class="subtitle">品质服务 · 臻心之选 · 诚信保障</div>
             </div>
@@ -2074,64 +1262,42 @@
                 <div class="option-icon">
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
-                <div class="option-content">
-                    <h2>低端局</h2>
-                    <div class="badge">实惠精选</div>
-                </div>
+                <h2>低端局</h2>
+                <div class="badge">实惠精选</div>
             </div>
             <div class="option-card mid" onclick="openAreaModal('mid')">
                 <div class="option-icon">
                     <i class="fas fa-crown"></i>
                 </div>
-                <div class="option-content">
-                    <h2>中端局</h2>
-                    <div class="badge">品质优选</div>
-                </div>
+                <h2>中端局</h2>
+                <div class="badge">品质优选</div>
             </div>
             <div class="option-card high" onclick="openHighModal()">
                 <div class="option-icon">
                     <i class="fas fa-gem"></i>
                 </div>
-                <div class="option-content">
-                    <h2>高端局</h2>
-                    <div class="badge">尊享服务</div>
-                </div>
+                <h2>高端局</h2>
+                <div class="badge">尊享服务</div>
             </div>
         </div>
         
-        <div class="certification" style="position:relative;overflow:hidden;background:rgba(34,197,94,0.07);">
-            <!-- 动态诚信主题SVG背景（流动波浪+光斑） -->
-            <svg width="360" height="100" viewBox="0 0 360 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100px;z-index:0;opacity:0.18;pointer-events:none;">
-                <defs>
-                  <linearGradient id="waveGrad" x1="0" y1="0" x2="360" y2="0" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#22c55e" stop-opacity="0.18"/>
-                    <stop offset="1" stop-color="#86efac" stop-opacity="0.12"/>
-                  </linearGradient>
-                </defs>
-                <path d="M0 60 Q90 100 180 60 T360 60 V100 H0Z" fill="url(#waveGrad)"/>
-                <ellipse cx="300" cy="30" rx="32" ry="14" fill="#22c55e" fill-opacity="0.10">
-                  <animate attributeName="cx" values="300;320;300" dur="3s" repeatCount="indefinite"/>
-                </ellipse>
-                <ellipse cx="60" cy="40" rx="18" ry="8" fill="#22c55e" fill-opacity="0.13">
-                  <animate attributeName="cx" values="60;80;60" dur="4s" repeatCount="indefinite"/>
-                </ellipse>
-            </svg>
-            <h3 style="color:#22c55e;position:relative;z-index:1;"><i class="fas fa-shield-alt" style="color:#22c55e;"></i> 聚美臻选官方认证</h3>
-            <p style="position:relative;z-index:1;">诚信经营 · 真实信息 · 品质保障</p>
-            <div class="seal" style="background:rgba(34,197,94,0.12);color:#22c55e;box-shadow:none;font-size:0.7rem;display:inline-flex;align-items:center;gap:2px;position:absolute;top:16px;right:148px;padding:2px 14px;z-index:2;min-width:0;min-height:0;border-radius:10px;font-weight:600;">
-                <i class='fas fa-check-circle' style='color:#22c55e;font-size:1em;margin-right:4px;position:relative;top:1px;'></i> 已验证
-            </div>
+        <!-- 底部认证 -->
+        <div class="certification">
+            <h3><i class="fas fa-shield-alt"></i> 聚美臻选官方认证</h3>
+            <p>诚信经营 · 真实信息 · 品质保障</p>
         </div>
         
+        <!-- 备案信息和联系方式 -->
         <div class="footer-section">
             <div class="footer">
                 聚美臻选 © 2023
             </div>
-            <div class="footer-contact">
-                防失联加QQ: 915637409
+            <div class="contact-info">
+                防失联请加QQ：<strong>859704071</strong>
             </div>
         </div>
         
+        <!-- 区域选择模态框 -->
         <div id="areaModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('areaModal')">
@@ -2141,13 +1307,15 @@
                 
                 <div class="area-list" id="areaList"></div>
                 
-                <div class="detail-btn" onclick="openDetailModal(window.currentType)">
+                <!-- 服务详情按钮 -->
+                <div class="detail-btn" onclick="openDetailModal()">
                     <i class="fas fa-info-circle"></i> 查看服务详情
                     <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
                 </div>
             </div>
         </div>
         
+        <!-- 地图导航模态框 -->
         <div id="mapModal" class="map-modal">
             <div class="map-container">
                 <div class="map-header">
@@ -2167,7 +1335,6 @@
                 </div>
             </div>
         </div>
-        
         <div id="photoModal" class="photo-modal">
             <div class="photo-header">
                 <div class="photo-back-btn" onclick="closePhotoModal()">
@@ -2176,7 +1343,7 @@
             </div>
             <div class="photo-container">
                 <div class="photo-content" id="photoContent">
-                                    <div class="photo-placeholder">
+                    <div class="photo-placeholder">
                         <i class="fas fa-images"></i>
                         <p>照片内容加载中...</p>
                     </div>
@@ -2184,6 +1351,7 @@
             </div>
         </div>
         
+        <!-- 服务详情模态框 -->
         <div id="detailModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('detailModal')">
@@ -2194,6 +1362,7 @@
             </div>
         </div>
         
+        <!-- 高端局模态框 -->
         <div id="highModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('highModal')">
@@ -2320,7 +1489,8 @@
                         </div>
                     </div>
                     
-                    <button class="access-btn high-gold" onclick="openServiceLink('high', 'http://baidu.com')">
+                    <!-- 访问按钮 -->
+                    <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
                         <i class="fas fa-gem"></i>
                         立即访问高端服务
                         <span class="integrity-text">尊享体验 · 品质保证</span>
@@ -2333,11 +1503,13 @@
             </div>
         </div>
         
+        <!-- 加载动画 -->
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
         </div>
     </div>
     
+    <!-- iOS提示框 - 移出主容器 -->
     <div id="iosPrompt" class="ios-prompt">
         <div class="ios-content">
             <div class="ios-close" onclick="closeIosPrompt()">
@@ -2363,12 +1535,12 @@
     </div>
 
     <script>
+        // 区域、坐标、图片数据
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
             mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区', '滨江区'],
             high: []
         };
-
         const areaCoordinates = {
             low: {
                 '余杭区': { lat: 30.339750, lng: 120.082039, name: '金地广场b1座' },
@@ -2392,7 +1564,6 @@
             },
             high: {}
         };
-
         const areaPhotoLinks = {
             low: {
                 '余杭区': 'https://i.ibb.co/xqJ46HD9/IMG-0342.jpg',
@@ -2416,77 +1587,199 @@
             },
             high: {}
         };
-
+        
+        // 详情数据 - 已优化排版
         const detailData = {
             low: `
             <div class="modal-intro">
                 <p>实惠精选，品质保障</p>
             </div>
+            
             <div class="modal-section">
                 <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
                 <div class="package-list">
                     <div class="package-item">
-                        <div class="package-name"><i class="fas fa-bullseye"></i> 工作室套餐</div>
-                        <div class="package-option"><span>一课</span><span>5 (吹做)</span></div>
-                        <div class="package-option"><span>一课升级</span><span>6 (吹做推)</span></div>
-                        <div class="package-option"><span>莞式一课</span><span>8</span></div>
-                        <div class="package-option"><span>页课</span><span>22-24</span></div>
+                        <div class="package-name">
+                            <i class="fas fa-bullseye"></i> 工作室套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课</span>
+                            <span>5 (吹做)</span>
+                        </div>
+                        <div class="package-option">
+                            <span>一课升级</span>
+                            <span>6 (吹做推)</span>
+                        </div>
+                        <div class="package-option">
+                            <span>莞式一课</span>
+                            <span>8</span>
+                        </div>
+                        <div class="package-option">
+                            <span>页课</span>
+                            <span>22-24</span>
+                        </div>
                     </div>
+                    
                     <div class="package-item">
-                        <div class="package-name"><i class="fas fa-motorcycle"></i> 外卖套餐</div>
-                        <div class="package-option"><span>一课</span><span>8 (吹做推)</span></div>
-                        <div class="package-option"><span>两课</span><span>14 (吹做推)</span></div>
+                        <div class="package-name">
+                            <i class="fas fa-motorcycle"></i> 外卖套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课</span>
+                            <span>8 (吹做推)</span>
+                        </div>
+                        <div class="package-option">
+                            <span>两课</span>
+                            <span>14 (吹做推)</span>
+                        </div>
                     </div>
                 </div>
             </div>
+            
             <div class="modal-section">
                 <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="tip-box">
-                    <div class="tip-content">部分工作室提供真人照片（年龄26-30岁）</div>
-                    <div class="tip-content">请提前联系确认是否开工</div>
-                    <div class="tip-content">聚美臻选承诺：所有服务均真实可靠</div>
-                    <div class="tip-content">支持多种支付方式，透明消费无隐藏费用</div>
-                    <div class="tip-content">所有服务人员均经过健康检测</div>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            部分工作室提供真人照片（年龄26-30岁）
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            请提前联系确认是否开工
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            聚美臻选承诺：所有服务均真实可靠
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div>
+                            支持多种支付方式，透明消费无隐藏费用
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <div>
+                            所有服务人员均经过健康检测
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             <div class="modal-footer">
                 <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
             </div>
             `,
+            
             mid: `
             <div class="modal-intro">
-                <p>品质优选，优质服务</p>
+                <p>品质优选，满意之选</p>
             </div>
+            
             <div class="modal-section">
                 <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
                 <div class="package-list">
                     <div class="package-item">
-                        <div class="package-name"><i class="fas fa-bullseye"></i> 工作室套餐</div>
-                        <div class="package-option"><span>一课（60分钟）</span><span>1.4k</span></div>
-                        <div class="package-option"><span>两课（100分钟）</span><span>2.4k</span></div>
-                        <div class="package-option"><span>页课</span><span>4k</span></div>
+                        <div class="package-name">
+                            <i class="fas fa-bullseye"></i> 工作室套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课（60分钟）</span>
+                            <span>1.4k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>两课（100分钟）</span>
+                            <span>2.4k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>页课</span>
+                            <span>4k</span>
+                        </div>
                     </div>
+                    
                     <div class="package-item">
-                        <div class="package-name"><i class="fas fa-motorcycle"></i> 外卖套餐</div>
-                        <div class="package-option"><span>一课（60分钟）</span><span>1.6k</span></div>
-                        <div class="package-option"><span>两课（100分钟）</span><span>2.6k</span></div>
+                        <div class="package-name">
+                            <i class="fas fa-motorcycle"></i> 外卖套餐
+                        </div>
+                        <div class="package-option">
+                            <span>一课（60分钟）</span>
+                            <span>1.6k</span>
+                        </div>
+                        <div class="package-option">
+                            <span>两课（100分钟）</span>
+                            <span>2.6k</span>
+                        </div>
                     </div>
                 </div>
             </div>
+            
             <div class="modal-section">
                 <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="tip-box">
-                    <div class="tip-content">所有服务人员态度乖巧听话</div>
-                    <div class="tip-content">任何不过分的要求都可以满足</div>
-                    <div class="tip-content">提供丝袜和各种情趣制服</div>
-                    <div class="tip-content">聚美臻选承诺：诚信经营，品质保障</div>
-                    <div class="tip-content">提前预约可享受VIP专属通道</div>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            所有服务人员态度乖巧听话
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            任何不过分的要求都可以满足
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <div>
+                            提供丝袜和各种情趣制服
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            聚美臻选承诺：诚信经营，品质保障
+                        </div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            提前预约可享受VIP专属通道
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             <div class="modal-footer">
                 <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
             </div>
             `,
+            
             high: `
             <div class="modal-intro">
                 <p>高端品质定制化服务，满足您的个性化需求</p>
@@ -2606,7 +1899,7 @@
                 </div>
             </div>
             
-            <button class="access-btn high-gold" onclick="openServiceLink('high', 'http://baidu.com')">
+            <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
                 <i class="fas fa-gem"></i>
                 立即访问高端服务
                 <span class="integrity-text">尊享体验 · 品质保证</span>
@@ -2618,12 +1911,16 @@
             `
         };
         
+        // 当前选择的区域
         let currentArea = '';
         let currentType = '';
         
+        // 页面加载时初始化
         window.onload = function() {
+            // 缓存DOM元素
             cacheDOMElements();
-            
+            // 设备logo自动识别
+            setDeviceLogo();
             // 监听窗口大小改变事件
             window.addEventListener('resize', function() {
                 if (window.domCache.mapModal.classList.contains('active')) {
@@ -2632,6 +1929,7 @@
             });
         };
         
+        // 缓存DOM元素
         function cacheDOMElements() {
             window.domCache = {
                 areaModal: document.getElementById('areaModal'),
@@ -2650,17 +1948,21 @@
             };
         }
 
+        // 显示加载动画
         function showLoading() {
             window.domCache.loadingOverlay.classList.add('active');
         }
         
+        // 隐藏加载动画
         function hideLoading() {
             window.domCache.loadingOverlay.classList.remove('active');
         }
 
+        // 打开区域选择模态框
         function openAreaModal(type) {
             showLoading();
             
+            // 保存当前类型
             window.currentType = type;
             
             const { areaTitle, areaList } = window.domCache;
@@ -2668,22 +1970,18 @@
             areaTitle.textContent = type === 'low' ? '低端局区域选择' : '中端局区域选择';
             areaList.innerHTML = '';
             
+            // 添加所有区域
             areaData[type].forEach(area => {
                 const areaItem = document.createElement('div');
-                let areaClass = 'area-item';
-                if (type === 'low') areaClass += ' low-area-btn';
-                else if (type === 'mid') areaClass += ' mid-area-btn';
-                else if (type === 'high') areaClass += ' high-area-btn';
-                areaItem.className = areaClass;
-                
+                areaItem.className = 'area-item';
                 areaItem.textContent = area;
-                
                 areaItem.onclick = () => {
                     openMapModal(area, type);
                 };
                 areaList.appendChild(areaItem);
             });
             
+            // 如果是中端局，添加美团集美作为最后一个选项
             if (type === 'mid') {
                 const meituanItem = document.createElement('div');
                 meituanItem.className = 'area-item meituan-area';
@@ -2696,6 +1994,7 @@
             
             window.domCache.detailContent.innerHTML = detailData[type];
             
+            // 打开模态框
             setTimeout(() => {
                 window.domCache.areaModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2703,9 +2002,11 @@
             }, 300);
         }
 
+        // 打开高端模态框
         function openHighModal() {
             showLoading();
             
+            // 打开模态框
             setTimeout(() => {
                 window.domCache.highModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2713,37 +2014,18 @@
             }, 300);
         }
 
-        function openDetailModal(type) {
-            if (type && detailData[type]) {
-                window.domCache.detailContent.innerHTML = detailData[type];
-            } else {
-                window.domCache.detailContent.innerHTML = detailData.low;
-            }
+        // 打开详情模态框
+        function openDetailModal() {
             window.domCache.detailModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
+        // 关闭模态框
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
             document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
-            if(modalId === 'areaModal') {
-                var areaList = document.getElementById('areaList');
-                if(areaList) areaList.innerHTML = '';
-            }
         }
 
-        // 禁止地图弹窗内双击放大和选中
-        function setMapModalTouchPrevention(enable) {
-            if (enable) {
-                document.body.style.touchAction = 'manipulation';
-                document.body.style.userSelect = 'none';
-            } else {
-                document.body.style.touchAction = '';
-                document.body.style.userSelect = '';
-            }
-        }
-        // 修改openMapModal和closeMapModal调用
+        // 打开地图模态框
         function openMapModal(area, type) {
             currentArea = area;
             currentType = type;
@@ -2764,60 +2046,29 @@
             mapFrame.src = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`;
             window.domCache.areaModal.classList.remove('active');
             window.domCache.mapModal.classList.add('active');
-            setMapModalTouchPrevention(true);
+            setMapModalTouchPrevention && setMapModalTouchPrevention(true);
             document.body.classList.add('modal-open');
             document.body.style.overflow = 'hidden';
             // 设置顶部标题
             var mapHeaderTitle = document.getElementById('mapHeaderTitle');
             if(mapHeaderTitle) mapHeaderTitle.textContent = markerName || '地图导航';
             // 动态设置高度，适配任务栏
-            setMapModalHeight();
+            setMapModalHeight && setMapModalHeight();
         }
+
+        // 关闭地图模态框
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
-            if (window.domCache.mapFrame) window.domCache.mapFrame.src = "about:blank";
+            window.domCache.mapFrame.src = "about:blank";
+            // 重新打开区域选择模态框
             window.domCache.areaModal.classList.add('active');
-            setMapModalTouchPrevention(false);
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
         }
         
-        function adjustMapContainerHeight() {
-            const mapContainer = document.querySelector('.map-container');
-            if (!mapContainer) return;
-            
-            const viewportHeight = window.innerHeight;
-            const viewportWidth = window.innerWidth;
-            
-            // 根据屏幕尺寸和设备类型调整高度
-            let heightReduction = 80; // 默认减少80px
-            
-            if (viewportWidth <= 400) {
-                heightReduction = 100;
-            } else if (viewportWidth <= 600) {
-                heightReduction = 80;
-            }
-            
-            // 处理横屏模式
-            if (viewportWidth > viewportHeight) {
-                heightReduction += 20;
-            }
-            
-            // 处理小屏幕设备
-            if (viewportHeight < 600) {
-                heightReduction += 40;
-            }
-            
-            const newHeight = Math.max(viewportHeight - heightReduction, 400);
-            mapContainer.style.height = `${newHeight}px`;
-        }
-        
+        // 打开集美照片链接
         function openPhotoModal() {
             showLoading();
-            
             window.domCache.mapModal.classList.remove('active');
-            setMapModalTouchPrevention(false);
-            
+            setMapModalTouchPrevention && setMapModalTouchPrevention(false);
             setTimeout(() => {
                 loadPhotoContent();
                 window.domCache.photoModal.classList.add('active');
@@ -2827,30 +2078,58 @@
             }, 300);
         }
         
-        function closePhotoModal() {
-            window.domCache.photoModal.classList.remove('active');
-            window.domCache.mapModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-open');
-            setMapModalTouchPrevention(true);
-            setMapModalHeight();
+        // 打开服务链接（区分iOS和安卓）
+        function openServiceLink(type, url) {
+            // 判断是否为iOS设备
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                // 显示iOS提示框
+                window.domCache.iosLink.textContent = url;
+                window.domCache.iosPrompt.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // 安卓设备直接打开
+                window.open(url, '_blank');
+            }
         }
         
+        // 关闭iOS提示框
+        function closeIosPrompt() {
+            window.domCache.iosPrompt.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // 初始化服务详情
+        window.domCache.detailContent.innerHTML = detailData.low;
+
+        // 设备logo自动识别
+        function setDeviceLogo() {
+            const logoDiv = document.getElementById('deviceLogo');
+            let icon = '', color = '';
+            const ua = navigator.userAgent;
+            if (/iPad|iPhone|iPod/.test(ua)) {
+                icon = 'fa-apple'; color = '#000';
+            } else if (/Android/.test(ua)) {
+                icon = 'fa-android'; color = '#3ddc84';
+            } else if (/Win/.test(ua) || /Windows/.test(ua)) {
+                icon = 'fa-windows'; color = '#0078d7';
+            } else {
+                icon = 'fa-laptop'; color = '#888';
+            }
+            logoDiv.innerHTML = `<i class="fab ${icon}" style="font-size:3.5rem;color:${color};margin-bottom:10px;"></i>`;
+        }
+
         function loadPhotoContent() {
             const photoContent = document.getElementById('photoContent');
             const currentAreaName = currentArea;
             const currentServiceType = currentType;
             const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
-            
-            console.log('Loading photo for:', currentAreaName, currentServiceType, photoLink);
-            
             if (photoLink && photoLink !== 'https://example.com/photos/placeholder.jpg') {
                 photoContent.innerHTML = `
                     <div class="photo-gallery">
                         <div class="photo-item">
-                            <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;" 
-                                 onload="console.log('Photo loaded successfully:', '${photoLink}')" 
-                                 onerror="console.error('Photo failed to load:', '${photoLink}'); this.parentElement.parentElement.innerHTML='<div class=\\"photo-placeholder\\"><i class=\\"fas fa-images\\"></i><p style=\\"font-size: 0.9rem; margin-top: 10px;\\">照片加载失败，请稍后重试</p></div>'">
+                            <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;"
+                                 onload="console.log('Photo loaded successfully:', '${photoLink}')"
+                                 onerror="console.error('Photo failed to load:', '${photoLink}'); this.parentElement.parentElement.innerHTML='<div class=\\"photo-placeholder\\\"><i class=\\"fas fa-images\\\"></i><p style=\\"font-size: 0.9rem; margin-top: 10px;\\">照片加载失败，请稍后重试</p></div>'">
                         </div>
                     </div>
                 `;
@@ -2863,8 +2142,16 @@
                 `;
             }
         }
-        
-        // 优化App导航跳转逻辑
+
+        function closePhotoModal() {
+            window.domCache.photoModal.classList.remove('active');
+            window.domCache.mapModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+            setMapModalTouchPrevention && setMapModalTouchPrevention(true);
+            setMapModalHeight && setMapModalHeight();
+        }
+
         function openNavigationApp() {
             const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
             if (!coordinates) {
@@ -2898,93 +2185,6 @@
                 window.onblur = null;
             };
         }
-        
-        function openServiceLink(type, url) {
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                window.domCache.iosLink.textContent = url;
-                window.domCache.iosPrompt.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-        
-        function closeIosPrompt() {
-            window.domCache.iosPrompt.classList.remove('active');
-            document.body.style.overflow = '';
-            document.body.classList.remove('modal-open');
-        }
-        
-        window.domCache.detailContent.innerHTML = detailData.low;
-
-        // JS部分，动态设置高度，适配移动端任务栏
-        function setMapModalHeight() {
-            var modal = document.getElementById('mapModal');
-            var container = document.querySelector('.map-container');
-            if (modal) {
-                modal.style.height = window.innerHeight + 'px';
-            }
-            if (container) {
-                container.style.height = window.innerHeight + 'px';
-            }
-        }
-        
-        // 确保地图界面状态正确
-        function ensureMapModalState() {
-            if (window.domCache.mapModal.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-open');
-                setMapModalTouchPrevention(true);
-                setMapModalHeight();
-            }
-        }
-        window.addEventListener('resize', setMapModalHeight);
-        window.addEventListener('orientationchange', setMapModalHeight);
-        
-        // 监听页面焦点变化，确保地图状态正确
-        window.addEventListener('focus', ensureMapModalState);
-        window.addEventListener('pageshow', ensureMapModalState);
     </script>
-    <script>
-    // 兼容移动端:active动画
-    document.querySelectorAll('.app-jump-btn, .photo-btn').forEach(btn => {
-      btn.addEventListener('touchstart', () => btn.classList.add('active'));
-      btn.addEventListener('touchend', () => btn.classList.remove('active'));
-      btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
-    });
-    </script>
-    <script>
-            // 兼容地图底部按钮点击动画
-        document.querySelectorAll('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn').forEach(btn => {
-          btn.addEventListener('touchstart', () => btn.classList.add('active'));
-          btn.addEventListener('touchend', () => btn.classList.remove('active'));
-          btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
-        });
-        
-        // 确保地图界面按钮点击后状态正确
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.map-bottom-bar .app-jump-btn, .map-bottom-bar .photo-btn')) {
-                setTimeout(ensureMapModalState, 100);
-            }
-        });
-    </script>
-
-    <script>
-    (function(){
-      var icon = document.getElementById('mainLogoIcon');
-      if(!icon) return;
-      var ua = navigator.userAgent||'';
-      if(/iPhone|iPad|iPod|Macintosh/i.test(ua)) {
-        icon.className = 'fab fa-apple';
-      } else if(/Android/i.test(ua)) {
-        icon.className = 'fab fa-android';
-      } else if(/Windows/i.test(ua)) {
-        icon.className = 'fab fa-windows';
-      } else {
-        icon.className = 'fas fa-star';
-      }
-    })();
-    </script>
-
 </body>
 </html>
