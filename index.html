@@ -484,7 +484,7 @@
         .back-btn {
             position: absolute;
             left: 16px;
-            top: 12px;
+            top: 14px !important;
             transform: none;
             z-index: 10000;
             background: rgba(255,255,255,0.95);
@@ -501,24 +501,18 @@
         }
         @media (max-width: 600px) {
             .back-btn {
+                top: 8px !important;
                 left: 8px;
-                top: 8px;
                 width: 34px;
                 height: 34px;
             }
         }
         #detailModal .back-btn, #highModal .back-btn, #areaModal .back-btn, #photoModal .back-btn {
-            left: 16px;
-            top: 12px;
-            width: 38px;
-            height: 38px;
+            top: 14px !important;
         }
         @media (max-width: 600px) {
             #detailModal .back-btn, #highModal .back-btn, #areaModal .back-btn, #photoModal .back-btn {
-                left: 8px;
-                top: 8px;
-                width: 34px;
-                height: 34px;
+                top: 8px !important;
             }
         }
         
@@ -575,32 +569,34 @@
         #detailModal .back-btn {
             position: absolute;
             left: 16px;
-            top: 12px;
-            transform: none;
+            top: 18px;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             z-index: 10000;
-            background: rgba(255,255,255,0.95);
-            border-radius: 50%;
-            width: 38px; height: 38px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            cursor: pointer;
-            transition: all 0.2s;
-            backdrop-filter: blur(10px);
         }
         @media (max-width: 600px) {
             #detailModal .back-btn {
                 left: 8px;
-                top: 8px;
+                top: 12px;
                 width: 34px;
                 height: 34px;
-            }
-            #detailModal .modal-title {
-                padding-left: 44px;
             }
         }
         #detailModal .modal-title {
             position: relative;
             padding-left: 60px;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+        }
+        @media (max-width: 600px) {
+            #detailModal .modal-title {
+                padding-left: 44px;
+                min-height: 34px;
+            }
         }
         .seal {
             padding: 2px 8px !important;
@@ -2024,6 +2020,34 @@
         /* 认证徽章向右移动 */
         .certification .seal {
             right: 20px !important;
+        }
+        #highModal .back-btn,
+        #areaModal .back-btn {
+            top: 18px !important;
+        }
+        @media (max-width: 600px) {
+            #highModal .back-btn,
+            #areaModal .back-btn {
+                top: 12px !important;
+            }
+        }
+        .seal {
+            position: absolute !important;
+            top: 0 !important;
+            right: 0 !important;
+            padding: 2px 6px !important;
+            margin: 0 !important;
+            border-radius: 10px !important;
+            z-index: 2 !important;
+        }
+
+        #areaModal .back-btn {
+            top: 12px !important;
+        }
+        @media (max-width: 600px) {
+            #areaModal .back-btn {
+                top: 6px !important;
+            }
         }
     </style>
 </head>
