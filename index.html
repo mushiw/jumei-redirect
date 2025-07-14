@@ -217,7 +217,7 @@
         }
         
         .option-card h2 {
-            font-size: 1.35rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--dark);
             margin-left: 18px;
@@ -257,6 +257,9 @@
         }
         
         /* 低端局样式 */
+        .option-card.low {
+            background: linear-gradient(90deg, rgba(10,46,93,0.18) 0%, rgba(10,46,93,0.07) 100%);
+        }
         .option-card.low .option-icon {
             background: var(--gradient-primary);
         }
@@ -265,6 +268,9 @@
         }
         
         /* 中端局样式 */
+        .option-card.mid {
+            background: linear-gradient(90deg, rgba(0,199,190,0.18) 0%, rgba(0,199,190,0.07) 100%);
+        }
         .option-card.mid .option-icon {
             background: var(--gradient-accent);
         }
@@ -273,6 +279,9 @@
         }
         
         /* 高端局样式 */
+        .option-card.high {
+            background: linear-gradient(90deg, rgba(255,149,0,0.28) 0%, rgba(255,149,0,0.10) 100%);
+        }
         .option-card.high .option-icon {
             background: var(--gradient-gold);
         }
@@ -392,9 +401,10 @@
         /* 底部信息 */
         .footer-section {
             text-align: center;
-            padding: 10px 0 5px;
+            padding: 6px 0 2px;
             background: transparent;
             flex-shrink: 0;
+            margin-top: 8px;
         }
         
         .footer {
@@ -403,7 +413,7 @@
             font-size: 0.85rem;
             opacity: 0.85;
             font-weight: 500;
-            padding: 3px 0;
+            padding: 2px 0 0 0;
         }
         
         .contact-info {
@@ -412,7 +422,7 @@
             font-size: 0.85rem;
             opacity: 0.85;
             font-weight: 500;
-            padding: 3px 0;
+            padding: 0 0 2px 0;
         }
         
         .contact-info strong {
@@ -548,7 +558,7 @@
         
         /* 美团集美特殊样式 */
         .meituan-area {
-            background: #ffe08c;
+            background: #ffd24d;
             grid-column: span 2;
         }
         
@@ -862,13 +872,13 @@
         .service-icon, .tip-icon {
             width: 36px;
             height: 36px;
-            background: var(--primary);
-            border-radius: 50%;
+            background: transparent;
+            border-radius: 0;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-right: 12px;
-            color: white;
+            color: var(--dark);
             flex-shrink: 0;
         }
         
@@ -892,11 +902,11 @@
         .access-btn {
             background: var(--gradient-gold);
             border-radius: 16px;
-            padding: 18px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            margin: 20px auto 0;
+            margin: 10px auto 0;
             color: white;
             font-weight: 600;
             font-size: 1.1rem;
@@ -1454,7 +1464,7 @@
                     </div>
                     
                     <div class="modal-section">
-                        <h3>服务说明</h3>
+                        <h3><i class="fas fa-info-circle"></i> 服务说明</h3>
                         <div class="solution-list">
                             <div class="service-item">
                                 <div class="service-icon">
@@ -1685,14 +1695,27 @@
             </div>
             
             <div class="modal-section">
-                <h3>温馨提示</h3>
-                <div style="background:#fff;border-radius:14px;padding:18px 16px;margin-top:8px;">
-                    <div style="color:#222;font-size:1rem;line-height:1.8;">
-                        部分工作室提供真人照片（年龄26-30岁）<br>
-                        请提前联系确认是否开工<br>
-                        聚美臻选承诺：所有服务均真实可靠<br>
-                        支持多种支付方式，透明消费无隐藏费用<br>
-                        所有服务人员均经过健康检测
+                <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>部分工作室提供真人照片（年龄26-30岁）</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>请提前联系确认是否开工</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>聚美臻选承诺：所有服务均真实可靠</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>支持多种支付方式，透明消费无隐藏费用</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>所有服务人员均经过健康检测</div>
                     </div>
                 </div>
             </div>
@@ -1745,14 +1768,27 @@
             </div>
             
             <div class="modal-section">
-                <h3>温馨提示</h3>
-                <div style="background:#fff;border-radius:14px;padding:18px 16px;margin-top:8px;">
-                    <div style="color:#222;font-size:1rem;line-height:1.8;">
-                        所有服务人员态度乖巧听话<br>
-                        任何不过分的要求都可以满足<br>
-                        提供丝袜和各种情趣制服<br>
-                        聚美臻选承诺：诚信经营，品质保障<br>
-                        提前预约可享受VIP专属通道
+                <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>所有服务人员态度乖巧听话</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>任何不过分的要求都可以满足</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>提供丝袜和各种情趣制服</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>聚美臻选承诺：诚信经营，品质保障</div>
+                    </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>提前预约可享受VIP专属通道</div>
                     </div>
                 </div>
             </div>
@@ -1809,7 +1845,7 @@
             </div>
             
             <div class="modal-section">
-                <h3>服务说明</h3>
+                <h3><i class="fas fa-info-circle"></i> 服务说明</h3>
                 <div class="solution-list">
                     <div class="service-item">
                         <div class="service-icon">
@@ -2089,7 +2125,7 @@
             let icon = '', color = '';
             const ua = navigator.userAgent;
             if (/iPad|iPhone|iPod/.test(ua)) {
-                icon = 'fa-apple'; color = '#000';
+                icon = 'fa-apple'; color = '#888888';
             } else if (/Android/.test(ua)) {
                 icon = 'fa-android'; color = '#3ddc84';
             } else if (/Win/.test(ua) || /Windows/.test(ua)) {
