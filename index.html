@@ -748,27 +748,24 @@
         }
         
         .access-btn, .app-jump-btn, .photo-btn {
-            background: rgba(255,255,255,0.22);
-            backdrop-filter: blur(18px) saturate(160%);
-            -webkit-backdrop-filter: blur(18px) saturate(160%);
-            border-radius: 18px;
-            border: 1.5px solid rgba(255,255,255,0.32);
-            color: #007AFF;
+            background: rgba(36,37,38,0.32);
+            background-image:
+                linear-gradient(120deg,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0.04) 100%),
+                radial-gradient(circle at 70% 30%,rgba(34,197,94,0.06) 0%,rgba(0,122,255,0.04) 60%,transparent 100%);
+            backdrop-filter: blur(22px) saturate(180%);
+            -webkit-backdrop-filter: blur(22px) saturate(180%);
+            border-radius: 20px;
+            border: 1.5px solid rgba(255,255,255,0.18);
+            color: #fff;
             font-weight: 700;
             font-size: 1.08rem;
-            box-shadow: 0 6px 24px 0 rgba(0,122,255,0.10), 0 1.5px 4px 0 rgba(0,122,255,0.08);
+            box-shadow:
+                0 8px 32px 0 rgba(30,41,59,0.18),
+                0 1.5px 4px 0 rgba(30,41,59,0.10),
+                inset 0 1.5px 12px 0 rgba(255,255,255,0.10);
             position: relative;
             overflow: hidden;
             transition: all 0.25s cubic-bezier(.4,0,.2,1);
-        }
-        .access-btn {
-            width: 100%;
-            padding: 18px 25px;
-            margin-top: 20px;
-        }
-        .app-jump-btn, .photo-btn {
-            padding: 14px 0;
-            min-width: 120px;
         }
         .access-btn::before, .app-jump-btn::before, .photo-btn::before {
             content: '';
@@ -777,32 +774,29 @@
             top: 0;
             width: 120%;
             height: 100%;
-            background: linear-gradient(120deg,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0.08) 100%);
-            filter: blur(6px);
+            background: linear-gradient(120deg,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0.04) 100%);
+            filter: blur(10px);
             opacity: 0.7;
             transition: left 0.5s;
             z-index: 1;
         }
-        .access-btn:hover::before, .app-jump-btn:hover::before, .photo-btn:hover::before {
-            left: 100%;
-        }
         .access-btn:hover, .app-jump-btn:hover, .photo-btn:hover {
-            box-shadow: 0 12px 32px 0 rgba(0,122,255,0.16), 0 2px 8px 0 rgba(0,122,255,0.10);
-            background: rgba(255,255,255,0.32);
+            box-shadow: 0 16px 40px 0 rgba(30,41,59,0.22), 0 2px 8px 0 rgba(30,41,59,0.13), inset 0 2px 16px 0 rgba(255,255,255,0.16);
+            background: rgba(36,37,38,0.42);
         }
         .access-btn:active, .app-jump-btn:active, .photo-btn:active {
-            background: rgba(255,255,255,0.18);
-            box-shadow: 0 2px 8px 0 rgba(0,122,255,0.10);
+            background: rgba(36,37,38,0.22);
+            box-shadow: 0 2px 8px 0 rgba(30,41,59,0.13), inset 0 1.5px 8px 0 rgba(255,255,255,0.10);
         }
         .access-btn i, .app-jump-btn i, .photo-btn i {
             margin-right: 8px;
-            color: #007AFF;
+            color: #fff !important;
         }
         .photo-btn {
             color: #22c55e;
         }
         .photo-btn i {
-            color: #22c55e;
+            color: #fff !important;
         }
         @media (max-width: 600px) {
             .access-btn, .app-jump-btn, .photo-btn {
@@ -1916,6 +1910,9 @@
             cursor: pointer;
             border: none;
         }
+        .app-jump-btn i {
+            color: #fff !important;
+        }
     </style>
 </head>
 <body ontouchstart="">
@@ -1987,8 +1984,8 @@
             </svg>
             <h3 style="color:#22c55e;position:relative;z-index:1;"><i class="fas fa-shield-alt" style="color:#22c55e;"></i> 聚美臻选官方认证</h3>
             <p style="position:relative;z-index:1;">诚信经营 · 真实信息 · 品质保障</p>
-            <div class="seal" style="background:rgba(34,197,94,0.12);color:#22c55e;box-shadow:none;font-size:0.78rem;display:inline-flex;align-items:center;gap:3px;position:absolute;top:14px;right:14px;padding:3px 10px;z-index:2;min-width:0;min-height:0;border-radius:12px;font-weight:600;">
-                <i class="fas fa-check-circle" style="color:#22c55e;font-size:0.92em;"></i> √已验证
+            <div class="seal" style="background:rgba(34,197,94,0.12);color:#22c55e;box-shadow:none;font-size:0.7rem;display:inline-flex;align-items:center;gap:2px;position:absolute;top:8px;right:10px;padding:2px 7px;z-index:2;min-width:0;min-height:0;border-radius:10px;font-weight:600;">
+                <i class="fas fa-check-circle" style="color:#22c55e;font-size:0.82em;"></i> √已验证
             </div>
         </div>
         
@@ -2594,6 +2591,10 @@
             document.getElementById(modalId).classList.remove('active');
             document.body.style.overflow = '';
             document.body.classList.remove('modal-open');
+            if(modalId === 'areaModal') {
+                var areaList = document.getElementById('areaList');
+                if(areaList) areaList.innerHTML = '';
+            }
         }
 
         // 禁止地图弹窗内双击放大和选中
