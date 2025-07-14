@@ -42,7 +42,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+            background: #fff;
             color: var(--dark);
             min-height: 100vh;
             padding: 0;
@@ -58,7 +58,7 @@
             margin: 0 auto;
             position: relative;
             padding: 15px;
-            background: #e6f9ec; /* 浅绿色 */
+            background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
@@ -212,7 +212,7 @@
         }
         
         .option-card:active {
-            transform: scale(0.97);
+            background: #f0f4fa;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
         
@@ -429,14 +429,15 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.92);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            padding-bottom: env(safe-area-inset-bottom, 24px);
             z-index: 1000;
             opacity: 0;
             visibility: hidden;
             transition: var(--transition);
-            padding: env(safe-area-inset-top, 24px) 0 env(safe-area-inset-bottom, 24px) 0;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
         
         .modal.active {
@@ -450,13 +451,15 @@
             border-radius: 20px;
             width: 90%;
             max-width: 500px;
-            max-height: calc(100vh - 48px - env(safe-area-inset-top, 24px) - env(safe-area-inset-bottom, 24px));
+            max-height: 85vh;
             overflow-y: auto;
             position: relative;
-            transform: translateY(0);
+            transform: translateY(20px);
             transition: transform 0.4s ease;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-            margin: 0 auto;
+            margin: auto;
+            margin-top: 32px;
+            margin-bottom: 32px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -582,7 +585,7 @@
         }
         
         .detail-btn:active {
-            transform: scale(0.97);
+            background: #00bfae;
             box-shadow: 0 2px 8px rgba(0, 137, 123, 0.4);
         }
         
@@ -617,7 +620,7 @@
         }
         
         .map-header {
-            padding: 0 12px;
+            padding: 0 8px;
             background: var(--light);
             display: flex;
             align-items: center;
@@ -924,7 +927,7 @@
         }
         
         .access-btn:active {
-            transform: scale(0.97);
+            background: #e6b800;
             box-shadow: 0 2px 8px rgba(199, 145, 0, 0.4);
         }
         
@@ -1274,14 +1277,28 @@
             background: transparent;
             box-shadow: none;
             border: none;
-            padding: 0 0 8px 0;
+            padding: 0 0 18px 0;
             margin: 0;
-            min-height: 54px;
+            min-height: 62px;
         }
         .app-jump-btn, .photo-btn {
             padding: 10px 8px;
             min-height: 38px;
             font-size: 1rem;
+            min-width: 120px;
+            max-width: 160px;
+            width: 38vw;
+            transition: background 0.18s, color 0.18s;
+        }
+        .app-jump-btn:active {
+            /* 深色按钮点击变淡 */
+            background: linear-gradient(135deg, #4e7bbf 0%, #7fa6d6 100%);
+            color: #fff;
+        }
+        .photo-btn:active {
+            /* 金色按钮点击变深 */
+            background: linear-gradient(135deg, #b07a00 0%, #e6b800 100%);
+            color: #fff;
         }
     </style>
 </head>
@@ -2155,6 +2172,43 @@
         function closePhotoPreview() {
             document.getElementById('photoPreviewLayer').style.display = 'none';
             document.body.style.overflow = '';
+        }
+
+        function openNavigationApp() {
+            const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
+            if (!coordinates) {
+                alert('未找到区域坐标数据');
+                return;
+            }
+            const lat = coordinates.lat;
+            const lng = coordinates.lng;
+            const markerName = coordinates.name;
+            const areaName = encodeURIComponent(markerName);
+            const ua = navigator.userAgent;
+            let appUrl = '';
+            let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
+            // 优先尝试调起App，失败则跳H5
+            if (/iPad|iPhone|iPod/.test(ua)) {
+                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
+            } else if (/Android/i.test(ua)) {
+                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
+            }
+            if (appUrl) {
+                // 先尝试调起App，1.5秒后跳H5
+                let jumped = false;
+                const t = setTimeout(function() {
+                    if (!jumped) window.location.href = fallbackUrl;
+                }, 1500);
+                window.location.href = appUrl;
+                window.onblur = function() {
+                    jumped = true;
+                    clearTimeout(t);
+                    window.onblur = null;
+                };
+            } else {
+                // PC端或未知设备直接跳H5
+                window.location.href = fallbackUrl;
+            }
         }
     </script>
 </body>
