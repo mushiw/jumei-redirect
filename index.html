@@ -30,13 +30,16 @@
             --light: #FFFFFF;
             --gray: #8E8E93;
             --light-gray: #F2F2F7;
-            --glass-bg: rgba(255,255,255,0.72);
-            --glass-border: rgba(255,255,255,0.38);
-            --glass-shadow: 0 8px 42px rgba(0,0,0,0.12);
-            --glass-shadow-hover: 0 16px 48px rgba(0,0,0,0.18);
-            --card-shadow: 0 4px 16px rgba(0,0,0,0.08);
-            --card-shadow-hover: 0 6px 24px rgba(0,0,0,0.12);
+            
+            /* iOS 26 液态玻璃风格 - 简单大气 */
+            --glass-bg: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.38);
+            --glass-shadow: 0 8px 42px rgba(0, 0, 0, 0.12);
+            --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.18);
+            --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --card-shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.12);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
             --gradient-primary: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
             --gradient-accent: linear-gradient(135deg, #00C7BE 0%, #007AFF 100%);
             --gradient-gold: linear-gradient(135deg, #FF9500 0%, #FF6B35 100%);
@@ -50,74 +53,6 @@
             --mid-dark: #007AFF;
             --high-gold: #FF9500;
         }
-        /* 全站统一液态玻璃风格 */
-        .container,
-        .modal-content,
-        .option-card,
-        .certification,
-        .modal-section,
-        .package-item,
-        .area-item,
-        .tip-box {
-            background: var(--glass-bg);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border-radius: 24px;
-            border: 1.5px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-            transition: var(--transition);
-        }
-        .option-card,
-        .package-item,
-        .area-item,
-        .tip-box {
-            border-radius: 18px;
-        }
-        .option-card:hover,
-        .package-item:hover,
-        .area-item:hover,
-        .tip-box:hover {
-            box-shadow: var(--glass-shadow-hover);
-            background: rgba(255,255,255,0.85);
-        }
-        .access-btn, .app-jump-btn, .photo-btn {
-            background: rgba(255,255,255,0.22);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border-radius: 20px;
-            border: 1.5px solid rgba(255,255,255,0.32);
-            box-shadow: 0 8px 32px 0 rgba(0,122,255,0.13);
-            color: #007AFF;
-            font-weight: 700;
-            transition: var(--transition);
-        }
-        .access-btn:hover, .app-jump-btn:hover, .photo-btn:hover {
-            background: rgba(255,255,255,0.32);
-            box-shadow: 0 16px 40px 0 rgba(0,122,255,0.18), 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 2px 16px 0 rgba(255,255,255,0.22);
-        }
-        .access-btn:active, .app-jump-btn:active, .photo-btn:active {
-            background: rgba(255,255,255,0.18);
-            box-shadow: 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 1.5px 8px 0 rgba(255,255,255,0.13);
-        }
-        /* 保留安卓端降级方案 */
-        .android .container,
-        .android .modal-content,
-        .android .modal,
-        .android .certification,
-        .android .option-card,
-        .android .modal-section,
-        .android .map-container,
-        .android .photo-modal,
-        .android .photo-header,
-        .android .area-item,
-        .android .tip-box,
-        .android .package-item {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            background: rgba(255,255,255,0.96) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-        }
-        .android .logo-pulse { display: none !important; }
         
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -134,7 +69,31 @@
         
         body::before,
         body::after {
-            display: none !important;
+            content: '';
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        body::before {
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+        
+        body::after {
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
         
         .container {
@@ -535,6 +494,7 @@
             align-items: center !important;
             justify-content: center !important;
             z-index: 10000 !important;
+            position: absolute !important;
         }
         @media (max-width: 600px) {
             .back-btn {
@@ -604,26 +564,22 @@
         }
         
         #detailModal .back-btn {
-            position: fixed !important;
-            top: 16px !important;
-            left: 16px !important;
-            width: 38px !important;
-            height: 38px !important;
-            background: rgba(255,255,255,0.95) !important;
-            border-radius: 50% !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            z-index: 10000 !important;
-            transition: all 0.2s;
+            position: absolute;
+            left: 16px;
+            top: 18px;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
         }
         @media (max-width: 600px) {
             #detailModal .back-btn {
-                top: 12px !important;
-                left: 12px !important;
-                width: 34px !important;
-                height: 34px !important;
+                left: 8px;
+                top: 12px;
+                width: 34px;
+                height: 34px;
             }
         }
         #detailModal .modal-title {
@@ -632,11 +588,10 @@
             min-height: 38px;
             display: flex;
             align-items: center;
-            justify-content: center;
         }
         @media (max-width: 600px) {
             #detailModal .modal-title {
-                padding-left: 0;
+                padding-left: 44px;
                 min-height: 34px;
             }
         }
@@ -2214,80 +2169,6 @@
             z-index: 10000 !important;
         }
 
-        /* 安卓端降级模糊和阴影，提升性能 */
-        .android .container,
-        .android .modal-content,
-        .android .modal,
-        .android .certification,
-        .android .option-card,
-        .android .modal-section,
-        .android .map-container,
-        .android .photo-modal,
-        .android .photo-header,
-        .android .area-item,
-        .android .tip-box,
-        .android .package-item {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            background: rgba(255,255,255,0.96) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-        }
-        /* 安卓端关闭 logo SVG 动画 */
-        .android .logo-pulse { display: none !important; }
-
-        #detailModal .back-btn,
-        #detailModal .back-btn:hover,
-        #detailModal .back-btn:active {
-            transform-origin: left top !important;
-        }
-
-        /* 安卓端弹窗内容和区域选择降级优化 */
-        .android .modal-content,
-        .android .area-list,
-        .android .area-item,
-        .android .meituan-area {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            background: rgba(255,255,255,0.96) !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-            z-index: 1001 !important;
-        }
-
-        .android .area-list {
-            display: grid !important;
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 12px !important;
-            padding: 10px !important;
-            overflow: visible !important;
-        }
-
-        .android .area-item,
-        .android .meituan-area {
-            display: block !important;
-            color: #333 !important;
-            border-radius: 18px !important;
-            font-weight: 600 !important;
-            font-size: 1rem !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-            border: 1px solid #eee !important;
-            background: rgba(255,255,255,0.96) !important;
-            z-index: 1002 !important;
-        }
-
-        .android .meituan-area {
-            background: linear-gradient(90deg, #ffe066 0%, #ffd600 80%, #ffcc00 100%) !important;
-            color: #b58105 !important;
-            font-weight: 700 !important;
-            border: none !important;
-        }
-
-        @media (max-width: 6000px) { /* 兼容所有端 */
-          .android body::before,
-          .android body::after {
-            background: rgba(255,255,255,0.12) !important;
-            background-image: none !important;
-          }
-        }
     </style>
 </head>
 <body ontouchstart="">
@@ -3191,12 +3072,6 @@
       btn.addEventListener('touchend', () => btn.classList.remove('active'));
       btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
     });
-    // 安卓端图片懒加载
-    if (document.body.classList.contains('android')) {
-      document.querySelectorAll('img').forEach(img => {
-        img.setAttribute('loading', 'lazy');
-      });
-    }
     </script>
     <script>
             // 兼容地图底部按钮点击动画
@@ -3229,13 +3104,6 @@
         icon.className = 'fas fa-star';
       }
     })();
-    </script>
-
-    <script>
-    // 检测安卓端并加 body.android
-    if (/Android/i.test(navigator.userAgent)) {
-      document.body.classList.add('android');
-    }
     </script>
 
 </body>
