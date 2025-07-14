@@ -481,12 +481,13 @@
             max-height: calc(85vh - 60px);
         }
         
+        /* 终极强力固定返回按钮位置，无论任何情况都不会错位 */
         .back-btn {
-            position: absolute;
-            top: 16px !important;
-            left: 16px !important;
-            width: 38px !important;
-            height: 38px !important;
+            position: absolute !important;
+            top: 8px !important;
+            left: 8px !important;
+            width: 34px !important;
+            height: 34px !important;
             background: rgba(255,255,255,0.95) !important;
             border-radius: 50% !important;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
@@ -494,7 +495,49 @@
             align-items: center !important;
             justify-content: center !important;
             z-index: 10000 !important;
+            border: none !important;
+            cursor: pointer !important;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s !important;
+        }
+        .back-btn:hover {
+            background: #fff !important;
+            transform: scale(1.05) !important;
+        }
+        .back-btn:active {
+            transform: scale(0.95) !important;
+        }
+        /* 最高优先级再覆盖所有特定弹窗返回按钮 */
+        #detailModal .back-btn,
+        #highModal .back-btn,
+        #areaModal .back-btn,
+        #photoModal .back-btn {
             position: absolute !important;
+            top: 8px !important;
+            left: 8px !important;
+            width: 34px !important;
+            height: 34px !important;
+            background: rgba(255,255,255,0.95) !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            z-index: 10000 !important;
+            border: none !important;
+            cursor: pointer !important;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s !important;
+        }
+        @media (min-width: 601px) {
+            .back-btn,
+            #detailModal .back-btn,
+            #highModal .back-btn,
+            #areaModal .back-btn,
+            #photoModal .back-btn {
+                top: 16px !important;
+                left: 16px !important;
+                width: 38px !important;
+                height: 38px !important;
+            }
         }
         @media (max-width: 600px) {
             .back-btn {
