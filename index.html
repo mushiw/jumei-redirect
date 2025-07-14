@@ -2168,6 +2168,44 @@
             z-index: 10000 !important;
         }
 
+        /* 修复返回按钮定位问题 */
+        #detailModal .back-btn {
+            top: calc(18px + env(safe-area-inset-top)) !important;
+            left: calc(16px + env(safe-area-inset-left)) !important;
+        }
+
+        @media (max-width: 600px) {
+            #detailModal .back-btn {
+                top: calc(12px + env(safe-area-inset-top)) !important;
+                left: calc(8px + env(safe-area-inset-left)) !important;
+            }
+        }
+
+        /* 确保模态框标题有足够的高度容纳返回按钮 */
+        #detailModal .modal-title {
+            min-height: 38px !important;
+            padding-left: 60px !important;
+        }
+
+        @media (max-width: 600px) {
+            #detailModal .modal-title {
+                min-height: 34px !important;
+                padding-left: 44px !important;
+            }
+        }
+
+        /* 修复高端局模态框的返回按钮定位 */
+        #highModal .back-btn {
+            top: calc(18px + env(safe-area-inset-top)) !important;
+            left: calc(16px + env(safe-area-inset-left)) !important;
+        }
+
+        @media (max-width: 600px) {
+            #highModal .back-btn {
+                top: calc(12px + env(safe-area-inset-top)) !important;
+                left: calc(8px + env(safe-area-inset-left)) !important;
+            }
+        }
     </style>
 </head>
 <body ontouchstart="">
@@ -2829,6 +2867,9 @@
                 window.domCache.highModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 hideLoading();
+                
+                // 新增：重置滚动位置
+                window.domCache.highModal.scrollTop = 0;
             }, 300);
         }
 
@@ -2840,6 +2881,9 @@
             }
             window.domCache.detailModal.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            // 新增：重置滚动位置
+            window.domCache.detailModal.scrollTop = 0;
         }
 
         function closeModal(modalId) {
