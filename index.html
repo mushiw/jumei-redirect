@@ -748,24 +748,33 @@
         }
         
         .access-btn, .app-jump-btn, .photo-btn {
-            background: rgba(36,37,38,0.32);
+            background: rgba(255,255,255,0.22);
             background-image:
-                linear-gradient(120deg,rgba(255,255,255,0.10) 0%,rgba(255,255,255,0.04) 100%),
-                radial-gradient(circle at 70% 30%,rgba(34,197,94,0.06) 0%,rgba(0,122,255,0.04) 60%,transparent 100%);
+                linear-gradient(120deg,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0.08) 100%),
+                radial-gradient(circle at 70% 30%,rgba(34,197,94,0.08) 0%,rgba(0,122,255,0.06) 60%,transparent 100%);
             backdrop-filter: blur(22px) saturate(180%);
             -webkit-backdrop-filter: blur(22px) saturate(180%);
             border-radius: 20px;
-            border: 1.5px solid rgba(255,255,255,0.18);
-            color: #fff;
+            border: 1.5px solid rgba(255,255,255,0.32);
+            color: #007AFF;
             font-weight: 700;
             font-size: 1.08rem;
             box-shadow:
-                0 8px 32px 0 rgba(30,41,59,0.18),
-                0 1.5px 4px 0 rgba(30,41,59,0.10),
-                inset 0 1.5px 12px 0 rgba(255,255,255,0.10);
+                0 8px 32px 0 rgba(0,122,255,0.13),
+                0 1.5px 4px 0 rgba(0,122,255,0.08),
+                inset 0 1.5px 12px 0 rgba(255,255,255,0.18);
             position: relative;
             overflow: hidden;
             transition: all 0.25s cubic-bezier(.4,0,.2,1);
+        }
+        .access-btn {
+            width: 100%;
+            padding: 18px 25px;
+            margin-top: 20px;
+        }
+        .app-jump-btn, .photo-btn {
+            padding: 14px 0;
+            min-width: 120px;
         }
         .access-btn::before, .app-jump-btn::before, .photo-btn::before {
             content: '';
@@ -774,29 +783,32 @@
             top: 0;
             width: 120%;
             height: 100%;
-            background: linear-gradient(120deg,rgba(255,255,255,0.18) 0%,rgba(255,255,255,0.04) 100%);
-            filter: blur(10px);
-            opacity: 0.7;
+            background: linear-gradient(120deg,rgba(255,255,255,0.32) 0%,rgba(255,255,255,0.08) 100%);
+            filter: blur(8px);
+            opacity: 0.8;
             transition: left 0.5s;
             z-index: 1;
         }
+        .access-btn:hover::before, .app-jump-btn:hover::before, .photo-btn:hover::before {
+            left: 100%;
+        }
         .access-btn:hover, .app-jump-btn:hover, .photo-btn:hover {
-            box-shadow: 0 16px 40px 0 rgba(30,41,59,0.22), 0 2px 8px 0 rgba(30,41,59,0.13), inset 0 2px 16px 0 rgba(255,255,255,0.16);
-            background: rgba(36,37,38,0.42);
+            box-shadow: 0 16px 40px 0 rgba(0,122,255,0.18), 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 2px 16px 0 rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.32);
         }
         .access-btn:active, .app-jump-btn:active, .photo-btn:active {
-            background: rgba(36,37,38,0.22);
-            box-shadow: 0 2px 8px 0 rgba(30,41,59,0.13), inset 0 1.5px 8px 0 rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.18);
+            box-shadow: 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 1.5px 8px 0 rgba(255,255,255,0.13);
         }
         .access-btn i, .app-jump-btn i, .photo-btn i {
             margin-right: 8px;
-            color: #fff !important;
+            color: #007AFF;
         }
         .photo-btn {
             color: #22c55e;
         }
         .photo-btn i {
-            color: #fff !important;
+            color: #22c55e;
         }
         @media (max-width: 600px) {
             .access-btn, .app-jump-btn, .photo-btn {
@@ -1913,6 +1925,13 @@
         .app-jump-btn i {
             color: #fff !important;
         }
+        /* 高端局专属亮金色按钮 */
+        .access-btn.high-gold {
+            background: linear-gradient(90deg,#FF9500,#FFB347) !important;
+            color: #fff !important;
+            border: 1.5px solid rgba(255,149,0,0.22) !important;
+            box-shadow: 0 8px 32px 0 rgba(255,149,0,0.13), 0 1.5px 4px 0 rgba(255,149,0,0.08), inset 0 1.5px 12px 0 rgba(255,255,255,0.18) !important;
+        }
     </style>
 </head>
 <body ontouchstart="">
@@ -2184,7 +2203,7 @@
                         </div>
                     </div>
                     
-                    <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
+                    <button class="access-btn high-gold" onclick="openServiceLink('high', 'http://baidu.com')">
                         <i class="fas fa-gem"></i>
                         立即访问高端服务
                         <span class="integrity-text">尊享体验 · 品质保证</span>
@@ -2470,7 +2489,7 @@
                 </div>
             </div>
             
-            <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
+            <button class="access-btn high-gold" onclick="openServiceLink('high', 'http://baidu.com')">
                 <i class="fas fa-gem"></i>
                 立即访问高端服务
                 <span class="integrity-text">尊享体验 · 品质保证</span>
