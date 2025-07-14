@@ -575,7 +575,7 @@
             align-items: center !important;
             justify-content: center !important;
             z-index: 10000 !important;
-            transform: none !important;
+            transition: all 0.2s;
         }
         @media (max-width: 600px) {
             #detailModal .back-btn {
@@ -2172,6 +2172,26 @@
             z-index: 10000 !important;
         }
 
+        /* 安卓端降级模糊和阴影，提升性能 */
+        .android .container,
+        .android .modal-content,
+        .android .modal,
+        .android .certification,
+        .android .option-card,
+        .android .modal-section,
+        .android .map-container,
+        .android .photo-modal,
+        .android .photo-header,
+        .android .area-item,
+        .android .tip-box,
+        .android .package-item {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(255,255,255,0.96) !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+        }
+        /* 安卓端关闭 logo SVG 动画 */
+        .android .logo-pulse { display: none !important; }
     </style>
 </head>
 <body ontouchstart="">
@@ -3075,6 +3095,12 @@
       btn.addEventListener('touchend', () => btn.classList.remove('active'));
       btn.addEventListener('touchcancel', () => btn.classList.remove('active'));
     });
+    // 安卓端图片懒加载
+    if (document.body.classList.contains('android')) {
+      document.querySelectorAll('img').forEach(img => {
+        img.setAttribute('loading', 'lazy');
+      });
+    }
     </script>
     <script>
             // 兼容地图底部按钮点击动画
@@ -3107,6 +3133,13 @@
         icon.className = 'fas fa-star';
       }
     })();
+    </script>
+
+    <script>
+    // 检测安卓端并加 body.android
+    if (/Android/i.test(navigator.userAgent)) {
+      document.body.classList.add('android');
+    }
     </script>
 
 </body>
