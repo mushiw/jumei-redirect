@@ -2159,27 +2159,51 @@
             const markerName = coordinates.name;
             const areaName = encodeURIComponent(markerName);
             const ua = navigator.userAgent;
-            let appUrl = '';
             let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}`;
 
+            // 尝试多个地图App，按优先级顺序
+            function tryMultipleApps(appUrls, fallbackUrl) {
+                let currentIndex = 0;
+                
+                function tryNext() {
+                    if (currentIndex >= appUrls.length) {
+                        // 所有App都尝试失败，跳转H5
+                        window.location.href = fallbackUrl;
+                        return;
+                    }
+                    
+                    const appUrl = appUrls[currentIndex];
+                    const now = Date.now();
+                    
+                    setTimeout(() => {
+                        if (Date.now() - now < 1500) {
+                            // 当前App跳转失败，尝试下一个
+                            currentIndex++;
+                            tryNext();
+                        }
+                    }, 1200);
+                    
+                    window.location.href = appUrl;
+                }
+                
+                tryNext();
+            }
+
             if (/iPad|iPhone|iPod/.test(ua)) {
-                // iOS优先调起高德地图App
-                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&lat=${lat}&lon=${lng}&poiname=${areaName}`;
-                window.location.href = appUrl;
-                setTimeout(() => {
-                    // 跳转失败则弹出H5提示
-                    window.domCache.iosLink.textContent = fallbackUrl;
-                    window.domCache.iosPrompt.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }, 1200);
+                // iOS端地图App优先级
+                const iosApps = [
+                    `iosamap://viewMap?sourceApplication=聚美臻选&lat=${lat}&lon=${lng}&poiname=${areaName}`,
+                    `maps://maps.apple.com/?q=${areaName}&ll=${lat},${lng}`,
+                    `baidumap://map/marker?location=${lat},${lng}&title=${areaName}&content=${areaName}&coord_type=gcj02&src=聚美臻选`
+                ];
+                tryMultipleApps(iosApps, fallbackUrl);
             } else if (/Android/i.test(ua)) {
-                // 安卓优先调起高德地图App
-                appUrl = `amapuri://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
-                window.location.href = appUrl;
-                setTimeout(() => {
-                    // 跳转失败则打开H5
-                    window.open(fallbackUrl, '_blank');
-                }, 1200);
+                // 安卓端地图App优先级
+                const androidApps = [
+                    `amapuri://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`,
+                    `baidumap://map/marker?location=${lat},${lng}&title=${areaName}&content=${areaName}&coord_type=gcj02&src=聚美臻选`
+                ];
+                tryMultipleApps(androidApps, fallbackUrl);
             } else {
                 // PC端直接H5
                 window.open(fallbackUrl, '_blank');
