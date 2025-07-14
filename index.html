@@ -901,7 +901,7 @@
         .access-btn {
             background: var(--gradient-gold);
             border-radius: 16px;
-            padding: 5px;
+            padding: 2px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
@@ -1574,10 +1574,9 @@
             
             <p>复制以下链接并粘贴到Safari浏览器地址栏：</p>
             <div class="ios-instruction">
-                <div id="iosLink" style="word-break: break-all; padding: 12px; background: #f0f8ff; border-radius: 10px; margin: 12px 0; font-weight: 500; font-size: 1rem;">http://baidu.com</div>
+                <div id="iosLink" style="word-break: break-all; padding: 12px; background: #f0f8ff; border-radius: 10px; margin: 12px 0; font-weight: 500; font-size: 1rem; text-align:center;">http://baidu.com</div>
                 <ol>
                     <li>长按上方链接并选择"复制"</li>
-                    <li>切换到Safari浏览器</li>
                     <li>在地址栏长按并选择"粘贴"</li>
                     <li>点击"前往"访问服务</li>
                 </ol>
@@ -1591,7 +1590,7 @@
 
     <!-- 全屏图片预览层，初始隐藏 -->
     <div id="photoPreviewLayer" style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:#fff;flex-direction:column;align-items:center;justify-content:flex-start;">
-      <div style="display:flex;align-items:center;height:44px;width:100%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:10px 8px 10px 8px;position:sticky;top:0;z-index:10;">
+      <div style="display:flex;align-items:center;height:44px;width:100%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:10px 8px 10px 10px;position:sticky;top:0;z-index:10;">
         <div id="photoPreviewBack" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-right:6px;cursor:pointer;font-size:1.3rem;color:var(--primary);background:none;border-radius:0;" onclick="closePhotoPreview()">
           <i class="fas fa-arrow-left"></i>
         </div>
@@ -2161,51 +2160,8 @@
             const areaName = encodeURIComponent(markerName);
             const ua = navigator.userAgent;
             let appUrl = '';
-            let fallbackUrl = ``;
+            let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}`;
         }
-        // 检测iOS，仅为主界面底部按钮添加动态效果
-        (function() {
-            var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-            if (isIOS) {
-                var style = document.createElement('style');
-                style.innerHTML = `
-                .app-jump-btn:active {
-                    background: linear-gradient(135deg, #4e7bbf 0%, #7fa6d6 100%) !important;
-                    color: #fff !important;
-                }
-                .photo-btn:active {
-                    background: linear-gradient(135deg, #b07a00 0%, #e6b800 100%) !important;
-                    color: #fff !important;
-                }
-                `;
-                document.head.appendChild(style);
-            }
-        })();
-
-        // 仅在安卓端注入自定义滚动条样式，模仿iOS细灰色滚动条，仅作用于模态框内容
-        (function() {
-          if (/Android/i.test(navigator.userAgent)) {
-            var style = document.createElement('style');
-            style.innerHTML = `
-              .modal-content, .modal-body {
-                scrollbar-width: thin;
-                scrollbar-color: rgba(120,120,120,0.35) transparent;
-              }
-              .modal-content::-webkit-scrollbar, .modal-body::-webkit-scrollbar {
-                width: 6px;
-                background: transparent;
-              }
-              .modal-content::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb {
-                background: rgba(120,120,120,0.35);
-                border-radius: 4px;
-              }
-              .modal-content::-webkit-scrollbar-track, .modal-body::-webkit-scrollbar-track {
-                background: transparent;
-              }
-            `;
-            document.head.appendChild(style);
-          }
-        })();
     </script>
 </body>
 </html>
