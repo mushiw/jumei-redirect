@@ -1335,21 +1335,6 @@
                 </div>
             </div>
         </div>
-        <div id="photoModal" class="photo-modal">
-            <div class="photo-header">
-                <div class="photo-back-btn" onclick="closePhotoModal()">
-                    <i class="fas fa-arrow-left"></i>
-                </div>
-            </div>
-            <div class="photo-container">
-                <div class="photo-content" id="photoContent">
-                    <div class="photo-placeholder">
-                        <i class="fas fa-images"></i>
-                        <p>照片内容加载中...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <!-- 服务详情模态框 -->
         <div id="detailModal" class="modal">
@@ -1940,8 +1925,6 @@
                 highModal: document.getElementById('highModal'),
                 mapModal: document.getElementById('mapModal'),
                 mapFrame: document.getElementById('mapFrame'),
-                photoModal: document.getElementById('photoModal'),
-                photoContent: document.getElementById('photoContent'),
                 iosPrompt: document.getElementById('iosPrompt'),
                 iosLink: document.getElementById('iosLink'),
                 loadingOverlay: document.getElementById('loadingOverlay')
@@ -2064,18 +2047,16 @@
             window.domCache.areaModal.classList.add('active');
         }
         
-        // 打开集美照片链接
+        // 打开集美照片（新窗口打开图片，无弹窗）
         function openPhotoModal() {
-            showLoading();
-            window.domCache.mapModal.classList.remove('active');
-            setMapModalTouchPrevention && setMapModalTouchPrevention(false);
-            setTimeout(() => {
-                loadPhotoContent();
-                window.domCache.photoModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.body.classList.add('modal-open');
-                hideLoading();
-            }, 300);
+            const currentAreaName = currentArea;
+            const currentServiceType = currentType;
+            const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
+            if (photoLink && photoLink !== 'https://example.com/photos/placeholder.jpg') {
+                window.location.href = photoLink;
+            } else {
+                alert('照片内容即将上线，敬请期待！');
+            }
         }
         
         // 打开服务链接（区分iOS和安卓）
@@ -2116,74 +2097,6 @@
                 icon = 'fa-laptop'; color = '#888';
             }
             logoDiv.innerHTML = `<i class="fab ${icon}" style="font-size:3.5rem;color:${color};margin-bottom:10px;"></i>`;
-        }
-
-        function loadPhotoContent() {
-            const photoContent = document.getElementById('photoContent');
-            const currentAreaName = currentArea;
-            const currentServiceType = currentType;
-            const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
-            if (photoLink && photoLink !== 'https://example.com/photos/placeholder.jpg') {
-                photoContent.innerHTML = `
-                    <div class="photo-gallery">
-                        <div class="photo-item">
-                            <img src="${photoLink}" alt="" style="width: 100%; border-radius: 12px; margin-bottom: 15px;"
-                                 onload="console.log('Photo loaded successfully:', '${photoLink}')"
-                                 onerror="console.error('Photo failed to load:', '${photoLink}'); this.parentElement.parentElement.innerHTML='<div class=\\"photo-placeholder\\\"><i class=\\"fas fa-images\\\"></i><p style=\\"font-size: 0.9rem; margin-top: 10px;\\">照片加载失败，请稍后重试</p></div>'">
-                        </div>
-                    </div>
-                `;
-            } else {
-                photoContent.innerHTML = `
-                    <div class="photo-placeholder">
-                        <i class="fas fa-images"></i>
-                        <p style="font-size: 0.9rem; margin-top: 10px;">照片内容即将上线，敬请期待！</p>
-                    </div>
-                `;
-            }
-        }
-
-        function closePhotoModal() {
-            window.domCache.photoModal.classList.remove('active');
-            window.domCache.mapModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            document.body.classList.add('modal-open');
-            setMapModalTouchPrevention && setMapModalTouchPrevention(true);
-            setMapModalHeight && setMapModalHeight();
-        }
-
-        function openNavigationApp() {
-            const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
-            if (!coordinates) {
-                alert('未找到区域坐标数据');
-                return;
-            }
-            const lat = coordinates.lat;
-            const lng = coordinates.lng;
-            const markerName = coordinates.name;
-            const areaName = encodeURIComponent(markerName);
-            const ua = navigator.userAgent;
-            let appUrl = '';
-            let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}&src=mypage&callnative=0&zoom=15`;
-            if (!/iPad|iPhone|iPod|Android/i.test(ua)) {
-                window.open(fallbackUrl, '_blank');
-                return;
-            }
-            if (/iPad|iPhone|iPod/.test(ua)) {
-                appUrl = `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
-            } else if (/Android/i.test(ua)) {
-                appUrl = `androidamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`;
-            }
-            let jumped = false;
-            const t = setTimeout(function() {
-                if (!jumped) window.open(fallbackUrl, '_blank');
-            }, 1800);
-            window.location.href = appUrl;
-            window.onblur = function() {
-                jumped = true;
-                clearTimeout(t);
-                window.onblur = null;
-            };
         }
     </script>
 </body>
