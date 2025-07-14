@@ -30,16 +30,13 @@
             --light: #FFFFFF;
             --gray: #8E8E93;
             --light-gray: #F2F2F7;
-            
-            /* iOS 26 液态玻璃风格 - 简单大气 */
-            --glass-bg: rgba(255, 255, 255, 0.72);
-            --glass-border: rgba(255, 255, 255, 0.38);
-            --glass-shadow: 0 8px 42px rgba(0, 0, 0, 0.12);
-            --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.18);
-            --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            --card-shadow-hover: 0 6px 24px rgba(0, 0, 0, 0.12);
+            --glass-bg: rgba(255,255,255,0.72);
+            --glass-border: rgba(255,255,255,0.38);
+            --glass-shadow: 0 8px 42px rgba(0,0,0,0.12);
+            --glass-shadow-hover: 0 16px 48px rgba(0,0,0,0.18);
+            --card-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            --card-shadow-hover: 0 6px 24px rgba(0,0,0,0.12);
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            
             --gradient-primary: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
             --gradient-accent: linear-gradient(135deg, #00C7BE 0%, #007AFF 100%);
             --gradient-gold: linear-gradient(135deg, #FF9500 0%, #FF6B35 100%);
@@ -53,6 +50,74 @@
             --mid-dark: #007AFF;
             --high-gold: #FF9500;
         }
+        /* 全站统一液态玻璃风格 */
+        .container,
+        .modal-content,
+        .option-card,
+        .certification,
+        .modal-section,
+        .package-item,
+        .area-item,
+        .tip-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-radius: 24px;
+            border: 1.5px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: var(--transition);
+        }
+        .option-card,
+        .package-item,
+        .area-item,
+        .tip-box {
+            border-radius: 18px;
+        }
+        .option-card:hover,
+        .package-item:hover,
+        .area-item:hover,
+        .tip-box:hover {
+            box-shadow: var(--glass-shadow-hover);
+            background: rgba(255,255,255,0.85);
+        }
+        .access-btn, .app-jump-btn, .photo-btn {
+            background: rgba(255,255,255,0.22);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-radius: 20px;
+            border: 1.5px solid rgba(255,255,255,0.32);
+            box-shadow: 0 8px 32px 0 rgba(0,122,255,0.13);
+            color: #007AFF;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .access-btn:hover, .app-jump-btn:hover, .photo-btn:hover {
+            background: rgba(255,255,255,0.32);
+            box-shadow: 0 16px 40px 0 rgba(0,122,255,0.18), 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 2px 16px 0 rgba(255,255,255,0.22);
+        }
+        .access-btn:active, .app-jump-btn:active, .photo-btn:active {
+            background: rgba(255,255,255,0.18);
+            box-shadow: 0 2px 8px 0 rgba(0,122,255,0.10), inset 0 1.5px 8px 0 rgba(255,255,255,0.13);
+        }
+        /* 保留安卓端降级方案 */
+        .android .container,
+        .android .modal-content,
+        .android .modal,
+        .android .certification,
+        .android .option-card,
+        .android .modal-section,
+        .android .map-container,
+        .android .photo-modal,
+        .android .photo-header,
+        .android .area-item,
+        .android .tip-box,
+        .android .package-item {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(255,255,255,0.96) !important;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+        }
+        .android .logo-pulse { display: none !important; }
         
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -2192,6 +2257,12 @@
         }
         /* 安卓端关闭 logo SVG 动画 */
         .android .logo-pulse { display: none !important; }
+
+        #detailModal .back-btn,
+        #detailModal .back-btn:hover,
+        #detailModal .back-btn:active {
+            transform-origin: left top !important;
+        }
     </style>
 </head>
 <body ontouchstart="">
