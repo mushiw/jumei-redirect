@@ -2166,6 +2166,8 @@
                 let currentIndex = 0;
                 let hasJumped = false;
                 let startTime = Date.now();
+                let isAndroid = /Android/i.test(ua);
+                let isIOS = /iPad|iPhone|iPod/.test(ua);
                 
                 function tryNext() {
                     if (hasJumped || currentIndex >= appUrls.length) {
@@ -2185,25 +2187,43 @@
                         }
                     };
                     
-                    // 监听页面焦点变化（用户点击确认或取消后页面会重新获得焦点）
+                    // 监听页面焦点变化
                     const handleFocus = () => {
                         const timeDiff = Date.now() - startTime;
-                        if (timeDiff > 500 && timeDiff < 3000) { // 500ms-3s内的焦点变化可能是App弹窗交互
+                        if (timeDiff > 300 && timeDiff < 5000) { // 扩大时间窗口，兼容更多浏览器
                             hasJumped = true;
                             cleanup();
                         }
                     };
                     
-                    // 监听页面失焦（App弹窗出现时页面会失焦）
+                    // 监听页面失焦
                     const handleBlur = () => {
                         hasJumped = true;
                         cleanup();
                     };
                     
-                    // 监听beforeunload事件（页面即将卸载，说明要跳转到App）
+                    // 监听beforeunload事件
                     const handleBeforeUnload = () => {
                         hasJumped = true;
                         cleanup();
+                    };
+                    
+                    // 移动端特殊处理：监听点击事件，检测用户是否与页面交互
+                    const handleClick = () => {
+                        const timeDiff = Date.now() - startTime;
+                        if (timeDiff > 300 && timeDiff < 3000) {
+                            hasJumped = true;
+                            cleanup();
+                        }
+                    };
+                    
+                    // 移动端特殊处理：监听触摸事件
+                    const handleTouch = () => {
+                        const timeDiff = Date.now() - startTime;
+                        if (timeDiff > 300 && timeDiff < 3000) {
+                            hasJumped = true;
+                            cleanup();
+                        }
                     };
                     
                     function cleanup() {
@@ -2211,6 +2231,11 @@
                         document.removeEventListener('focus', handleFocus);
                         window.removeEventListener('blur', handleBlur);
                         window.removeEventListener('beforeunload', handleBeforeUnload);
+                        if (isAndroid || isIOS) {
+                            document.removeEventListener('click', handleClick);
+                            document.removeEventListener('touchstart', handleTouch);
+                            document.removeEventListener('touchend', handleTouch);
+                        }
                     }
                     
                     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -2218,14 +2243,22 @@
                     window.addEventListener('blur', handleBlur);
                     window.addEventListener('beforeunload', handleBeforeUnload);
                     
-                    // 设置超时检测
+                    // 移动端添加更多事件监听
+                    if (isAndroid || isIOS) {
+                        document.addEventListener('click', handleClick);
+                        document.addEventListener('touchstart', handleTouch);
+                        document.addEventListener('touchend', handleTouch);
+                    }
+                    
+                    // 设置超时检测，移动端延长超时时间
+                    const timeout = (isAndroid || isIOS) ? 2000 : 1500;
                     setTimeout(() => {
                         if (!hasJumped) {
                             cleanup();
                             currentIndex++;
                             tryNext();
                         }
-                    }, 1500);
+                    }, timeout);
                     
                     startTime = Date.now();
                     window.location.href = appUrl;
