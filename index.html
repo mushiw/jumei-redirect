@@ -483,28 +483,24 @@
         
         .back-btn {
             position: absolute;
-            left: 16px;
-            top: 14px !important;
-            transform: none;
-            z-index: 10000;
-            background: rgba(255,255,255,0.95);
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
+            top: 8px !important;
+            left: 8px !important;
+            width: 34px !important;
+            height: 34px !important;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            cursor: pointer;
-            transition: all 0.2s;
-            backdrop-filter: blur(10px);
+            z-index: 10000;
+            background: rgba(255,255,255,0.95) !important;
+            border-radius: 50% !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
         }
         @media (max-width: 600px) {
             .back-btn {
                 top: 8px !important;
-                left: 8px;
-                width: 34px;
-                height: 34px;
+                left: 8px !important;
+                width: 34px !important;
+                height: 34px !important;
             }
         }
         #detailModal .back-btn, #highModal .back-btn, #areaModal .back-btn, #photoModal .back-btn {
@@ -2049,6 +2045,20 @@
                 top: 6px !important;
             }
         }
+
+        #areaModal .back-btn,
+        #detailModal .back-btn {
+            width: 38px !important;
+            height: 38px !important;
+        }
+        @media (max-width: 600px) {
+            #areaModal .back-btn,
+            #detailModal .back-btn {
+                width: 34px !important;
+                height: 34px !important;
+            }
+        }
+
     </style>
 </head>
 <body ontouchstart="">
