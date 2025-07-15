@@ -2190,7 +2190,7 @@
                     // 监听页面焦点变化
                     const handleFocus = () => {
                         const timeDiff = Date.now() - startTime;
-                        if (timeDiff > 300 && timeDiff < 5000) { // 扩大时间窗口，兼容更多浏览器
+                        if (timeDiff > 200 && timeDiff < 3000) {
                             hasJumped = true;
                             cleanup();
                         }
@@ -2202,56 +2202,18 @@
                         cleanup();
                     };
                     
-                    // 监听beforeunload事件
-                    const handleBeforeUnload = () => {
-                        hasJumped = true;
-                        cleanup();
-                    };
-                    
-                    // 移动端特殊处理：监听点击事件，检测用户是否与页面交互
-                    const handleClick = () => {
-                        const timeDiff = Date.now() - startTime;
-                        if (timeDiff > 300 && timeDiff < 3000) {
-                            hasJumped = true;
-                            cleanup();
-                        }
-                    };
-                    
-                    // 移动端特殊处理：监听触摸事件
-                    const handleTouch = () => {
-                        const timeDiff = Date.now() - startTime;
-                        if (timeDiff > 300 && timeDiff < 3000) {
-                            hasJumped = true;
-                            cleanup();
-                        }
-                    };
-                    
                     function cleanup() {
                         document.removeEventListener('visibilitychange', handleVisibilityChange);
                         document.removeEventListener('focus', handleFocus);
                         window.removeEventListener('blur', handleBlur);
-                        window.removeEventListener('beforeunload', handleBeforeUnload);
-                        if (isAndroid || isIOS) {
-                            document.removeEventListener('click', handleClick);
-                            document.removeEventListener('touchstart', handleTouch);
-                            document.removeEventListener('touchend', handleTouch);
-                        }
                     }
                     
                     document.addEventListener('visibilitychange', handleVisibilityChange);
                     document.addEventListener('focus', handleFocus);
                     window.addEventListener('blur', handleBlur);
-                    window.addEventListener('beforeunload', handleBeforeUnload);
                     
-                    // 移动端添加更多事件监听
-                    if (isAndroid || isIOS) {
-                        document.addEventListener('click', handleClick);
-                        document.addEventListener('touchstart', handleTouch);
-                        document.addEventListener('touchend', handleTouch);
-                    }
-                    
-                    // 设置超时检测，移动端延长超时时间
-                    const timeout = (isAndroid || isIOS) ? 2000 : 1500;
+                    // 设置超时检测
+                    const timeout = isAndroid ? 1500 : 1200;
                     setTimeout(() => {
                         if (!hasJumped) {
                             cleanup();
