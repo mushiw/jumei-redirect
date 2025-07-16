@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>聚美臻选/title>
+    <title>聚美臻选 - 专业导航服务</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -31,13 +31,13 @@
             --gray: #718096;
             --light-gray: #f7fafc;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 极速版1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             --glass-bg: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.3);
             --gradient-primary: linear-gradient(135deg, #0a2e5d 0%, #072147 100%);
             --gradient-accent: linear-gradient(135deg, #00897b 0%, #00695c 100%);
             --gradient-gold: linear-gradient(135deg, #c79100 0%, #a37200 100%);
-            --gradient-logo: linear-gradient(135deg, #0d47a极速版1 0%, #00897b 50%, #c79100 100%);
+            --gradient-logo: linear-gradient(135deg, #0d47a1 0%, #00897b 50%, #c79100 100%);
             --gradient-title: linear-gradient(90deg, #0d47a1, #00897b, #c79100);
         }
         
@@ -67,7 +67,6 @@
             overflow: hidden;
         }
         
-        /* 头部样式 */
         header {
             text-align: center;
             margin-bottom: 5px;
@@ -131,7 +130,7 @@
             font-size: 2.4rem;
             font-weight: 800;
             letter-spacing: 1px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            text-shadow: 1px 极速版1px 2px rgba(0,0,0,0.05);
             background: linear-gradient(90deg, #FF9500 0%, #00C7BE 50%, #0a2e5d 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -166,7 +165,6 @@
             border-radius: 2px;
         }
         
-        /* 选项卡片样式 */
         .options-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -256,7 +254,6 @@
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
         
-        /* 低端局样式 */
         .option-card.low {
             background: linear-gradient(90deg, rgba(10,46,93,0.18) 0%, rgba(10,46,93,0.07) 100%);
         }
@@ -267,7 +264,6 @@
             background: var(--gradient-primary);
         }
         
-        /* 中端局样式 */
         .option-card.mid {
             background: linear-gradient(90deg, rgba(0,199,190,0.18) 0%, rgba(0,199,190,0.07) 100%);
         }
@@ -278,7 +274,6 @@
             background: var(--accent);
         }
         
-        /* 高端局样式 */
         .option-card.high {
             background: linear-gradient(90deg, rgba(255,149,0,0.28) 0%, rgba(255,149,0,0.10) 100%);
         }
@@ -289,7 +284,6 @@
             background: var(--gold);
         }
         
-        /* 底部认证 */
         .certification {
             text-align: center;
             margin-top: auto;
@@ -302,7 +296,6 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
             margin: 10px 0;
         }
-        /* 认证卡片右上角√图标 */
         .cert-verified-icon {
             position: absolute;
             top: 8px;
@@ -319,7 +312,6 @@
             box-shadow: 0 2px 8px rgba(76,175,80,0.15);
             z-index: 2;
         }
-        /* 已验证小标签 */
         .cert-verified-badge {
             display: inline-flex;
             align-items: center;
@@ -398,7 +390,6 @@
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
-        /* 底部信息 */
         .footer-section {
             text-align: center;
             padding: 6px 0 2px;
@@ -430,7 +421,6 @@
             font-weight: 600;
         }
 
-        /* 模态框样式 */
         .modal {
             position: fixed;
             top: 0;
@@ -471,7 +461,6 @@
             pointer-events: auto;
         }
         
-        /* 返回按钮优化 */
         .back-btn {
             position: absolute;
             top: 20px;
@@ -481,7 +470,7 @@
             color: var(--primary);
             transition: var(--transition);
             z-index: 10;
-            width: 44px;
+            width: 44极速版px;
             height: 44px;
             display: flex;
             align-items: center;
@@ -510,12 +499,11 @@
             display: block;
             width: 60px;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: linear-gradient(90极速版deg, var(--primary), var(--accent));
             margin: 14px auto 0;
             border-radius: 2px;
         }
         
-        /* 区域选择 */
         .area-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -556,13 +544,11 @@
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
         }
         
-        /* 美团集美特殊样式 */
         .meituan-area {
             background: #ffd24d;
             grid-column: span 2;
         }
         
-        /* 服务详情按钮 */
         .detail-btn {
             background: var(--gradient-accent);
             border-radius: 16px;
@@ -603,7 +589,6 @@
             opacity: 0.9;
         }
         
-        /* 地图导航模态框 */
         .map-modal {
             position: fixed;
             top: 0;
@@ -612,7 +597,7 @@
             height: 100%;
             background: var(--light);
             z-index: 1000;
-            opacity极速版: 0;
+            opacity: 0;
             visibility: hidden;
             transition: var(--transition);
             display: flex;
@@ -670,7 +655,6 @@
             flex: 1;
         }
         
-        /* App跳转按钮样式 */
         .app-jump-container {
             padding: 15px;
             background: rgba(255, 255, 255, 0.95);
@@ -763,7 +747,6 @@
             box-shadow: 0 2px 6px rgba(199, 145, 0, 0.4);
         }
         
-        /* 统一服务详情样式 */
         .modal-body {
             padding: 10px 0;
         }
@@ -789,7 +772,7 @@
         
         .modal-section {
             background: rgba(245, 247, 250, 0.6);
-            border-radius: 16极速版px;
+            border-radius: 16px;
             padding: 18px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -897,7 +880,6 @@
             color: var(--gray);
         }
         
-        /* 访问按钮样式 - 使用高端局金色渐变 */
         .access-btn {
             background: var(--gradient-gold);
             border-radius: 16px;
@@ -941,7 +923,6 @@
             font-size: 1.6rem;
         }
         
-        /* iOS提示框 */
         .ios-prompt {
             position: fixed;
             top: 0;
@@ -1039,7 +1020,6 @@
             60% {transform: translateY(-10px);}
         }
         
-        /* 加载动画 */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -1074,7 +1054,6 @@
             to { transform: rotate(360deg); }
         }
         
-        /* 响应式设计 */
         @media (max-width: 480px) {
             .container {
                 padding: 12px;
@@ -1164,7 +1143,6 @@
             }
         }
         
-        /* 针对小屏幕高度优化 */
         @media (max-height: 700px) {
             .logo-icon {
                 width: 75px;
@@ -1217,7 +1195,6 @@
             }
         }
         
-        /* 针对超小屏幕高度优化 */
         @media (max-height: 600px) {
             .logo-icon {
                 width: 65px;
@@ -1245,7 +1222,6 @@
                 min-height: 70px;
             }
         }
-        /* 动态logo动画样式 */
         #deviceLogo i {
             animation: logoFloat 2.5s ease-in-out infinite alternate, logoGlow 3s linear infinite;
             transition: filter 0.3s;
@@ -1259,7 +1235,6 @@
             50% { filter: drop-shadow(0 0 12px #7ee787) drop-shadow(0 0 24px #b2f7ef); }
             100% { filter: drop-shadow(0 0 0px #fff) drop-shadow(0 0 8px #b2f7ef); }
         }
-        /* 统一标题栏文字样式 */
         .map-header-title,
         .photo-preview-title {
             flex: 1;
@@ -1296,7 +1271,6 @@
             transition: background 0.18s, color 0.18s;
         }
         .app-jump-btn:active, .photo-btn:active {
-            /* 默认无效果 */
         }
         .app-jump-btn:active {
             background: linear-gradient(135deg, #4e7bbf 0%, #7fa6d6 100%) !important;
@@ -1306,23 +1280,19 @@
             background: linear-gradient(135deg, #b07a00 0%, #e6b800 100%) !important;
             color: #fff !important;
         }
-        /* iOS灰色logo时雾化色也为灰色 */
         #deviceLogo i {
             animation: logoFloat 2.5s ease-in-out infinite alternate, logoGlow 3s linear infinite;
             transition: filter 0.3s;
         }
-        /* iOS灰色logo雾化色 */
         .ios-apple-logo {
             filter: drop-shadow(0 0 0px #888888) drop-shadow(0 0 8px #888888) !important;
         }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        /* 缩小加载圆圈尺寸 */
         #ip-check-layer span[style*="border-radius:50%"] {
             width: 40px !important;
             height: 40px !important;
             border-width: 5px !important;
         }
-        /* 缩小安全验证中文字字号 */
         #ip-check-text {
             font-size: 18px !important;
         }
@@ -1355,20 +1325,18 @@
             </div>
             <div class="option-card high" onclick="openHighModal()">
                 <div class="option-icon">
-                    <i class="fas fa-gem"></i>
+                    <i class="fas fa-gem"></极速版i>
                 </div>
                 <h2>高端局</h2>
                 <div class="badge">尊享服务</div>
             </div>
         </div>
         
-        <!-- 底部认证 -->
         <div class="certification">
             <h3><i class="fas fa-shield-alt"></i> 聚美臻选官方认证</h3>
             <p>诚信经营 · 真实信息 · 品质保障</p>
         </div>
         
-        <!-- 备案信息和联系方式 -->
         <div class="footer-section">
             <div class="footer">
                 聚美臻选 © 2023
@@ -1378,7 +1346,6 @@
             </div>
         </div>
         
-        <!-- 区域选择模态框 -->
         <div id="areaModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('areaModal')">
@@ -1388,7 +1355,6 @@
                 
                 <div class="area-list" id="areaList"></div>
                 
-                <!-- 服务详情按钮 -->
                 <div class="detail-btn" onclick="openDetailModal()">
                     <i class="fas fa-info-circle"></i> 查看服务详情
                     <span class="integrity-text">真实信息 · 诚信服务 · 品质保障</span>
@@ -1396,7 +1362,6 @@
             </div>
         </div>
         
-        <!-- 地图导航模态框 -->
         <div id="mapModal" class="map-modal">
             <div class="map-container">
             <div class="map-header">
@@ -1417,7 +1382,6 @@
             </div>
         </div>
         
-        <!-- 服务详情模态框 -->
         <div id="detailModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('detailModal')">
@@ -1428,7 +1392,6 @@
             </div>
         </div>
         
-        <!-- 高端局模态框 -->
         <div id="highModal" class="modal">
             <div class="modal-content">
                 <div class="back-btn" onclick="closeModal('highModal')">
@@ -1522,7 +1485,6 @@
                         </div>
                     </div>
                     
-                    <!-- 访问按钮 -->
                     <button class="access-btn" onclick="openServiceLink('high', 'http://baidu.com')">
                         <i class="fas fa-gem"></i>
                         立即访问高端服务
@@ -1536,13 +1498,11 @@
             </div>
         </div>
         
-        <!-- 加载动画 -->
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
         </div>
     </div>
     
-    <!-- iOS提示框 - 移出主容器 -->
     <div id="iosPrompt" class="ios-prompt">
         <div class="ios-content">
             <div class="ios-close" onclick="closeIosPrompt()">
@@ -1566,7 +1526,6 @@
         </div>
     </div>
 
-    <!-- 全屏图片预览层，初始隐藏 -->
     <div id="photoPreviewLayer" style="display:none;position:fixed;z-index:9999;top:0;left:0;width:100vw;height:100vh;background:#fff;flex-direction:column;align-items:center;justify-content:flex-start;">
       <div style="display:flex;align-items:center;height:44px;width:100%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.07);padding:10px 8px 10px 12px;position:sticky;top:0;z-index:10;">
         <div id="photoPreviewBack" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-right:6px;cursor:pointer;font-size:1.3rem;color:var(--primary);background:none;border-radius:0;" onclick="closePhotoPreview()">
@@ -1577,7 +1536,6 @@
       <div id="photoPreviewContent" style="width:100%;max-height:calc(100vh - 44px);overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0;"></div>
     </div>
 
-    <!-- IP检测层 -->
     <div class="ip-checking" id="ipChecking" style="display:none;">
         <div class="ip-logo">
             <i class="fas fa-shield-alt"></i>
@@ -1600,7 +1558,6 @@
         </div>
     </div>
 
-    <!-- IP安全检测层 -->
     <div id="ip-check-layer" style="position:fixed;z-index:99999;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0a7e4d 0%,#0fc57c 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;transition:opacity 0.5s;">
         <div style="font-size:70px;margin-bottom:22px;">
             <i class="fas fa-shield-alt fa-bounce"></i>
@@ -1669,7 +1626,6 @@
                     if (isWeixinBrowser()) {
                         showWeixinGuide();
                     } else {
-                        // 外置浏览器，检测通过直接隐藏检测层
                         checkLayer.style.opacity = 0;
                         setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
                     }
@@ -1683,10 +1639,8 @@
         window.addEventListener('DOMContentLoaded', checkIP);
     })();
     </script>
-    <!-- END IP安全检测层 -->
 
     <script>
-        // 区域、坐标、图片数据
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
             mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区', '滨江区'],
@@ -1732,14 +1686,13 @@
                 '余杭区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
                 '西湖区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
                 '上城区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&极速版fit=crop',
                 '临平区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
                 '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
             },
             high: {}
         };
 
-        // 详情数据 - 已优化排版
         const detailData = {
             low: `
             <div class="modal-intro">
@@ -1768,7 +1721,7 @@
                         <div class="package-option">
                             <span>页课（十一点后自然醒）</span>
                             <span>24-26z</span>
-                        </div>
+                        </极速版div>
                     </div>
                     
                     <div class="package-item">
@@ -1953,19 +1906,13 @@
             `
         };
         
-        // 当前选择的区域
         let currentArea = '';
         let currentType = '';
         
-        // 页面加载时初始化
         window.onload = function() {
-            // 缓存DOM元素
             cacheDOMElements();
-            // 初始化服务详情
             window.domCache.detailContent.innerHTML = detailData.low;
-            // 设备logo自动识别
             setDeviceLogo();
-            // 监听窗口大小改变事件
             window.addEventListener('resize', function() {
                 if (window.domCache.mapModal.classList.contains('active')) {
                     adjustMapContainerHeight();
@@ -1973,7 +1920,6 @@
             });
         };
         
-        // 缓存DOM元素
         function cacheDOMElements() {
             window.domCache = {
                 areaModal: document.getElementById('areaModal'),
@@ -1990,21 +1936,17 @@
             };
         }
 
-        // 显示加载动画
         function showLoading() {
             window.domCache.loadingOverlay.classList.add('active');
         }
         
-        // 隐藏加载动画
         function hideLoading() {
             window.domCache.loadingOverlay.classList.remove('active');
         }
 
-        // 打开区域选择模态框
         function openAreaModal(type) {
             showLoading();
             
-            // 保存当前类型
             window.currentType = type;
             
             const { areaTitle, areaList } = window.domCache;
@@ -2012,7 +1954,6 @@
             areaTitle.textContent = type === 'low' ? '低端局区域选择' : '中端局区域选择';
             areaList.innerHTML = '';
             
-            // 添加所有区域
             areaData[type].forEach(area => {
                 const areaItem = document.createElement('div');
                 areaItem.className = 'area-item';
@@ -2023,7 +1964,6 @@
                 areaList.appendChild(areaItem);
             });
             
-            // 如果是中端局，添加美团集美作为最后一个选项
             if (type === 'mid') {
                 const meituanItem = document.createElement('div');
                 meituanItem.className = 'area-item meituan-area';
@@ -2040,7 +1980,6 @@
             
             window.domCache.detailContent.innerHTML = detailData[type];
             
-            // 打开模态框
             setTimeout(() => {
                 window.domCache.areaModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2048,11 +1987,9 @@
             }, 300);
         }
 
-        // 打开高端模态框
         function openHighModal() {
             showLoading();
             
-            // 打开模态框
             setTimeout(() => {
                 window.domCache.highModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -2060,25 +1997,20 @@
             }, 300);
         }
 
-        // 打开详情模态框
         function openDetailModal() {
             window.domCache.detailModal.classList.add('active');
         }
 
-        // 关闭模态框
         function closeModal(modalId) {
             document.getElementById(modalId).classList.remove('active');
             document.body.style.overflow = '';
         }
 
-        // 打开地图模态框
         function openMapModal(area, type) {
             currentArea = area;
             currentType = type;
             
-            // 中端局未开通区域
             const midUnavailableAreas = ['余杭区', '滨江区', '临平区'];
-            // 低端局未开通区域
             const lowUnavailableAreas = ['临安区'];
 
             if (type === 'mid' && midUnavailableAreas.includes(area)) {
@@ -2106,22 +2038,17 @@
             setMapModalTouchPrevention && setMapModalTouchPrevention(true);
             document.body.classList.add('modal-open');
             document.body.style.overflow = 'hidden';
-            // 设置顶部标题
             var mapHeaderTitle = document.getElementById('mapHeaderTitle');
             if(mapHeaderTitle) mapHeaderTitle.textContent = markerName || '地图导航';
-            // 动态设置高度，适配任务栏
             setMapModalHeight && setMapModalHeight();
         }
 
-        // 关闭地图模态框
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
             window.domCache.mapFrame.src = "about:blank";
-            // 重新打开区域选择模态框
             window.domCache.areaModal.classList.add('active');
         }
         
-        // 打开集美照片（新窗口打开图片，无弹窗）
         function openPhotoModal() {
             const currentAreaName = currentArea;
             const currentServiceType = currentType;
@@ -2137,30 +2064,23 @@
                         }
         }
         
-        // 打开服务链接（区分iOS和安卓）
         function openServiceLink(type, url) {
-            // 判断是否为iOS设备
             if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                // 显示iOS提示框
                 window.domCache.iosLink.textContent = url;
                 window.domCache.iosPrompt.classList.add('active');
                 document.body.style.overflow = 'hidden';
             } else {
-                // 安卓设备直接打开
                 window.open(url, '_blank');
             }
         }
         
-        // 关闭iOS提示框
         function closeIosPrompt() {
             window.domCache.iosPrompt.classList.remove('active');
             document.body.style.overflow = '';
         }
         
-        // 初始化服务详情
         window.domCache.detailContent.innerHTML = detailData.low;
 
-        // 设备logo自动识别
         function setDeviceLogo() {
             const logoDiv = document.getElementById('deviceLogo');
             let icon = '', color = '', extraClass = '';
@@ -2195,7 +2115,6 @@
             const ua = navigator.userAgent;
             let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}`;
 
-            // 尝试多个地图App，按优先级顺序
             function tryMultipleApps(appUrls, fallbackUrl) {
                 let currentIndex = 0;
                 let hasJumped = false;
@@ -2207,7 +2126,6 @@
                 function tryNext() {
                     if (hasJumped || currentIndex >= appUrls.length) {
                         if (!hasJumped && !isMobile) {
-                            // 只有PC端才跳转H5
                             window.location.href = fallbackUrl;
                         }
                         return;
@@ -2215,7 +2133,6 @@
                     
                     const appUrl = appUrls[currentIndex];
                     
-                    // 监听页面可见性变化
                     const handleVisibilityChange = () => {
                         if (document.hidden) {
                             hasJumped = true;
@@ -2223,7 +2140,6 @@
                         }
                     };
                     
-                    // 监听页面焦点变化
                     const handleFocus = () => {
                         const timeDiff = Date.now() - startTime;
                         if (timeDiff > 100 && timeDiff < 2000) {
@@ -2232,7 +2148,6 @@
                         }
                     };
                     
-                    // 监听页面失焦
                     const handleBlur = () => {
                         hasJumped = true;
                         cleanup();
@@ -2248,7 +2163,6 @@
                     document.addEventListener('focus', handleFocus);
                     window.addEventListener('blur', handleBlur);
                     
-                    // 设置超时检测，移动端更短超时提高成功率
                     const timeout = isMobile ? 800 : 1200;
                     setTimeout(() => {
                         if (!hasJumped) {
@@ -2260,7 +2174,6 @@
                     
                     startTime = Date.now();
                     
-                    // 安卓端特殊处理：使用iframe方式提高跳转成功率
                     if (isAndroid) {
                         try {
                             const iframe = document.createElement('iframe');
@@ -2268,7 +2181,6 @@
                             iframe.src = appUrl;
                             document.body.appendChild(iframe);
                             
-                            // 同时尝试直接跳转作为备选
                             setTimeout(() => {
                                 window.location.href = appUrl;
                             }, 100);
@@ -2284,7 +2196,6 @@
             }
 
             if (/iPad|iPhone|iPod/.test(ua)) {
-                // iOS端地图App优先级
                 const iosApps = [
                     `iosamap://viewMap?sourceApplication=聚美臻选&lat=${lat}&lon=${lng}&poiname=${areaName}`,
                     `maps://maps.apple.com/?q=${areaName}&ll=${lat},${lng}`,
@@ -2292,19 +2203,16 @@
                 ];
                 tryMultipleApps(iosApps, fallbackUrl);
             } else if (/Android/i.test(ua)) {
-                // 安卓端地图App优先级
                 const androidApps = [
                     `amapuri://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`,
                     `baidumap://map/marker?location=${lat},${lng}&title=${areaName}&content=${areaName}&coord_type=gcj02&src=聚美臻选`
                 ];
                 tryMultipleApps(androidApps, fallbackUrl);
             } else {
-                // PC端直接H5
                 window.open(fallbackUrl, '_blank');
             }
         }
 
-        // 允许访问的省份列表
         const allowedProvinces = [
             "浙江", "Zhejiang", "浙江省", "浙江", "ZJ", 
             "ZheJiang", "浙", "zhejiang", "zhe jiang"
@@ -2325,9 +2233,7 @@
         function shouldSkipIPCheck() {
             const urlParams = new URLSearchParams(window.location.search);
             const verifiedParam = urlParams.get('verified');
-            // 外置浏览器直接跳过检测
             if (!isWeixinBrowser()) return true;
-            // URL参数verified=true跳过检测
             if (verifiedParam === 'true') return true;
             return false;
         }
@@ -2344,16 +2250,13 @@
             const ipError = document.getElementById('ipError');
             ipError.classList.remove('show');
             ipChecking.style.display = '';
-            // 跳过检测直接显示内容
             if (shouldSkipIPCheck()) {
                 ipChecking.style.display = 'none';
                 return;
             }
-            // 设置超时
             const timeoutId = setTimeout(() => {
                 ipChecking.classList.add('hidden');
             }, TIMEOUT_DURATION);
-            // 多API检测
             const apis = [
                 'https://ipapi.co/json/',
                 'https://ipinfo.io/json'
@@ -2382,7 +2285,6 @@
                         window.location.href = 'https://www.ccser.com';
                     }, 800);
                 } else {
-                    // 微信内置浏览器提示用浏览器打开
                     setTimeout(() => {
                         showWeixinTip();
                     }, 500);
