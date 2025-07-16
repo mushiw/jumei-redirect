@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>安全访问</title>
+    <title>聚美臻选/title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -1315,6 +1315,17 @@
         .ios-apple-logo {
             filter: drop-shadow(0 0 0px #888888) drop-shadow(0 0 8px #888888) !important;
         }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* 缩小加载圆圈尺寸 */
+        #ip-check-layer span[style*="border-radius:50%"] {
+            width: 40px !important;
+            height: 40px !important;
+            border-width: 5px !important;
+        }
+        /* 缩小安全验证中文字字号 */
+        #ip-check-text {
+            font-size: 18px !important;
+        }
     </style>
 </head>
 <body>
@@ -1597,8 +1608,8 @@
         <div style="margin-bottom:22px;">
             <span style="display:inline-block;width:70px;height:70px;border:7px solid rgba(255,255,255,0.18);border-top:7px solid #fff;border-radius:50%;animation:spin 1.2s linear infinite;"></span>
         </div>
-        <div id="ip-check-text" style="font-size:26px;font-weight:700;margin-bottom:10px;letter-spacing:1px;">安全验证中</div>
-        <div id="ip-check-subtext" style="font-size:16px;opacity:0.92;">正在检测您的访问区域</div>
+        <div id="ip-check-text" style="font-size:18px;font-weight:700;margin-bottom:10px;letter-spacing:1px;">安全验证中</div>
+        <div id="ip-check-subtext" style="display:none;font-size:14px;opacity:0.92;">正在检测您的访问区域</div>
         <div id="ip-check-error" style="display:none;margin-top:18px;font-size:16px;background:rgba(255,255,255,0.13);color:#fff;padding:14px 18px;border-radius:10px;max-width:320px;">
             <i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。
         </div>
@@ -1950,6 +1961,8 @@
         window.onload = function() {
             // 缓存DOM元素
             cacheDOMElements();
+            // 初始化服务详情
+            window.domCache.detailContent.innerHTML = detailData.low;
             // 设备logo自动识别
             setDeviceLogo();
             // 监听窗口大小改变事件
