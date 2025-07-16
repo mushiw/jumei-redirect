@@ -1388,20 +1388,20 @@
         <!-- 地图导航模态框 -->
         <div id="mapModal" class="map-modal">
             <div class="map-container">
-                <div class="map-header">
-                    <div class="map-back-btn" onclick="closeMapModal()">
-                        <i class="fas fa-arrow-left"></i>
-                    </div>
-                    <div class="map-header-title" id="mapHeaderTitle">地图导航</div>
+            <div class="map-header">
+                <div class="map-back-btn" onclick="closeMapModal()">
+                    <i class="fas fa-arrow-left"></i>
                 </div>
+                    <div class="map-header-title" id="mapHeaderTitle">地图导航</div>
+            </div>
                 <iframe id="mapFrame" src="about:blank" frameborder="0" style="width:100%;height:100%;border:none;"></iframe>
                 <div class="map-bottom-bar">
-                    <button class="app-jump-btn" onclick="openNavigationApp()">
-                        <i class="fas fa-map-marked-alt"></i> App导航
-                    </button>
+                        <button class="app-jump-btn" onclick="openNavigationApp()">
+                            <i class="fas fa-map-marked-alt"></i> App导航
+                        </button>
                     <button class="photo-btn" onclick="openPhotoModal()">
-                        <i class="fas fa-images"></i> 集美照片
-                    </button>
+                            <i class="fas fa-images"></i> 集美照片
+                        </button>
                 </div>
             </div>
         </div>
@@ -1475,51 +1475,39 @@
                         <h3><i class="fas fa-info-circle"></i> 服务说明</h3>
                         <div class="solution-list">
                             <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-map-pin"></i>
+                                <div class="service-icon"><i class="fas fa-user"></i></div>
+                                <div class="service-text">服务内容，请查看个人主页简介</div>
                                 </div>
-                                <div class="service-text">
-                                   服务内容，请查看个人主页简介
-                                </div>
-                            </div>
-                            
                             <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-puzzle-piece"></i>
+                                <div class="service-icon"><i class="fas fa-comments"></i></div>
+                                <div class="service-text">特殊需求提前沟通，看个人特色</div>
                                 </div>
-                                <div class="service-text">
-                                   特殊需求提前沟通，看个人特色
-                                </div>
-                            </div>
-                            
                             <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-ban"></i>
+                                <div class="service-icon"><i class="fas fa-thumbs-down"></i></div>
+                                <div class="service-text">拒绝低质服务，注重体验与细节</div>
                                 </div>
-                                <div class="service-text">
-                                   拒绝低质服务，注重体验与细节
-                                </div>
-                            </div>
-                            
                             <div class="service-item">
-                                <div class="service-icon">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </div>
-                                <div class="service-text">
-                                    支持提前预约，时间安排更灵活
-                                </div>
+                                <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
+                                <div class="service-text">支持提前预约，时间安排更灵活</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="modal-section">
                         <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                        <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
-                            <div>部分工作室提供真人照片（年龄26-30岁）</div>
-                            <div>请提前联系确认是否开工</div>
-                            <div>聚美臻选承诺：所有服务均真实可靠</div>
-                            <div>支持多种支付方式，透明消费无隐藏费用</div>
-                            <div>所有服务人员均经过健康检测</div>
+                        <div class="solution-list">
+                            <div class="tip-item">
+                                <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                                <div>服务均为高品质定制，非市面上中低端</div>
+                                </div>
+                            <div class="tip-item">
+                                <div class="tip-icon"><i class="fas fa-coins"></i></div>
+                                <div>均需提前支付定金，避免不必要的麻烦</div>
+                                </div>
+                            <div class="tip-item">
+                                <div class="tip-icon"><i class="fas fa-handshake"></i></div>
+                                <div>诚信是基础，细节是态度，服务见真章</div>
+                            </div>
                         </div>
                     </div>
                     
@@ -1578,6 +1566,114 @@
       <div id="photoPreviewContent" style="width:100%;max-height:calc(100vh - 44px);overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0;"></div>
     </div>
 
+    <!-- IP检测层 -->
+    <div class="ip-checking" id="ipChecking" style="display:none;">
+        <div class="ip-logo">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <div class="ip-loader-container">
+            <div class="ip-loader"></div>
+            <div class="ip-loader-inner"></div>
+        </div>
+        <div class="ip-text">安全验证中</div>
+        <div class="ip-subtext">正在检测您的访问区域</div>
+        <div class="ip-weixin-tip" id="ipWeixinTip" style="display:none;font-size:17px;color:#fff;background:rgba(0,0,0,0.18);border-radius:10px;padding:16px 18px;margin:18px 0 0;line-height:1.7;max-width:320px;">
+            检测通过，请点击右上角 <i class="fas fa-ellipsis-h"></i> <b>"···"</b>，选择 <b>"在浏览器中打开"</b>，以获得完整体验。
+        </div>
+        <div class="ip-error" id="ipError">
+            <i class="fas fa-exclamation-triangle"></i> 
+            <p>IP检测失败，请重试或检查网络</p>
+            <button class="retry-btn" id="retryBtn">
+                <i class="fas fa-redo"></i> 重新检测
+            </button>
+        </div>
+    </div>
+
+    <!-- IP安全检测层 -->
+    <div id="ip-check-layer" style="position:fixed;z-index:99999;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0a7e4d 0%,#0fc57c 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;transition:opacity 0.5s;">
+        <div style="font-size:70px;margin-bottom:22px;">
+            <i class="fas fa-shield-alt fa-bounce"></i>
+        </div>
+        <div style="margin-bottom:22px;">
+            <span style="display:inline-block;width:70px;height:70px;border:7px solid rgba(255,255,255,0.18);border-top:7px solid #fff;border-radius:50%;animation:spin 1.2s linear infinite;"></span>
+        </div>
+        <div id="ip-check-text" style="font-size:26px;font-weight:700;margin-bottom:10px;letter-spacing:1px;">安全验证中</div>
+        <div id="ip-check-subtext" style="font-size:16px;opacity:0.92;">正在检测您的访问区域</div>
+        <div id="ip-check-error" style="display:none;margin-top:18px;font-size:16px;background:rgba(255,255,255,0.13);color:#fff;padding:14px 18px;border-radius:10px;max-width:320px;">
+            <i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。
+        </div>
+        <div id="ip-weixin-tip" style="display:none;margin-top:28px;background:rgba(255,255,255,0.13);color:#fff;padding:18px 20px;border-radius:12px;max-width:340px;">
+            <div style="font-size:22px;font-weight:700;margin-bottom:10px;"><i class="fas fa-external-link-alt"></i> 请用浏览器打开</div>
+            <div style="font-size:16px;line-height:1.7;">检测通过，为获得完整体验，请点击右上角 <b>"···"</b>，选择 <b>"在浏览器中打开"</b>，用外部浏览器访问本页面。</div>
+        </div>
+    </div>
+    <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+    <script>
+    (function(){
+        const allowedProvinces = ["浙江", "Zhejiang", "浙江省", "ZJ", "ZheJiang", "浙", "zhejiang", "zhe jiang"];
+        const failUrl = "https://www.ccser.com/";
+        const checkLayer = document.getElementById('ip-check-layer');
+        const checkText = document.getElementById('ip-check-text');
+        const checkSubtext = document.getElementById('ip-check-subtext');
+        const checkError = document.getElementById('ip-check-error');
+        const weixinTip = document.getElementById('ip-weixin-tip');
+        let checked = false;
+        function isWeixinBrowser() {
+            return /MicroMessenger/i.test(navigator.userAgent);
+        }
+        function showError() {
+            checkText.textContent = "安全验证中";
+            checkSubtext.textContent = "正在检测您的访问区域";
+            checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。';
+            checkError.style.display = '';
+            setTimeout(()=>{ window.location.href = failUrl; }, 1800);
+        }
+        function showWeixinGuide() {
+            checkText.textContent = "安全验证通过";
+            checkSubtext.textContent = "";
+            weixinTip.style.display = '';
+            document.querySelector('.ip-loader-container').style.display = 'none';
+        }
+        function checkIP() {
+            const apis = [
+                'https://ipapi.co/json/',
+                'https://ipinfo.io/json'
+            ];
+            Promise.any(apis.map(api =>
+                fetch(api, { method: 'GET', mode: 'cors', headers: { 'Accept': 'application/json' } })
+                    .then(res => res.ok ? res.json() : Promise.reject())
+                    .catch(() => null)
+            )).then(data => {
+                if (checked) return;
+                checked = true;
+                if (!data) {
+                    showError();
+                    return;
+                }
+                const province = (data.region || data.regionName || data.province || data.state || '').toLowerCase();
+                const isAllowed = allowedProvinces.some(key => province.includes(key.toLowerCase()));
+                if (!isAllowed) {
+                    showError();
+                } else {
+                    if (isWeixinBrowser()) {
+                        showWeixinGuide();
+                    } else {
+                        // 外置浏览器，检测通过直接隐藏检测层
+                        checkLayer.style.opacity = 0;
+                        setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
+                    }
+                }
+            }).catch(() => {
+                if (checked) return;
+                checked = true;
+                showError();
+            });
+        }
+        window.addEventListener('DOMContentLoaded', checkIP);
+    })();
+    </script>
+    <!-- END IP安全检测层 -->
+
     <script>
         // 区域、坐标、图片数据
         const areaData = {
@@ -1587,22 +1683,22 @@
         };
         const areaCoordinates = {
             low: {
-                '余杭区': { lat: 30.339750, lng: 120.082039, name: '金地广场b1座' },
-                '西湖区': { lat: 30.269489, lng: 120.140498, name: '西湖嘉华中心' },
-                '拱墅区': { lat: 30.3191, lng: 120.1411, name: '拱墅区低端点' },
-                '临平区': { lat: 30.4219, lng: 120.2994, name: '临平区低端点' },
-                '上城区': { lat: 30.2429, lng: 120.1694, name: '上城区低端点' },
-                '钱塘区': { lat: 30.3191, lng: 120.1411, name: '钱塘区低端点' },
-                '滨江区': { lat: 30.2084, lng: 120.2119, name: '滨江区低端点' },
-                '萧山区': { lat: 30.1833, lng: 120.2585, name: '萧山区低端点' },
+                '余杭区': { lat: 30.273099, lng: 119.995264, name: '富力中心' },
+                '西湖区': { lat: 30.339841, lng: 120.082107, name: '金地广场' },
+                '拱墅区': { lat: 38.283456, lng: 116.842964, name: '运河万科中心A区' },
+                '临平区': { lat: 30.432432, lng: 120.284309, name: '万宝城公寓' },
+                '上城区': { lat: 30.295095, lng: 120.216579, name: '华润置地6座' },
+                '钱塘区': { lat: 30.315368, lng: 120.315826, name: '松合幸福雅苑A区' },
+                '滨江区': { lat: 30.174081, lng: 120.214628, name: '青集社科创' },
+                '萧山区': { lat: 30.176937, lng: 120.297147, name: '赞成国潮中心' },
                 '临安区': { lat: 30.2333, lng: 119.7167, name: '临安区低端点' },
-                '富阳区': { lat: 30.0489, lng: 119.9603, name: '富阳区低端点' }
+                '富阳区': { lat: 30.058474, lng: 119.942092, name: '好U多超市' }
             },
             mid: {
                 '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区中端点' },
-                '西湖区': { lat: 30.2600, lng: 120.1304, name: '西湖区中端点' },
-                '上城区': { lat: 30.2430, lng: 120.1695, name: '上城区中端点' },
-                '萧山区': { lat: 30.1834, lng: 120.2586, name: '萧山区中端点' },
+                '西湖区': { lat: 30.268071, lng: 120.16055, name: '万华公寓' },
+                '上城区': { lat: 30.311329, lng: 120.226213, name: '晟世黎明嘉苑2区' },
+                '萧山区': { lat: 30.210863, lng: 120.262575, name: '金珺澜庭一区' },
                 '临平区': { lat: 30.4221, lng: 120.2996, name: '临平区中端点' },
                 '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区中端点' }
             },
@@ -1631,7 +1727,7 @@
             },
             high: {}
         };
-        
+
         // 详情数据 - 已优化排版
         const detailData = {
             low: `
@@ -1647,20 +1743,20 @@
                             <i class="fas fa-bullseye"></i> 工作室套餐
                         </div>
                         <div class="package-option">
-                            <span>一课</span>
-                            <span>5 (吹做)</span>
+                            <span>一课(吹坐)</span>
+                            <span>5z </span>
                         </div>
                         <div class="package-option">
-                            <span>一课升级</span>
-                            <span>6 (吹做推)</span>
+                            <span>一课(吹坐推)</span>
+                            <span>6z</span>
                         </div>
                         <div class="package-option">
-                            <span>莞式一课</span>
-                            <span>8</span>
+                            <span>一课（冠式）</span>
+                            <span>8z</span>
                         </div>
                         <div class="package-option">
-                            <span>页课</span>
-                            <span>22-24</span>
+                            <span>页课（十一点后自然醒）</span>
+                            <span>24-26z</span>
                         </div>
                     </div>
                     
@@ -1669,12 +1765,12 @@
                             <i class="fas fa-motorcycle"></i> 外卖套餐
                         </div>
                         <div class="package-option">
-                            <span>一课</span>
-                            <span>8 (吹做推)</span>
+                            <span>一课(吹坐推)</span>
+                            <span>8z </span>
                         </div>
                         <div class="package-option">
-                            <span>两课</span>
-                            <span>14 (吹做推)</span>
+                            <span>两课(吹坐推)</span>
+                            <span>14z </span>
                         </div>
                     </div>
                 </div>
@@ -1683,11 +1779,8 @@
             <div class="modal-section">
                 <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
                 <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
-                    <div>部分工作室提供真人照片（年龄26-30岁）</div>
-                    <div>请提前联系确认是否开工</div>
-                    <div>聚美臻选承诺：所有服务均真实可靠</div>
-                    <div>支持多种支付方式，透明消费无隐藏费用</div>
-                    <div>所有服务人员均经过健康检测</div>
+                    <div>工作室部分有照片（年林均26-30左右）去之前提前联系是否开工。</div>
+                    <div>美团均无照片人员流动大（年林均24-28左右）外卖页课不可控，不存在所谓的实页低价页坐一次就跑，或者直接跑。</div>
                 </div>
             </div>
             
@@ -1717,7 +1810,7 @@
                             <span>2.4k</span>
                         </div>
                         <div class="package-option">
-                            <span>页课</span>
+                            <span>页课（十一点后自然醒）</span>
                             <span>4k</span>
                         </div>
                     </div>
@@ -1741,11 +1834,8 @@
             <div class="modal-section">
                 <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
                 <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
-                    <div>部分工作室提供真人照片（年龄26-30岁）</div>
-                    <div>请提前联系确认是否开工</div>
-                    <div>聚美臻选承诺：所有服务均真实可靠</div>
-                    <div>支持多种支付方式，透明消费无隐藏费用</div>
-                    <div>所有服务人员均经过健康检测</div>
+                    <div>以上内容保证服雾太度乖巧听话，任何不过分要求都阔以接受，只有你想不到没有集美做不到的。</div>
+                    <div>美团页课暂无，后续会持续更新！均经过视频验证（真人真照）美团暂时只有高端局支持页课。</div>
                 </div>
             </div>
             
@@ -1804,51 +1894,39 @@
                 <h3><i class="fas fa-info-circle"></i> 服务说明</h3>
                 <div class="solution-list">
                     <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-map-pin"></i>
+                        <div class="service-icon"><i class="fas fa-user"></i></div>
+                        <div class="service-text">服务内容，请查看个人主页简介</div>
                         </div>
-                        <div class="service-text">
-                           服务内容，请查看个人主页简介
-                        </div>
-                    </div>
-                    
                     <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-puzzle-piece"></i>
+                        <div class="service-icon"><i class="fas fa-comments"></i></div>
+                        <div class="service-text">特殊需求提前沟通，看个人特色</div>
                         </div>
-                        <div class="service-text">
-                           特殊需求提前沟通，看个人特色
-                        </div>
-                    </div>
-                    
                     <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-ban"></i>
+                        <div class="service-icon"><i class="fas fa-thumbs-down"></i></div>
+                        <div class="service-text">拒绝低质服务，注重体验与细节</div>
                         </div>
-                        <div class="service-text">
-                           拒绝低质服务，注重体验与细节
-                        </div>
-                    </div>
-                    
                     <div class="service-item">
-                        <div class="service-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="service-text">
-                            支持提前预约，时间安排更灵活
-                        </div>
+                        <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="service-text">支持提前预约，时间安排更灵活</div>
                     </div>
                 </div>
             </div>
             
             <div class="modal-section">
                 <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
-                    <div>部分工作室提供真人照片（年龄26-30岁）</div>
-                    <div>请提前联系确认是否开工</div>
-                    <div>聚美臻选承诺：所有服务均真实可靠</div>
-                    <div>支持多种支付方式，透明消费无隐藏费用</div>
-                    <div>所有服务人员均经过健康检测</div>
+                <div class="solution-list">
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                        <div>服务均为高品质定制，非市面上中低端</div>
+                        </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-coins"></i></div>
+                        <div>均需提前支付定金，避免不必要的麻烦</div>
+                        </div>
+                    <div class="tip-item">
+                        <div class="tip-icon"><i class="fas fa-handshake"></i></div>
+                        <div>诚信是基础，细节是态度，服务见真章</div>
+                    </div>
                 </div>
             </div>
             
@@ -1984,10 +2062,21 @@
         function openMapModal(area, type) {
             currentArea = area;
             currentType = type;
-            if (type === 'mid' && area === '余杭区') {
+            
+            // 中端局未开通区域
+            const midUnavailableAreas = ['余杭区', '滨江区', '临平区'];
+            // 低端局未开通区域
+            const lowUnavailableAreas = ['临安区'];
+
+            if (type === 'mid' && midUnavailableAreas.includes(area)) {
                 alert('暂未开通，敬请期待');
                 return;
             }
+            if (type === 'low' && lowUnavailableAreas.includes(area)) {
+                alert('暂未开通，敬请期待');
+                return;
+            }
+
             if (!areaCoordinates[type] || !areaCoordinates[type][area]) {
                 alert('未找到该区域的坐标信息，请稍后再试');
                 return;
@@ -2000,7 +2089,7 @@
             var mapFrame = document.getElementById('mapFrame');
             mapFrame.src = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`;
             window.domCache.areaModal.classList.remove('active');
-            window.domCache.mapModal.classList.add('active');
+                window.domCache.mapModal.classList.add('active');
             setMapModalTouchPrevention && setMapModalTouchPrevention(true);
             document.body.classList.add('modal-open');
             document.body.style.overflow = 'hidden';
@@ -2032,7 +2121,7 @@
                 document.body.style.overflow = 'hidden';
             } else {
                 alert('照片内容即将上线，敬请期待！');
-            }
+                        }
         }
         
         // 打开服务链接（区分iOS和安卓）
@@ -2201,6 +2290,109 @@
                 window.open(fallbackUrl, '_blank');
             }
         }
+
+        // 允许访问的省份列表
+        const allowedProvinces = [
+            "浙江", "Zhejiang", "浙江省", "浙江", "ZJ", 
+            "ZheJiang", "浙", "zhejiang", "zhe jiang"
+        ];
+        let retryCount = 0;
+        const MAX_RETRIES = 2;
+        const TIMEOUT_DURATION = 2000;
+
+        function isWeixinBrowser() {
+            return /MicroMessenger/i.test(navigator.userAgent);
+        }
+        function isIOS() {
+            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+        function isAndroid() {
+            return /Android/i.test(navigator.userAgent);
+        }
+        function shouldSkipIPCheck() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const verifiedParam = urlParams.get('verified');
+            // 外置浏览器直接跳过检测
+            if (!isWeixinBrowser()) return true;
+            // URL参数verified=true跳过检测
+            if (verifiedParam === 'true') return true;
+            return false;
+        }
+        function showWeixinTip() {
+            document.getElementById('ipWeixinTip').style.display = '';
+            document.getElementById('ipChecking').classList.remove('hidden');
+            document.getElementById('ipChecking').style.display = '';
+            document.querySelector('.ip-text').textContent = '检测通过';
+            document.querySelector('.ip-subtext').textContent = '';
+            document.querySelector('.ip-loader-container').style.display = 'none';
+        }
+        function checkIPLocation() {
+            const ipChecking = document.getElementById('ipChecking');
+            const ipError = document.getElementById('ipError');
+            ipError.classList.remove('show');
+            ipChecking.style.display = '';
+            // 跳过检测直接显示内容
+            if (shouldSkipIPCheck()) {
+                ipChecking.style.display = 'none';
+                return;
+            }
+            // 设置超时
+            const timeoutId = setTimeout(() => {
+                ipChecking.classList.add('hidden');
+            }, TIMEOUT_DURATION);
+            // 多API检测
+            const apis = [
+                'https://ipapi.co/json/',
+                'https://ipinfo.io/json'
+            ];
+            const apiPromises = apis.map(api => 
+                fetch(api, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: { 'Accept': 'application/json' }
+                })
+                .then(res => { if (!res.ok) throw new Error('API error'); return res.json(); })
+                .catch(e => null)
+            );
+            Promise.any(apiPromises)
+            .then(data => {
+                clearTimeout(timeoutId);
+                if (!data) {
+                    ipChecking.classList.add('hidden');
+                    return;
+                }
+                const province = data.region || data.regionName || data.province || data.state || '';
+                const normalizedProvince = province.toString().trim().toLowerCase();
+                const isAllowed = allowedProvinces.some(allowed => normalizedProvince.includes(allowed.toLowerCase()));
+                if (!isAllowed) {
+                    setTimeout(() => {
+                        window.location.href = 'https://www.ccser.com';
+                    }, 800);
+                } else {
+                    // 微信内置浏览器提示用浏览器打开
+                    setTimeout(() => {
+                        showWeixinTip();
+                    }, 500);
+                }
+            })
+            .catch(error => {
+                clearTimeout(timeoutId);
+                ipError.classList.add('show');
+                retryCount++;
+                if (retryCount >= MAX_RETRIES) {
+                    setTimeout(() => {
+                        ipChecking.classList.add('hidden');
+                    }, 800);
+                }
+            });
+        }
+        document.getElementById('retryBtn').addEventListener('click', function() {
+            retryCount = 0;
+            checkIPLocation();
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            checkIPLocation();
+        });
     </script>
 </body>
 </html>
