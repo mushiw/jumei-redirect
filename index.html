@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>聚美臻选 - 专业导航服务</title>
+    <title>聚美臻选</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -130,7 +130,7 @@
             font-size: 2.4rem;
             font-weight: 800;
             letter-spacing: 1px;
-            text-shadow: 1px 极速版1px 2px rgba(0,0,0,0.05);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
             background: linear-gradient(90deg, #FF9500 0%, #00C7BE 50%, #0a2e5d 100%);
             -webkit-background-clip: text;
             background-clip: text;
@@ -470,7 +470,7 @@
             color: var(--primary);
             transition: var(--transition);
             z-index: 10;
-            width: 44极速版px;
+            width: 44px;
             height: 44px;
             display: flex;
             align-items: center;
@@ -499,7 +499,7 @@
             display: block;
             width: 60px;
             height: 4px;
-            background: linear-gradient(90极速版deg, var(--primary), var(--accent));
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             margin: 14px auto 0;
             border-radius: 2px;
         }
@@ -1296,6 +1296,19 @@
         #ip-check-text {
             font-size: 18px !important;
         }
+        
+        #qqNumber {
+            transition: all 0.3s ease;
+        }
+        
+        #qqNumber:hover {
+            color: #ff4757 !important;
+            transform: scale(1.05);
+        }
+        
+        #qqNumber:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -1325,7 +1338,7 @@
             </div>
             <div class="option-card high" onclick="openHighModal()">
                 <div class="option-icon">
-                    <i class="fas fa-gem"></极速版i>
+                    <i class="fas fa-gem"></i>
                 </div>
                 <h2>高端局</h2>
                 <div class="badge">尊享服务</div>
@@ -1339,10 +1352,10 @@
         
         <div class="footer-section">
             <div class="footer">
-                聚美臻选 © 2023
+                聚美臻选 © 2025
             </div>
             <div class="contact-info">
-                防失联请加QQ：<strong>859704071</strong>
+                防失联请加QQ：<strong id="qqNumber" style="color: #ff6b6b; cursor: pointer; text-decoration: underline;">915637409</strong>
             </div>
         </div>
         
@@ -1578,7 +1591,7 @@
     <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
     <script>
     (function(){
-        const allowedProvinces = ["浙江", "Zhejiang", "浙江省", "ZJ", "ZheJiang", "浙", "zhejiang", "zhe jiang"];
+        const allowedProvinces = ["浙江", "Zhejiang", "浙江省", "ZJ", "ZheJiang", "浙", "zhejiang", "zhe jiang", "zj", "zhe"];
         const failUrl = "https://www.ccser.com/";
         const checkLayer = document.getElementById('ip-check-layer');
         const checkText = document.getElementById('ip-check-text');
@@ -1586,59 +1599,178 @@
         const checkError = document.getElementById('ip-check-error');
         const weixinTip = document.getElementById('ip-weixin-tip');
         let checked = false;
+        let timeoutId = null;
+        
         function isWeixinBrowser() {
             return /MicroMessenger/i.test(navigator.userAgent);
         }
+        
         function showError() {
             checkText.textContent = "安全验证中";
             checkSubtext.textContent = "正在检测您的访问区域";
             checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。';
             checkError.style.display = '';
-            setTimeout(()=>{ window.location.href = failUrl; }, 1800);
+            setTimeout(()=>{ window.location.href = failUrl; }, 1500);
         }
+        
         function showWeixinGuide() {
             checkText.textContent = "安全验证通过";
             checkSubtext.textContent = "";
             weixinTip.style.display = '';
             document.querySelector('.ip-loader-container').style.display = 'none';
         }
+        
+        function allowAccess() {
+            if (checked) return;
+            checked = true;
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+                timeoutId = null;
+            }
+            
+            if (isWeixinBrowser()) {
+                showWeixinGuide();
+            } else {
+                checkLayer.style.opacity = 0;
+                setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
+            }
+        }
+        
         function checkIP() {
+            timeoutId = setTimeout(() => {
+                if (!checked) {
+                    console.log('IP检测超时，允许访问');
+                    allowAccess();
+                }
+            }, 2000);
+            
             const apis = [
                 'https://ipapi.co/json/',
-                'https://ipinfo.io/json'
+                'https://ipinfo.io/json',
+                'https://api.ipify.org?format=json'
             ];
+            
             Promise.any(apis.map(api =>
-                fetch(api, { method: 'GET', mode: 'cors', headers: { 'Accept': 'application/json' } })
-                    .then(res => res.ok ? res.json() : Promise.reject())
-                    .catch(() => null)
+                fetch(api, { 
+                    method: 'GET', 
+                    mode: 'cors', 
+                    headers: { 'Accept': 'application/json' },
+                    signal: AbortSignal.timeout(1500)
+                })
+                .then(res => res.ok ? res.json() : Promise.reject())
+                .catch(() => null)
             )).then(data => {
                 if (checked) return;
-                checked = true;
+                
+                console.log('IP检测结果:', data);
+                
                 if (!data) {
-                    showError();
+                    console.log('IP检测失败，允许访问');
+                    allowAccess();
                     return;
                 }
+                
                 const province = (data.region || data.regionName || data.province || data.state || '').toLowerCase();
-                const isAllowed = allowedProvinces.some(key => province.includes(key.toLowerCase()));
-                if (!isAllowed) {
-                    showError();
-                } else {
-                    if (isWeixinBrowser()) {
-                        showWeixinGuide();
-                    } else {
-                        checkLayer.style.opacity = 0;
-                        setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
-                    }
+                const country = (data.country || data.country_name || '').toLowerCase();
+                const city = (data.city || '').toLowerCase();
+                
+                console.log('检测到的地区信息:', { province, country, city });
+                
+                const isAllowed = allowedProvinces.some(key => 
+                    province.includes(key.toLowerCase()) || 
+                    city.includes(key.toLowerCase()) ||
+                    province.includes('zhe') ||
+                    city.includes('zhe')
+                ) || 
+                !province || province === '' || province === 'unknown';
+                
+                const isChina = country.includes('china') || country.includes('cn');
+                const isZhejiang = allowedProvinces.some(key => 
+                    province.includes(key.toLowerCase()) || 
+                    city.includes(key.toLowerCase()) ||
+                    province.includes('zhe') ||
+                    city.includes('zhe')
+                );
+                
+                if (isChina && !isZhejiang) {
+                    console.log('检测到中国，但不在浙江，尝试更多API确认');
+                    const additionalApis = [
+                        'https://ip-api.com/json/',
+                        'https://api.myip.com/',
+                        'https://ipapi.co/json/?fields=region,city,country'
+                    ];
+                    
+                    Promise.any(additionalApis.map(api =>
+                        fetch(api, { 
+                            method: 'GET', 
+                            mode: 'cors', 
+                            headers: { 'Accept': 'application/json' },
+                            signal: AbortSignal.timeout(1000)
+                        })
+                        .then(res => res.ok ? res.json() : Promise.reject())
+                        .catch(() => null)
+                    )).then(additionalData => {
+                        if (checked) return;
+                        
+                        console.log('额外API检测结果:', additionalData);
+                        
+                        if (additionalData) {
+                            const additionalProvince = (additionalData.region || additionalData.regionName || additionalData.province || additionalData.state || '').toLowerCase();
+                            const additionalCity = (additionalData.city || '').toLowerCase();
+                            
+                            const isZhejiangInAdditional = allowedProvinces.some(key => 
+                                additionalProvince.includes(key.toLowerCase()) || 
+                                additionalCity.includes(key.toLowerCase()) ||
+                                additionalProvince.includes('zhe') ||
+                                additionalCity.includes('zhe')
+                            );
+                            
+                            if (isZhejiangInAdditional) {
+                                console.log('额外API确认在浙江，允许访问');
+                                allowAccess();
+                            } else {
+                                console.log('额外API确认不在浙江，跳转');
+                                if (timeoutId) {
+                                    clearTimeout(timeoutId);
+                                    timeoutId = null;
+                                }
+                                checked = true;
+                                showError();
+                            }
+                        } else {
+                            console.log('额外API检测失败，继续等待');
+                        }
+                    }).catch(() => {
+                        if (checked) return;
+                        console.log('额外API检测异常，继续等待');
+                    });
+                    
+                    return;
                 }
-            }).catch(() => {
+                
+                if (isAllowed) {
+                    console.log('IP在白名单中，允许访问');
+                    allowAccess();
+                } else {
+                    console.log('IP不在白名单中，跳转到其他网址');
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                        timeoutId = null;
+                    }
+                    checked = true;
+                    showError();
+                }
+            }).catch((error) => {
                 if (checked) return;
-                checked = true;
-                showError();
+                console.log('IP检测异常，允许访问:', error);
+                allowAccess();
             });
         }
+        
         window.addEventListener('DOMContentLoaded', checkIP);
     })();
     </script>
+
 
     <script>
         const areaData = {
@@ -1686,7 +1818,7 @@
                 '余杭区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
                 '西湖区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
                 '上城区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&极速版fit=crop',
+                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
                 '临平区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
                 '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
             },
@@ -1721,7 +1853,7 @@
                         <div class="package-option">
                             <span>页课（十一点后自然醒）</span>
                             <span>24-26z</span>
-                        </极速版div>
+                        </div>
                     </div>
                     
                     <div class="package-item">
@@ -2034,7 +2166,7 @@
             var mapFrame = document.getElementById('mapFrame');
             mapFrame.src = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`;
             window.domCache.areaModal.classList.remove('active');
-                window.domCache.mapModal.classList.add('active');
+            window.domCache.mapModal.classList.add('active');
             setMapModalTouchPrevention && setMapModalTouchPrevention(true);
             document.body.classList.add('modal-open');
             document.body.style.overflow = 'hidden';
@@ -2046,6 +2178,7 @@
         function closeMapModal() {
             window.domCache.mapModal.classList.remove('active');
             window.domCache.mapFrame.src = "about:blank";
+            window.domCache.areaModal.classList.add('active');
             window.domCache.areaModal.classList.add('active');
         }
         
@@ -2307,6 +2440,130 @@
         });
         document.addEventListener("DOMContentLoaded", function() {
             checkIPLocation();
+            
+            const qqNumber = document.getElementById('qqNumber');
+            if (qqNumber) {
+                let pressTimer = null;
+                let isLongPress = false;
+                
+                qqNumber.addEventListener('click', function(e) {
+                    if (!isLongPress) {
+                        openQQ();
+                    }
+                    isLongPress = false;
+                });
+                
+                qqNumber.addEventListener('touchstart', function(e) {
+                    pressTimer = setTimeout(() => {
+                        isLongPress = true;
+                        openQQ();
+                    }, 500);
+                });
+                
+                qqNumber.addEventListener('touchend', function(e) {
+                    if (pressTimer) {
+                        clearTimeout(pressTimer);
+                        pressTimer = null;
+                    }
+                });
+                
+                qqNumber.addEventListener('mousedown', function(e) {
+                    pressTimer = setTimeout(() => {
+                        isLongPress = true;
+                        openQQ();
+                    }, 500);
+                });
+                
+                qqNumber.addEventListener('mouseup', function(e) {
+                    if (pressTimer) {
+                        clearTimeout(pressTimer);
+                        pressTimer = null;
+                    }
+                });
+                
+                qqNumber.addEventListener('mouseleave', function(e) {
+                    if (pressTimer) {
+                        clearTimeout(pressTimer);
+                        pressTimer = null;
+                    }
+                });
+                
+                function openQQ() {
+                    const qq = '915637409';
+                    const ua = navigator.userAgent;
+                    
+                    console.log('QQ跳转被触发，设备类型:', ua);
+                    
+                    if (/Android|iPhone|iPad|iPod/i.test(ua)) {
+                        console.log('检测到移动设备，尝试打开QQ App');
+                        const qqUrl = `mqq://im/chat?chat_type=wpa&uin=${qq}&version=1&src_type=web`;
+                        window.location.href = qqUrl;
+                        
+                        setTimeout(() => {
+                            console.log('QQ App可能未安装，跳转到网页版');
+                            window.open(`https://wpa.qq.com/msgrd?v=3&uin=${qq}&site=qq&menu=yes`, '_blank');
+                        }, 3000);
+                    } else {
+                        console.log('检测到PC设备，直接打开网页版QQ');
+                        const qqUrls = [
+                            `https://wpa.qq.com/msgrd?v=3&uin=${qq}&site=qq&menu=yes`,
+                            `https://qm.qq.com/cgi-bin/qm/qr?k=xxx&jump_from=webapi&authKey=xxx&version=1&src=qq&uin=${qq}`,
+                            `tencent://message/?uin=${qq}&Menu=userinfo`,
+                            `http://wpa.qq.com/msgrd?v=3&uin=${qq}&site=qq&menu=yes`
+                        ];
+                        
+                        let success = false;
+                        
+                        for (let i = 0; i < qqUrls.length; i++) {
+                            const url = qqUrls[i];
+                            console.log(`尝试第${i+1}个QQ链接:`, url);
+                            
+                            try {
+                                const newWindow = window.open(url, '_blank');
+                                if (newWindow) {
+                                    console.log('成功打开QQ链接');
+                                    success = true;
+                                    break;
+                                }
+                            } catch (error) {
+                                console.log(`第${i+1}个链接失败:`, error);
+                                continue;
+                            }
+                        }
+                        
+                        if (!success) {
+                            console.log('所有QQ链接都失败，使用备用方案');
+                            
+                            try {
+                                const iframe = document.createElement('iframe');
+                                iframe.style.display = 'none';
+                                iframe.src = `https://wpa.qq.com/msgrd?v=3&uin=${qq}&site=qq&menu=yes`;
+                                document.body.appendChild(iframe);
+                                
+                                if (navigator.clipboard && navigator.clipboard.writeText) {
+                                    navigator.clipboard.writeText(qq).then(() => {
+                                        alert(`QQ号 ${qq} 已复制到剪贴板，请手动添加好友`);
+                                    }).catch(() => {
+                                        alert(`请手动添加QQ好友：${qq}`);
+                                    });
+                                } else {
+                                    alert(`请手动添加QQ好友：${qq}`);
+                                }
+                                
+                                setTimeout(() => {
+                                    if (iframe.parentNode) {
+                                        iframe.parentNode.removeChild(iframe);
+                                    }
+                                }, 3000);
+                                
+                            } catch (error) {
+                                console.log('iframe方式也失败:', error);
+                                alert(`请手动添加QQ好友：${qq}`);
+                            }
+                        }
+                    }
+                }
+            }
         });
     </script>
 </body>
