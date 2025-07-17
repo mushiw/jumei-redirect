@@ -1673,10 +1673,10 @@
         function checkIP() {
             timeoutId = setTimeout(() => {
                 if (!checked) {
-                    console.log('IP检测超时，允许访问');
-                    allowAccess();
+                    console.log('IP检测超时，拒绝访问');
+                    showError();
                 }
-            }, 2000);
+            }, 3000);
             
             const apis = [
                 'https://ipapi.co/json/',
@@ -1689,7 +1689,7 @@
                     method: 'GET', 
                     mode: 'cors', 
                     headers: { 'Accept': 'application/json' },
-                    signal: AbortSignal.timeout(1500)
+                    signal: AbortSignal.timeout(2000)
                 })
                     .then(res => res.ok ? res.json() : Promise.reject())
                     .catch(() => null)
@@ -1699,8 +1699,8 @@
                 console.log('IP检测结果:', data);
                 
                 if (!data) {
-                    console.log('IP检测失败，允许访问');
-                    allowAccess();
+                    console.log('IP检测失败，拒绝访问');
+                    showError();
                     return;
                 }
                 
@@ -1739,7 +1739,7 @@
                             method: 'GET', 
                             mode: 'cors', 
                             headers: { 'Accept': 'application/json' },
-                            signal: AbortSignal.timeout(1000)
+                            signal: AbortSignal.timeout(1500)
                         })
                         .then(res => res.ok ? res.json() : Promise.reject())
                         .catch(() => null)
@@ -1762,21 +1762,23 @@
                             if (isZhejiangInAdditional) {
                                 console.log('额外API确认在浙江，允许访问');
                                 allowAccess();
-                } else {
-                                console.log('额外API确认不在浙江，跳转');
+                            } else {
+                                console.log('额外API确认不在浙江，拒绝访问');
                                 if (timeoutId) {
                                     clearTimeout(timeoutId);
                                     timeoutId = null;
                                 }
                                 checked = true;
                                 showError();
-                    }
+                            }
                         } else {
-                            console.log('额外API检测失败，继续等待');
-                }
-            }).catch(() => {
-                if (checked) return;
-                        console.log('额外API检测异常，继续等待');
+                            console.log('额外API检测失败，拒绝访问');
+                            showError();
+                        }
+                    }).catch(() => {
+                        if (checked) return;
+                        console.log('额外API检测异常，拒绝访问');
+                        showError();
                     });
                     
                     return;
@@ -1786,18 +1788,18 @@
                     console.log('IP在白名单中，允许访问');
                     allowAccess();
                 } else {
-                    console.log('IP不在白名单中，跳转到其他网址');
+                    console.log('IP不在白名单中，拒绝访问');
                     if (timeoutId) {
                         clearTimeout(timeoutId);
                         timeoutId = null;
                     }
-                checked = true;
-                showError();
+                    checked = true;
+                    showError();
                 }
             }).catch((error) => {
                 if (checked) return;
-                console.log('IP检测异常，允许访问:', error);
-                allowAccess();
+                console.log('IP检测异常，拒绝访问:', error);
+                showError();
             });
         }
         
@@ -1809,7 +1811,7 @@
     <script>
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
-            mid: ['余杭区', '西湖区', '上城区', '萧山区', '临平区', '滨江区'],
+            mid: ['余杭区', '拱墅区', '上城区', '临平区', '滨江区', '萧山区'],
             high: []
         };
         const areaCoordinates = {
@@ -1827,34 +1829,34 @@
             },
             mid: {
                 '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区中端点' },
-                '西湖区': { lat: 30.268087, lng: 120.16057, name: '万华公寓' },
+                '拱墅区': { lat: 30.311381, lng: 120.113891, name: '申花掬月' },
                 '上城区': { lat: 30.311327, lng: 120.226184, name: '晟世黎明嘉苑2区' },
-                '萧山区': { lat: 30.21086, lng: 120.262569, name: '金珺澜庭一区' },
                 '临平区': { lat: 30.4221, lng: 120.2996, name: '临平区中端点' },
-                '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区中端点' }
+                '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区中端点' },
+                '萧山区': { lat: 30.21086, lng: 120.262569, name: '金珺澜庭一区' }
             },
             high: {}
         };
         const areaPhotoLinks = { 
             low: {
                 '余杭区': 'https://i.ibb.co/xS0Y5VDb/1752747448173.jpg',  
-                '西湖区': 'https://i.ibb.co/dwBf2DnZ/1752747926961.jpg',
+                '西湖区': 'https://i.ibb.co/Gvt2c8Hq/1752763348658.jpg',
                 '拱墅区': 'https://i.ibb.co/0pRCy2B0/1752746980698.jpg',
-                '临平区': 'https://i.ibb.co/1Jwn7sXZ/1752745914478.jpg',
-                '上城区': 'https://i.ibb.co/LzTpSsjc/1752744758058.jpg',
+                '临平区': 'https://i.ibb.co/1Jwn7sXZ/1752745914478.jpg',   
+                '上城区': 'https://i.ibb.co/YG4Fx7h/1752766127222.jpg', 
                 '钱塘区': 'https://i.ibb.co/ymG0WX3w/1752722094856.jpg',
-                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '滨江区': 'https://i.ibb.co/N6kj4tbr/1752745992680.jpg',
+                '萧山区': 'https://i.ibb.co/TDN9GxBk/1752764288338.jpg',
                 '临安区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '富阳区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
+                '富阳区': 'https://i.ibb.co/twLfpMpc/1752763377535.jpg'
             },
             mid: {
                 '余杭区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '西湖区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '上城区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '拱墅区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '上城区': 'https://s1.imagehub.cc/images/2025/07/17/31fb724fe70244b2ae52e926661540d6.jpg',
                 '临平区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop'
+                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
+                '萧山区': 'https://youke1.picui.cn/s1/2025/07/17/68791881267a7.jpg'
             },
             high: {}
         };
@@ -2223,12 +2225,12 @@
             if (photoLink && photoLink !== 'https://example.com/photos/placeholder.jpg') {
                 var layer = document.getElementById('photoPreviewLayer');
                 var content = document.getElementById('photoPreviewContent');
-                content.innerHTML = '<img src="'+photoLink+'" alt="照片" style="max-width:96vw;max-height:70vh;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
+                content.innerHTML = '<img src="'+photoLink+'" alt="照片" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
                 layer.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
             } else {
                 alert('照片内容即将上线，敬请期待！');
-                        }
+            }
         }
         
         function openServiceLink(type, url) {
