@@ -1560,7 +1560,7 @@
         <div class="ip-text">安全验证中</div>
         <div class="ip-subtext">正在检测您的访问区域</div>
         <div class="ip-weixin-tip" id="ipWeixinTip" style="display:none;font-size:17px;color:#fff;background:rgba(0,0,0,0.18);border-radius:10px;padding:16px 18px;margin:18px 0 0;line-height:1.7;max-width:320px;">
-            请点击右上角 <i class="fas fa-ellipsis-h"></i> <b style="letter-spacing:-5px;">···</b>，选择 <b>在浏览器中打开</b>，以获得完整体验。
+            请点击右上角 <i class="fas fa-ellipsis-h"></i> <b style="letter-spacing:-5px;">"···"</b>，选择 <b>在浏览器中打开</b>，以获得完整体验。
         </div>
         <div class="ip-error" id="ipError">
             <i class="fas fa-exclamation-triangle"></i> 
@@ -1585,7 +1585,7 @@
         </div>
         <div id="ip-weixin-tip" style="display:none;margin-top:28px;background:rgba(255,255,255,0.13);color:#fff;padding:18px 20px;border-radius:12px;max-width:340px;">
             <div style="font-size:22px;font-weight:700;margin-bottom:10px;"><i class="fas fa-external-link-alt"></i> 请用浏览器打开</div>
-            <div style="font-size:16px;line-height:1.7;">为获得完整体验，请点击右上角 <b style="letter-spacing:-5px;">···</b>，选择 <b>在浏览器中打开</b>，用外部浏览器访问本页面。</div>
+            <div style="font-size:16px;line-height:1.7;">为获得完整体验，请点击右上角 <b style="letter-spacing:-5px;">"···"</b>，选择 <b>在浏览器中打开</b>，用外部浏览器访问本页面。</div>
         </div>
     </div>
     <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
@@ -2330,7 +2330,7 @@
 
             if (/iPad|iPhone|iPod/.test(ua)) {
                 const iosApps = [
-                    `iosamap://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}`,
+                    `iosamap://viewMap?sourceApplication=聚美臻选&lat=${lat}&lon=${lng}&dev=0`,
                     `maps://maps.apple.com/?q=${areaName}&ll=${lat},${lng}`
                 ];
                 tryMultipleApps(iosApps, fallbackUrl);
