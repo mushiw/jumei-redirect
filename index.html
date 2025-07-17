@@ -1808,7 +1808,7 @@
                 '拱墅区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
                 '临平区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
                 '上城区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '钱塘区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '钱塘区': 'https://i.ibb.co/ymG0WX3w/1752722094856.jpg',
                 '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
                 '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
                 '临安区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
@@ -2330,7 +2330,7 @@
 
             if (/iPad|iPhone|iPod/.test(ua)) {
                 const iosApps = [
-                    `iosamap://viewMap?sourceApplication=聚美臻选&lat=${lat}&lon=${lng}&dev=0`,
+                    `iosamap://viewMap?sourceApplication=聚美臻选&lat=${lat}&lon=${lng}&dev=0&poiname=${areaName}`,
                     `maps://maps.apple.com/?q=${areaName}&ll=${lat},${lng}`
                 ];
                 tryMultipleApps(iosApps, fallbackUrl);
