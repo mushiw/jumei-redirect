@@ -1309,6 +1309,40 @@
         #qqNumber:active {
             transform: scale(0.95);
         }
+
+        #photoPreviewLayer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #fff;
+            overflow-y: auto;
+        }
+        #photoPreviewContent {
+            width: 100vw;
+            max-width: 100vw;
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 0;
+        }
+        #photoPreviewContent img {
+            max-width: 100vw;
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 0 12px 0;
+            border-radius: 0;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
@@ -1782,7 +1816,7 @@
             low: {
                 '余杭区': { lat: 30.272138, lng: 119.995969, name: '富力中心' },
                 '西湖区': { lat: 30.339952, lng: 120.081684, name: '金地广场' },
-                '拱墅区': { lat: 30.327793, lng: 120.12648, name: '运河万科中心A区' },
+                '拱墅区': { lat: 30.327793, lng: 120.219668, name: '运河万科中心A区' },
                 '临平区': { lat: 30.431437, lng: 120.217036, name: '万宝城公寓' },
                 '上城区': { lat: 30.295529, lng: 120.216579, name: '华润置地6座' },
                 '钱塘区': { lat: 30.315379, lng: 120.315857, name: '松合幸福雅苑A区' },
@@ -1801,13 +1835,13 @@
             },
             high: {}
         };
-        const areaPhotoLinks = {
+        const areaPhotoLinks = { 
             low: {
-                '余杭区': 'https://i.ibb.co/xqJ46HD9/IMG-0342.jpg',
-                '西湖区': 'https://i.ibb.co/hxdPqph8/sticker.jpg',
-                '拱墅区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '临平区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '上城区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
+                '余杭区': 'https://i.ibb.co/xS0Y5VDb/1752747448173.jpg',  
+                '西湖区': 'https://i.ibb.co/dwBf2DnZ/1752747926961.jpg',
+                '拱墅区': 'https://i.ibb.co/0pRCy2B0/1752746980698.jpg',
+                '临平区': 'https://i.ibb.co/1Jwn7sXZ/1752745914478.jpg',
+                '上城区': 'https://i.ibb.co/LzTpSsjc/1752744758058.jpg',
                 '钱塘区': 'https://i.ibb.co/ymG0WX3w/1752722094856.jpg',
                 '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
                 '萧山区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
@@ -2103,7 +2137,7 @@
                 meituanItem.onclick = () => {
                     var layer = document.getElementById('photoPreviewLayer');
                     var content = document.getElementById('photoPreviewContent');
-                    content.innerHTML = '<img src="https://i.ibb.co/vxDcSkQF/0c20f3ffbfcc48a4943cb5f1dfeae01d.jpg" alt="美团集美" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
+                    content.innerHTML = '<img src="https://i.ibb.co/fdDzH6ZR/1752749796832.jpg" alt="美团集美" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
                     layer.style.display = 'flex';
                     document.body.style.overflow = 'hidden';
                 };
