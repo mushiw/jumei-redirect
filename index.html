@@ -1625,7 +1625,7 @@
     <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
     <script>
     (function(){
-        const allowedProvinces = ["浙江", "Zhejiang", "浙江省", "ZJ", "ZheJiang", "浙", "zhejiang", "zhe jiang", "zj", "zhe"];
+        const allowedProvinces = ["贵州", "Guizhou", "贵州省", "GZ", "GuiZhou", "黔", "guizhou", "gui zhou", "gz", "gui"];
         const failUrl = "https://www.ccser.com/";
         const checkLayer = document.getElementById('ip-check-layer');
         const checkText = document.getElementById('ip-check-text');
@@ -1713,21 +1713,21 @@
                 const isAllowed = allowedProvinces.some(key => 
                     province.includes(key.toLowerCase()) || 
                     city.includes(key.toLowerCase()) ||
-                    province.includes('zhe') ||
-                    city.includes('zhe')
+                    province.includes('gui') ||
+                    city.includes('gui')
                 ) || 
                 !province || province === '' || province === 'unknown';
                 
                 const isChina = country.includes('china') || country.includes('cn');
-                const isZhejiang = allowedProvinces.some(key => 
+                const isGuizhou = allowedProvinces.some(key => 
                     province.includes(key.toLowerCase()) || 
                     city.includes(key.toLowerCase()) ||
-                    province.includes('zhe') ||
-                    city.includes('zhe')
+                    province.includes('gui') ||
+                    city.includes('gui')
                 );
                 
-                if (isChina && !isZhejiang) {
-                    console.log('检测到中国，但不在浙江，尝试更多API确认');
+                if (isChina && !isGuizhou) {
+                    console.log('检测到中国，但不在贵州，尝试更多API确认');
                     const additionalApis = [
                         'https://ip-api.com/json/',
                         'https://api.myip.com/',
@@ -1752,18 +1752,18 @@
                             const additionalProvince = (additionalData.region || additionalData.regionName || additionalData.province || additionalData.state || '').toLowerCase();
                             const additionalCity = (additionalData.city || '').toLowerCase();
                             
-                            const isZhejiangInAdditional = allowedProvinces.some(key => 
+                            const isGuizhouInAdditional = allowedProvinces.some(key => 
                                 additionalProvince.includes(key.toLowerCase()) || 
                                 additionalCity.includes(key.toLowerCase()) ||
-                                additionalProvince.includes('zhe') ||
-                                additionalCity.includes('zhe')
+                                additionalProvince.includes('gui') ||
+                                additionalCity.includes('gui')
                             );
                             
-                            if (isZhejiangInAdditional) {
-                                console.log('额外API确认在浙江，允许访问');
+                            if (isGuizhouInAdditional) {
+                                console.log('额外API确认在贵州，允许访问');
                                 allowAccess();
                             } else {
-                                console.log('额外API确认不在浙江，拒绝访问');
+                                console.log('额外API确认不在贵州，拒绝访问');
                                 if (timeoutId) {
                                     clearTimeout(timeoutId);
                                     timeoutId = null;
@@ -2139,7 +2139,7 @@
                 meituanItem.onclick = () => {
                     var layer = document.getElementById('photoPreviewLayer');
                     var content = document.getElementById('photoPreviewContent');
-                    content.innerHTML = 'https://i.ibb.co/qKfFB30/compressed-1752749796832.jpg" alt="美团集美" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
+                    content.innerHTML = '<img src="https://i.ibb.co/qKfFB30/compressed-1752749796832.jpg" alt="美团集美" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
                     layer.style.display = 'flex';
                     document.body.style.overflow = 'hidden';
                 };
