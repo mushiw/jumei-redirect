@@ -1641,22 +1641,22 @@
                 timeoutId = null;
             }
             
-            checkLayer.style.opacity = 0;
-            setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
-            const ipChecking = document.getElementById('ipChecking');
-            const ipError = document.getElementById('ipError');
-            const ipWeixinTip = document.getElementById('ipWeixinTip');
+            const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
             
-            if (ipChecking) {
-                ipChecking.style.display = 'none';
-                ipChecking.classList.add('hidden');
-            }
-            if (ipError) {
-                ipError.style.display = 'none';
-                ipError.classList.remove('show');
-            }
-            if (ipWeixinTip) {
-                ipWeixinTip.style.display = 'none';
+            if (isWeChat) {
+                console.log('检测到微信内置浏览器，显示提示');
+                checkText.textContent = "检测通过";
+                checkSubtext.style.display = 'none';
+                checkError.style.display = 'none';
+                
+                const weixinTip = document.getElementById('ip-weixin-tip');
+                if (weixinTip) {
+                    weixinTip.style.display = 'block';
+                }
+            } else {
+                console.log('检测到外置浏览器，直接访问内容');
+                checkLayer.style.opacity = 0;
+                setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
             }
         }
 
@@ -1666,20 +1666,9 @@
             checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。';
             checkError.style.display = '';
             
-            const ipChecking = document.getElementById('ipChecking');
-            const ipError = document.getElementById('ipError');
-            const ipWeixinTip = document.getElementById('ipWeixinTip');
-            
-            if (ipChecking) {
-                ipChecking.style.display = 'none';
-                ipChecking.classList.add('hidden');
-            }
-            if (ipError) {
-                ipError.style.display = 'none';
-                ipError.classList.remove('show');
-            }
-            if (ipWeixinTip) {
-                ipWeixinTip.style.display = 'none';
+            const weixinTip = document.getElementById('ip-weixin-tip');
+            if (weixinTip) {
+                weixinTip.style.display = 'none';
             }
             
             setTimeout(()=>{ window.location.href = failUrl; }, 1500);
@@ -1736,6 +1725,14 @@
         window.testIP = function() {
             console.log('=== 手动测试 IP 检测 ===');
             checkIP();
+        };
+        
+        window.testWeChat = function() {
+            const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+            console.log('=== 微信检测测试 ===');
+            console.log('User Agent:', navigator.userAgent);
+            console.log('是否为微信内置浏览器:', isWeChat);
+            return isWeChat;
         };
     })();
     </script>
@@ -2017,6 +2014,7 @@
             }
             setDeviceLogo();
             window.addEventListener('resize', function() {
+                
             });
         };
         
