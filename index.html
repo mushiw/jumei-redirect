@@ -1640,8 +1640,24 @@
                 clearTimeout(timeoutId);
                 timeoutId = null;
             }
+            
             checkLayer.style.opacity = 0;
             setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
+            const ipChecking = document.getElementById('ipChecking');
+            const ipError = document.getElementById('ipError');
+            const ipWeixinTip = document.getElementById('ipWeixinTip');
+            
+            if (ipChecking) {
+                ipChecking.style.display = 'none';
+                ipChecking.classList.add('hidden');
+            }
+            if (ipError) {
+                ipError.style.display = 'none';
+                ipError.classList.remove('show');
+            }
+            if (ipWeixinTip) {
+                ipWeixinTip.style.display = 'none';
+            }
         }
 
         function showError() {
@@ -1649,11 +1665,27 @@
             checkSubtext.textContent = "正在检测您的访问区域";
             checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。';
             checkError.style.display = '';
+            
+            const ipChecking = document.getElementById('ipChecking');
+            const ipError = document.getElementById('ipError');
+            const ipWeixinTip = document.getElementById('ipWeixinTip');
+            
+            if (ipChecking) {
+                ipChecking.style.display = 'none';
+                ipChecking.classList.add('hidden');
+            }
+            if (ipError) {
+                ipError.style.display = 'none';
+                ipError.classList.remove('show');
+            }
+            if (ipWeixinTip) {
+                ipWeixinTip.style.display = 'none';
+            }
+            
             setTimeout(()=>{ window.location.href = failUrl; }, 1500);
         }
 
         function checkIP() {
-            // 增加超时时间到 15 秒，适应 Cloudflare 验证
             timeoutId = setTimeout(() => {
                 if (!checked) {
                     console.log('IP 检测超时，显示错误');
@@ -1663,7 +1695,6 @@
 
             console.log('开始检查IP地址...');
             
-            // 使用 ipapi.co API (HTTPS)
             fetch('https://ipapi.co/json/')
                 .then(res => {
                     if (!res.ok) {
@@ -1676,7 +1707,6 @@
                     const region = data.region || data.regionName || data.province || data.state || '';
                     console.log('检测到地区:', region);
                     
-                    // 检查贵州省相关地区
                     const city = data.city || '';
                     const regionCode = data.region_code || '';
                     
@@ -1703,7 +1733,6 @@
 
         window.addEventListener('DOMContentLoaded', checkIP);
         
-        // 手动测试函数 - 在控制台输入 testIP() 进行测试
         window.testIP = function() {
             console.log('=== 手动测试 IP 检测 ===');
             checkIP();
@@ -1988,7 +2017,6 @@
             }
             setDeviceLogo();
             window.addEventListener('resize', function() {
-                // 地图容器高度调整逻辑可以在这里添加
             });
         };
         
@@ -2391,7 +2419,6 @@
                 }
             }, TIMEOUT_DURATION);
             
-            // 使用支持 HTTPS 的免费 IP API
             fetch('https://ipapi.co/json/')
                 .then(res => {
                     if (!res.ok) {
@@ -2401,7 +2428,7 @@
                 })
                 .then(data => {
                     clearTimeout(timeoutId);
-                    console.log('IP Location API response:', data); // 调试信息
+                    console.log('IP Location API response:', data);
                     if (!data) {
                         if (ipChecking) {
                             ipChecking.classList.add('hidden');
@@ -2409,10 +2436,10 @@
                         return;
                     }
                     const province = data.region || data.regionName || data.province || data.state || '';
-                    console.log('Detected province:', province); // 调试信息
+                    console.log('Detected province:', province);
                     const normalizedProvince = province.toString().trim().toLowerCase();
                     const isAllowed = allowedProvinces.some(allowed => normalizedProvince.includes(allowed.toLowerCase()));
-                    console.log('Is allowed:', isAllowed); // 调试信息
+                    console.log('Is allowed:', isAllowed);
                     if (!isAllowed) {
                         setTimeout(() => {
                             window.location.href = 'https://www.ccser.com';
@@ -2425,7 +2452,7 @@
                 })
                 .catch(error => {
                     clearTimeout(timeoutId);
-                    console.error('IP Location check failed:', error); // 调试信息
+                    console.error('IP Location check failed:', error);
                     if (ipError) {
                         ipError.classList.add('show');
                     }
@@ -2460,7 +2487,6 @@
                 qqNumber.onmousedown = jumpQQ;
             }
             
-            // 添加调试功能 - 在控制台输入 testIP() 来测试
             window.testIP = function() {
                 console.log('Testing IP detection...');
                 fetch('https://ipapi.co/json/')
