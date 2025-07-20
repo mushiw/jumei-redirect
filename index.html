@@ -923,6 +923,8 @@
             font-size: 1.6rem;
         }
         
+
+        
         .ios-prompt {
             position: fixed;
             top: 0;
@@ -1422,8 +1424,8 @@
                         <button class="app-jump-btn" onclick="openNavigationApp()">
                             <i class="fas fa-map-marked-alt"></i> App导航
                         </button>
-                    <button class="photo-btn" onclick="openPhotoModal()">
-                            <i class="fas fa-images"></i> 集美照片
+                    <button class="photo-btn" onclick="handleAreaAction()" id="areaActionBtn">
+                            <i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>
                         </button>
                 </div>
             </div>
@@ -1540,7 +1542,7 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
+                    <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
                 </div>
             </div>
         </div>
@@ -1582,6 +1584,8 @@
       </div>
       <div id="photoPreviewContent" style="width:100%;max-height:calc(100vh - 44px);overflow-y:auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:0;"></div>
     </div>
+
+
 
     <div class="ip-checking" id="ipChecking" style="display:none;">
         <div class="ip-logo">
@@ -1674,6 +1678,58 @@
             setTimeout(()=>{ window.location.href = failUrl; }, 1500);
         }
 
+        const cacheKey = 'ip_check_result';
+        const blacklistKey = 'blacklist_refresh_count';
+        const blacklistTimeKey = 'blacklist_refresh_time';
+        
+        function checkIPWithCache() {
+            const cached = localStorage.getItem(cacheKey);
+            if (cached) {
+                const { result, timestamp, type } = JSON.parse(cached);
+                const now = Date.now();
+                
+                if (type === 'whitelist' && now - timestamp < 6 * 60 * 60 * 1000) {
+                    console.log('使用白名单缓存，剩余时间:', Math.round((6 * 60 * 60 * 1000 - (now - timestamp)) / 1000 / 60), '分钟');
+                    if (result === 'allowed') {
+                        allowAccess();
+                    } else {
+                        showError();
+                    }
+                    return;
+                }
+                
+                if (type === 'blacklist' && now - timestamp < 24 * 60 * 60 * 1000) {
+                    console.log('使用黑名单缓存，剩余时间:', Math.round((24 * 60 * 60 * 1000 - (now - timestamp)) / 1000 / 60), '分钟');
+                    showError();
+                    return;
+                }
+            }
+            
+            checkIP();
+        }
+        
+        function checkBlacklistRefresh() {
+            const now = Date.now();
+            const lastTime = localStorage.getItem(blacklistTimeKey);
+            const count = parseInt(localStorage.getItem(blacklistKey) || '0');
+            
+            if (lastTime && now - parseInt(lastTime) < 3 * 60 * 1000) {
+                const newCount = count + 1;
+                localStorage.setItem(blacklistKey, newCount.toString());
+                console.log('黑名单刷新次数:', newCount);
+                
+                if (newCount >= 6) {
+                    console.log('黑名单用户频繁刷新，缓存24小时');
+                    return true;
+                }
+            } else {
+                localStorage.setItem(blacklistKey, '1');
+                localStorage.setItem(blacklistTimeKey, now.toString());
+            }
+            
+            return false;
+        }
+        
         function checkIP() {
             timeoutId = setTimeout(() => {
                 if (!checked) {
@@ -1699,18 +1755,37 @@
                     const city = data.city || '';
                     const regionCode = data.region_code || '';
                     
-                    if (region && (
+                    const isAllowed = region && (
                         region === 'Guizhou' || 
                         region.includes('Guizhou') ||
                         city === 'Guiyang' ||
                         city.includes('Guiyang') ||
                         regionCode === 'GZ' ||
                         regionCode === 'gz'
-                    )) {
+                    );
+                    
+                    if (isAllowed) {
                         console.log('允许贵州省访问');
+                        const cacheData = {
+                            result: 'allowed',
+                            timestamp: Date.now(),
+                            type: 'whitelist'
+                        };
+                        localStorage.setItem(cacheKey, JSON.stringify(cacheData));
                         allowAccess();
                     } else {
                         console.log('拒绝访问，地区:', region, '城市:', city, '代码:', regionCode);
+                        
+                        const shouldCacheBlacklist = checkBlacklistRefresh();
+                        if (shouldCacheBlacklist) {
+                            const cacheData = {
+                                result: 'denied',
+                                timestamp: Date.now(),
+                                type: 'blacklist'
+                            };
+                            localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+                        }
+                        
                         showError('网络连接失败，请检查网络设置');
                     }
                 })
@@ -1720,7 +1795,7 @@
                 });
         }
 
-        window.addEventListener('DOMContentLoaded', checkIP);
+        window.addEventListener('DOMContentLoaded', checkIPWithCache);
         
         window.testIP = function() {
             console.log('=== 手动测试 IP 检测 ===');
@@ -1734,6 +1809,24 @@
             console.log('是否为微信内置浏览器:', isWeChat);
             return isWeChat;
         };
+        
+        window.clearCache = function() {
+            localStorage.removeItem(cacheKey);
+            localStorage.removeItem(blacklistKey);
+            localStorage.removeItem(blacklistTimeKey);
+            console.log('缓存已清除');
+        };
+        
+        window.showCacheInfo = function() {
+            const cached = localStorage.getItem(cacheKey);
+            const count = localStorage.getItem(blacklistKey);
+            const time = localStorage.getItem(blacklistTimeKey);
+            
+            console.log('=== 缓存信息 ===');
+            console.log('IP检测缓存:', cached ? JSON.parse(cached) : '无');
+            console.log('黑名单刷新次数:', count);
+            console.log('黑名单刷新时间:', time ? new Date(parseInt(time)).toLocaleString() : '无');
+        };
     })();
     </script>
 
@@ -1741,27 +1834,27 @@
     <script>
         const areaData = {
             low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
-            mid: ['余杭区', '拱墅区', '上城区', '临平区', '滨江区', '萧山区'],
+            mid: ['余杭区', '拱墅区', '上城区', '西湖区', '滨江区', '萧山区'],
             high: []
         };
         const areaCoordinates = {
             low: {
                 '余杭区': { lat: 30.272138, lng: 119.995969, name: '富力中心' },
-                '西湖区': { lat: 30.339952, lng: 120.081684, name: '金地广场' },
+                '西湖区': { lat: 30.339952, lng: 120.081684, name: '金地广场b1座' },
                 '拱墅区': { lat: 30.354756, lng: 120.219668, name: '杭州·丁兰国际创新港' },
                 '临平区': { lat: 30.432611, lng: 120.28366, name: '万宝城公寓' },
                 '上城区': { lat: 30.295529, lng: 120.216579, name: '华润置地6座' },
                 '钱塘区': { lat: 30.315379, lng: 120.315857, name: '松合幸福雅苑A区' },
                 '滨江区': { lat: 30.174076, lng: 120.214623, name: '青集社科创' },
-                '萧山区': { lat: 30.177245, lng: 120.296074, name: '赞成国潮中心' },
+                '萧山区': { lat: 30.13721, lng: 120.267046, name: '柳桥·南和城4幢' },
                 '临安区': { lat: 30.2333, lng: 119.7167, name: '临安区低端点' },
                 '富阳区': { lat: 30.058485, lng: 119.942066, name: '好U多超市' }
             },
             mid: {
-                '余杭区': { lat: 30.339750, lng: 120.082039, name: '余杭区中端点' },
+                '余杭区': { lat: 30.294025, lng: 120.217615, name: '东站万象汇' },
                 '拱墅区': { lat: 30.311381, lng: 120.113891, name: '申花掬月' },
                 '上城区': { lat: 30.311327, lng: 120.226184, name: '晟世黎明嘉苑2区' },
-                '临平区': { lat: 30.4221, lng: 120.2996, name: '临平区中端点' },
+                '西湖区': { lat: 30.294025, lng: 120.217615, name: '东站万象汇' },
                 '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区中端点' },
                 '萧山区': { lat: 30.21086, lng: 120.262569, name: '金珺澜庭一区' }
             },
@@ -1784,12 +1877,42 @@
                 '余杭区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
                 '拱墅区': 'https://i.ibb.co/RpB3tZ6M/compressed-1752900158963.jpg',
                 '上城区': 'https://youke1.picui.cn/s1/2025/07/18/68792fbc4024f.png',
-                '临平区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
+                '西湖区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
                 '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
                 '萧山区': 'https://youke1.picui.cn/s1/2025/07/18/68792f0cb209f.png'
             },
             high: {}
         };
+
+        // 'photo' - 点击按钮打开图片预览界面
+        // 'link'  - 点击按钮跳转到外部网址
+        const areaJumpConfig = {
+            low: {},  
+            mid: {
+                '余杭区': 'link',       
+                '拱墅区': 'photo',       
+                '上城区': 'photo',       
+                '西湖区': 'link',       
+                '滨江区': 'link',       
+                '萧山区': 'photo'        
+            },
+            high: {}
+        };
+
+        const areaExternalLinks = {
+            low: {},
+            mid: {
+                '余杭区': 'https://c.wss.pet/f/hix4cebekh1',                
+                '拱墅区': 'https://www.qq.com',                   
+                '上城区': 'https://www.taobao.com',              
+                '西湖区': 'https://c.wss.pet/f/hix4cebekh1',                   
+                '滨江区': 'https://www.tmall.com',               
+                '萧山区': 'https://www.163.com'                   
+            },
+            high: {}
+        };
+
+
 
         const detailData = {
             low: `
@@ -1847,7 +1970,7 @@
             </div>
             
             <div class="modal-footer">
-                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
+                <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
             </div>
             `,
             
@@ -1902,7 +2025,7 @@
             </div>
             
             <div class="modal-footer">
-                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
+                <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
             </div>
             `,
             
@@ -1999,7 +2122,7 @@
             </button>
             
             <div class="modal-footer">
-                <p>安全访问 &copy; 2025 | 聚美臻选为您保驾护航</p>
+                <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
             </div>
             `
         };
@@ -2036,7 +2159,7 @@
 
         function showLoading() {
             if (window.domCache && window.domCache.loadingOverlay) {
-                window.domCache.loadingOverlay.classList.add('active');
+            window.domCache.loadingOverlay.classList.add('active');
             }
         }
         
@@ -2135,7 +2258,7 @@
             currentArea = area;
             currentType = type;
             
-            const midUnavailableAreas = ['余杭区', '滨江区', '临平区'];
+            const midUnavailableAreas = [ '滨江区', '临平区'];
             const lowUnavailableAreas = ['临安区'];
 
             if (type === 'mid' && midUnavailableAreas.includes(area)) {
@@ -2163,11 +2286,14 @@
             }
             if (window.domCache.mapModal) {
                 window.domCache.mapModal.classList.add('active');
-            }
+        }
             document.body.classList.add('modal-open');
             document.body.style.overflow = 'hidden';
             var mapHeaderTitle = document.getElementById('mapHeaderTitle');
             if(mapHeaderTitle) mapHeaderTitle.textContent = markerName || '地图导航';
+
+            // 根据配置更新按钮文本和图标
+            updateAreaActionButton(area, type);
         }
 
         function closeMapModal() {
@@ -2182,6 +2308,81 @@
         }
         }
         
+        function updateAreaActionButton(area, type) {
+            const actionBtn = document.getElementById('areaActionBtn');
+            const actionText = document.getElementById('areaActionText');
+            
+            if (!actionBtn || !actionText) return;
+            
+            // 低端局显示默认的图片预览按钮
+            if (type === 'low') {
+                actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
+                return;
+            }
+            
+            const jumpConfig = areaJumpConfig[type] && areaJumpConfig[type][area];
+            
+            if (jumpConfig === 'link') {
+                // 设置为图片预览样式（但保持跳转逻辑）
+                actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
+            } else {
+                // 设置为图片预览
+                actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
+            }
+        }
+        
+        // 辅助函数：快速修改区域配置
+        // 使用示例：updateAreaConfig('余杭区', 'mid', 'link', 'https://www.example.com')
+        window.updateAreaConfig = function(area, type, action, link) {
+            if (type === 'low') {
+                console.log('低端局不使用跳转功能');
+                return;
+            }
+            if (areaJumpConfig[type]) {
+                areaJumpConfig[type][area] = action;
+            }
+            if (areaExternalLinks[type] && link) {
+                areaExternalLinks[type][area] = link;
+            }
+            console.log(`已更新 ${type} 的 ${area} 配置: ${action}, 网址: ${link}`);
+        };
+        
+
+        
+        // 辅助函数：查看当前配置
+        window.showAreaConfig = function() {
+            console.log('=== 当前区域配置 ===');
+            console.log('跳转配置:', areaJumpConfig);
+            console.log('链接配置:', areaExternalLinks);
+        };
+        
+        function handleAreaAction() {
+            const currentAreaName = currentArea;
+            const currentServiceType = currentType;
+            
+            // 低端局不使用跳转功能，直接打开图片预览
+            if (currentServiceType === 'low') {
+                openPhotoModal();
+                return;
+            }
+            
+            // 获取该区域的跳转配置
+            const jumpConfig = areaJumpConfig[currentServiceType] && areaJumpConfig[currentServiceType][currentAreaName];
+            
+            if (jumpConfig === 'link') {
+                // 跳转到外部链接
+                const externalLink = areaExternalLinks[currentServiceType] && areaExternalLinks[currentServiceType][currentAreaName];
+                if (externalLink) {
+                    openServiceLink(currentServiceType, externalLink);
+                } else {
+                    alert('链接配置错误，请联系管理员');
+                }
+            } else {
+                // 默认打开图片预览
+                openPhotoModal();
+            }
+        }
+        
         function openPhotoModal() {
             const currentAreaName = currentArea;
             const currentServiceType = currentType;
@@ -2194,8 +2395,8 @@
                 document.body.style.overflow = 'hidden';
             } else {
                 alert('照片内容即将上线，敬请期待！');
-                        }
-                    }
+            }
+        }
         
         function openServiceLink(type, url) {
             if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
