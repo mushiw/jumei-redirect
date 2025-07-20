@@ -2292,7 +2292,6 @@
             var mapHeaderTitle = document.getElementById('mapHeaderTitle');
             if(mapHeaderTitle) mapHeaderTitle.textContent = markerName || '地图导航';
 
-            // 根据配置更新按钮文本和图标
             updateAreaActionButton(area, type);
         }
 
@@ -2314,7 +2313,6 @@
             
             if (!actionBtn || !actionText) return;
             
-            // 低端局显示默认的图片预览按钮
             if (type === 'low') {
                 actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
                 return;
@@ -2323,16 +2321,12 @@
             const jumpConfig = areaJumpConfig[type] && areaJumpConfig[type][area];
             
             if (jumpConfig === 'link') {
-                // 设置为图片预览样式（但保持跳转逻辑）
                 actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
             } else {
-                // 设置为图片预览
                 actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
             }
         }
         
-        // 辅助函数：快速修改区域配置
-        // 使用示例：updateAreaConfig('余杭区', 'mid', 'link', 'https://www.example.com')
         window.updateAreaConfig = function(area, type, action, link) {
             if (type === 'low') {
                 console.log('低端局不使用跳转功能');
@@ -2349,7 +2343,6 @@
         
 
         
-        // 辅助函数：查看当前配置
         window.showAreaConfig = function() {
             console.log('=== 当前区域配置 ===');
             console.log('跳转配置:', areaJumpConfig);
@@ -2360,17 +2353,14 @@
             const currentAreaName = currentArea;
             const currentServiceType = currentType;
             
-            // 低端局不使用跳转功能，直接打开图片预览
             if (currentServiceType === 'low') {
                 openPhotoModal();
                 return;
             }
             
-            // 获取该区域的跳转配置
             const jumpConfig = areaJumpConfig[currentServiceType] && areaJumpConfig[currentServiceType][currentAreaName];
             
             if (jumpConfig === 'link') {
-                // 跳转到外部链接
                 const externalLink = areaExternalLinks[currentServiceType] && areaExternalLinks[currentServiceType][currentAreaName];
                 if (externalLink) {
                     openServiceLink(currentServiceType, externalLink);
@@ -2378,7 +2368,6 @@
                     alert('链接配置错误，请联系管理员');
                 }
             } else {
-                // 默认打开图片预览
                 openPhotoModal();
             }
         }
@@ -2399,7 +2388,7 @@
         }
         
         function openServiceLink(type, url) {
-            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            if (type === 'high' && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
                 if (window.domCache && window.domCache.iosLink) {
                 window.domCache.iosLink.textContent = url;
                 }
