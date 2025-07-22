@@ -1640,6 +1640,22 @@
         let checked = false;
         let timeoutId = null;
 
+        // 合并允许区域关键词
+        const allowedRegions = [
+            "贵州", "Guizhou", "贵州省", "GZ", "GuiZhou", "黔", "guizhou", "gui zhou",
+            "浙江", "Zhejiang", "浙江省", "ZJ", "ZheJiang", "zhejiang", "zhe jiang",
+            "杭州", "Hangzhou", "hangzhou", "hz",
+            "云南", "Yunnan", "云南省", "YN", "YunNan", "yunnan", "yun nan",
+            "昆明", "Kunming", "kunming", "km"
+        ];
+        function isRegionAllowed(region, city, regionCode) {
+            const allFields = [region, city, regionCode].map(x => (x || '').toLowerCase());
+            return allowedRegions.some(keyword => {
+                const kw = keyword.toLowerCase();
+                return allFields.some(field => field.includes(kw));
+            });
+        }
+
         function allowAccess() {
             if (checked) return;
             checked = true;
@@ -1647,52 +1663,42 @@
                 clearTimeout(timeoutId);
                 timeoutId = null;
             }
-            
             const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
-            
             if (isWeChat) {
-                console.log('检测到微信内置浏览器，显示提示');
                 checkText.textContent = "检测通过";
                 checkSubtext.style.display = 'none';
                 checkError.style.display = 'none';
-                
                 const weixinTip = document.getElementById('ip-weixin-tip');
                 if (weixinTip) {
                     weixinTip.style.display = 'block';
                 }
             } else {
-                console.log('检测到外置浏览器，直接访问内容');
                 checkLayer.style.opacity = 0;
                 setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
             }
         }
 
-        function showError() {
+        function showError(message) {
             checkText.textContent = "安全验证中";
             checkSubtext.textContent = "正在检测您的访问区域";
-            checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。';
+            checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (message || '网络异常，暂时无法访问本页面内容。');
             checkError.style.display = '';
-            
             const weixinTip = document.getElementById('ip-weixin-tip');
             if (weixinTip) {
                 weixinTip.style.display = 'none';
             }
-            
             setTimeout(()=>{ window.location.href = failUrl; }, 1500);
         }
 
         const cacheKey = 'ip_check_result';
         const blacklistKey = 'blacklist_refresh_count';
         const blacklistTimeKey = 'blacklist_refresh_time';
-        
         function checkIPWithCache() {
             const cached = localStorage.getItem(cacheKey);
             if (cached) {
                 const { result, timestamp, type } = JSON.parse(cached);
                 const now = Date.now();
-                
                 if (type === 'whitelist' && now - timestamp < 6 * 60 * 60 * 1000) {
-                    console.log('使用白名单缓存，剩余时间:', Math.round((6 * 60 * 60 * 1000 - (now - timestamp)) / 1000 / 60), '分钟');
                     if (result === 'allowed') {
                         allowAccess();
                     } else {
@@ -1700,49 +1706,35 @@
                     }
                     return;
                 }
-                
                 if (type === 'blacklist' && now - timestamp < 24 * 60 * 60 * 1000) {
-                    console.log('使用黑名单缓存，剩余时间:', Math.round((24 * 60 * 60 * 1000 - (now - timestamp)) / 1000 / 60), '分钟');
                     showError();
                     return;
                 }
             }
-            
             checkIP();
         }
-        
         function checkBlacklistRefresh() {
             const now = Date.now();
             const lastTime = localStorage.getItem(blacklistTimeKey);
             const count = parseInt(localStorage.getItem(blacklistKey) || '0');
-            
             if (lastTime && now - parseInt(lastTime) < 3 * 60 * 1000) {
                 const newCount = count + 1;
                 localStorage.setItem(blacklistKey, newCount.toString());
-                console.log('黑名单刷新次数:', newCount);
-                
                 if (newCount >= 6) {
-                    console.log('黑名单用户频繁刷新，缓存24小时');
                     return true;
                 }
             } else {
                 localStorage.setItem(blacklistKey, '1');
                 localStorage.setItem(blacklistTimeKey, now.toString());
             }
-            
             return false;
         }
-        
         function checkIP() {
             timeoutId = setTimeout(() => {
                 if (!checked) {
-                    console.log('IP 检测超时，显示错误');
                     showError('网络连接超时，请稍后重试');
                 }
             }, 15000);
-
-            console.log('开始检查IP地址...');
-            
             fetch('https://ipapi.co/json/')
                 .then(res => {
                     if (!res.ok) {
@@ -1751,34 +1743,11 @@
                     return res.json();
                 })
                 .then(data => {
-                    console.log('IP API 响应:', data);
                     const region = data.region || data.regionName || data.province || data.state || '';
-                    console.log('检测到地区:', region);
-                    
                     const city = data.city || '';
                     const regionCode = data.region_code || '';
-                    
-                    const isAllowed = region && (
-                        region === 'Guizhou' || 
-                        region.includes('Guizhou') ||
-                        city === 'Guiyang' ||
-                        city.includes('Guiyang') ||
-                        regionCode === 'GZ' ||
-                        regionCode === 'gz' ||
-                        region === 'Zhejiang' ||
-                        region.includes('Zhejiang') ||
-                        city === 'Hangzhou' ||
-                        city.includes('Hangzhou') ||
-                        region === '浙江' ||
-                        region.includes('浙江') ||
-                        city === '杭州' ||
-                        city.includes('杭州') ||
-                        regionCode === 'ZJ' ||
-                        regionCode === 'zj'
-                    );
-                    
+                    const isAllowed = isRegionAllowed(region, city, regionCode);
                     if (isAllowed) {
-                        console.log('允许贵州省访问');
                         const cacheData = {
                             result: 'allowed',
                             timestamp: Date.now(),
@@ -1787,8 +1756,6 @@
                         localStorage.setItem(cacheKey, JSON.stringify(cacheData));
                         allowAccess();
                     } else {
-                        console.log('拒绝访问，地区:', region, '城市:', city, '代码:', regionCode);
-                        
                         const shouldCacheBlacklist = checkBlacklistRefresh();
                         if (shouldCacheBlacklist) {
                             const cacheData = {
@@ -1798,43 +1765,25 @@
                             };
                             localStorage.setItem(cacheKey, JSON.stringify(cacheData));
                         }
-                        
                         showError('网络连接失败，请检查网络设置');
                     }
                 })
                 .catch((error) => {
-                    console.error('IP 检测失败:', error);
                     showError('网络连接失败，请检查网络设置');
                 });
         }
-
         window.addEventListener('DOMContentLoaded', checkIPWithCache);
-        
-        window.testIP = function() {
-            console.log('=== 手动测试 IP 检测 ===');
-            checkIP();
-        };
-        
-        window.testWeChat = function() {
-            const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
-            console.log('=== 微信检测测试 ===');
-            console.log('User Agent:', navigator.userAgent);
-            console.log('是否为微信内置浏览器:', isWeChat);
-            return isWeChat;
-        };
-        
+        window.testIP = function() { checkIP(); };
+        window.testWeChat = function() { return /MicroMessenger/i.test(navigator.userAgent); };
         window.clearCache = function() {
             localStorage.removeItem(cacheKey);
             localStorage.removeItem(blacklistKey);
             localStorage.removeItem(blacklistTimeKey);
-            console.log('缓存已清除');
         };
-        
         window.showCacheInfo = function() {
             const cached = localStorage.getItem(cacheKey);
             const count = localStorage.getItem(blacklistKey);
             const time = localStorage.getItem(blacklistTimeKey);
-            
             console.log('=== 缓存信息 ===');
             console.log('IP检测缓存:', cached ? JSON.parse(cached) : '无');
             console.log('黑名单刷新次数:', count);
@@ -2456,7 +2405,7 @@
         function openNavigationApp() {
             const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
             if (!coordinates) {
-                alert('区域坐标数据');
+                alert('未找到区域坐标数据');
                 return;
             }
             const lat = coordinates.lat;
