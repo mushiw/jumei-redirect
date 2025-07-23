@@ -1644,9 +1644,7 @@
         const allowedRegions = [
             "贵州", "Guizhou", "贵州省", "GZ", "GuiZhou", "黔", "guizhou", "gui zhou",
             "浙江", "Zhejiang", "浙江省", "ZJ", "ZheJiang", "zhejiang", "zhe jiang",
-            "杭州", "Hangzhou", "hangzhou", "hz",
-            "云南", "Yunnan", "云南省", "YN", "YunNan", "yunnan", "yun nan",
-            "昆明", "Kunming", "kunming", "km"
+            "杭州", "Hangzhou", "hangzhou", "hz"
         ];
         function isRegionAllowed(region, city, regionCode) {
             const allFields = [region, city, regionCode].map(x => (x || '').toLowerCase());
@@ -1681,7 +1679,7 @@
         function showError(message) {
             checkText.textContent = "安全验证中";
             checkSubtext.textContent = "正在检测您的访问区域";
-            checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> ' + (message || '网络异常，暂时无法访问本页面内容。');
+            checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。';
             checkError.style.display = '';
             const weixinTip = document.getElementById('ip-weixin-tip');
             if (weixinTip) {
