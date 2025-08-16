@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>聚美臻选</title>
+    <title>全杭资源</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -57,7 +57,7 @@
             width: 100%;
             margin: 0 auto;
             position: relative;
-            padding: 15px;
+            padding: 18px 15px 8px 15px;
             background: #fff;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -69,8 +69,8 @@
         
         header {
             text-align: center;
-            margin-bottom: 5px;
-            padding: 10px 0;
+            margin-bottom: 8px;
+            padding: 32px 0 12px 0;
             flex-shrink: 0;
         }
         
@@ -288,7 +288,7 @@
             text-align: center;
             margin-top: auto;
             padding: 15px;
-            background: #b6eac7;
+            background: #e3f8ec;
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             position: relative;
@@ -459,6 +459,19 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             margin: 2px auto 0 auto;
             pointer-events: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #d3d3d3 #f5f5f5;
+        }
+        
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+            background: #f5f5f5;
+            border-radius: 6px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #d3d3d3;
+            border-radius: 6px;
         }
         
         .back-btn {
@@ -1087,7 +1100,7 @@
             }
             
             .option-card h2 {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
             }
             
             .option-icon {
@@ -1171,7 +1184,7 @@
             }
             
             .option-card h2 {
-                font-size: 1.15rem;
+                font-size: 1.35rem;
             }
             
             .option-card .badge {
@@ -1313,7 +1326,7 @@
         }
 
         #photoPreviewLayer {
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
@@ -1351,8 +1364,7 @@
     <div class="container">
         <header>
             <div class="logo-container">
-                <div id="deviceLogo"></div>
-                <h1>聚美臻选</h1>
+                <h1>全杭资源</h1>
                 <div class="subtitle">品质服务 · 臻心之选 · 诚信保障</div>
             </div>
         </header>
@@ -1362,33 +1374,33 @@
                 <div class="option-icon">
                     <i class="fas fa-map-marker-alt"></i>
                 </div>
-                <h2>低端局</h2>
+                <h2>低端体验</h2>
                 <div class="badge">实惠精选</div>
             </div>
             <div class="option-card mid" onclick="openAreaModal('mid')">
                 <div class="option-icon">
                     <i class="fas fa-crown"></i>
                 </div>
-                <h2>中端局</h2>
+                <h2>中端品质</h2>
                 <div class="badge">品质优选</div>
             </div>
             <div class="option-card high" onclick="openHighModal()">
                 <div class="option-icon">
                     <i class="fas fa-gem"></i>
                 </div>
-                <h2>高端局</h2>
+                <h2>高端尊享</h2>
                 <div class="badge">尊享服务</div>
             </div>
         </div>
         
         <div class="certification">
-            <h3><i class="fas fa-shield-alt"></i> 聚美臻选官方认证</h3>
-            <p>诚信经营 · 真实信息 · 品质保障</p>
+            <h3><i class="fas fa-shield-alt"></i> 内容每天都会更新</h3>
+            <p>点击上方按钮查看内容<br>遇到任何问题请随时反馈给我</p>
         </div>
         
         <div class="footer-section">
             <div class="footer">
-                聚美臻选 © 2025
+                安全访问 © 2025
             </div>
             <div class="contact-info">
                 防失联请加QQ：<a id="qqNumber" href="https://qm.qq.com/q/SKGxuHijm2" target="_blank" style="color: #ff6b6b; cursor: pointer; text-decoration: underline;">915637409</a>
@@ -1441,115 +1453,6 @@
             </div>
         </div>
         
-        <div id="highModal" class="modal">
-            <div class="modal-content">
-                <div class="back-btn" onclick="closeModal('highModal')">
-                    <i class="fas fa-arrow-left"></i>
-                </div>
-                <h3 class="modal-title">高端局专享</h3>
-                
-                <div class="modal-body">
-                    <div class="modal-intro">
-                        <p>高端品质定制化服务，满足您的个性化需求</p>
-                    </div>
-                    
-                    <div class="modal-section">
-                        <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                        <div class="package-list">
-                            <div class="package-item">
-                                <div class="package-name">
-                                    <i class="fas fa-bullseye"></i> 3k 套餐
-                                </div>
-                                <div class="package-option">
-                                    <span>一课（60分钟）</span>
-                                    <span>￥2.8k</span>
-                                </div>
-                                <div class="package-option">
-                                    <span>两课（100分钟）</span>
-                                    <span>￥4.8k</span>
-                                </div>
-                                <div class="package-option">
-                                    <span>页课（十一点后至自然醒）</span>
-                                    <span>￥8k</span>
-                                </div>
-                            </div>
-                            
-                            <div class="package-item">
-                                <div class="package-name">
-                                    <i class="fas fa-star"></i> 5k 套餐
-                                </div>
-                                <div class="package-option">
-                                    <span>一课（60分钟）</span>
-                                    <span>￥4.8k</span>
-                                </div>
-                                <div class="package-option">
-                                    <span>两课（100分钟）</span>
-                                    <span>￥8k</span>
-                                </div>
-                                <div class="package-option">
-                                    <span>页课（十一点后至自然醒）</span>
-                                    <span>￥14k</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-section">
-                        <h3><i class="fas fa-info-circle"></i> 服务说明</h3>
-                        <div class="solution-list">
-                            <div class="service-item">
-                                <div class="service-icon"><i class="fas fa-user"></i></div>
-                                <div class="service-text">服务内容，请查看个人主页简介</div>
-                                </div>
-                            <div class="service-item">
-                                <div class="service-icon"><i class="fas fa-comments"></i></div>
-                                <div class="service-text">特殊需求提前沟通，看个人特色</div>
-                                </div>
-                            <div class="service-item">
-                                <div class="service-icon"><i class="fas fa-thumbs-down"></i></div>
-                                <div class="service-text">拒绝低质服务，注重体验与细节</div>
-                                </div>
-                            <div class="service-item">
-                                <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
-                                <div class="service-text">支持提前预约，时间安排更灵活</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-section">
-                        <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                        <div class="solution-list">
-                            <div class="tip-item">
-                                <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
-                                <div>服务均为高品质定制，非市面上中低端</div>
-                                </div>
-                            <div class="tip-item">
-                                <div class="tip-icon"><i class="fas fa-coins"></i></div>
-                                <div>均需提前支付定金，避免不必要的麻烦</div>
-                                </div>
-                            <div class="tip-item">
-                                <div class="tip-icon"><i class="fas fa-handshake"></i></div>
-                                <div>诚信是基础，细节是态度，服务见真章</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="access-btn" onclick="openServiceLink('high', 'http://www.pivn2.icu/')">
-                        <i class="fas fa-gem"></i>
-                        立即访问高端服务
-                        <span class="integrity-text">尊享体验 · 品质保证</span>
-                    </button>
-                    <div style="margin-top: 12px; text-align: center; color: #ff5722; font-weight: bold; font-size: 1.1em; letter-spacing: 2px;">
-                        邀请码666999
-                    </div>
-                </div>
-                
-                <div class="modal-footer">
-                    <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
-                </div>
-            </div>
-        </div>
-        
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
         </div>
@@ -1590,28 +1493,6 @@
 
 
 
-    <div class="ip-checking" id="ipChecking" style="display:none;">
-        <div class="ip-logo">
-            <i class="fas fa-shield-alt"></i>
-        </div>
-        <div class="ip-loader-container">
-            <div class="ip-loader"></div>
-            <div class="ip-loader-inner"></div>
-        </div>
-        <div class="ip-text">安全验证中</div>
-        <div class="ip-subtext">正在检测您的访问区域</div>
-        <div class="ip-weixin-tip" id="ipWeixinTip" style="display:none;font-size:17px;color:#fff;background:rgba(0,0,0,0.18);border-radius:10px;padding:16px 18px;margin:18px 0 0;line-height:1.7;max-width:320px;">
-            请点击右上角 <i class="fas fa-ellipsis-h"></i> <b style="letter-spacing:-5px;">"···"</b>，选择 <b>在浏览器中打开</b>，以获得完整体验。
-        </div>
-        <div class="ip-error" id="ipError">
-            <i class="fas fa-exclamation-triangle"></i> 
-            <p>IP检测失败，请重试或检查网络</p>
-            <button class="retry-btn" id="retryBtn">
-                <i class="fas fa-redo"></i> 重新检测
-            </button>
-        </div>
-    </div>
-
     <div id="ip-check-layer" style="position:fixed;z-index:99999;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#0a7e4d 0%,#0fc57c 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;transition:opacity 0.5s;">
         <div style="font-size:70px;margin-bottom:22px;">
             <i class="fas fa-shield-alt fa-bounce"></i>
@@ -1632,1027 +1513,581 @@
     <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
     <script>
     (function(){
-        const failUrl = "https://www.ccser.com/";
         const checkLayer = document.getElementById('ip-check-layer');
         const checkText = document.getElementById('ip-check-text');
         const checkSubtext = document.getElementById('ip-check-subtext');
         const checkError = document.getElementById('ip-check-error');
-        let checked = false;
-        let timeoutId = null;
-
-        // 合并允许区域关键词
-        const allowedRegions = [
-            "贵州", "Guizhou", "贵州省", "GZ", "GuiZhou", "黔", "guizhou", "gui zhou",
-            "浙江", "Zhejiang", "浙江省", "ZJ", "ZheJiang", "zhejiang", "zhe jiang",
-            "杭州", "Hangzhou", "hangzhou", "hz"
-        ];
-        function isRegionAllowed(region, city, regionCode) {
-            const allFields = [region, city, regionCode].map(x => (x || '').toLowerCase());
-            return allowedRegions.some(keyword => {
-                const kw = keyword.toLowerCase();
-                return allFields.some(field => field.includes(kw));
-            });
-        }
-
-        function allowAccess() {
-            if (checked) return;
-            checked = true;
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-                timeoutId = null;
+        document.addEventListener("DOMContentLoaded", function() {
+            const qqNumber = document.getElementById('qqNumber');
+            if (qqNumber) {
+                qqNumber.onclick = function() {
+                    window.location.href = 'https://qm.qq.com/q/SKGxuHijm2';
+                };
             }
-            const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
-            if (isWeChat) {
-                checkText.textContent = "检测通过";
-                checkSubtext.style.display = 'none';
-                checkError.style.display = 'none';
-                const weixinTip = document.getElementById('ip-weixin-tip');
-                if (weixinTip) {
-                    weixinTip.style.display = 'block';
-                }
-            } else {
-                checkLayer.style.opacity = 0;
-                setTimeout(()=>{ checkLayer.style.display = 'none'; }, 500);
-            }
-        }
-
-        function showError(message) {
-            checkText.textContent = "安全验证中";
-            checkSubtext.textContent = "正在检测您的访问区域";
-            checkError.innerHTML = '<i class="fas fa-exclamation-triangle"></i> 网络异常，暂时无法访问本页面内容。';
-            checkError.style.display = '';
-            const weixinTip = document.getElementById('ip-weixin-tip');
-            if (weixinTip) {
-                weixinTip.style.display = 'none';
-            }
-            setTimeout(()=>{ window.location.href = failUrl; }, 1500);
-        }
-
-        const cacheKey = 'ip_check_result';
-        const blacklistKey = 'blacklist_refresh_count';
-        const blacklistTimeKey = 'blacklist_refresh_time';
-        function checkIPWithCache() {
-            const cached = localStorage.getItem(cacheKey);
-            if (cached) {
-                const { result, timestamp, type } = JSON.parse(cached);
-                const now = Date.now();
-                if (type === 'whitelist' && now - timestamp < 6 * 60 * 60 * 1000) {
-                    if (result === 'allowed') {
-                        allowAccess();
-                    } else {
-                        showError();
-                    }
-                    return;
-                }
-                if (type === 'blacklist' && now - timestamp < 24 * 60 * 60 * 1000) {
-                    showError();
-                    return;
-                }
-            }
-            checkIP();
-        }
-        function checkBlacklistRefresh() {
-            const now = Date.now();
-            const lastTime = localStorage.getItem(blacklistTimeKey);
-            const count = parseInt(localStorage.getItem(blacklistKey) || '0');
-            if (lastTime && now - parseInt(lastTime) < 3 * 60 * 1000) {
-                const newCount = count + 1;
-                localStorage.setItem(blacklistKey, newCount.toString());
-                if (newCount >= 6) {
-                    return true;
-                }
-            } else {
-                localStorage.setItem(blacklistKey, '1');
-                localStorage.setItem(blacklistTimeKey, now.toString());
-            }
-            return false;
-        }
-        function checkIP() {
-            timeoutId = setTimeout(() => {
-                if (!checked) {
-                    showError('网络连接超时，请稍后重试');
-                }
-            }, 15000);
-            fetch('https://ipapi.co/json/')
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error('API response not ok');
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    const region = data.region || data.regionName || data.province || data.state || '';
-                    const city = data.city || '';
-                    const regionCode = data.region_code || '';
-                    const isAllowed = isRegionAllowed(region, city, regionCode);
-                    if (isAllowed) {
-                        const cacheData = {
-                            result: 'allowed',
-                            timestamp: Date.now(),
-                            type: 'whitelist'
-                        };
-                        localStorage.setItem(cacheKey, JSON.stringify(cacheData));
-                        allowAccess();
-                    } else {
-                        const shouldCacheBlacklist = checkBlacklistRefresh();
-                        if (shouldCacheBlacklist) {
-                            const cacheData = {
-                                result: 'denied',
-                                timestamp: Date.now(),
-                                type: 'blacklist'
-                            };
-                            localStorage.setItem(cacheKey, JSON.stringify(cacheData));
-                        }
-                        showError('网络连接失败，请检查网络设置');
-                    }
-                })
-                .catch((error) => {
-                    showError('网络连接失败，请检查网络设置');
-                });
-        }
-        window.addEventListener('DOMContentLoaded', checkIPWithCache);
-        window.testIP = function() { checkIP(); };
-        window.testWeChat = function() { return /MicroMessenger/i.test(navigator.userAgent); };
-        window.clearCache = function() {
-            localStorage.removeItem(cacheKey);
-            localStorage.removeItem(blacklistKey);
-            localStorage.removeItem(blacklistTimeKey);
-        };
-        window.showCacheInfo = function() {
-            const cached = localStorage.getItem(cacheKey);
-            const count = localStorage.getItem(blacklistKey);
-            const time = localStorage.getItem(blacklistTimeKey);
-            console.log('=== 缓存信息 ===');
-            console.log('IP检测缓存:', cached ? JSON.parse(cached) : '无');
-            console.log('黑名单刷新次数:', count);
-            console.log('黑名单刷新时间:', time ? new Date(parseInt(time)).toLocaleString() : '无');
-        };
-    })();
-    </script>
-
-
-    <script>
-        const areaData = {
-            low: ['余杭区', '西湖区', '拱墅区', '临平区', '上城区', '钱塘区', '滨江区', '萧山区', '临安区', '富阳区'],
-            mid: ['余杭区', '拱墅区', '上城区', '西湖区', '滨江区', '萧山区'],
-            high: []
-        };
-        const areaCoordinates = {
-            low: {
-                '余杭区': { lat: 30.272138, lng: 119.995969, name: '富力中心' },
-                '西湖区': { lat: 30.279063, lng: 120.117357, name: '乐品汇超市' },
-                '拱墅区': { lat: 30.354756, lng: 120.219668, name: '杭州·丁兰国际创新港' },
-                '临平区': { lat: 30.432611, lng: 120.28366, name: '万宝城公寓' },
-                '上城区': { lat: 30.295529, lng: 120.216579, name: '华润置地6座' },
-                '钱塘区': { lat: 30.315379, lng: 120.315857, name: '松合幸福雅苑A区' },
-                '滨江区': { lat: 30.174076, lng: 120.214623, name: '青集社科创' },
-                '萧山区': { lat: 30.13721, lng: 120.267046, name: '柳桥·南和城4幢' },
-                '临安区': { lat: 30.2333, lng: 119.7167, name: '临安区低端点' },
-                '富阳区': { lat: 30.058485, lng: 119.942066, name: '好U多超市' }
-            },
-            mid: {
-                '余杭区': { lat: 30.294025, lng: 120.217615, name: '东站万象汇' },
-                '拱墅区': { lat: 30.311381, lng: 120.113891, name: '申花掬月' },
-                '上城区': { lat: 30.311327, lng: 120.226184, name: '晟世黎明嘉苑2区' },
-                '西湖区': { lat: 30.294025, lng: 120.217615, name: '东站万象汇' },
-                '滨江区': { lat: 30.2085, lng: 120.2120, name: '滨江区中端点' },
-                '萧山区': { lat: 30.21086, lng: 120.262569, name: '金珺澜庭一区' }
-            },
-            high: {}
-        };
-        const areaPhotoLinks = { 
-            low: {
-                '余杭区': 'https://youke1.picui.cn/s1/2025/07/19/687b1de244b06.jpg',  
-                '西湖区': 'https://youke1.picui.cn/s1/2025/07/19/687b1e527e87a.jpg',
-                '拱墅区': 'https://youke1.picui.cn/s1/2025/07/19/687b1ead33af8.jpg',
-                '临平区': 'https://youke1.picui.cn/s1/2025/07/19/687b1ef248293.jpg',   
-                '上城区': 'https://youke1.picui.cn/s1/2025/07/19/687b1f95bf8fd.jpg', 
-                '钱塘区': 'https://youke1.picui.cn/s1/2025/07/19/687b20c72655a.jpg',
-                '滨江区': 'https://youke1.picui.cn/s1/2025/07/19/687b21acc561f.jpg',
-                '萧山区': 'https://youke1.picui.cn/s1/2025/07/19/687b21aca0436.jpg',
-                '临安区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '富阳区': 'https://youke1.picui.cn/s1/2025/07/19/687b21acf368a.jpg'
-            },
-            mid: {
-                '余杭区': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-                '拱墅区': 'https://i.ibb.co/RpB3tZ6M/compressed-1752900158963.jpg',
-                '上城区': 'https://youke1.picui.cn/s1/2025/07/18/68792fbc4024f.png',
-                '西湖区': 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop',
-                '滨江区': 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop',
-                '萧山区': 'https://youke1.picui.cn/s1/2025/07/18/68792f0cb209f.png'
-            },
-            high: {}
-        };
-
-        // 'photo' - 点击按钮打开图片预览界面
-        // 'link'  - 点击按钮跳转到外部网址
-        const areaJumpConfig = {
-            low: {},  
-            mid: {
-                '余杭区': 'link',       
-                '拱墅区': 'photo',       
-                '上城区': 'photo',       
-                '西湖区': 'link',       
-                '滨江区': 'link',       
-                '萧山区': 'photo'        
-            },
-            high: {}
-        };
-
-        const areaExternalLinks = {
-            low: {},
-            mid: {
-                '余杭区': 'https://c.wss.pet/f/hix4cebekh1',                
-                '拱墅区': 'https://www.qq.com',                   
-                '上城区': 'https://www.taobao.com',              
-                '西湖区': 'https://c.wss.pet/f/hix4cebekh1',                   
-                '滨江区': 'https://www.tmall.com',               
-                '萧山区': 'https://www.163.com'                   
-            },
-            high: {}
-        };
-
-
-
-        const detailData = {
-            low: `
-            <div class="modal-intro">
-                <p>实惠精选，品质保障</p>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                <div class="package-list">
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-bullseye"></i> 工作室套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课(吹做)</span>
-                            <span>5z </span>
-                        </div>
-                        <div class="package-option">
-                            <span>一课(吹做推)</span>
-                            <span>6z</span>
-                        </div>
-                        <div class="package-option">
-                            <span>一课（菀式）</span>
-                            <span>8z</span>
-                        </div>
-                        <div class="package-option">
-                            <span>页课（十一点后自然醒）</span>
-                            <span>24-26z</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-motorcycle"></i> 外卖套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课(吹坐推)</span>
-                            <span>8z </span>
-                        </div>
-                        <div class="package-option">
-                            <span>两课(吹坐推)</span>
-                            <span>14z </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
-                <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
-                    <div>工作室大部分集美带照片，（年龄均26-30左右）去之前提前联系是否开工。</div>
-                    <div>外卖均无照片人员流动大（年龄均24-28左右）外卖页课不可控，不存在所谓的实页低价页做一次就跑，或者直接跑。</div>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
-            </div>
-            `,
-            
-            mid: `
-            <div class="modal-intro">
-                <p>品质优选，满意之选</p>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                <div class="package-list">
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-bullseye"></i> 工作室套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课（60分钟）</span>
-                            <span>1.2k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>两课（100分钟）</span>
-                            <span>2.2k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>页课（十一点后自然醒）</span>
-                            <span>4k</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-motorcycle"></i> 外卖套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课（60分钟）</span>
-                            <span>1.4k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>两课（100分钟）</span>
-                            <span>2.4k</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
-                <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
-                    <div>以上内容保证服务太度乖巧听话，任何不过分要求都可以接受，只有你想不到没有集美做不到的。</div>
-                    <div>美团页课暂无，后续会持续更新！均经过视频验证（真人真照）外卖暂时只有高端局支持页课。</div>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
-            </div>
-            `,
-            
-            high: `
-            <div class="modal-intro">
-                <p>高端品质定制化服务，满足您的个性化需求</p>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
-                <div class="package-list">
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-bullseye"></i> 3k 套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课（60分钟）</span>
-                            <span>￥2.8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>两课（100分钟）</span>
-                            <span>￥4.8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>页课（十一点后至自然醒）</span>
-                            <span>￥8k</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-item">
-                        <div class="package-name">
-                            <i class="fas fa-star"></i> 5k 套餐
-                        </div>
-                        <div class="package-option">
-                            <span>一课（60分钟）</span>
-                            <span>￥4.8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>两课（100分钟）</span>
-                            <span>￥8k</span>
-                        </div>
-                        <div class="package-option">
-                            <span>页课（十一点后至自然醒）</span>
-                            <span>￥14k</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class="fas fa-info-circle"></i> 服务说明</h3>
-                <div class="solution-list">
-                    <div class="service-item">
-                        <div class="service-icon"><i class="fas fa-user"></i></div>
-                        <div class="service-text">服务内容，请查看个人主页简介</div>
-                        </div>
-                    <div class="service-item">
-                        <div class="service-icon"><i class="fas fa-comments"></i></div>
-                        <div class="service-text">特殊需求提前沟通，看个人特色</div>
-                        </div>
-                    <div class="service-item">
-                        <div class="service-icon"><i class="fas fa-thumbs-down"></i></div>
-                        <div class="service-text">拒绝低质服务，注重体验与细节</div>
-                        </div>
-                    <div class="service-item">
-                        <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
-                        <div class="service-text">支持提前预约，时间安排更灵活</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-section">
-                <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
-                <div class="solution-list">
-                    <div class="tip-item">
-                        <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
-                        <div>服务均为高品质定制，非市面上中低端</div>
-                        </div>
-                    <div class="tip-item">
-                        <div class="tip-icon"><i class="fas fa-coins"></i></div>
-                        <div>均需提前支付定金，避免不必要的麻烦</div>
-                        </div>
-                    <div class="tip-item">
-                        <div class="tip-icon"><i class="fas fa-handshake"></i></div>
-                        <div>诚信是基础，细节是态度，服务见真章</div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="access-btn" onclick="openServiceLink('high', 'http://www.pivn2.icu/')">
-                <i class="fas fa-gem"></i>
-                立即访问高端服务
-                <span class="integrity-text">尊享体验 · 品质保证</span>
-            </button>
-            <div style="margin-top: 12px; text-align: center; color: #ff5722; font-weight: bold; font-size: 1.1em; letter-spacing: 2px;">
-                邀请码666999
-            </div>
-            
-            <div class="modal-footer">
-                <p>聚美臻选 &copy; 2025 | 请让我为您保驾护航</p>
-            </div>
-            `
-        };
-        
-        let currentArea = '';
-        let currentType = '';
-        
-        window.onload = function() {
             cacheDOMElements();
             if (window.domCache && window.domCache.detailContent) {
                 window.domCache.detailContent.innerHTML = detailData.low;
             }
-            setDeviceLogo();
-            window.addEventListener('resize', function() {
+            const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+            const weixinTip = document.getElementById('ip-weixin-tip');
+            if (isWeChat) {
+                if (checkText) checkText.textContent = '检测通过';
+                if (checkSubtext) checkSubtext.style.display = 'none';
+                if (checkError) checkError.style.display = 'none';
+                if (weixinTip) weixinTip.style.display = 'block';
+                if (checkLayer) {
+                    checkLayer.style.opacity = 1;
+                    checkLayer.style.display = 'flex';
+                }
+            } else {
+                if (checkLayer) {
+                    checkLayer.style.opacity = 0;
+                    setTimeout(() => { checkLayer.style.display = 'none'; }, 0);
+                }
+            }
+        });
+    })();
+    
+    const areas = [
+        { type: 'low', name: '余杭区', lat: 30.272138, lng: 119.995969, marker: '富力中心', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b1de244b06.jpg' },
+        { type: 'low', name: '西湖区', lat: 30.279063, lng: 120.117357, marker: '乐品汇超市', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b1e527e87a.jpg' },
+        { type: 'low', name: '拱墅区', lat: 30.354756, lng: 120.219668, marker: '杭州·丁兰国际创新港', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b1ead33af8.jpg' },
+        { type: 'low', name: '临平区', lat: 30.432611, lng: 120.28366, marker: '万宝城公寓', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b1ef248293.jpg' },
+        { type: 'low', name: '上城区', lat: 30.295529, lng: 120.216579, marker: '华润置地6座', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b1f95bf8fd.jpg' },
+        { type: 'low', name: '钱塘区', lat: 30.315379, lng: 120.315857, marker: '松合幸福雅苑A区', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b20c72655a.jpg' },
+        { type: 'low', name: '滨江区', lat: 30.174076, lng: 120.214623, marker: '青集社科创', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b21acc561f.jpg' },
+        { type: 'low', name: '萧山区', lat: 30.13721, lng: 120.267046, marker: '柳桥·南和城4幢', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b21aca0436.jpg' },
+        { type: 'low', name: '临安区', lat: 30.2333, lng: 119.7167, marker: '临安区低端点', photo: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop' },
+        { type: 'low', name: '富阳区', lat: 30.058214, lng: 119.941446, marker: '阳光公寓', photo: 'https://youke1.picui.cn/s1/2025/07/19/687b21acf368a.jpg' },
+        //
+        { type: 'mid', name: '余杭区', lat: 30.294025, lng: 120.217615, marker: '东站万象汇', photo: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop', jump: 'link', link: 'https:// ' },
+        { type: 'mid', name: '拱墅区', lat: 30.311381, lng: 120.113891, marker: '申花掬月', photo: 'https://i.ibb.co/RpB3tZ6M/compressed-1752900158963.jpg', jump: 'photo', link: 'https://www.qq.com' },
+        { type: 'mid', name: '上城区', lat: 30.311327, lng: 120.226184, marker: '晟世黎明嘉苑2区', photo: 'https://youke1.picui.cn/s1/2025/07/18/68792fbc4024f.png', jump: 'photo', link: 'https://www.taobao.com' },
+        { type: 'mid', name: '西湖区', lat: 30.294025, lng: 120.217615, marker: '东站万象汇', photo: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&h=600&fit=crop', jump: 'link', link: 'https://www.wenshushu.cn/f/hkc8447ccmc' },
+        { type: 'mid', name: '滨江区', lat: 30.2085, lng: 120.2120, marker: '滨江区中端点', photo: 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=800&h=600&fit=crop', jump: 'link', link: 'https://www.tmall.com' },
+        { type: 'mid', name: '萧山区', lat: 30.21086, lng: 120.262569, marker: '金珺澜庭一区', photo: 'https://youke1.picui.cn/s1/2025/07/18/68792f0cb209f.png', jump: 'photo', link: 'https://www.163.com' }
+    ];
+
+    const detailData = {
+        low: `
+        <div class="modal-intro">
+            <p>实惠精选，品质保障</p>
+        </div>
+        
+        <div class="modal-section">
+            <h3><i class="fas fa-book-open"></i> 服务方案价格</h3>
+            <div class="package-list">
+                <div class="package-item">
+                    <div class="package-name">
+                        <i class="fas fa-bullseye"></i> 工作室                        </div>
+                    <div class="package-option">
+                        <span>一课（吹做）</span>
+                        <span>5z </span>
+                    </div>
+                    <div class="package-option">
+                        <span>一课（吹做推）</span>
+                        <span>6z</span>
+                    </div>
+                    <div class="package-option">
+                        <span>一课（菀式）</span>
+                        <span>8z</span>
+                    </div>
+                    <div class="package-option">
+                        <span>页课（十一点后自然醒）</span>
+                        <span>24-26z</span>
+                    </div>
+                </div>
                 
-            });
+                <div class="package-item">
+                    <div class="package-name">
+                        <i class="fas fa-motorcycle"></i> 外卖
+                    </div>
+                    <div class="package-option">
+                        <span>一课（吹坐推）</span>
+                        <span>8z </span>
+                    </div>
+                    <div class="package-option">
+                        <span>两课（吹坐推）</span>
+                        <span>14z </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-section">
+            <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
+            <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
+                <div>工作室大部分集美带照片，（年龄均26-30左右）去之前提前联系是否开工。</div>
+                <div>外卖均无照片人员流动大（年龄均24-28左右）外卖页课不可控，不存在所谓的实页低价页做一次就跑，或者直接跑。</div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <p>安全访问 &copy; 2025 | 请让我为您保驾护航</p>
+        </div>
+        `,
+        
+        mid: `
+        <div class="modal-intro">
+            <p>品质优选，满意之选</p>
+        </div>
+        
+        <div class="modal-section">
+            <h3><i class="fas fa-book-open"></i> 服务方案价格</h3>
+            <div class="package-list">
+                <div class="package-item">
+                    <div class="package-name">
+                        <i class="fas fa-bullseye"></i> 工作室
+                    </div>
+                    <div class="package-option">
+                        <span>一课（60分钟）</span>
+                        <span>1.2k</span>
+                    </div>
+                    <div class="package-option">
+                        <span>两课（100分钟）</span>
+                        <span>2.2k</span>
+                    </div>
+                    <div class="package-option">
+                        <span>页课（十一点后自然醒）</span>
+                        <span>4k</span>
+                    </div>
+                </div>
+                
+                <div class="package-item">
+                    <div class="package-name">
+                        <i class="fas fa-motorcycle"></i> 外卖
+                    </div>
+                    <div class="package-option">
+                        <span>一课（60分钟）</span>
+                        <span>1.4k</span>
+                    </div>
+                    <div class="package-option">
+                        <span>两课（100分钟）</span>
+                        <span>2.4k</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-section">
+            <h3><i class='fas fa-lightbulb'></i> 温馨提示</h3>
+            <div class="tips-box" style="background:#fff;border-radius:12px;padding:16px 18px;margin-top:12px;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid #f2f2f2;">
+                <div>以上内容保证服务太度乖巧听话，任何不过分要求都可以接受，只有你想不到没有集美做不到的。</div>
+                <div>美团页课暂无，后续会持续更新！均经过视频验证（真人真照）外卖暂时只有高端体验支持页课。</div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <p>安全访问 &copy; 2025 | 请让我为您保驾护航</p>
+        </div>
+        `,
+        
+        high: `
+        <div class="modal-intro">
+            <p>高端尊享定制化服务，满足您的个性化需求</p>
+        </div>
+        
+        <div class="modal-section">
+            <h3><i class="fas fa-book-open"></i> 套餐价格</h3>
+            <div class="package-list">
+                <div class="package-item">
+                    <div class="package-name">
+                        <i class="fas fa-bullseye"></i> 大圈
+                    </div>
+                    <div class="package-option">
+                        <span>一课（60分钟）</span>
+                        <span>￥2.8k</span>
+                    </div>
+                    <div class="package-option">
+                        <span>两课（100分钟）</span>
+                        <span>￥4.8k</span>
+                    </div>
+                    <div class="package-option">
+                        <span>页课（十一点后至自然醒）</span>
+                        <span>￥8k</span>
+                    </div>
+                </div>
+                
+                <div class="package-item">
+                    <div class="package-name">
+                        <i class="fas fa-star"></i> 鹦鹉
+                    </div>
+                    <div class="package-option">
+                        <span>一课（60分钟）</span>
+                        <span>￥4.8k</span>
+                    </div>
+                    <div class="package-option">
+                        <span>两课（100分钟）</span>
+                        <span>￥8k</span>
+                    </div>
+                    <div class="package-option">
+                        <span>页课（十一点后至自然醒）</span>
+                        <span>￥14k</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-section">
+            <h3><i class="fas fa-info-circle"></i> 服务说明</h3>
+            <div class="solution-list">
+                <div class="service-item">
+                    <div class="service-icon"><i class="fas fa-user"></i></div>
+                    <div class="service-text">服务内容，请查看个人主页简介</div>
+                    </div>
+                <div class="service-item">
+                    <div class="service-icon"><i class="fas fa-comments"></i></div>
+                    <div class="service-text">特殊需求提前沟通，看个人特色</div>
+                    </div>
+                <div class="service-item">
+                    <div class="service-icon"><i class="fas fa-thumbs-down"></i></div>
+                    <div class="service-text">拒绝低质服务，注重体验与细节</div>
+                    </div>
+                <div class="service-item">
+                    <div class="service-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="service-text">支持提前预约，时间安排更灵活</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-section">
+            <h3><i class="fas fa-lightbulb"></i> 温馨提示</h3>
+            <div class="solution-list">
+                <div class="tip-item">
+                    <div class="tip-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>服务均为高品质定制，非市面上中低端</div>
+                    </div>
+                <div class="tip-item">
+                    <div class="tip-icon"><i class="fas fa-coins"></i></div>
+                    <div>均需提前支付定金，避免不必要的麻烦</div>
+                    </div>
+                <div class="tip-item">
+                    <div class="tip-icon"><i class="fas fa-handshake"></i></div>
+                    <div>诚信是基础，细节是态度，服务见真章</div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="access-btn" onclick="openServiceLink('high', 'http://www.pivn2.icu/')">
+            <i class="fas fa-gem"></i>
+            立即访问高端体验
+            <span class="integrity-text">尊享体验 · 品质保证</span>
+
+        </button>
+        <div class="modal-footer">
+            <p>安全访问 &copy; 2025 | 请让我为您保驾护航</p>
+        </div>
+        `
+    };
+    
+    let currentArea = '';
+    let currentType = '';
+    
+    function cacheDOMElements() {
+        window.domCache = {
+            areaModal: document.getElementById('areaModal'),
+            areaTitle: document.getElementById('areaTitle'),
+            areaList: document.getElementById('areaList'),
+            detailContent: document.getElementById('detailContent'),
+            detailModal: document.getElementById('detailModal'),
+            mapModal: document.getElementById('mapModal'),
+            mapFrame: document.getElementById('mapFrame'),
+            iosPrompt: document.getElementById('iosPrompt'),
+            iosLink: document.getElementById('iosLink'),
+            loadingOverlay: document.getElementById('loadingOverlay')
         };
-        
-        function cacheDOMElements() {
-            window.domCache = {
-                areaModal: document.getElementById('areaModal'),
-                areaTitle: document.getElementById('areaTitle'),
-                areaList: document.getElementById('areaList'),
-                detailContent: document.getElementById('detailContent'),
-                detailModal: document.getElementById('detailModal'),
-                highModal: document.getElementById('highModal'),
-                mapModal: document.getElementById('mapModal'),
-                mapFrame: document.getElementById('mapFrame'),
-                iosPrompt: document.getElementById('iosPrompt'),
-                iosLink: document.getElementById('iosLink'),
-                loadingOverlay: document.getElementById('loadingOverlay')
-            };
-        }
+    }
 
-        function showLoading() {
-            if (window.domCache && window.domCache.loadingOverlay) {
-            window.domCache.loadingOverlay.classList.add('active');
-            }
+    function showLoading() {
+        if (window.domCache && window.domCache.loadingOverlay) {
+        window.domCache.loadingOverlay.classList.add('active');
         }
-        
-        function hideLoading() {
-            if (window.domCache && window.domCache.loadingOverlay) {
-            window.domCache.loadingOverlay.classList.remove('active');
-            }
+    }
+    
+    function hideLoading() {
+        if (window.domCache && window.domCache.loadingOverlay) {
+        window.domCache.loadingOverlay.classList.remove('active');
         }
+    }
 
-        function openAreaModal(type) {
-            if (!window.domCache) {
-                console.error('DOM cache not initialized');
-                return;
-            }
-            
-            showLoading();
-            
-            window.currentType = type;
-            
-            const { areaTitle, areaList } = window.domCache;
-            
-            if (areaTitle) areaTitle.textContent = type === 'low' ? '低端局区域选择' : '中端局区域选择';
-            if (areaList) areaList.innerHTML = '';
-            
-            areaData[type].forEach(area => {
-                const areaItem = document.createElement('div');
-                areaItem.className = 'area-item';
-                areaItem.textContent = area;
-                areaItem.onclick = () => {
-                    openMapModal(area, type);
-                };
-                if (areaList) areaList.appendChild(areaItem);
-            });
-            
-            if (type === 'mid') {
-                const meituanItem = document.createElement('div');
-                meituanItem.className = 'area-item meituan-area';
-                meituanItem.innerHTML = `<i class=\"fas fa-shopping-bag\"></i> 美团集美`;
-                meituanItem.onclick = () => {
-                    var layer = document.getElementById('photoPreviewLayer');
-                    var content = document.getElementById('photoPreviewContent');
-                    content.innerHTML = '<img src="https://i.ibb.co/XxxxK18d/compressed-1752749796832.jpg" alt="美团集美" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
-                    layer.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                };
-                if (areaList) areaList.appendChild(meituanItem);
-            }
-            
-            if (window.domCache.detailContent) {
-            window.domCache.detailContent.innerHTML = detailData[type];
-            }
-            
-            setTimeout(() => {
-                if (window.domCache.areaModal) {
-                window.domCache.areaModal.classList.add('active');
-                }
-                document.body.style.overflow = 'hidden';
-                hideLoading();
-            }, 300);
-        }
+    const areaTypeMap = {
+        low: '低端',
+        mid: '中端',
+        high: '高端'
+    };
 
-        function openHighModal() {
-            if (!window.domCache) {
-                console.error('DOM cache not initialized');
-                return;
-            }
-            
-            showLoading();
-            
-            setTimeout(() => {
-                if (window.domCache.highModal) {
-                window.domCache.highModal.classList.add('active');
-                }
-                document.body.style.overflow = 'hidden';
-                hideLoading();
-            }, 300);
-        }
+    function getAreasByType(type) {
+        return areas.filter(a => a.type === type);
+    }
 
-        function openDetailModal() {
-            if (window.domCache && window.domCache.detailModal) {
-            window.domCache.detailModal.classList.add('active');
-            }
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        function openMapModal(area, type) {
-            if (!window.domCache) {
-                console.error('DOM cache not initialized');
-                return;
-            }
-            
-            currentArea = area;
-            currentType = type;
-            
-            const midUnavailableAreas = [ '滨江区', '临平区'];
-            const lowUnavailableAreas = ['临安区'];
-
-            if (type === 'mid' && midUnavailableAreas.includes(area)) {
-                alert('暂未开通，敬请期待');
-                return;
-            }
-            if (type === 'low' && lowUnavailableAreas.includes(area)) {
-                alert('暂未开通，敬请期待');
-                return;
-            }
-
-            if (!areaCoordinates[type] || !areaCoordinates[type][area]) {
-                alert('未找到该区域的坐标信息，请稍后再试');
-                return;
-            }
-            const coordinates = areaCoordinates[type][area];
-            const lng = coordinates.lng;
-            const lat = coordinates.lat;
-            const markerName = coordinates.name;
-            const name = encodeURIComponent(markerName);
-            var mapFrame = document.getElementById('mapFrame');
-            mapFrame.src = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`;
-            if (window.domCache.areaModal) {
-            window.domCache.areaModal.classList.remove('active');
-            }
-            if (window.domCache.mapModal) {
-                window.domCache.mapModal.classList.add('active');
-        }
-            document.body.classList.add('modal-open');
+    function showLayer(dom) {
+        if (dom) dom.classList.add('active');
+        if (document.querySelector('.modal.active, .map-modal.active, #photoPreviewLayer[style*="display: flex"]')) {
             document.body.style.overflow = 'hidden';
-            var mapHeaderTitle = document.getElementById('mapHeaderTitle');
-            if(mapHeaderTitle) mapHeaderTitle.textContent = markerName || '地图导航';
-
-            updateAreaActionButton(area, type);
         }
+    }
+    function hideLayer(dom) {
+        if (dom) dom.classList.remove('active');
+        if (!document.querySelector('.modal.active, .map-modal.active, #photoPreviewLayer[style*="display: flex"]')) {
+            document.body.style.overflow = '';
+        }
+    }
+    function showPhotoPreview(url, alt) {
+        var layer = document.getElementById('photoPreviewLayer');
+        var content = document.getElementById('photoPreviewContent');
+        content.innerHTML = `<img src="${url}" alt="${alt||'照片'}" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">`;
+        layer.style.display = 'flex';
+        showLayer(layer);
+    }
+    function closePhotoPreview() {
+        var layer = document.getElementById('photoPreviewLayer');
+        if (layer) layer.style.display = 'none';
+        hideLayer(layer);
+    }
+    function openAreaModal(type) {
+        if (!window.domCache) return;
+        showLoading();
+        window.currentType = type;
+        const { areaTitle, areaList } = window.domCache;
+        if (areaTitle) areaTitle.textContent = areaTypeMap[type] + '区域选择';
+        if (areaList) areaList.innerHTML = '';
+        getAreasByType(type).forEach(area => {
+            const areaItem = document.createElement('div');
+            areaItem.className = 'area-item';
+            areaItem.textContent = area.name;
+            areaItem.onclick = () => openMapModal(area.name, type);
+            if (areaList) areaList.appendChild(areaItem);
+        });
+        if (type === 'mid') {
+            const meituanItem = document.createElement('div');
+            meituanItem.className = 'area-item meituan-area';
+            meituanItem.innerHTML = `<i class=\"fas fa-shopping-bag\"></i> 美团集美`;
+            meituanItem.onclick = () => {
+                showPhotoPreview('https://i.ibb.co/XxxxK18d/compressed-1752749796832.jpg', '美团集美');
+            };
+            if (areaList) areaList.appendChild(meituanItem);
+        }
+        if (window.domCache.detailContent) {
+            window.domCache.detailContent.innerHTML = detailData[type];
+        }
+        setTimeout(() => {
+            showLayer(window.domCache.areaModal);
+            hideLoading();
+        }, 300);
+    }
 
-        function closeMapModal() {
-            if (window.domCache && window.domCache.mapModal) {
-            window.domCache.mapModal.classList.remove('active');
+    function openMapModal(areaName, type) {
+        if (!window.domCache) return;
+        window.currentArea = areaName;
+        window.currentType = type;
+        const midUnavailableAreas = [ '滨江区', '临平区', '余杭区'];
+        const lowUnavailableAreas = ['临安区'];
+        if (type === 'mid' && midUnavailableAreas.includes(areaName)) {
+            alert('暂未开通，敬请期待');
+            return;
+        }
+        if (type === 'low' && lowUnavailableAreas.includes(areaName)) {
+            alert('暂未开通，敬请期待');
+            return;
+        }
+        const area = areas.find(a => a.type === type && a.name === areaName);
+        if (!area) {
+            alert('未找到该区域的信息，请稍后再试');
+            return;
+        }
+        var mapFrame = document.getElementById('mapFrame');
+        mapFrame.src = `https://uri.amap.com/marker?position=${area.lng},${area.lat}&name=${encodeURIComponent(area.marker)}`;
+        if (window.domCache.areaModal) window.domCache.areaModal.classList.remove('active');
+        if (window.domCache.mapModal) window.domCache.mapModal.classList.add('active');
+        document.body.classList.add('modal-open');
+        document.body.style.overflow = 'hidden';
+        var mapHeaderTitle = document.getElementById('mapHeaderTitle');
+        if(mapHeaderTitle) mapHeaderTitle.textContent = area.marker || '地图导航';
+        updateAreaActionButton(area);
+    }
+
+    function handleAreaAction() {
+        const area = areas.find(a => a.type === window.currentType && a.name === window.currentArea);
+        if (!area) return;
+        if (area.type === 'low' || !area.jump) {
+            openPhotoModal(area);
+        } else if (area.jump === 'link') {
+            if (area.link) {
+                openServiceLink(area.type, area.link);
+            } else {
+                alert('链接配置错误，请联系管理员');
             }
-            if (window.domCache && window.domCache.mapFrame) {
+        } else {
+            openPhotoModal(area);
+        }
+    }
+
+    function openPhotoModal(area) {
+        area = area || areas.find(a => a.type === window.currentType && a.name === window.currentArea);
+        if (!area) return;
+        if (area.photo) {
+            showPhotoPreview(area.photo, area.name);
+        } else {
+            alert('照片内容即将上线，敬请期待！');
+        }
+    }
+
+    function openHighModal() {
+        if (!window.domCache) {
+            console.error('DOM cache not initialized');
+            return;
+        }
+        showLoading();
+        if (window.domCache.detailContent) {
+            window.domCache.detailContent.innerHTML = detailData.high;
+        }
+        setTimeout(() => {
+            if (window.domCache.detailModal) {
+                window.domCache.detailModal.classList.add('active');
+            }
+            document.body.style.overflow = 'hidden';
+            hideLoading();
+        }, 300);
+    }
+
+    function openDetailModal() {
+        if (window.domCache && window.domCache.detailModal) {
+        window.domCache.detailModal.classList.add('active');
+        }
+    }
+
+    function closeModal(modalId) {
+        hideLayer(document.getElementById(modalId));
+    }
+
+    function closeMapModal() {
+        if (window.domCache && window.domCache.mapModal) {
+            hideLayer(window.domCache.mapModal);
+        }
+        if (window.domCache && window.domCache.mapFrame) {
             window.domCache.mapFrame.src = "about:blank";
-            }
-            if (window.domCache && window.domCache.areaModal) {
-            window.domCache.areaModal.classList.add('active');
         }
+        if (window.domCache && window.domCache.areaModal) {
+            showLayer(window.domCache.areaModal);
         }
-        
-        function updateAreaActionButton(area, type) {
-            const actionBtn = document.getElementById('areaActionBtn');
-            const actionText = document.getElementById('areaActionText');
-            
-            if (!actionBtn || !actionText) return;
-            
-            if (type === 'low') {
-                actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
-                return;
+    }
+    
+    function openServiceLink(type, url) {
+        if (type === 'high' && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            if (window.domCache && window.domCache.iosLink) {
+            window.domCache.iosLink.textContent = url;
             }
-            
-            const jumpConfig = areaJumpConfig[type] && areaJumpConfig[type][area];
-            
-            if (jumpConfig === 'link') {
-                actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
-            } else {
-                actionBtn.innerHTML = '<i class="fas fa-images"></i> <span id="areaActionText">集美照片</span>';
-            }
-        }
-        
-        window.updateAreaConfig = function(area, type, action, link) {
-            if (type === 'low') {
-                console.log('低端局不使用跳转功能');
-                return;
-            }
-            if (areaJumpConfig[type]) {
-                areaJumpConfig[type][area] = action;
-            }
-            if (areaExternalLinks[type] && link) {
-                areaExternalLinks[type][area] = link;
-            }
-            console.log(`已更新 ${type} 的 ${area} 配置: ${action}, 网址: ${link}`);
-        };
-        
-
-        
-        window.showAreaConfig = function() {
-            console.log('=== 当前区域配置 ===');
-            console.log('跳转配置:', areaJumpConfig);
-            console.log('链接配置:', areaExternalLinks);
-        };
-        
-        function handleAreaAction() {
-            const currentAreaName = currentArea;
-            const currentServiceType = currentType;
-            
-            if (currentServiceType === 'low') {
-                openPhotoModal();
-                return;
-            }
-            
-            const jumpConfig = areaJumpConfig[currentServiceType] && areaJumpConfig[currentServiceType][currentAreaName];
-            
-            if (jumpConfig === 'link') {
-                const externalLink = areaExternalLinks[currentServiceType] && areaExternalLinks[currentServiceType][currentAreaName];
-                if (externalLink) {
-                    openServiceLink(currentServiceType, externalLink);
-                } else {
-                    alert('链接配置错误，请联系管理员');
-                }
-            } else {
-                openPhotoModal();
-            }
-        }
-        
-        function openPhotoModal() {
-            const currentAreaName = currentArea;
-            const currentServiceType = currentType;
-            const photoLink = areaPhotoLinks[currentServiceType] && areaPhotoLinks[currentServiceType][currentAreaName];
-            if (photoLink && photoLink !== 'https://example.com/photos/placeholder.jpg') {
-                var layer = document.getElementById('photoPreviewLayer');
-                var content = document.getElementById('photoPreviewContent');
-                content.innerHTML = '<img src="'+photoLink+'" alt="照片" style="width:100%;height:auto;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,0.13);background:#fff;">';
-                layer.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            } else {
-                alert('照片内容即将上线，敬请期待！');
-            }
-        }
-        
-        function openServiceLink(type, url) {
-            if (type === 'high' && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
-                if (window.domCache && window.domCache.iosLink) {
-                window.domCache.iosLink.textContent = url;
-                }
-                if (window.domCache && window.domCache.iosPrompt) {
-                window.domCache.iosPrompt.classList.add('active');
-                }
-                document.body.style.overflow = 'hidden';
-            } else {
-                window.open(url, '_blank');
-            }
-        }
-        
-        function closeIosPrompt() {
             if (window.domCache && window.domCache.iosPrompt) {
-            window.domCache.iosPrompt.classList.remove('active');
+            window.domCache.iosPrompt.classList.add('active');
             }
-            document.body.style.overflow = '';
+            document.body.style.overflow = 'hidden';
+        } else {
+            window.open(url, '_blank');
         }
-        
-        function setDeviceLogo() {
-            const logoDiv = document.getElementById('deviceLogo');
-            if (!logoDiv) {
-                console.error('deviceLogo element not found');
-                return;
-            }
-            
-            let icon = '', color = '', extraClass = '';
-            const ua = navigator.userAgent;
-            if (/iPad|iPhone|iPod/.test(ua)) {
-                icon = 'fa-apple'; color = '#888888'; extraClass = 'ios-apple-logo';
-            } else if (/Android/.test(ua)) {
-                icon = 'fa-android'; color = '#3ddc84';
-            } else if (/Win/.test(ua) || /Windows/.test(ua)) {
-                icon = 'fa-windows'; color = '#0078d7';
-            } else {
-                icon = 'fa-laptop'; color = '#888';
-            }
-            logoDiv.innerHTML = `<i class=\"fab ${icon} ${extraClass}\" style=\"font-size:3.5rem;color:${color};margin-bottom:10px;\"></i>`;
+    }
+    
+    function closeIosPrompt() {
+        if (window.domCache && window.domCache.iosPrompt) {
+            hideLayer(window.domCache.iosPrompt);
         }
-
-        function closePhotoPreview() {
-            const photoPreviewLayer = document.getElementById('photoPreviewLayer');
-            if (photoPreviewLayer) {
-                photoPreviewLayer.style.display = 'none';
-            }
-            document.body.style.overflow = '';
+    }
+    
+    function openNavigationApp() {
+        const area = areas.find(a => a.type === window.currentType && a.name === window.currentArea);
+        if (!area) {
+            alert('未找到区域坐标数据');
+            return;
         }
+        const lat = area.lat;
+        const lng = area.lng;
+        const markerName = area.marker;
+        const areaName = encodeURIComponent(markerName);
+        const ua = navigator.userAgent;
+        let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}`;
 
-        function openNavigationApp() {
-            const coordinates = areaCoordinates[currentType] && areaCoordinates[currentType][currentArea];
-            if (!coordinates) {
-                alert('未找到区域坐标数据');
-                return;
-            }
-            const lat = coordinates.lat;
-            const lng = coordinates.lng;
-            const markerName = coordinates.name;
-            const areaName = encodeURIComponent(markerName);
-            const ua = navigator.userAgent;
-            let fallbackUrl = `https://uri.amap.com/marker?position=${lng},${lat}&name=${areaName}`;
-
-            function tryMultipleApps(appUrls, fallbackUrl) {
-                let currentIndex = 0;
-                let hasJumped = false;
-                let startTime = Date.now();
-                let isAndroid = /Android/i.test(ua);
-                let isIOS = /iPad|iPhone|iPod/.test(ua);
-                let isMobile = isAndroid || isIOS;
-                
-                function tryNext() {
-                    if (hasJumped || currentIndex >= appUrls.length) {
-                        if (!hasJumped && !isMobile) {
-                            window.location.href = fallbackUrl;
-                        }
-                        return;
+        function tryMultipleApps(appUrls, fallbackUrl) {
+            let currentIndex = 0;
+            let hasJumped = false;
+            let startTime = Date.now();
+            let isAndroid = /Android/i.test(ua);
+            let isIOS = /iPad|iPhone|iPod/.test(ua);
+            let isMobile = isAndroid || isIOS;
+            let cleanup;
+            function tryNext() {
+                if (hasJumped || currentIndex >= appUrls.length) {
+                    if (!hasJumped && !isMobile) {
+                        window.location.href = fallbackUrl;
                     }
-                    
-                    const appUrl = appUrls[currentIndex];
-                    
-                    const handleVisibilityChange = () => {
-                        if (document.hidden) {
-                            hasJumped = true;
-                            cleanup();
-                        }
-                    };
-                    
-                    const handleFocus = () => {
-                        const timeDiff = Date.now() - startTime;
-                        if (timeDiff > 100 && timeDiff < 2000) {
-                            hasJumped = true;
-                            cleanup();
-                        }
-                    };
-                    
-                    const handleBlur = () => {
+                    return;
+                }
+                const appUrl = appUrls[currentIndex];
+                cleanup = () => {
+                    document.removeEventListener('visibilitychange', handleVisibilityChange);
+                    document.removeEventListener('focus', handleFocus);
+                    window.removeEventListener('blur', handleBlur);
+                };
+                function handleVisibilityChange() {
+                    if (document.hidden) {
                         hasJumped = true;
                         cleanup();
-                    };
-                    
-                    function cleanup() {
-                        document.removeEventListener('visibilitychange', handleVisibilityChange);
-                        document.removeEventListener('focus', handleFocus);
-                        window.removeEventListener('blur', handleBlur);
                     }
-                    
-                    document.addEventListener('visibilitychange', handleVisibilityChange);
-                    document.addEventListener('focus', handleFocus);
-                    window.addEventListener('blur', handleBlur);
-                    
-                    const timeout = isMobile ? 800 : 1200;
-                    setTimeout(() => {
-                        if (!hasJumped) {
-                            cleanup();
-                            currentIndex++;
-                            tryNext();
-                        }
-                    }, timeout);
-                    
-                    startTime = Date.now();
-                    
-                    if (isAndroid) {
-                        try {
-                            const iframe = document.createElement('iframe');
-                            iframe.style.display = 'none';
-                            iframe.src = appUrl;
-                            document.body.appendChild(iframe);
-                            
-                            setTimeout(() => {
-                                window.location.href = appUrl;
-                            }, 100);
-                        } catch (e) {
+                }
+                function handleFocus() {
+                    const timeDiff = Date.now() - startTime;
+                    if (timeDiff > 100 && timeDiff < 2000) {
+                        hasJumped = true;
+                        cleanup();
+                    }
+                }
+                function handleBlur() {
+                    hasJumped = true;
+                    cleanup();
+                }
+                document.addEventListener('visibilitychange', handleVisibilityChange);
+                document.addEventListener('focus', handleFocus);
+                window.addEventListener('blur', handleBlur);
+                const timeout = isMobile ? 800 : 1200;
+                setTimeout(() => {
+                    if (!hasJumped) {
+                        cleanup();
+                        currentIndex++;
+                        tryNext();
+                    }
+                }, timeout);
+                startTime = Date.now();
+                if (isAndroid) {
+                    try {
+                        const iframe = document.createElement('iframe');
+                        iframe.style.display = 'none';
+                        iframe.src = appUrl;
+                        document.body.appendChild(iframe);
+                        setTimeout(() => {
                             window.location.href = appUrl;
-                        }
-                    } else {
+                        }, 100);
+                    } catch (e) {
                         window.location.href = appUrl;
                     }
+                } else {
+                    window.location.href = appUrl;
                 }
-                
-                tryNext();
             }
-
-            if (/iPad|iPhone|iPod/.test(ua)) {
-                const iosApps = [
-                    `iosamap://viewMap?sourceApplication=聚美臻选&lat=${lat}&lon=${lng}&dev=0&poiname=${areaName}`,
-                    `maps://maps.apple.com/?q=${areaName}&ll=${lat},${lng}`
-                ];
-                tryMultipleApps(iosApps, fallbackUrl);
-            } else if (/Android/i.test(ua)) {
-                const androidApps = [
-                    `amapuri://viewMap?sourceApplication=聚美臻选&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`
-                ];
-                tryMultipleApps(androidApps, fallbackUrl);
-            } else {
-                window.open(fallbackUrl, '_blank');
-            }
+            tryNext();
         }
-
-        const allowedProvinces = [
-            "贵州", "Guizhou", "贵州省", "贵州", "GZ", 
-            "GuiZhou", "黔", "guizhou", "gui zhou", "guizhou"
-        ];
-        let retryCount = 0;
-        const MAX_RETRIES = 2;
-        const TIMEOUT_DURATION = 2000;
-
-        function isWeixinBrowser() {
-            return /MicroMessenger/i.test(navigator.userAgent);
+        if (/iPad|iPhone|iPod/.test(ua)) {
+            const iosApps = [
+                `iosamap://viewMap?sourceApplication=安全访问&lat=${lat}&lon=${lng}&dev=0&poiname=${areaName}`,
+                `maps://maps.apple.com/?q=${areaName}&ll=${lat},${lng}`
+            ];
+            tryMultipleApps(iosApps, fallbackUrl);
+        } else if (/Android/i.test(ua)) {
+            const androidApps = [
+                `amapuri://viewMap?sourceApplication=安全访问&poiname=${areaName}&lat=${lat}&lon=${lng}&dev=0`
+            ];
+            tryMultipleApps(androidApps, fallbackUrl);
+        } else {
+            window.open(fallbackUrl, '_blank');
         }
-        function isIOS() {
-            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-        }
-        function isAndroid() {
-            return /Android/i.test(navigator.userAgent);
-        }
-        function shouldSkipIPCheck() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const verifiedParam = urlParams.get('verified');
-            if (!isWeixinBrowser()) return true;
-            if (verifiedParam === 'true') return true;
-            return false;
-        }
-        function showWeixinTip() {
-            const ipWeixinTip = document.getElementById('ipWeixinTip');
-            const ipChecking = document.getElementById('ipChecking');
-            const ipText = document.querySelector('.ip-text');
-            const ipSubtext = document.querySelector('.ip-subtext');
-            const ipLoaderContainer = document.querySelector('.ip-loader-container');
-            
-            if (ipWeixinTip) ipWeixinTip.style.display = '';
-            if (ipChecking) {
-                ipChecking.classList.remove('hidden');
-                ipChecking.style.display = '';
-            }
-            if (ipText) ipText.textContent = '检测通过';
-            if (ipSubtext) ipSubtext.textContent = '';
-            if (ipLoaderContainer) ipLoaderContainer.style.display = 'none';
-        }
-        function checkIPLocation() {
-            const ipChecking = document.getElementById('ipChecking');
-            const ipError = document.getElementById('ipError');
-            
-            if (!ipChecking || !ipError) {
-                console.error('IP checking elements not found');
-                return;
-            }
-            
-            ipError.classList.remove('show');
-            ipChecking.style.display = '';
-            if (shouldSkipIPCheck()) {
-                ipChecking.style.display = 'none';
-                return;
-            }
-            const timeoutId = setTimeout(() => {
-                if (ipChecking) {
-                    ipChecking.classList.add('hidden');
-                }
-            }, TIMEOUT_DURATION);
-            
-            fetch('https://ipapi.co/json/')
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error('API response not ok');
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    clearTimeout(timeoutId);
-                    console.log('IP Location API response:', data);
-                    if (!data) {
-                        if (ipChecking) {
-                            ipChecking.classList.add('hidden');
-                        }
-                        return;
-                    }
-                    const province = data.region || data.regionName || data.province || data.state || '';
-                    console.log('Detected province:', province);
-                    const normalizedProvince = province.toString().trim().toLowerCase();
-                    const isAllowed = allowedProvinces.some(allowed => normalizedProvince.includes(allowed.toLowerCase()));
-                    console.log('Is allowed:', isAllowed);
-                    if (!isAllowed) {
-                        setTimeout(() => {
-                            window.location.href = 'https://www.ccser.com';
-                        }, 800);
-                    } else {
-                        setTimeout(() => {
-                            showWeixinTip();
-                        }, 500);
-                    }
-                })
-                .catch(error => {
-                    clearTimeout(timeoutId);
-                    console.error('IP Location check failed:', error);
-                    if (ipError) {
-                        ipError.classList.add('show');
-                    }
-                    retryCount++;
-                    if (retryCount >= MAX_RETRIES) {
-                        setTimeout(() => {
-                            if (ipChecking) {
-                                ipChecking.classList.add('hidden');
-                            }
-                        }, 800);
-                    }
-                });
-        }
-        document.addEventListener("DOMContentLoaded", function() {
-            const retryBtn = document.getElementById('retryBtn');
-            if (retryBtn) {
-                retryBtn.addEventListener('click', function() {
-                    retryCount = 0;
-                    checkIPLocation();
-                });
-            }
-            
-            checkIPLocation();
-            
-            const qqNumber = document.getElementById('qqNumber');
-            if (qqNumber) {
-                function jumpQQ() {
-                    window.location.href = 'https://qm.qq.com/q/SKGxuHijm2';
-                }
-                qqNumber.onclick = jumpQQ;
-                qqNumber.ontouchstart = jumpQQ;
-                qqNumber.onmousedown = jumpQQ;
-            }
-            
-            window.testIP = function() {
-                console.log('Testing IP detection...');
-                fetch('https://ipapi.co/json/')
-                    .then(res => res.json())
-                    .then(data => {
-                        console.log('Full API response:', data);
-                        const region = data.region || data.regionName || data.province || data.state || '';
-                        console.log('Detected region:', region);
-                        console.log('Is Guizhou:', region && (region === '贵州省' || region.includes('贵州') || region === 'Guizhou' || region.includes('Guizhou')));
-                    })
-                    .catch(error => {
-                        console.error('Test failed:', error);
-                    });
-            };
-        });
+    }
     </script>
 </body>
 </html>
